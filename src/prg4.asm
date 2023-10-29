@@ -1,6 +1,6 @@
 ; DISASSEMBLY ORIGINALLY WROTE BY TRAX (99.9% of his work)
 ; * = $8000                                                                      ;
-; da65 V2.18 
+; da65 V2.18
 ; Created     2021-04-12 11 24 31                                              ;
 ; Input file  bank4_and_7.nes                                                  ;
 ; Page        1                                                                ;
@@ -9,6 +9,9 @@
 ;.setcpu  "6502"                                                               ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+
+.include "macros.asm"
+
 L0000 = $0000
 L000E = $000E
 L0302 = $0302
@@ -218,6 +221,7 @@ LF1F4 = $F1F4
 .import bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least
 
 .segment "PRG4"
+.org $8000
 
 ; ---------------------------------------------------------------------------- ;
 bank4_Pointer_table_for_Background_Areas_Data:                                  ;
@@ -477,7 +481,7 @@ L8226:                                                                          
     STA      $0112                     ; 0x10241 $8231 8D 12 01                ;; Tile Code 0 for Object
     JSR      LDF4C                     ; 0x10244 $8234 20 4C DF                ;
     AND      #$F0                      ; 0x10247 $8237 29 F0                   ; keep bits xxxx ....
-    CMP      #$D0                      ; 0x10249 $8239 C9 D0                   ;HEIGHT TO DRAW DOWNWARD TO 
+    CMP      #$D0                      ; 0x10249 $8239 C9 D0                   ;HEIGHT TO DRAW DOWNWARD TO
     BCC      L821D                     ; 0x1024b $823B 90 E0                   ;
     RTS                                ; 0x1024d $823D 60                      ;
                                                                                ;
@@ -651,27 +655,7 @@ L83CF:                                                                          
 .byt    $5E,$5F                        ; 0x103e7 $83D7 5E 5F                   ;
 bank4_Table_for_False_Wall_parameters_:                                         ;
 .byt    $4B,$85,$D1                    ; 0x103e9 $83D9 4B 85 D1                ;
-bank4_UNUSED_83DC:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x103ec $83DC FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x103f4 $83E4 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x103fc $83EC FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10404 $83F4 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1040c $83FC FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF            ; 0x10414 $8404 FF FF FF FF FF          ;
-L8409:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10419 $8409 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10421 $8411 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10429 $8419 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10431 $8421 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10439 $8429 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10441 $8431 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10449 $8439 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10451 $8441 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10459 $8449 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10461 $8451 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10469 $8459 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10471 $8461 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF    ; 0x10479 $8469 FF FF FF FF FF FF FF    ;
+setpos $8470
 bank4_Palaces_Type_A_B_Palettes:                                                ;
 .byt    $22,$30,$12,$16,$22,$0F,$10,$30; 0x10480 $8470 22 30 12 16 22 0F 10 30 ;Palace 1 Entrance
 .byt    $22,$27,$17,$0F,$22,$30,$10,$00; 0x10488 $8478 22 27 17 0F 22 30 10 00 ;
@@ -690,21 +674,15 @@ L84D8:                                                                          
 .byt    $FF,$00,$10,$30,$FF,$0C,$1C,$3C; 0x104e8 $84D8 FF 00 10 30 FF 0C 1C 3C ;Palettes related to Gooma. and other bosses maybe?
 .byt    $FF,$0F,$06,$26,$FF,$00,$10,$30; 0x104f0 $84E0 FF 0F 06 26 FF 00 10 30 ;
 .byt    $FF,$0F,$0A,$2A,$FF,$00,$10,$30; 0x104f8 $84E8 FF 0F 0A 2A FF 00 10 30 ;
-bank4_UNUSED_84F0:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10500 $84F0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10508 $84F8 FF FF FF FF FF FF FF FF ;
 ; ---------------------------------------------------------------------------- ;
+setpos $8500
 bank4_Pointer_table_for_Objects_Tile_Mappings:                                  ;
 .word    bank4_Table_0_1_for_Area_Objects_Tile_Mappings; 0x10510 $8500 3D 83   ;
 .word    bank4_Table_0_1_for_Area_Objects_Tile_Mappings; 0x10512 $8502 3D 83   ;
 .word    bank4_Table_2_for_Area_Objects_Tile_Mappings_; 0x10514 $8504 79 83    ;
 .word    bank4_Table_3_for_Area_Objects_Tile_Mappings_; 0x10516 $8506 91 83    ;
 ; ---------------------------------------------------------------------------- ;
-bank4_Unused_Table:                                                             ;
-.byt    $FF                            ; 0x10518 $8508 FF                      ;
-L8509:                                                                          ;
-.byt    $FF,$FF,$FF                    ; 0x10519 $8509 FF FF FF                ;
-; ---------------------------------------------------------------------------- ;
+setpos $850c
 bank4_Related_to_False_Wall_maybe:                                              ;
     PHA                                ; 0x1051c $850C 48                      ;
     AND      #$C0                      ; 0x1051d $850D 29 C0                   ; keep bits xx.. ....
@@ -908,9 +886,7 @@ L86FB:                                                                          
 .byt    $13,$60,$08,$08,$E2,$00,$8A,$C2; 0x1070b $86FB 13 60 08 08 E2 00 8A C2 ;
 .byt    $60,$09,$D6,$0F,$D6,$08,$90,$71; 0x10713 $8703 60 09 D6 0F D6 08 90 71 ;
 .byt    $80,$0F,$08                    ; 0x1071b $870B 80 0F 08                ;
-bank4_UNUSED_870E:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1071e $870E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF            ; 0x10726 $8716 FF FF FF FF FF          ;
+setpos $871b
 bank4_Room_Connectivity_Data_for_Palaces_Type_A_:                               ;
 .byt    $FC,$12,$00,$FC,$FC,$1E,$00,$08; 0x1072b $871B FC 12 00 FC FC 1E 00 08 ;
 .byt    $07,$00,$00,$FC,$FC,$00,$00,$10; 0x10733 $8723 07 00 00 FC FC 00 00 10 ;
@@ -946,25 +922,7 @@ L87F3:                                                                          
 .byt    $E7,$00,$CF,$FC,$FC,$00,$00,$F0; 0x10813 $8803 E7 00 CF FC FC 00 00 F0 ;
 .byt    $EF,$00,$DA,$FC,$FC,$00,$00,$F8; 0x1081b $880B EF 00 DA FC FC 00 00 F8 ;
 .byt    $F7,$00,$E6,$FC                ; 0x10823 $8813 F7 00 E6 FC             ;
-bank4_UNUSED_8817:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10827 $8817 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1082f $881F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10837 $8827 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1083f $882F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10847 $8837 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1084f $883F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10857 $8847 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1085f $884F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10867 $8857 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1086f $885F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10877 $8867 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1087f $886F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10887 $8877 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1088f $887F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10897 $8887 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1089f $888F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x108a7 $8897 FF FF FF FF FF FF FF FF ;
-.byt    $FF                            ; 0x108af $889F FF                      ;
+setpos $88a0
 bank4_Enemy_Data_for_Palaces_Type_A_B:                                          ;
 .byt    $01,$05,$72,$8C,$17,$CC,$09,$7A; 0x108b0 $88A0 01 05 72 8C 17 CC 09 7A ;
 .byt    $04,$76,$4C,$7E,$4C,$78,$DE,$09; 0x108b8 $88A8 04 76 4C 7E 4C 78 DE 09 ;
@@ -1204,181 +1162,8 @@ L8E96:                                                                          
 .byt    $74,$21,$44,$21,$90,$21,$74,$21; 0x10ebe $8EAE 74 21 44 21 90 21 74 21 ;
 .byt    $44,$21,$90,$21,$74,$21,$D4,$02; 0x10ec6 $8EB6 44 21 90 21 74 21 D4 02 ;
 .byt    $83,$0F,$08,$D1,$0F            ; 0x10ece $8EBE 83 0F 08 D1 0F          ;
-bank4_UNUSED_8EC3:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10ed3 $8EC3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10edb $8ECB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10ee3 $8ED3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10eeb $8EDB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10ef3 $8EE3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10efb $8EEB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f03 $8EF3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f0b $8EFB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f13 $8F03 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f1b $8F0B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f23 $8F13 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f2b $8F1B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f33 $8F23 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f3b $8F2B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f43 $8F33 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f4b $8F3B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f53 $8F43 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f5b $8F4B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f63 $8F53 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f6b $8F5B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f73 $8F63 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f7b $8F6B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f83 $8F73 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f8b $8F7B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f93 $8F83 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10f9b $8F8B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fa3 $8F93 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fab $8F9B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fb3 $8FA3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fbb $8FAB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF                ; 0x10fc3 $8FB3 FF FF FF FF             ;
-L8FB7:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fc7 $8FB7 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fcf $8FBF FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fd7 $8FC7 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fdf $8FCF FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fe7 $8FD7 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fef $8FDF FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10ff7 $8FE7 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x10fff $8FEF FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11007 $8FF7 FF FF FF FF FF FF FF FF ;
-.byt    $FF                            ; 0x1100f $8FFF FF                      ;
-L9000:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11010 $9000 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11018 $9008 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11020 $9010 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11028 $9018 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11030 $9020 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11038 $9028 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11040 $9030 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF                        ; 0x11048 $9038 FF FF                   ;
-L903A:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1104a $903A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11052 $9042 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1105a $904A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11062 $9052 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1106a $905A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11072 $9062 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1107a $906A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11082 $9072 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1108a $907A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11092 $9082 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1109a $908A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110a2 $9092 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110aa $909A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110b2 $90A2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110ba $90AA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110c2 $90B2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110ca $90BA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110d2 $90C2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110da $90CA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110e2 $90D2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110ea $90DA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110f2 $90E2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x110fa $90EA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11102 $90F2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1110a $90FA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11112 $9102 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1111a $910A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11122 $9112 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1112a $911A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11132 $9122 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1113a $912A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11142 $9132 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1114a $913A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11152 $9142 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1115a $914A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11162 $9152 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1116a $915A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11172 $9162 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1117a $916A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11182 $9172 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1118a $917A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11192 $9182 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1119a $918A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111a2 $9192 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111aa $919A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111b2 $91A2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111ba $91AA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111c2 $91B2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111ca $91BA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111d2 $91C2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111da $91CA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111e2 $91D2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111ea $91DA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111f2 $91E2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x111fa $91EA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11202 $91F2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1120a $91FA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11212 $9202 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1121a $920A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11222 $9212 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1122a $921A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11232 $9222 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1123a $922A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11242 $9232 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1124a $923A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11252 $9242 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1125a $924A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11262 $9252 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1126a $925A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11272 $9262 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1127a $926A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11282 $9272 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1128a $927A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11292 $9282 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1129a $928A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112a2 $9292 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112aa $929A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112b2 $92A2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112ba $92AA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112c2 $92B2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112ca $92BA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112d2 $92C2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112da $92CA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112e2 $92D2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112ea $92DA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112f2 $92E2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x112fa $92EA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11302 $92F2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1130a $92FA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11312 $9302 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1131a $930A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11322 $9312 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1132a $931A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11332 $9322 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1133a $932A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11342 $9332 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1134a $933A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11352 $9342 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1135a $934A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11362 $9352 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1136a $935A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11372 $9362 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1137a $936A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11382 $9372 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1138a $937A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11392 $9382 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1139a $938A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113a2 $9392 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113aa $939A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113b2 $93A2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113ba $93AA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113c2 $93B2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113ca $93BA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113d2 $93C2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113da $93CA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113e2 $93D2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113ea $93DA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113f2 $93E2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x113fa $93EA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11402 $93F2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF        ; 0x1140a $93FA FF FF FF FF FF FF       ;
 ; ---------------------------------------------------------------------------- ;
+setpos $9400
 bank4_pointer_table_Related_to_projectiles_maybe:                               ;
 .word    L974E                         ; 0x11410 $9400 4E 97                   ;
 .word    L974E                         ; 0x11412 $9402 4E 97                   ;
@@ -2991,44 +2776,7 @@ L9EDF:                                                                          
     RTS                                ; 0x11eef $9EDF 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank4_UNUSED_9EE0:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11ef0 $9EE0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11ef8 $9EE8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f00 $9EF0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f08 $9EF8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f10 $9F00 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f18 $9F08 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f20 $9F10 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f28 $9F18 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f30 $9F20 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f38 $9F28 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f40 $9F30 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f48 $9F38 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f50 $9F40 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f58 $9F48 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f60 $9F50 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f68 $9F58 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f70 $9F60 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f78 $9F68 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f80 $9F70 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f88 $9F78 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f90 $9F80 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11f98 $9F88 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fa0 $9F90 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fa8 $9F98 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fb0 $9FA0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fb8 $9FA8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fc0 $9FB0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fc8 $9FB8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fd0 $9FC0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fd8 $9FC8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fe0 $9FD0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11fe8 $9FD8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11ff0 $9FE0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x11ff8 $9FE8 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12000 $9FF0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12008 $9FF8 FF FF FF FF FF FF FF FF ;
-; ---------------------------------------------------------------------------- ;
+setpos $a000
 bank4_Area_Pointers_Palaces_Type_B_:                                            ;
 .word    bank4_Area_Data_for_Palaces_Type_A_Entrance; 0x12010 $A000 E5 82      ;
 .word    LA1BA                         ; 0x12012 $A002 BA A1                   ;
@@ -3200,10 +2948,7 @@ LA1BA:                                                                          
 .byt    $75,$35,$83,$C2,$45,$35,$53,$C5; 0x121e2 $A1D2 75 35 83 C2 45 35 53 C5 ;
 .byt    $32,$0F,$0B,$73,$35,$83,$C2,$D9; 0x121ea $A1DA 32 0F 0B 73 35 83 C2 D9 ;
 .byt    $0E                            ; 0x121f2 $A1E2 0E                      ;
-bank4_UNUSED_A1E3:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x121f3 $A1E3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x121fb $A1EB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF            ; 0x12203 $A1F3 FF FF FF FF FF          ;
+setpos $a1f8
 bank4_Room_Connectivity_Data_for_Palaces_Type_B:                                ;
 .byt    $FC,$04,$00,$FC,$FC,$00,$02,$08; 0x12208 $A1F8 FC 04 00 FC FC 00 02 08 ;
 .byt    $07,$00,$00,$0C,$0B,$00,$00,$10; 0x12210 $A200 07 00 00 0C 0B 00 00 10 ;
@@ -3288,16 +3033,7 @@ LA3C6:                                                                          
 .byt    $52,$2E,$83,$2F,$35,$91,$60,$91; 0x123f6 $A3E6 52 2E 83 2F 35 91 60 91 ;
 .byt    $90,$91,$D7,$0C,$84,$27,$A3,$0F; 0x123fe $A3EE 90 91 D7 0C 84 27 A3 0F ;
 .byt    $0B,$D1,$0B,$90,$73            ; 0x12406 $A3F6 0B D1 0B 90 73          ;
-bank4_UNUSED_A3FB:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1240b $A3FB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12413 $A403 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1241b $A40B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12423 $A413 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1242b $A41B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12433 $A423 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1243b $A42B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12443 $A433 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF            ; 0x1244b $A43B FF FF FF FF FF          ;
+setpos $a440
 bank4_Area_Data_Palaces_Type_B2:                                                ;
 .byt    $23,$60,$83,$10,$D8,$80,$F0,$1F; 0x12450 $A440 23 60 83 10 D8 80 F0 1F ;
 .byt    $62,$2C,$46,$B1,$F8,$1F,$62,$2C; 0x12458 $A448 62 2C 46 B1 F8 1F 62 2C ;
@@ -3343,41 +3079,7 @@ LA51E:                                                                          
 LA529:                                                                          ;
 .byt    $10,$60,$80,$13,$E1,$00,$82,$05; 0x12539 $A529 10 60 80 13 E1 00 82 05 ;
 .byt    $E2,$00,$07,$F1,$B0,$71,$F0,$50; 0x12541 $A531 E2 00 07 F1 B0 71 F0 50 ;
-bank4_UNUSED_A539:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12549 $A539 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12551 $A541 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12559 $A549 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12561 $A551 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12569 $A559 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12571 $A561 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12579 $A569 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12581 $A571 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12589 $A579 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12591 $A581 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12599 $A589 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125a1 $A591 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125a9 $A599 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125b1 $A5A1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125b9 $A5A9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125c1 $A5B1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125c9 $A5B9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125d1 $A5C1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125d9 $A5C9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125e1 $A5D1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125e9 $A5D9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125f1 $A5E1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x125f9 $A5E9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12601 $A5F1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12609 $A5F9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12611 $A601 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF    ; 0x12619 $A609 FF FF FF FF FF FF FF    ;
-LA610:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12620 $A610 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12628 $A618 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12630 $A620 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12638 $A628 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12640 $A630 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12648 $A638 FF FF FF FF FF FF FF FF ;
+setpos $a640
 bank4_Area_Data_Palaces_Type_B3:                                                ;
 .byt    $18,$60,$00,$10,$6F,$09,$80,$C2; 0x12650 $A640 18 60 00 10 6F 09 80 C2 ;
 .byt    $6B,$09,$80,$C2,$6B,$09,$80,$C2; 0x12658 $A648 6B 09 80 C2 6B 09 80 C2 ;
@@ -3432,63 +3134,7 @@ LA740:                                                                          
 LA75A:                                                                          ;
 .byt    $0B,$60,$80,$12,$E2,$00,$8D,$05; 0x1276a $A75A 0B 60 80 12 E2 00 8D 05 ;
 .byt    $99,$0F,$05                    ; 0x12772 $A762 99 0F 05                ;
-bank4_UNUSED_A765:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12775 $A765 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1277d $A76D FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12785 $A775 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1278d $A77D FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12795 $A785 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1279d $A78D FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127a5 $A795 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127ad $A79D FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF        ; 0x127b5 $A7A5 FF FF FF FF FF FF       ;
-LA7AB:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127bb $A7AB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127c3 $A7B3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127cb $A7BB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127d3 $A7C3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127db $A7CB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127e3 $A7D3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127eb $A7DB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127f3 $A7E3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x127fb $A7EB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12803 $A7F3 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1280b $A7FB FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12813 $A803 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1281b $A80B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12823 $A813 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1282b $A81B FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF    ; 0x12833 $A823 FF FF FF FF FF FF FF    ;
-LA82A:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1283a $A82A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF                ; 0x12842 $A832 FF FF FF FF             ;
-LA836:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12846 $A836 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1284e $A83E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12856 $A846 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1285e $A84E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12866 $A856 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1286e $A85E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12876 $A866 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1287e $A86E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12886 $A876 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1288e $A87E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12896 $A886 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1289e $A88E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128a6 $A896 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128ae $A89E FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128b6 $A8A6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128be $A8AE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128c6 $A8B6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128ce $A8BE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128d6 $A8C6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128de $A8CE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128e6 $A8D6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128ee $A8DE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128f6 $A8E6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x128fe $A8EE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x12906 $A8F6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF                        ; 0x1290e $A8FE FF FF                   ;
+setpos $a900
 ; ---------------------------------------------------------------------------- ;
 bank4_pointer_table3:                                                           ;
 .word    LAD9E                         ; 0x12910 $A900 9E AD                   ;
@@ -4422,7 +4068,7 @@ Blue_IronKnuckleBoss_related_knocked_off:                                       
     LDA      #$0A                      ; 0x13035 $B025 A9 0A                   ;;A = #$0a 0000_1010
     STA      $A4                       ; 0x13037 $B027 85 A4                   ;
     LDA      #$01                      ; 0x13039 $B029 A9 01                   ;;A = #$01 0000_0001
-    STA      $B9                       ; 0x1303b $B02B 85 B9                   ;;? makes link hold up the last ? item he got 
+    STA      $B9                       ; 0x1303b $B02B 85 B9                   ;;? makes link hold up the last ? item he got
     STA      $0447                     ; 0x1303d $B02D 8D 47 04                ;
     LDA      #$30                      ; 0x13040 $B030 A9 30                   ;;A = #$30 0011_0000
     STA      $C5                       ; 0x13042 $B032 85 C5                   ;
@@ -6656,8 +6302,7 @@ LBEF6:                                                                          
     RTS                                ; 0x13f0c $BEFC 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank4_bank_UNUSED_BEFD:                                                         ;
-.byt    $FF,$FF,$FF                    ; 0x13f0d $BEFD FF FF FF                ;
+setpos $bf00
 bank4_Palettes_for_Palaces1:                                                    ;
 .byt    $0F,$30,$12,$16,$0F,$00,$10,$30; 0x13f10 $BF00 0F 30 12 16 0F 00 10 30 ;
 .byt    $0F,$00,$16,$30,$0F,$3C,$1C,$0C; 0x13f18 $BF08 0F 00 16 30 0F 3C 1C 0C ;
@@ -6676,9 +6321,7 @@ bank4_Palettes_for_Palaces5:                                                    
 bank4_Palettes_for_Palaces6:                                                    ;
 .byt    $0F,$30,$12,$16,$0F,$0F,$05,$25; 0x13f60 $BF50 0F 30 12 16 0F 0F 05 25 ;
 .byt    $0F,$05,$16,$30,$0F,$30,$10,$00; 0x13f68 $BF58 0F 05 16 30 0F 30 10 00 ;
-bank4_UNUSED_BF60:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x13f70 $BF60 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x13f78 $BF68 FF FF FF FF FF FF FF FF ;
+setpos $bf70
 ; ---------------------------------------------------------------------------- ;
 ;     SEI                                ; 0x13f80 $BF70 78                      ;
 ;     CLD                                ; 0x13f81 $BF71 D8                      ;

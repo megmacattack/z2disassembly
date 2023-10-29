@@ -1,6 +1,7 @@
 .include "nes.asm"
 .include "mmc1.asm"
 .include "variables.asm"
+.include "macros.asm"
 
 L000E = $000E
 L0302 = $0302
@@ -196,6 +197,7 @@ LBF00 = $BF00
 .export L_Bank6Code0
 
 .segment "PRG7"
+.org $c000
 
 bank7_PowerON_code:                                                            ;
     LDA      #$00                      ; 0x1c010 $C000 A9 00                   ; A = 00
@@ -290,15 +292,15 @@ bank7_NMI_Entry_Point:                                                         ;
     BEQ      :+                        ; 0x1c0a4 $C094 F0 00                   ; useless branching
 :                                                                              ;
     LDY      #$00                      ; 0x1c0a6 $C096 A0 00                   ; Y = 00
-    LDA      $FE                       ; 0x1c0a8 $C098 A5 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    LDA      $FE                       ; 0x1c0a8 $C098 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     AND      #$E0                      ; 0x1c0aa $C09A 29 E0                   ; keep bits xxx. ....
     LDY      $0726                     ; 0x1c0ac $C09C AC 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     BNE      :+                        ; 0x1c0af $C09F D0 07                   ;
-    LDA      $FE                       ; 0x1c0b1 $C0A1 A5 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    LDA      $FE                       ; 0x1c0b1 $C0A1 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     ORA      #$18                      ; 0x1c0b3 $C0A3 09 18                   ; set bits  ...x x...
     ORA      $0768                     ; 0x1c0b5 $C0A5 0D 68 07                ; makes weird ppu effect
 :                                                                              ;
-    STA      $FE                       ; 0x1c0b8 $C0A8 85 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    STA      $FE                       ; 0x1c0b8 $C0A8 85 FE                   ; does interesting effects when changed, perhaps involves palette?
     AND      #$E1                      ; 0x1c0ba $C0AA 29 E1                   ; keep bits xxx. ...x
     STA      PPU_MASK                  ; 0x1c0bc $C0AC 8D 01 20                ; PPU Control Register 2
     LDX      PPU_STATUS                ; 0x1c0bf $C0AF AE 02 20                ; PPU Status Register
@@ -312,7 +314,7 @@ bank7_NMI_Entry_Point:                                                         ;
     BEQ      :+                        ; 0x1c0d5 $C0C5 F0 03                   ;
     JSR      bank7_code52              ; 0x1c0d7 $C0C7 20 82 FD                ; related to palette loading (side view)
 :                                                                              ;
-    LDA      $0725                     ; 0x1c0da $C0CA AD 25 07                ; PPU Macro Selector	
+    LDA      $0725                     ; 0x1c0da $C0CA AD 25 07                ; PPU Macro Selector
     ASL                                ; 0x1c0dd $C0CD 0A                      ;
     TAX                                ; 0x1c0de $C0CE AA                      ;
     LDA      bank7_PPU_Adresses_according_to_725_as_index,x; 0x1c0df $C0CF BD 3D C0; refer to table at $1C03D
@@ -336,9 +338,9 @@ bank7_NMI_Entry_Point:                                                         ;
     LDA      $FC                       ; 0x1c10e $C0FE A5 FC                   ;
     STA      PPU_SCROLL                ; 0x1c110 $C100 8D 05 20                ; Screen Scroll Offsets
 :                                                                              ;
-    LDA      $FE                       ; 0x1c113 $C103 A5 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    LDA      $FE                       ; 0x1c113 $C103 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     STA      PPU_MASK                  ; 0x1c115 $C105 8D 01 20                ; PPU Control Register 2
-    LDX      $0725                     ; 0x1c118 $C108 AE 25 07                ; PPU Macro Selector	
+    LDX      $0725                     ; 0x1c118 $C108 AE 25 07                ; PPU Macro Selector
     BEQ      :++                       ; 0x1c11b $C10B F0 0F                   ;
     INY                                ; 0x1c11d $C10D C8                      ;
     CPX      #$01                      ; 0x1c11e $C10E E0 01                   ;
@@ -348,16 +350,16 @@ bank7_NMI_Entry_Point:                                                         ;
     CPX      #$02                      ; 0x1c125 $C115 E0 02                   ;
     BNE      :+++                      ; 0x1c127 $C117 D0 13                   ;
 :                                                                              ;
-    DEC      $0725                     ; 0x1c129 $C119 CE 25 07                ; PPU Macro Selector	
+    DEC      $0725                     ; 0x1c129 $C119 CE 25 07                ; PPU Macro Selector
 :                                                                              ;
     LDX      bank7_table0,y            ; 0x1c12c $C11C BE 5D C0                ;
     LDA      #$00                      ; 0x1c12f $C11F A9 00                   ; A = 00
     STA      $0301,x                   ; 0x1c131 $C121 9D 01 03                ;
     LDA      #$FF                      ; 0x1c134 $C124 A9 FF                   ; A = FF
     STA      L0302,x                   ; 0x1c136 $C126 9D 02 03                ;
-    LDA      $0725                     ; 0x1c139 $C129 AD 25 07                ; PPU Macro Selector	
+    LDA      $0725                     ; 0x1c139 $C129 AD 25 07                ; PPU Macro Selector
 :                                                                              ;
-    STA      $0725                     ; 0x1c13c $C12C 8D 25 07                ; PPU Macro Selector	
+    STA      $0725                     ; 0x1c13c $C12C 8D 25 07                ; PPU Macro Selector
     JSR      bank7_related_to_sound    ; 0x1c13f $C12F 20 C1 C1                ; related to sound
     LDA      $F7                       ; 0x1c142 $C132 A5 F7                   ; Controller 1 Buttons Held
     STA      $0744                     ; 0x1c144 $C134 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
@@ -625,7 +627,7 @@ bank7_code5:                                                                    
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c2f9 $C2E9 20 85 D3;
 bank7_pointer_table__game_mode:                                                 ;
 ;Probably Bank 0 for addresses in the 8000-BFFF range                          ;
-.word    bank7_code18                  ; 0x1c2fc $C2EC 40 CD                   ; 00	Load ROM bank, Overworld data, enemy data, etc.  
+.word    bank7_code18                  ; 0x1c2fc $C2EC 40 CD                   ; 00	Load ROM bank, Overworld data, enemy data, etc.
 .word    bank7_go_outside              ; 0x1c2fe $C2EE B3 CC                   ; 01	Overworld Out of Area ?
 .word    Initialization_stuff          ; 0x1c300 $C2F0 49 81                   ; 02	Overworld Init
 .word    overworld4                    ; 0x1c302 $C2F2 F3 87                   ; 03	Overworld Load Map Tiles
@@ -743,7 +745,7 @@ bank7_pointer_table7:                                                           
 ; ---------------------------------------------------------------------------- ;
 bank7_code10:                                                                   ;
     LDA      #$0C                      ; 0x1c3b5 $C3A5 A9 0C                   ; A = 0C
-    STA      $0725                     ; 0x1c3b7 $C3A7 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1c3b7 $C3A7 8D 25 07                ;; PPU Macro Selector
     LDA      #$00                      ; 0x1c3ba $C3AA A9 00                   ; A = 00
     STA      $0760                     ; 0x1c3bc $C3AC 8D 60 07                ;
     INC      $0726                     ; 0x1c3bf $C3AF EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
@@ -858,7 +860,7 @@ bank7_Table_for_Overworld_Palettes:                                             
                                                                                ;
 .byt    $0F,$30,$16,$0F                ; 0x1c483 $C473 0F 30 16 0F             ;Overworld Sprites Code 2 (Demons)
                                                                                ;
-.byt    $0F,$16,$27,$30                ; 0x1c487 $C477 0F 16 27 30             ;Overworld Sprites Code 3 (Fairy)                               
+.byt    $0F,$16,$27,$30                ; 0x1c487 $C477 0F 16 27 30             ;Overworld Sprites Code 3 (Fairy)
                                                                                ;
 .byt    $FF                            ; 0x1c48b $C47B FF                      ;
 bank7_table10:                                                                  ;
@@ -1321,7 +1323,7 @@ LC7E2:                                                                          
     CPY      $072E                     ; 0x1c7f2 $C7E2 CC 2E 07                ; Area Data Length
     BCS      LC7F0                     ; 0x1c7f5 $C7E5 B0 09                   ;
     INY                                ; 0x1c7f7 $C7E7 C8                      ;
-    LDA      ($D4),y                   ; 0x1c7f8 $C7E8 B1 D4                   ;map data second byte/cmd param? 
+    LDA      ($D4),y                   ; 0x1c7f8 $C7E8 B1 D4                   ;map data second byte/cmd param?
     CMP      #$0F                      ; 0x1c7fa $C7EA C9 0F                   ;
     BNE      LC7EF                     ; 0x1c7fc $C7EC D0 01                   ;
     INY                                ; 0x1c7fe $C7EE C8                      ;
@@ -1454,7 +1456,7 @@ LC89D:                                                                          
     STA      $D1                       ; 0x1c8cb $C8BB 85 D1                   ; Area Width
     LDA      #$04                      ; 0x1c8cd $C8BD A9 04                   ; A = 04
     STA      $072F                     ; 0x1c8cf $C8BF 8D 2F 07                ; Area Data Reading Offset
-    LDY      $072F                     ; 0x1c8d2 $C8C2 AC 2F 07                ;rts here to only do the header's draw commands(?) <---i dont  think so, check 0x1c5c9 
+    LDY      $072F                     ; 0x1c8d2 $C8C2 AC 2F 07                ;rts here to only do the header's draw commands(?) <---i dont  think so, check 0x1c5c9
 LC8C5:                                                                          ;
     LDA      ($D4),y                   ; 0x1c8d5 $C8C5 B1 D4                   ; first byte of MAPDATA data
     STA      $0730                     ; 0x1c8d7 $C8C7 8D 30 07                ; Position of Object Placement
@@ -1510,7 +1512,7 @@ bank7_Pointer_table_for_Objects_Construction_Address:                           
 .word    L9B86                         ; 0x1c92f $C91F 86 9B                   ;Towns in East Hyrule
 .word    L80EE                         ; 0x1c931 $C921 EE 80                   ;Palaces Type A
 .word    L80EE                         ; 0x1c933 $C923 EE 80                   ;Palaces Type B
-.word    L80EE                         ; 0x1c935 $C925 EE 80                   ;Great Palace                  
+.word    L80EE                         ; 0x1c935 $C925 EE 80                   ;Great Palace
 ; ---------------------------------------------------------------------------- ;
 bank7_Set_Address_for_Small_Object:                                             ;
     LDX      $0731                     ; 0x1c937 $C927 AE 31 07                ; Level Object Type and Size
@@ -1659,7 +1661,7 @@ bank7_code15:                                                                   
 LCA15:                                                                          ;
     LDA      #$04                      ; 0x1ca25 $CA15 A9 04                   ; A = 04
 LCA17:                                                                          ;
-    STA      $0725                     ; 0x1ca27 $CA17 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1ca27 $CA17 8D 25 07                ;; PPU Macro Selector
     RTS                                ; 0x1ca2a $CA1A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2147,7 +2149,7 @@ bank7_Graphics_Bank_for_Palaces_Palace_5:                                       
 bank7_Graphics_Bank_for_Palaces_Palace_6:                                       ;
 .byt    $0C                            ; 0x1cd43 $CD33 0C                      ;0C	Palace 6
 bank7_Graphics_Bank_for_Palaces_Palace_7:                                       ;
-.byt    $06                            ; 0x1cd44 $CD34 06                      ;06	Palace 7                       
+.byt    $06                            ; 0x1cd44 $CD34 06                      ;06	Palace 7
 bank7_Table_for_Palace_Entrance_Palettes_Offset:                                ;
 ;Index = Region (706) * 4 + Palace Code (56C)                                  ;
 .byt    $00,$10,$20,$20,$30,$30,$30,$30; 0x1cd45 $CD35 00 10 20 20 30 30 30 30 ;
@@ -2155,7 +2157,7 @@ bank7_Table_for_Palace_Entrance_Palettes_Offset:                                
 ; ---------------------------------------------------------------------------- ;
 bank7_code18:                                                                   ;
     LDY      $0707                     ; 0x1cd50 $CD40 AC 07 07                ; Current World;cd40 ;Normalized world number into Y
-    LDA      LC4B7,y                   ; 0x1cd53 $CD43 B9 B7 C4                ;cd43 ;Load bank number from table 
+    LDA      LC4B7,y                   ; 0x1cd53 $CD43 B9 B7 C4                ;cd43 ;Load bank number from table
     CMP      #$01                      ; 0x1cd56 $CD46 C9 01                   ;cd46 ;Bank 1 represents overworlds
     BNE      LCD59                     ; 0x1cd58 $CD48 D0 0F                   ;cd48 ;if not overworld, then done
 ; Determine if we really want bank 1 or 2                                      ;
@@ -2170,7 +2172,7 @@ bank7_code18:                                                                   
 LCD57:                                                                          ;
     LDA      #$02                      ; 0x1cd67 $CD57 A9 02                   ; A = 02;cd57 ;Load bank 2
 LCD59:                                                                          ;
-    STA      PRG_bank                     ; 0x1cd69 $CD59 8D 69 07                ; Bank to switch to;cd59 ;Store desired bank number                 
+    STA      PRG_bank                     ; 0x1cd69 $CD59 8D 69 07                ; Bank to switch to;cd59 ;Store desired bank number
     JSR      SwapPRG                     ; 0x1cd6c $CD5C 20 CC FF                ; Bank Switch
     LDA      PRG_bank                     ; 0x1cd6f $CD5F AD 69 07                ; Bank to switch to
     LDY      $0707                     ; 0x1cd72 $CD62 AC 07 07                ; Current World
@@ -2747,7 +2749,7 @@ LD150:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LD158:                                                                          ;
-    STA      $0725                     ; 0x1d168 $D158 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1d168 $D158 8D 25 07                ;; PPU Macro Selector
     RTS                                ; 0x1d16b $D15B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3118,9 +3120,9 @@ bank7_JmpToRoutine_at_Index_073D_in_Table_Address_from_the_top_of_the_Stack_The_
 bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP:                  ;
     ASL                                ; 0x1d395 $D385 0A                      ;multiply by 2 because table entry is 2 bytes per entry
     TAY                                ; 0x1d396 $D386 A8                      ;transfer A to Y
-    PLA                                ; 0x1d397 $D387 68                      ;pull the address which we would normally RTS to 
+    PLA                                ; 0x1d397 $D387 68                      ;pull the address which we would normally RTS to
     STA      $0C                       ; 0x1d398 $D388 85 0C                   ;store for indirect read later
-    PLA                                ; 0x1d39a $D38A 68                      ;pull the address which we would normally RTS to 
+    PLA                                ; 0x1d39a $D38A 68                      ;pull the address which we would normally RTS to
     STA      $0D                       ; 0x1d39b $D38B 85 0D                   ;store for indirect read later
     INY                                ; 0x1d39d $D38D C8                      ;increment Y because jsr makes the RTS point 1 behind?
     LDA      ($0C),y                   ; 0x1d39e $D38E B1 0C                   ;load address to jmp to (from the table following the JSR's RTS point)
@@ -3131,13 +3133,7 @@ bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP:                  
     JMP      (L000E)                   ; 0x1d3a7 $D397 6C 0E 00                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_UNUSED_D39A:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1d3aa $D39A FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1d3b2 $D3A2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1d3ba $D3AA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1d3c2 $D3B2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1d3ca $D3BA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1d3d2 $D3C2 FF FF FF FF FF FF FF FF ;
+setpos $d3ca
 bank7_table13:                                                                  ;
 .byt    $80,$40                        ; 0x1d3da $D3CA 80 40                   ;
 ; ---------------------------------------------------------------------------- ;
@@ -3162,7 +3158,7 @@ LD3E9:                                                                          
     JSR      SwapToPRG0; 0x1d3f9 $D3E9 20 C5 FF                ; Load Bank 0
     JSR      Spell_Casting_Routine     ; 0x1d3fc $D3EC 20 C3 8D                ; Spell Casting Routine
     LDA      $12                       ; 0x1d3ff $D3EF A5 12                   ;; Frame Counter (ascending)
-    AND      #$01                      ; 0x1d401 $D3F1 29 01                   ; keep bits .... ...x				
+    AND      #$01                      ; 0x1d401 $D3F1 29 01                   ; keep bits .... ...x
     TAX                                ; 0x1d403 $D3F3 AA                      ;
     LDA      $070C,x                   ; 0x1d404 $D3F4 BD 0C 07                ; Magic/Life to be added to Magic Meter
     BEQ      LD433                     ; 0x1d407 $D3F7 F0 3A                   ;
@@ -4498,7 +4494,7 @@ bank7_code29:                                                                   
     LDA      #$E8                      ; 0x1dcef $DCDF A9 E8                   ; A = E8
     STA      $074B                     ; 0x1dcf1 $DCE1 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$0F                      ; 0x1dcf4 $DCE4 A9 0F                   ; A = 0F
-    STA      $0725                     ; 0x1dcf6 $DCE6 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1dcf6 $DCE6 8D 25 07                ;; PPU Macro Selector
     LDA      #$80                      ; 0x1dcf9 $DCE9 A9 80                   ; A = 80
     STA      $EC                       ; 0x1dcfb $DCEB 85 EC                   ; Sound Effects Type 1
 LDCED:                                                                          ;
@@ -4905,7 +4901,7 @@ LDF7C:                                                                          
     DEX                                ; 0x1df93 $DF83 CA                      ;
     BPL      LDF7C                     ; 0x1df94 $DF84 10 F6                   ;
     INX                                ; 0x1df96 $DF86 E8                      ;
-    STX      $0725                     ; 0x1df97 $DF87 8E 25 07                ;; PPU Macro Selector	
+    STX      $0725                     ; 0x1df97 $DF87 8E 25 07                ;; PPU Macro Selector
     RTS                                ; 0x1df9a $DF8A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5216,7 +5212,7 @@ LE18A:                                                                          
     LDX      #$05                      ; 0x1e19d $E18D A2 05                   ; X = 05
 bank7_KillAllMonsters:                                                          ;
     LDA      $B6,x                     ; 0x1e19f $E18F B5 B6                   ;does monster exist?
-    BEQ      LE198                     ; 0x1e1a1 $E191 F0 05                   ;if no, skip past 
+    BEQ      LE198                     ; 0x1e1a1 $E191 F0 05                   ;if no, skip past
     JSR      LDD3D                     ; 0x1e1a3 $E193 20 3D DD                ;do something  and  kill monster (set B6,x=0)
     INC      $B6,x                     ; 0x1e1a6 $E196 F6 B6                   ;
 LE198:                                                                          ;
@@ -8155,13 +8151,7 @@ LFEA6:                                                                          
     RTS                                ; 0x1feb9 $FEA9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_UNUSED_FEAA:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1feba $FEAA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1fec2 $FEB2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1feca $FEBA FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1fed2 $FEC2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF        ; 0x1feda $FECA FF FF FF FF FF FF       ;
-; ---------------------------------------------------------------------------- ;
+setpos $fed0
 bank7_code55:                                                                   ;
     JSR      SwapToSavedPRG; 0x1fee0 $FED0 20 C9 FF                ; Load Bank $0769
 LFED3:                                                                          ;
@@ -8236,13 +8226,7 @@ LFF36:                                                                          
     JMP      SwapToPRG0; 0x1ff59 $FF49 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_UNUSED_FF4C:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1ff5c $FF4C FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1ff64 $FF54 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1ff6c $FF5C FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1ff74 $FF64 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF                ; 0x1ff7c $FF6C FF FF FF FF             ;
-; ---------------------------------------------------------------------------- ;
+setpos $ff70
 bank7_reset:                                                                   ;
     SEI                                ; 0x1ff80 $FF70 78                      ;
     CLD                                ; 0x1ff81 $FF71 D8                      ;

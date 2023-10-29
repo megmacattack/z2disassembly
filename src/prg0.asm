@@ -1,6 +1,6 @@
 ; DISASSEMBLY ORIGINALLY WROTE BY TRAX (99.9% of his work)
 ; * = $8000;
-; da65 V2.18 
+; da65 V2.18
 ; Created     2021-04-12 11 24 13                                              ;
 ; Input file  bank0_and_7.nes                                                  ;
 ; Page        1                                                                ;
@@ -9,6 +9,9 @@
 ;.setcpu  "6502"                                                               ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+
+.include "macros.asm"
+
 L000E = $000E
 L0302 = $0302
 L0363 = $0363
@@ -110,6 +113,7 @@ LEC02 = $EC02
 .export startup_init_begin_game
 
 .segment "PRG0"
+.org $8000
 
 ; ---------------------------------------------------------------------------- ;
 
@@ -277,7 +281,7 @@ L813F:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown1:                                                                 ;
     LDA      #$05                      ; 0x150 $8140 A9 05                     ; A = 05
-    STA      $0725                     ; 0x152 $8142 8D 25 07                  ;; PPU Macro Selector	
+    STA      $0725                     ; 0x152 $8142 8D 25 07                  ;; PPU Macro Selector
     INC      $073D                     ; 0x155 $8145 EE 3D 07                  ;; Routine Index
     RTS                                ; 0x158 $8148 60                        ;
                                                                                ;
@@ -333,7 +337,7 @@ L817B:                                                                          
     STA      $71                       ; 0x1af $819F 85 71                     ; related to OW display
     LDA      #$0A                      ; 0x1b1 $81A1 A9 0A                     ; A = 0A
 L81A3:                                                                          ;
-    STA      $0725                     ; 0x1b3 $81A3 8D 25 07                  ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1b3 $81A3 8D 25 07                  ;; PPU Macro Selector
     INC      $0726                     ; 0x1b6 $81A6 EE 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     INC      $0736                     ; 0x1b9 $81A9 EE 36 07                  ;; Game Mode ; screen intro type
 L81AC:                                                                          ;
@@ -2698,9 +2702,9 @@ L912F:                                                                          
     STA      $3D                       ; 0x114b $913B 85 3D                    ;
     LSR                                ; 0x114d $913D 4A                       ;
     STA      $82                       ; 0x114e $913E 85 82                    ;
-    STA      $B6                       ; 0x1150 $9140 85 B6                    ;;monster exists		b6,b7,b8,b9,ba,bb	exists:0=no,1=yes,2=kill/give exp;set to 10 will make link fall down 
-    STA      $B8                       ; 0x1152 $9142 85 B8                    ;;? makes link hold up the last ? item he got 
-    STA      $B9                       ; 0x1154 $9144 85 B9                    ;;? makes link hold up the last ? item he got 
+    STA      $B6                       ; 0x1150 $9140 85 B6                    ;;monster exists		b6,b7,b8,b9,ba,bb	exists:0=no,1=yes,2=kill/give exp;set to 10 will make link fall down
+    STA      $B8                       ; 0x1152 $9142 85 B8                    ;;? makes link hold up the last ? item he got
+    STA      $B9                       ; 0x1154 $9144 85 B9                    ;;? makes link hold up the last ? item he got
     STA      $BA                       ; 0x1156 $9146 85 BA                    ;
     STA      $BB                       ; 0x1158 $9148 85 BB                    ;
     STA      $D1                       ; 0x115a $914A 85 D1                    ;; Area Width (0-3)
@@ -3340,7 +3344,7 @@ L953C:                                                                          
     STA      $02                       ; 0x1550 $9540 85 02                    ;
     LDX      #$00                      ; 0x1552 $9542 A2 00                    ; X = 00
     LDA      $057D                     ; 0x1554 $9544 AD 7D 05                 ; Link's Y Velocity
-    BPL      L9569                     ; 0x1557 $9547 10 20                    ;if ?not jumping upward , skip 
+    BPL      L9569                     ; 0x1557 $9547 10 20                    ;if ?not jumping upward , skip
     LDA      $A7                       ; 0x1559 $9549 A5 A7                    ;007 CHANGE THIS (to #$04) AND LINK DOES NOT COLLISION CHECK FROM BELOW
     AND      #$08                      ; 0x155b $954B 29 08                    ; keep bits x... ....
     BEQ      L9569                     ; 0x155d $954D F0 1A                    ;
@@ -3368,12 +3372,12 @@ L956C:                                                                          
     DEY                                ; 0x157f $956F 88                       ;
     BEQ      L958C                     ; 0x1580 $9570 F0 1A                    ;
     LDY      #$06                      ; 0x1582 $9572 A0 06                    ; Y = 06
-    LDA      $0796                     ; 0x1584 $9574 AD 96 07                 ; Upward/Downward techs					
+    LDA      $0796                     ; 0x1584 $9574 AD 96 07                 ; Upward/Downward techs
     AND      #$04                      ; 0x1587 $9577 29 04                    ; check if Upward tech learned
-    BEQ      L9582                     ; 0x1589 $9579 F0 07                    ; if Upward NOT learned, skip to $1582			;007 CHANGE THIS 
+    BEQ      L9582                     ; 0x1589 $9579 F0 07                    ; if Upward NOT learned, skip to $1582			;007 CHANGE THIS
     LDA      $F7                       ; 0x158b $957B A5 F7                    ; Controller 1 buttons held
     AND      #$08                      ; 0x158d $957D 29 08                    ; check if Up is held
-    BEQ      L9582                     ; 0x158f $957F F0 01                    ; if Up is NOT held, skip to $1582			;AND CHANGE THIS 
+    BEQ      L9582                     ; 0x158f $957F F0 01                    ; if Up is NOT held, skip to $1582			;AND CHANGE THIS
     TAY                                ; 0x1591 $9581 A8                       ; 08 = Up Stab animation frame				;AND LDY #$08 			then automatically does upstab always when jumping
 L9582:                                                                          ;
     TYA                                ; 0x1592 $9582 98                       ;
@@ -3564,7 +3568,7 @@ L96A8:                                                                          
 L96B7:                                                                          ;
     ASL      $074F                     ; 0x16c7 $96B7 0E 4F 07                 ;; Related to Pause Pane
     LSR      $074F                     ; 0x16ca $96BA 4E 4F 07                 ;; Related to Pause Pane
-    LDA      Table_for_Hub_Tile_Mapping,x; 0x16cd $96BD BD 2E 96                 ; refer to table at $162E			0x163E ;contains location to draw levels ,status bar 
+    LDA      Table_for_Hub_Tile_Mapping,x; 0x16cd $96BD BD 2E 96                 ; refer to table at $162E			0x163E ;contains location to draw levels ,status bar
     STA      L0302,y                   ; 0x16d0 $96C0 99 02 03                 ;
     INY                                ; 0x16d3 $96C3 C8                       ;
     INX                                ; 0x16d4 $96C4 E8                       ;
@@ -4226,7 +4230,7 @@ bank0_unknown26:                                                                
     STA      L03A4,y                   ; 0x1b17 $9B07 99 A4 03                 ;
     STY      $03A3                     ; 0x1b1a $9B0A 8C A3 03                 ;
     LDA      #$02                      ; 0x1b1d $9B0D A9 02                    ; A = 02
-    STA      $0725                     ; 0x1b1f $9B0F 8D 25 07                 ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1b1f $9B0F 8D 25 07                 ;; PPU Macro Selector
     RTS                                ; 0x1b22 $9B12 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4300,7 +4304,7 @@ Pointer_Table_for_Contents_of_Panes_in_Cartridge_RAM:                           
 .word    L7854                         ; 0x1b88 $9B78 54 78                    ;Reflect
 .word    L7862                         ; 0x1b8a $9B7A 62 78                    ;Spell
 .word    L7870                         ; 0x1b8c $9B7C 70 78                    ;Thunder
-.word    L787E                         ; 0x1b8e $9B7E 7E 78                    ;Number_of_Keys    
+.word    L787E                         ; 0x1b8e $9B7E 7E 78                    ;Number_of_Keys
 Pointer_table_for_Panes_tile_mappings:                                          ;
 .word    LevelUp_Pane_tile_mappings    ; 0x1b90 $9B80 AA 9B                    ;check here for spell menu
 lpointerTable__panes_tile_mappings__9B82:                                       ;
@@ -5086,7 +5090,7 @@ LA1FB:                                                                          
 LA206:                                                                          ;
     CPY      #$08                      ; 0x2216 $A206 C0 08                    ;
     BCC      LA20C                     ; 0x2218 $A208 90 02                    ;
-    LDY      #$00                      ; 0x221a $A20A A0 00                    ; Y = 00	
+    LDY      #$00                      ; 0x221a $A20A A0 00                    ; Y = 00
 LA20C:                                                                          ;
     LDX      $077B,y                   ; 0x221c $A20C BE 7B 07                 ; Magic Learned or not	;check if have magic
     BEQ      LA1FB                     ; 0x221f $A20F F0 EA                    ;
@@ -5360,7 +5364,7 @@ LA3A5:                                                                          
     STA      L0363,y                   ; 0x23b7 $A3A7 99 63 03                 ;
     STY      $0362                     ; 0x23ba $A3AA 8C 62 03                 ;; PPU Macro Offset
     LDA      #$01                      ; 0x23bd $A3AD A9 01                    ; A = 01
-    STA      $0725                     ; 0x23bf $A3AF 8D 25 07                 ;; PPU Macro Selector	
+    STA      $0725                     ; 0x23bf $A3AF 8D 25 07                 ;; PPU Macro Selector
     RTS                                ; 0x23c2 $A3B2 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5744,8 +5748,8 @@ involves_pause_pane_deciding_what_to_draw_based_on_what_spells_list_has_and_draw
     STA      $05                       ; 0x260a $A5FA 85 05                    ;
     LDY      #$0D                      ; 0x260c $A5FC A0 0D                    ;;Y = #$0d 0000_1101
 LA5FE:                                                                          ;
-    LDA      ($02),y                   ; 0x260e $A5FE B1 02                    ;this copys to $53E, which is temp area used to copy from to generate the ppu macro for the spell menu 
-    STA      $053E,y                   ; 0x2610 $A600 99 3E 05                 ;;temp area used to copy from to generate the ppu macro for the spell menu 
+    LDA      ($02),y                   ; 0x260e $A5FE B1 02                    ;this copys to $53E, which is temp area used to copy from to generate the ppu macro for the spell menu
+    STA      $053E,y                   ; 0x2610 $A600 99 3E 05                 ;;temp area used to copy from to generate the ppu macro for the spell menu
     LDA      ($04),y                   ; 0x2613 $A603 B1 04                    ;
     LDX      $0525                     ; 0x2615 $A605 AE 25 05                 ;; Routine Delay
     CPX      #$08                      ; 0x2618 $A608 E0 08                    ;
@@ -5804,7 +5808,7 @@ bank0_Pause_Pane_LOAD_FROM_ROM_TO_RAM_FOR_MENU_TEXT__LEVELUP:                   
     LDY      #$0D                      ; 0x2670 $A660 A0 0D                    ;;Y = #$0d 0000_1101
 LA662:                                                                          ;
     LDA      ($02),y                   ; 0x2672 $A662 B1 02                    ;
-    STA      $053E,y                   ; 0x2674 $A664 99 3E 05                 ;;temp area used to copy from to generate the ppu macro for the spell menu 
+    STA      $053E,y                   ; 0x2674 $A664 99 3E 05                 ;;temp area used to copy from to generate the ppu macro for the spell menu
     LDA      ($04),y                   ; 0x2677 $A667 B1 04                    ;
     STA      $054C,y                   ; 0x2679 $A669 99 4C 05                 ;
     DEY                                ; 0x267c $A66C 88                       ;
@@ -5976,7 +5980,7 @@ LA726:                                                                          
     LDA      #$FF                      ; 0x27a4 $A794 A9 FF                    ; A = FF
     STA      $036D,x                   ; 0x27a6 $A796 9D 6D 03                 ;
     LDA      #$01                      ; 0x27a9 $A799 A9 01                    ; A = 01
-    STA      $0725                     ; 0x27ab $A79B 8D 25 07                 ;; PPU Macro Selector	
+    STA      $0725                     ; 0x27ab $A79B 8D 25 07                 ;; PPU Macro Selector
     LDX      $10                       ; 0x27ae $A79E A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x27b0 $A7A0 60                       ;
                                                                                ;
@@ -6072,7 +6076,7 @@ Some_Palettes_Data_related_to_Falling_Animation:                                
 bank0_unknown41:                                                                ;
     JSR      bank7_Remove_All_Sprites  ; 0x286a $A85A 20 4C D2                 ;
     LDA      #$06                      ; 0x286d $A85D A9 06                    ; A = 06
-    STA      $0725                     ; 0x286f $A85F 8D 25 07                 ;; PPU Macro Selector	
+    STA      $0725                     ; 0x286f $A85F 8D 25 07                 ;; PPU Macro Selector
     INC      $073D                     ; 0x2872 $A862 EE 3D 07                 ;; Routine Index
     RTS                                ; 0x2875 $A865 60                       ;
                                                                                ;
@@ -6205,689 +6209,7 @@ LAA36:                                                                          
     RTS                                ; 0x2a4f $AA3F 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank0_unused_space_big:                                                         ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a50 $AA40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a58 $AA48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a60 $AA50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a68 $AA58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a70 $AA60 FF FF FF FF FF FF FF FF  ; if Slash Step >= 2, goto ResetVariable
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a78 $AA68 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a80 $AA70 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a88 $AA78 FF FF FF FF FF FF FF FF  ; if (A >= 30) Flashing Routine
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a90 $AA80 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2a98 $AA88 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2aa0 $AA90 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2aa8 $AA98 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ab0 $AAA0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ab8 $AAA8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ac0 $AAB0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ac8 $AAB8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ad0 $AAC0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ad8 $AAC8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ae0 $AAD0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ae8 $AAD8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2af0 $AAE0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2af8 $AAE8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b00 $AAF0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b08 $AAF8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b10 $AB00 FF FF FF FF FF FF FF FF  ; Randomizer
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b18 $AB08 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b20 $AB10 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b28 $AB18 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b30 $AB20 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b38 $AB28 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b40 $AB30 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b48 $AB38 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b50 $AB40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b58 $AB48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b60 $AB50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b68 $AB58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b70 $AB60 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b78 $AB68 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b80 $AB70 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b88 $AB78 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b90 $AB80 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2b98 $AB88 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ba0 $AB90 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ba8 $AB98 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bb0 $ABA0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bb8 $ABA8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bc0 $ABB0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bc8 $ABB8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bd0 $ABC0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bd8 $ABC8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2be0 $ABD0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2be8 $ABD8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bf0 $ABE0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2bf8 $ABE8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c00 $ABF0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c08 $ABF8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c10 $AC00 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c18 $AC08 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c20 $AC10 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c28 $AC18 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c30 $AC20 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c38 $AC28 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c40 $AC30 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c48 $AC38 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c50 $AC40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c58 $AC48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c60 $AC50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c68 $AC58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c70 $AC60 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c78 $AC68 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c80 $AC70 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c88 $AC78 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c90 $AC80 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2c98 $AC88 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ca0 $AC90 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ca8 $AC98 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cb0 $ACA0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cb8 $ACA8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cc0 $ACB0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cc8 $ACB8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cd0 $ACC0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cd8 $ACC8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ce0 $ACD0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ce8 $ACD8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cf0 $ACE0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2cf8 $ACE8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d00 $ACF0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d08 $ACF8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d10 $AD00 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d18 $AD08 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d20 $AD10 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d28 $AD18 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d30 $AD20 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d38 $AD28 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d40 $AD30 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d48 $AD38 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d50 $AD40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d58 $AD48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d60 $AD50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d68 $AD58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d70 $AD60 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d78 $AD68 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d80 $AD70 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d88 $AD78 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d90 $AD80 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2d98 $AD88 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2da0 $AD90 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2da8 $AD98 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2db0 $ADA0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2db8 $ADA8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2dc0 $ADB0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2dc8 $ADB8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2dd0 $ADC0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2dd8 $ADC8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2de0 $ADD0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2de8 $ADD8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2df0 $ADE0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2df8 $ADE8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e00 $ADF0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e08 $ADF8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e10 $AE00 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e18 $AE08 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e20 $AE10 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e28 $AE18 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e30 $AE20 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e38 $AE28 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e40 $AE30 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e48 $AE38 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e50 $AE40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e58 $AE48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e60 $AE50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e68 $AE58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e70 $AE60 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e78 $AE68 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e80 $AE70 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e88 $AE78 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e90 $AE80 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2e98 $AE88 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ea0 $AE90 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ea8 $AE98 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2eb0 $AEA0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2eb8 $AEA8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ec0 $AEB0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ec8 $AEB8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ed0 $AEC0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ed8 $AEC8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ee0 $AED0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ee8 $AED8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ef0 $AEE0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ef8 $AEE8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f00 $AEF0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f08 $AEF8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f10 $AF00 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f18 $AF08 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f20 $AF10 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f28 $AF18 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f30 $AF20 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f38 $AF28 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f40 $AF30 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f48 $AF38 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f50 $AF40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f58 $AF48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f60 $AF50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f68 $AF58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f70 $AF60 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f78 $AF68 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f80 $AF70 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f88 $AF78 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f90 $AF80 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2f98 $AF88 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fa0 $AF90 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fa8 $AF98 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fb0 $AFA0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fb8 $AFA8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fc0 $AFB0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fc8 $AFB8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fd0 $AFC0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fd8 $AFC8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fe0 $AFD0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2fe8 $AFD8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ff0 $AFE0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x2ff8 $AFE8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3000 $AFF0 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3008 $AFF8 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3010 $B000 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3018 $B008 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3020 $B010 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3028 $B018 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3030 $B020 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3038 $B028 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3040 $B030 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3048 $B038 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3050 $B040 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3058 $B048 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3060 $B050 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3068 $B058 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3070 $B060 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3078 $B068 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3080 $B070 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3088 $B078 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF                        ; 0x3090 $B080 FF FF                    ;
-LB082:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3092 $B082 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x309a $B08A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30a2 $B092 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30aa $B09A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30b2 $B0A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30ba $B0AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30c2 $B0B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30ca $B0BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30d2 $B0C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30da $B0CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30e2 $B0D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30ea $B0DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30f2 $B0E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x30fa $B0EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3102 $B0F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x310a $B0FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3112 $B102 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x311a $B10A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3122 $B112 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x312a $B11A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3132 $B122 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x313a $B12A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3142 $B132 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x314a $B13A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3152 $B142 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x315a $B14A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3162 $B152 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x316a $B15A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3172 $B162 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x317a $B16A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3182 $B172 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x318a $B17A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3192 $B182 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x319a $B18A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31a2 $B192 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31aa $B19A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31b2 $B1A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31ba $B1AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31c2 $B1B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31ca $B1BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31d2 $B1C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31da $B1CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31e2 $B1D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31ea $B1DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31f2 $B1E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x31fa $B1EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3202 $B1F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x320a $B1FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3212 $B202 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x321a $B20A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3222 $B212 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x322a $B21A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3232 $B222 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x323a $B22A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3242 $B232 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x324a $B23A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3252 $B242 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x325a $B24A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3262 $B252 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x326a $B25A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3272 $B262 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x327a $B26A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3282 $B272 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x328a $B27A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3292 $B282 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x329a $B28A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32a2 $B292 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32aa $B29A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32b2 $B2A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32ba $B2AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32c2 $B2B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32ca $B2BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32d2 $B2C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32da $B2CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32e2 $B2D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32ea $B2DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32f2 $B2E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x32fa $B2EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3302 $B2F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x330a $B2FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3312 $B302 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x331a $B30A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3322 $B312 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x332a $B31A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3332 $B322 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x333a $B32A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3342 $B332 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x334a $B33A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3352 $B342 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x335a $B34A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3362 $B352 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x336a $B35A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3372 $B362 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x337a $B36A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3382 $B372 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x338a $B37A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3392 $B382 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x339a $B38A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33a2 $B392 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33aa $B39A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33b2 $B3A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33ba $B3AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33c2 $B3B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33ca $B3BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33d2 $B3C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33da $B3CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33e2 $B3D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33ea $B3DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33f2 $B3E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x33fa $B3EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3402 $B3F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x340a $B3FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3412 $B402 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x341a $B40A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3422 $B412 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x342a $B41A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3432 $B422 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x343a $B42A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3442 $B432 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x344a $B43A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3452 $B442 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x345a $B44A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3462 $B452 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x346a $B45A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3472 $B462 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x347a $B46A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3482 $B472 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x348a $B47A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3492 $B482 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x349a $B48A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34a2 $B492 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34aa $B49A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34b2 $B4A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34ba $B4AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34c2 $B4B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34ca $B4BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34d2 $B4C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34da $B4CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34e2 $B4D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34ea $B4DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34f2 $B4E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x34fa $B4EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3502 $B4F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x350a $B4FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3512 $B502 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x351a $B50A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3522 $B512 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x352a $B51A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3532 $B522 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x353a $B52A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3542 $B532 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x354a $B53A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3552 $B542 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x355a $B54A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3562 $B552 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x356a $B55A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3572 $B562 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x357a $B56A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3582 $B572 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x358a $B57A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3592 $B582 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x359a $B58A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35a2 $B592 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35aa $B59A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35b2 $B5A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35ba $B5AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35c2 $B5B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35ca $B5BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35d2 $B5C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35da $B5CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35e2 $B5D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35ea $B5DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35f2 $B5E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x35fa $B5EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3602 $B5F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x360a $B5FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3612 $B602 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x361a $B60A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3622 $B612 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x362a $B61A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3632 $B622 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x363a $B62A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3642 $B632 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x364a $B63A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3652 $B642 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x365a $B64A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3662 $B652 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x366a $B65A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3672 $B662 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x367a $B66A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3682 $B672 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x368a $B67A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3692 $B682 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x369a $B68A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36a2 $B692 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36aa $B69A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36b2 $B6A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36ba $B6AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36c2 $B6B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36ca $B6BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36d2 $B6C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36da $B6CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36e2 $B6D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36ea $B6DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36f2 $B6E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x36fa $B6EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3702 $B6F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x370a $B6FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3712 $B702 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x371a $B70A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3722 $B712 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x372a $B71A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3732 $B722 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x373a $B72A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3742 $B732 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x374a $B73A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3752 $B742 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x375a $B74A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3762 $B752 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x376a $B75A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3772 $B762 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x377a $B76A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3782 $B772 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x378a $B77A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3792 $B782 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x379a $B78A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37a2 $B792 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37aa $B79A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37b2 $B7A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37ba $B7AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37c2 $B7B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37ca $B7BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37d2 $B7C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37da $B7CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37e2 $B7D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37ea $B7DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37f2 $B7E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x37fa $B7EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3802 $B7F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x380a $B7FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3812 $B802 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x381a $B80A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3822 $B812 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x382a $B81A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3832 $B822 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x383a $B82A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3842 $B832 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x384a $B83A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3852 $B842 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x385a $B84A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3862 $B852 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x386a $B85A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3872 $B862 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x387a $B86A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3882 $B872 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x388a $B87A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3892 $B882 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x389a $B88A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38a2 $B892 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38aa $B89A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38b2 $B8A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38ba $B8AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38c2 $B8B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38ca $B8BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38d2 $B8C2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38da $B8CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38e2 $B8D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38ea $B8DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38f2 $B8E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x38fa $B8EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3902 $B8F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x390a $B8FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3912 $B902 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x391a $B90A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3922 $B912 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x392a $B91A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3932 $B922 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x393a $B92A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3942 $B932 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x394a $B93A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3952 $B942 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x395a $B94A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3962 $B952 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x396a $B95A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3972 $B962 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x397a $B96A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3982 $B972 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x398a $B97A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3992 $B982 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x399a $B98A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39a2 $B992 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39aa $B99A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39b2 $B9A2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39ba $B9AA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39c2 $B9B2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39ca $B9BA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39d2 $B9C2 FF FF FF FF FF FF FF FF  ;
-LB9CA:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39da $B9CA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39e2 $B9D2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39ea $B9DA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39f2 $B9E2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x39fa $B9EA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a02 $B9F2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a0a $B9FA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a12 $BA02 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a1a $BA0A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a22 $BA12 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a2a $BA1A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a32 $BA22 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a3a $BA2A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a42 $BA32 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a4a $BA3A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a52 $BA42 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a5a $BA4A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a62 $BA52 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a6a $BA5A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a72 $BA62 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a7a $BA6A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a82 $BA72 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a8a $BA7A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a92 $BA82 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3a9a $BA8A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3aa2 $BA92 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3aaa $BA9A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ab2 $BAA2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3aba $BAAA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ac2 $BAB2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3aca $BABA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ad2 $BAC2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ada $BACA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ae2 $BAD2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3aea $BADA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3af2 $BAE2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3afa $BAEA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b02 $BAF2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b0a $BAFA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b12 $BB02 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b1a $BB0A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b22 $BB12 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b2a $BB1A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b32 $BB22 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b3a $BB2A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b42 $BB32 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b4a $BB3A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b52 $BB42 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b5a $BB4A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b62 $BB52 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b6a $BB5A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b72 $BB62 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b7a $BB6A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b82 $BB72 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b8a $BB7A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b92 $BB82 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3b9a $BB8A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ba2 $BB92 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3baa $BB9A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bb2 $BBA2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bba $BBAA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bc2 $BBB2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bca $BBBA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bd2 $BBC2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bda $BBCA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3be2 $BBD2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bea $BBDA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bf2 $BBE2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3bfa $BBEA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c02 $BBF2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c0a $BBFA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c12 $BC02 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c1a $BC0A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c22 $BC12 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c2a $BC1A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c32 $BC22 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c3a $BC2A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c42 $BC32 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c4a $BC3A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c52 $BC42 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c5a $BC4A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c62 $BC52 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c6a $BC5A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c72 $BC62 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c7a $BC6A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c82 $BC72 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c8a $BC7A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c92 $BC82 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3c9a $BC8A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ca2 $BC92 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3caa $BC9A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cb2 $BCA2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cba $BCAA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cc2 $BCB2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cca $BCBA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cd2 $BCC2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cda $BCCA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ce2 $BCD2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cea $BCDA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cf2 $BCE2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3cfa $BCEA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d02 $BCF2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d0a $BCFA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d12 $BD02 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d1a $BD0A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d22 $BD12 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d2a $BD1A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d32 $BD22 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d3a $BD2A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d42 $BD32 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d4a $BD3A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d52 $BD42 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d5a $BD4A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d62 $BD52 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d6a $BD5A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d72 $BD62 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d7a $BD6A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d82 $BD72 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d8a $BD7A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d92 $BD82 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3d9a $BD8A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3da2 $BD92 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3daa $BD9A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3db2 $BDA2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dba $BDAA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dc2 $BDB2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dca $BDBA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dd2 $BDC2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dda $BDCA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3de2 $BDD2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dea $BDDA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3df2 $BDE2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3dfa $BDEA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e02 $BDF2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e0a $BDFA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e12 $BE02 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e1a $BE0A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e22 $BE12 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e2a $BE1A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e32 $BE22 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e3a $BE2A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e42 $BE32 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e4a $BE3A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e52 $BE42 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e5a $BE4A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e62 $BE52 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e6a $BE5A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e72 $BE62 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e7a $BE6A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e82 $BE72 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e8a $BE7A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e92 $BE82 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3e9a $BE8A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ea2 $BE92 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3eaa $BE9A FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3eb2 $BEA2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3eba $BEAA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ec2 $BEB2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3eca $BEBA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ed2 $BEC2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3eda $BECA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ee2 $BED2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3eea $BEDA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3ef2 $BEE2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3efa $BEEA FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f02 $BEF2 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF        ; 0x3f0a $BEFA FF FF FF FF FF FF        ;
-LBF00:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f10 $BF00 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f18 $BF08 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f20 $BF10 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f28 $BF18 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f30 $BF20 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f38 $BF28 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f40 $BF30 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f48 $BF38 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f50 $BF40 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f58 $BF48 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f60 $BF50 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f68 $BF58 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f70 $BF60 FF FF FF FF FF FF FF FF  ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x3f78 $BF68 FF FF FF FF FF FF FF FF  ;
+setpos $bf70
 ; ---------------------------------------------------------------------------- ;
 ; bank0_ending_routines:                                                          ;
 ;     SEI                                ; 0x3f80 $BF70 78                       ;

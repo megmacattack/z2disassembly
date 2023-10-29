@@ -1,6 +1,6 @@
 ; DISASSEMBLY ORIGINALLY WROTE BY TRAX (99.9% of his work)
 ; * = $8000                                                                      ;
-; da65 V2.18 
+; da65 V2.18
 ; Created     2021-04-12 11 24 36                                              ;
 ; Input file  bank5_and_7.nes                                                  ;
 ; Page        1                                                                ;
@@ -12,6 +12,7 @@
 .include "nes.asm"
 .include "mmc1.asm"
 .include "variables.asm"
+.include "macros.asm"
 
 L0000 = $0000
 L000E = $000E
@@ -202,6 +203,7 @@ LFCA5 = $FCA5
 .export bank5_A610
 
 .segment "PRG5"
+.org $8000
 
 ; ---------------------------------------------------------------------------- ;
 bank5_nothing:                                                                  ;
@@ -275,7 +277,7 @@ bank5_Pointer_table_for_Objects_Construction_Routines:                          
 .word    bank5_Objects_Construction_Routines_2_high__X_wide; 0x14129 $8119 B3 81;Object 2 high, X wide	(Ax)
 .word    bank5_Objects_Construction_Routines_2_high__X_wide; 0x1412b $811B B3 81;Object 2 high, X wide	(Bx)
 .word    bank5_Objects_Construction_Routines_2_high__X_wide; 0x1412d $811D B3 81;Object 2 high, X wide	(Cx)
-.word    bank5_Objects_Construction_Routines_X_high__1_wide_single_tile_type; 0x1412f $811F D1 81;Object X high, 1 wide, single tile type	(Dx)			
+.word    bank5_Objects_Construction_Routines_X_high__1_wide_single_tile_type; 0x1412f $811F D1 81;Object X high, 1 wide, single tile type	(Dx)
 .word    bank5_Objects_Construction_Routines_X_high__1_wide_single_tile_type; 0x14131 $8121 D1 81;Object X high, 1 wide, single tile type	(Ex)
 .word    bank5_Objects_Construction_Routines_Object_X_high__1_wide; 0x14133 $8123 D7 81;Object X high, 1 wide	(Fx)					;USE X REGISTER variable as object type
 bank5_Special_Objects_Y_Position_F:                                             ;
@@ -642,33 +644,23 @@ L849A:                                                                          
 L84B6:                                                                          ;
 .byt    $0C,$60,$80,$08,$E1,$00,$82,$F2; 0x144c6 $84B6 0C 60 80 08 E1 00 82 F2 ;
 .byt    $E2,$00,$7D,$F3                ; 0x144ce $84BE E2 00 7D F3             ;
-bank5_UNUSED_84C2:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x144d2 $84C2 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF        ; 0x144da $84CA FF FF FF FF FF FF       ;
+setpos $84d0
 bank5_Palettes_for_Great_Palace1:                                               ;
 .byt    $02,$30,$12,$16,$02,$0F,$28,$38; 0x144e0 $84D0 02 30 12 16 02 0F 28 38 ;
 L84D8:                                                                          ;
 .byt    $02,$27,$17,$0F,$02,$30,$10,$00; 0x144e8 $84D8 02 27 17 0F 02 30 10 00 ;
-bank5_UNUSED_84E0:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x144f0 $84E0 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x144f8 $84E8 FF FF FF FF FF FF FF FF ;
+setpos $84f0
 bank5_table0:                                                                   ;
 .byt    $FF,$00,$10,$30                ; 0x14500 $84F0 FF 00 10 30             ;
-bank5_UNUSED_84F4:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x14504 $84F4 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF                ; 0x1450c $84FC FF FF FF FF             ;
 ; ---------------------------------------------------------------------------- ;
+setpos $8500
 bank5_Pointer_table_for_Objects_Tile_Mappings:                                  ;
 .word    bank5_Table_0_1_for_Area_Objects_Tile_Mappings; 0x14510 $8500 C7 82   ;
 .word    bank5_Table_0_1_for_Area_Objects_Tile_Mappings; 0x14512 $8502 C7 82   ;
 .word    bank5_Table_2_for_Area_Objects_Tile_Mappings; 0x14514 $8504 0B 83     ;
 .word    bank5_Table_3_for_Area_Objects_Tile_Mappings; 0x14516 $8506 2F 83     ;
 ; ---------------------------------------------------------------------------- ;
-bank5_table_unused:                                                             ;
-.byt    $FF                            ; 0x14518 $8508 FF                      ;
-L8509:                                                                          ;
-.byt    $FF,$FF,$FF                    ; 0x14519 $8509 FF FF FF                ;
-; ---------------------------------------------------------------------------- ;
+setpos $850c
 bank5_code3:                                                                    ;
     PHA                                ; 0x1451c $850C 48                      ;
     AND      #$C0                      ; 0x1451d $850D 29 C0                   ; keep bits xx.. ....
@@ -867,10 +859,7 @@ L86DB:                                                                          
 .byt    $D2,$07,$D2,$00,$D2,$0E,$05,$06; 0x14703 $86F3 D2 07 D2 00 D2 0E 05 06 ;
 .byt    $B0,$90,$F0,$50,$01,$06,$B0,$90; 0x1470b $86FB B0 90 F0 50 01 06 B0 90 ;
 .byt    $D1,$0F                        ; 0x14713 $8703 D1 0F                   ;
-bank5_UNUSED_8705:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x14715 $8705 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1471d $870D FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF        ; 0x14725 $8715 FF FF FF FF FF FF       ;
+setpos $871b
 bank5_Room_Connectivity_Data:                                                   ;
 .byt    $FC,$0A,$00,$FC,$FC,$1A,$00,$08; 0x1472b $871B FC 0A 00 FC FC 1A 00 08 ;
 .byt    $07,$00,$03,$0C,$0B,$00,$00,$10; 0x14733 $8723 07 00 03 0C 0B 00 00 10 ;
@@ -924,9 +913,7 @@ L886F:                                                                          
 .byt    $71,$D3,$44,$37,$53,$D5,$51,$D5; 0x1488f $887F 71 D3 44 37 53 D5 51 D5 ;
 .byt    $D4,$0E,$D6,$88,$DC,$0E,$D6,$08; 0x14897 $8887 D4 0E D6 88 DC 0E D6 08 ;
 .byt    $D8,$0E                        ; 0x1489f $888F D8 0E                   ;
-bank5_UNUSED_8891:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x148a1 $8891 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF    ; 0x148a9 $8899 FF FF FF FF FF FF FF    ;
+setpos $88a0
 bank5_Enemy_Data_Great_Palace:                                                  ;
 .byt    $01,$03,$01,$60,$07,$7A,$44,$7D; 0x148b0 $88A0 01 03 01 60 07 7A 44 7D ;
 .byt    $44,$7F,$44,$03,$4D,$1D,$05,$0F; 0x148b8 $88A8 44 7F 44 03 4D 1D 05 0F ;
@@ -1026,12 +1013,8 @@ L8B15:                                                                          
 .byt    $B0,$90,$F0,$50,$01,$06,$B0,$90; 0x14b2d $8B1D B0 90 F0 50 01 06 B0 90 ;
 .byt    $D8,$00,$10,$AF,$E2,$00,$10,$AF; 0x14b35 $8B25 D8 00 10 AF E2 00 10 AF ;
 .byt    $E3,$00,$10,$AF                ; 0x14b3d $8B2D E3 00 10 AF             ;
-bank5_UNUSED_8B31:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x14b41 $8B31 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x14b49 $8B39 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x14b51 $8B41 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF    ; 0x14b59 $8B49 FF FF FF FF FF FF FF    ;
 ; ---------------------------------------------------------------------------- ;
+setpos $8b50
 bank5_routines_related_to_Ending_sequence:                                      ;
     LDA      #$05                      ; 0x14b60 $8B50 A9 05                   ; A = 05
     STA      $0769                     ; 0x14b62 $8B52 8D 69 07                ; Bank to switch to
@@ -2072,19 +2055,8 @@ L9396:                                                                          
 .byt    $22,$8B,$09,$E7,$DA,$E4,$DA,$F3; 0x153a6 $9396 22 8B 09 E7 DA E4 DA F3 ;
 .byt    $E8,$E8,$F4,$F4,$22,$CB,$08,$F4; 0x153ae $939E E8 E8 F4 F4 22 CB 08 F4 ;
 .byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$FF; 0x153b6 $93A6 F4 F4 F4 F4 F4 F4 F4 FF ;
-bank5_UNUSED_93AE:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153be $93AE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153c6 $93B6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153ce $93BE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153d6 $93C6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153de $93CE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153e6 $93D6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153ee $93DE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153f6 $93E6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x153fe $93EE FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x15406 $93F6 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF                        ; 0x1540e $93FE FF FF                   ;
 ; ---------------------------------------------------------------------------- ;
+setpos $9400
 bank5_pointer_table2:                                                           ;
 .word    L9C48                         ; 0x15410 $9400 48 9C                   ;
 .word    L9C48                         ; 0x15412 $9402 48 9C                   ;
@@ -2182,7 +2154,7 @@ bank5_Pointer_table_for_Enemy_Routines1:                                        
 .word    bank5_Enemy_Routines1_Electric_Barrier; 0x154dd $94CD 34 A2           ;Electric Barrier	(20)
 .word    L0000                         ; 0x154df $94CF 00 00                   ;? Crash			(21)
 .word    bank5_Enemy_Routines1_Thunderbird; 0x154e1 $94D1 59 A3                ;Thunderbird		(22)
-.word    bank5_Enemy_Routines1_Dark_Link_Battle_Trigger; 0x154e3 $94D3 C6 97   ;Dark Link Battle Trigger	(23)                      
+.word    bank5_Enemy_Routines1_Dark_Link_Battle_Trigger; 0x154e3 $94D3 C6 97   ;Dark Link Battle Trigger	(23)
 ; ---------------------------------------------------------------------------- ;
 bank5_Enemy_Attributes_Palette_Experience_Code_etc:                             ;
 ;xx.. ....	Palette Code (0-3)                                                  ;
@@ -2238,7 +2210,7 @@ bank5_Pointer_table_for_Enemy_Routines2:                                        
 .word    bank7_Enemy_Routines2_Ache_and_Acheman; 0x15589 $9579 7E F1           ;Acheman			(0A)
 .word    L0000                         ; 0x1558b $957B 00 00                   ;Bubbles Generator (uses Energy Ball
 .word    L0000                         ; 0x1558d $957D 00 00                   ;Rocks Generator (uses Energy Ball s
-.word    bank7_Enemy_Routines2_Deeler  ; 0x1558f $957F 27 F0                   ;Red Deeler (glitched behavior)		
+.word    bank7_Enemy_Routines2_Deeler  ; 0x1558f $957F 27 F0                   ;Red Deeler (glitched behavior)
 .word    bank7_Enemy_Routines2_Deeler  ; 0x15591 $9581 27 F0                   ;Blue Deeler (visual glitch only)
 .word    bank5_code_rts                ; 0x15593 $9583 AD 95                   ;Fire Bago Bago Generator	(0F)
 .word    bank7_Enemy_Routines2_BagoBago; 0x15595 $9585 B9 F0                   ;Fire Bago Bago		(10)
@@ -2508,7 +2480,7 @@ bank5_Enemy_Init_Routines_Dark_Link_Battle_Trigger:                             
     STA      $0753                     ; 0x157bc $97AC 8D 53 07                ;
     LSR                                ; 0x157bf $97AF 4A                      ;
     STA      $1A                       ; 0x157c0 $97B0 85 1A                   ;;draw sprite ?	1a,1b,1c,1d,1e,1f; Saved Game Presence in Slot (1 bit per slot) ?
-    STA      $B6                       ; 0x157c2 $97B2 85 B6                   ;;monster exists		b6,b7,b8,b9,ba,bb	exists:0=no,1=yes,2=kill/give exp;set to 10 will make link fall down 
+    STA      $B6                       ; 0x157c2 $97B2 85 B6                   ;;monster exists		b6,b7,b8,b9,ba,bb	exists:0=no,1=yes,2=kill/give exp;set to 10 will make link fall down
     LSR                                ; 0x157c4 $97B4 4A                      ;
     STA      $B6,x                     ; 0x157c5 $97B5 95 B6                   ;; Generated Enemy Slot
     STA      $61                       ; 0x157c7 $97B7 85 61                   ;
@@ -2601,7 +2573,7 @@ L983E:                                                                          
     BNE      L9852                     ; 0x15853 $9843 D0 0D                   ;
     LDA      #$0D                      ; 0x15855 $9845 A9 0D                   ;;A = #$0d 0000_1101
 L9847:                                                                          ;
-    STA      $0725                     ; 0x15857 $9847 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x15857 $9847 8D 25 07                ;; PPU Macro Selector
     LDA      #$80                      ; 0x1585a $984A A9 80                   ;;A = #$80 1000_0000
     STA      $EB                       ; 0x1585c $984C 85 EB                   ;; Music; Music
     LDA      #$04                      ; 0x1585e $984E A9 04                   ;;A = #$04 0000_0100
@@ -3079,7 +3051,7 @@ L9B3A:                                                                          
     CMP      #$81                      ; 0x15b4d $9B3D C9 81                   ;
     BNE      L9B46                     ; 0x15b4f $9B3F D0 05                   ;
     LDA      #$0E                      ; 0x15b51 $9B41 A9 0E                   ;;A = #$0e 0000_1110
-    STA      $0725                     ; 0x15b53 $9B43 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x15b53 $9B43 8D 25 07                ;; PPU Macro Selector
 L9B46:                                                                          ;
     LDA      $0479                     ; 0x15b56 $9B46 AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
     ORA      $0504                     ; 0x15b59 $9B49 0D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
@@ -4164,7 +4136,7 @@ LA290:                                                                          
     LDA      #$07                      ; 0x162ac $A29C A9 07                   ;;A = #$07 0000_0111
     STA      $0362                     ; 0x162ae $A29E 8D 62 03                ;; PPU Macro Offset
     LDA      #$01                      ; 0x162b1 $A2A1 A9 01                   ;;A = #$01 0000_0001
-    STA      $0725                     ; 0x162b3 $A2A3 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x162b3 $A2A3 8D 25 07                ;; PPU Macro Selector
 LA2A6:                                                                          ;
     RTS                                ; 0x162b6 $A2A6 60                      ;
                                                                                ;
@@ -4237,7 +4209,7 @@ LA30F:                                                                          
     STA      $0362                     ; 0x16322 $A312 8D 62 03                ;; PPU Macro Offset
 LA315:                                                                          ;
     LDA      #$01                      ; 0x16325 $A315 A9 01                   ;;A = #$01 0000_0001
-    STA      $0725                     ; 0x16327 $A317 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x16327 $A317 8D 25 07                ;; PPU Macro Selector
     LDX      $10                       ; 0x1632a $A31A A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x1632c $A31C 60                      ;
                                                                                ;
@@ -4595,19 +4567,7 @@ LA54E:                                                                          
     RTS                                ; 0x1655e $A54E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank5_UNUSED_A54F:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1655f $A54F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x16567 $A557 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1656f $A55F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x16577 $A567 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1657f $A56F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x16587 $A577 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1658f $A57F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x16597 $A587 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x1659f $A58F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x165a7 $A597 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x165af $A59F FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x165b7 $A5A7 FF FF FF FF FF FF FF FF ;
+setpos $a5af
 LA5AF:                                                                          ;
 .byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x165bf $A5AF FF FF FF FF FF FF FF FF ;
 .byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x165c7 $A5B7 FF FF FF FF FF FF FF FF ;
@@ -4630,15 +4590,15 @@ bank5_A610:                                                                    ;
     ORA      $0747                     ; 0x16624 $A614 0D 47 07                ;
     STA      $FF                       ; 0x16627 $A617 85 FF                   ; Sprite Bank ?
     STA      PPU_CTRL                  ; 0x16629 $A619 8D 00 20                ;
-    LDA      $FE                       ; 0x1662c $A61C A5 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    LDA      $FE                       ; 0x1662c $A61C A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     AND      #$E0                      ; 0x1662e $A61E 29 E0                   ; Keep Bits:1110_0000
     STA      PPU_MASK                  ; 0x16630 $A620 8D 01 20                ;
     LDY      $0726                     ; 0x16633 $A623 AC 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     BNE      :+                        ; 0x16636 $A626 D0 04                   ;
-    LDA      $FE                       ; 0x16638 $A628 A5 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    LDA      $FE                       ; 0x16638 $A628 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     ORA      #$1E                      ; 0x1663a $A62A 09 1E                   ; Set Bits:0001_1110
 :                                                                              ;
-    STA      $FE                       ; 0x1663c $A62C 85 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    STA      $FE                       ; 0x1663c $A62C 85 FE                   ; does interesting effects when changed, perhaps involves palette?
     LDX      PPU_STATUS                ; 0x1663e $A62E AE 02 20                ;
     LDA      #$00                      ; 0x16641 $A631 A9 00                   ; A = #$00 0000_0000
     STA      PPU_SCROLL                ; 0x16643 $A633 8D 05 20                ;
@@ -4646,7 +4606,7 @@ bank5_A610:                                                                    ;
     STA      OAM_ADDR                  ; 0x16649 $A639 8D 03 20                ;
     LDA      #$02                      ; 0x1664c $A63C A9 02                   ; A = #$02 0000_0010
     STA      OAM_DMA                   ; 0x1664e $A63E 8D 14 40                ;
-    LDA      $0725                     ; 0x16651 $A641 AD 25 07                ; PPU Macro Selector	
+    LDA      $0725                     ; 0x16651 $A641 AD 25 07                ; PPU Macro Selector
     ASL                                ; 0x16654 $A644 0A                      ;
     TAX                                ; 0x16655 $A645 AA                      ;
     LDA      bank5_table_A600,x        ; 0x16656 $A646 BD 00 A6                ;
@@ -4666,10 +4626,10 @@ bank5_A610:                                                                    ;
     LDA      $FC                       ; 0x1667b $A66B A5 FC                   ;
     STY      PPU_SCROLL                ; 0x1667d $A66D 8C 05 20                ;
     STA      PPU_SCROLL                ; 0x16680 $A670 8D 05 20                ;
-    LDA      $FE                       ; 0x16683 $A673 A5 FE                   ; does interesting effects when changed, perhaps involves palette? 
+    LDA      $FE                       ; 0x16683 $A673 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     STA      PPU_MASK                  ; 0x16685 $A675 8D 01 20                ;
     STY      $0301                     ; 0x16688 $A678 8C 01 03                ; ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    STY      $0725                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector	
+    STY      $0725                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector
     DEY                                ; 0x1668e $A67E 88                      ;
     STY      L0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
     JSR      L_Bank6Code0              ; 0x16692 $A682 20 32 C0                ;
@@ -5560,13 +5520,13 @@ LAF1F:                                                                          
 .byt    $34                            ; 0x16f39 $AF29 34                      ;
 .byt    $AF                            ; 0x16f3a $AF2A AF                      ;
     LDA      #$01                      ; 0x16f3b $AF2B A9 01                   ;;A = #$01 0000_0001
-    STA      $0725                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
     INC      $073D                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
     RTS                                ; 0x16f43 $AF33 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     LDA      #$04                      ; 0x16f44 $AF34 A9 04                   ;;A = #$04 0000_0100
-    STA      $0725                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
     INC      $0736                     ; 0x16f49 $AF39 EE 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x16f4c $AF3C 60                      ;
                                                                                ;
@@ -5701,7 +5661,7 @@ bank5_Load_Saved_Games_Data:                                                    
     LDY      $073E                     ; 0x1727d $B26D AC 3E 07                ;
     BNE      LB27B                     ; 0x17280 $B270 D0 09                   ;
     LDA      #$02                      ; 0x17282 $B272 A9 02                   ; A = 02
-    STA      $0725                     ; 0x17284 $B274 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x17284 $B274 8D 25 07                ;; PPU Macro Selector
     INC      $073E                     ; 0x17287 $B277 EE 3E 07                ;
     RTS                                ; 0x1728a $B27A 60                      ;
                                                                                ;
@@ -5711,7 +5671,7 @@ LB27B:                                                                          
     BNE      LB28B                     ; 0x1728c $B27C D0 0D                   ;
     INC      $073E                     ; 0x1728e $B27E EE 3E 07                ;
     LDA      #$05                      ; 0x17291 $B281 A9 05                   ; A = 05
-    STA      $0725                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector
     LDA      #$00                      ; 0x17296 $B286 A9 00                   ; A = 00
     STA      $19                       ; 0x17298 $B288 85 19                   ; Position Code for Fairy Cursor
     RTS                                ; 0x1729a $B28A 60                      ;
@@ -5986,7 +5946,7 @@ bank5_code25:                                                                   
     LDY      $073E                     ; 0x17435 $B425 AC 3E 07                ;
     BNE      LB433                     ; 0x17438 $B428 D0 09                   ;
     LDA      #$06                      ; 0x1743a $B42A A9 06                   ; A = 06
-    STA      $0725                     ; 0x1743c $B42C 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1743c $B42C 8D 25 07                ;; PPU Macro Selector
     INC      $073E                     ; 0x1743f $B42F EE 3E 07                ;
     RTS                                ; 0x17442 $B432 60                      ;
                                                                                ;
@@ -5995,7 +5955,7 @@ LB433:                                                                          
     DEY                                ; 0x17443 $B433 88                      ;
     BNE      LB443                     ; 0x17444 $B434 D0 0D                   ;
     LDA      #$07                      ; 0x17446 $B436 A9 07                   ; A = 07
-    STA      $0725                     ; 0x17448 $B438 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x17448 $B438 8D 25 07                ;; PPU Macro Selector
     INC      $073E                     ; 0x1744b $B43B EE 3E 07                ;
     LDA      #$00                      ; 0x1744e $B43E A9 00                   ; A = 00
     STA      $19                       ; 0x17450 $B440 85 19                   ; Position Code for Fairy Cursor
@@ -6336,7 +6296,7 @@ LB678:                                                                          
     LDY      $073E                     ; 0x17688 $B678 AC 3E 07                ;
     BNE      LB692                     ; 0x1768b $B67B D0 15                   ;
     LDA      #$06                      ; 0x1768d $B67D A9 06                   ; A = 06
-    STA      $0725                     ; 0x1768f $B67F 8D 25 07                ;; PPU Macro Selector	
+    STA      $0725                     ; 0x1768f $B67F 8D 25 07                ;; PPU Macro Selector
     INC      $073E                     ; 0x17692 $B682 EE 3E 07                ;
     LDA      #$00                      ; 0x17695 $B685 A9 00                   ; A = 00
     STA      $19                       ; 0x17697 $B687 85 19                   ;;fall_or_invisible (0=invisible, 1=normal, 2~FF=fall in hole); Position Code for Fairy Cursor (Selection Screen)	(and) ;draw link's sprite =yes/no
@@ -7041,7 +7001,7 @@ bank5_Beginning_Values:                                                         
                                                                                ;
 .byt    $01                            ; 0x17af5 $BAE5 01                      ;779	life
                                                                                ;
-.byt    $00                            ; 0x17af6 $BAE6 00                      ;77A	
+.byt    $00                            ; 0x17af6 $BAE6 00                      ;77A
                                                                                ;
 .byt    $00                            ; 0x17af7 $BAE7 00                      ;77B	17AF7 - Begin with Shield Magic
                                                                                ;
@@ -7234,7 +7194,7 @@ bank5_Tables_for_Selection_Screen_Text_:                                        
                                                                                ;
 .byt    $20,$66,$14,$F4                ; 0x17cd3 $BCC3 20 66 14 F4             ;
                                                                                ;
-.byt    $EB,$DE,$E0,$E2,$EC,$ED,$DE,$EB; 0x17cd7 $BCC7 EB DE E0 E2 EC ED DE EB ;REGISTER YOUR NAME 
+.byt    $EB,$DE,$E0,$E2,$EC,$ED,$DE,$EB; 0x17cd7 $BCC7 EB DE E0 E2 EC ED DE EB ;REGISTER YOUR NAME
 .byt    $F4,$F2,$E8,$EE,$EB,$F4,$E7,$DA; 0x17cdf $BCCF F4 F2 E8 EE EB F4 E7 DA ;
 .byt    $E6,$DE,$F4                    ; 0x17ce7 $BCD7 E6 DE F4                ;
                                                                                ;
@@ -7287,7 +7247,7 @@ bank5_Tables_for_Selection_Screen_Text_:                                        
                                                                                ;
 .byt    $20,$67,$12                    ; 0x17d69 $BD59 20 67 12                ;
                                                                                ;
-.byt    $F4,$DE,$E5,$E2,$E6,$E2,$E7,$DA; 0x17d6c $BD5C F4 DE E5 E2 E6 E2 E7 DA ;ELIMINATION MODE 
+.byt    $F4,$DE,$E5,$E2,$E6,$E2,$E7,$DA; 0x17d6c $BD5C F4 DE E5 E2 E6 E2 E7 DA ;ELIMINATION MODE
 .byt    $ED,$E2,$E8,$E7,$F4,$E6,$E8,$DD; 0x17d74 $BD64 ED E2 E8 E7 F4 E6 E8 DD ;
 .byt    $DE,$F4                        ; 0x17d7c $BD6C DE F4                   ;
                                                                                ;
@@ -7303,69 +7263,12 @@ bank5_Table_for_Letters_Tile_Mappings:                                          
 .byt    $E5,$E6,$E7,$E8,$E9,$EA,$EB,$EC; 0x17d90 $BD80 E5 E6 E7 E8 E9 EA EB EC ;LMNOPQRSTUV
 .byt    $ED,$EE,$EF                    ; 0x17d98 $BD88 ED EE EF                ;
                                                                                ;
-.byt    $F0,$F1,$F2,$F3,$F6,$CF,$00,$00; 0x17d9b $BD8B F0 F1 F2 F3 F6 CF 00 00 ;WXYZ-.     
+.byt    $F0,$F1,$F2,$F3,$F6,$CF,$00,$00; 0x17d9b $BD8B F0 F1 F2 F3 F6 CF 00 00 ;WXYZ-.
 .byt    $00,$00,$00                    ; 0x17da3 $BD93 00 00 00                ;
                                                                                ;
-.byt    $D0,$D1,$D2,$D3,$D4,$D5,$D6,$D7; 0x17da6 $BD96 D0 D1 D2 D3 D4 D5 D6 D7 ;0123456789 
+.byt    $D0,$D1,$D2,$D3,$D4,$D5,$D6,$D7; 0x17da6 $BD96 D0 D1 D2 D3 D4 D5 D6 D7 ;0123456789
 .byt    $D8,$D9,$F4                    ; 0x17dae $BD9E D8 D9 F4                ;
-bank5_UNUSED_BDA1:                                                              ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17db1 $BDA1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17db9 $BDA9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17dc1 $BDB1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17dc9 $BDB9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17dd1 $BDC1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17dd9 $BDC9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17de1 $BDD1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17de9 $BDD9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17df1 $BDE1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17df9 $BDE9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e01 $BDF1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e09 $BDF9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e11 $BE01 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e19 $BE09 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e21 $BE11 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e29 $BE19 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e31 $BE21 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e39 $BE29 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e41 $BE31 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e49 $BE39 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e51 $BE41 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e59 $BE49 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e61 $BE51 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e69 $BE59 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e71 $BE61 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e79 $BE69 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e81 $BE71 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e89 $BE79 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e91 $BE81 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17e99 $BE89 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ea1 $BE91 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ea9 $BE99 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17eb1 $BEA1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17eb9 $BEA9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ec1 $BEB1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ec9 $BEB9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ed1 $BEC1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ed9 $BEC9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ee1 $BED1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ee9 $BED9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ef1 $BEE1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17ef9 $BEE9 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f01 $BEF1 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF    ; 0x17f09 $BEF9 FF FF FF FF FF FF FF    ;
-LBF00:                                                                          ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f10 $BF00 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f18 $BF08 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f20 $BF10 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f28 $BF18 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f30 $BF20 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f38 $BF28 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f40 $BF30 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f48 $BF38 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f50 $BF40 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f58 $BF48 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f60 $BF50 FF FF FF FF FF FF FF FF ;
-.byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x17f68 $BF58 FF FF FF FF FF FF FF FF ;
+setpos $bf60
 bank5_table_Some_palettes:                                                      ;
 .byt    $0F,$30,$12,$16,$0F,$08,$28,$38; 0x17f70 $BF60 0F 30 12 16 0F 08 28 38 ;
 .byt    $0F,$08,$16,$30,$0F,$3C,$1C,$0C; 0x17f78 $BF68 0F 08 16 30 0F 3C 1C 0C ;

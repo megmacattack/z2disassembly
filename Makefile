@@ -19,5 +19,9 @@ chr.bin: $(CHR)
 	cat $+ > .$@.new
 	mv .$@.new $@
 
+# Checks that the produced rom matches a known-vanilla checksum
+check: Zelda2Reassembled.nes Zelda2Reassembled.nes.sum
+	sha1sum -c Zelda2Reassembled.nes.sum
+
 clean:
 	rm -f chr.bin prg.bin obj/*.o Zelda2Reassembled.nes

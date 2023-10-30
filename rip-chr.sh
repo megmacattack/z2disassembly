@@ -1,4 +1,4 @@
-dd bs=16 skip=1 count=15630 if=Zelda2.nes of=Zelda2Unheadered.nes
+dd bs=16 skip=1 count=15630 if=${1:-Zelda2.nes} of=Zelda2Unheadered.nes
 dd bs=8192 skip=16 count=1 if=Zelda2Unheadered.nes of=bin/chr0.bin
 dd bs=8192 skip=17 count=1 if=Zelda2Unheadered.nes of=bin/chr1.bin
 dd bs=8192 skip=18 count=1 if=Zelda2Unheadered.nes of=bin/chr2.bin

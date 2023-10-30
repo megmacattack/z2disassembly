@@ -2180,7 +2180,7 @@ bank4_Related_to_placing_crystal_onto_statue:                                   
     STA      $EF                       ; 0x11b24 $9B14 85 EF                   ; Sound Effects Type 4
     LDA      #$80                      ; 0x11b26 $9B16 A9 80                   ; A = 80
     STA      $EB                       ; 0x11b28 $9B18 85 EB                   ; Music
-    LDA      $0706                     ; 0x11b2a $9B1A AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x11b2a $9B1A AD 06 07                ; Current Region
     BEQ      L9B22                     ; 0x11b2d $9B1D F0 03                   ;
     CLC                                ; 0x11b2f $9B1F 18                      ;
     ADC      #$02                      ; 0x11b30 $9B20 69 02                   ;
@@ -5663,7 +5663,7 @@ LBAC0:                                                                          
 ; ---------------------------------------------------------------------------- ;
     BEQ      LBAD3                     ; 0x13ad1 $BAC1 F0 10                   ;
 bank4_Enemy_Routines_Helmethead__Gooma:                                         ;
-    LDA      $0706                     ; 0x13ad3 $BAC3 AD 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
+    LDA      region_number                     ; 0x13ad3 $BAC3 AD 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
     BEQ      LBACB                     ; 0x13ad6 $BAC6 F0 03                   ;
     JMP      LB4AD                     ; 0x13ad8 $BAC8 4C AD B4                ;
                                                                                ;
@@ -5673,7 +5673,7 @@ LBACB:                                                                          
     JSR      bank4_Related_to_Horsehead; 0x13ade $BACE 20 4E BC                ;
     LDA      #$06                      ; 0x13ae1 $BAD1 A9 06                   ;;A = #$06 0000_0110
 LBAD3:                                                                          ;
-    LDY      $0706                     ; 0x13ae3 $BAD3 AC 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
+    LDY      region_number                     ; 0x13ae3 $BAD3 AC 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
     BEQ      LBADA                     ; 0x13ae6 $BAD6 F0 02                   ;
     LDA      #$12                      ; 0x13ae8 $BAD8 A9 12                   ;;A = #$12 0001_0010
 LBADA:                                                                          ;
@@ -5926,7 +5926,7 @@ LBC7C:                                                                          
 bank4_Enemy_Init_Routines_Helmethead__Gooma__Barba:                             ;
     JSR      bank4_Enemy_Init_Routines_Horsehead__Rebonack; 0x13c8e $BC7E 20 A1 BC ;
     LDY      #$00                      ; 0x13c91 $BC81 A0 00                   ; Y = 00
-    LDA      $0706                     ; 0x13c93 $BC83 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x13c93 $BC83 AD 06 07                ; Current Region
     BEQ      LBC89                     ; 0x13c96 $BC86 F0 01                   ;
     INY                                ; 0x13c98 $BC88 C8                      ;
 LBC89:                                                                          ;
@@ -6066,7 +6066,7 @@ bank4_table_BD73:                                                               
 .byt    $FC,$04                        ; 0x13d83 $BD73 FC 04                   ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Helmethead__Gooma:                                        ;
-    LDA      $0706                     ; 0x13d85 $BD75 AD 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
+    LDA      region_number                     ; 0x13d85 $BD75 AD 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
     BEQ      LBD7D                     ; 0x13d88 $BD78 F0 03                   ;
     JMP      LB5AE                     ; 0x13d8a $BD7A 4C AE B5                ;
                                                                                ;

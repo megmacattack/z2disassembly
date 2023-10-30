@@ -669,7 +669,7 @@ L835A:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Check_for_Hidden_Palace_spot:                                             ;
-    LDA      $0706                     ; 0x4378 $8368 AD 06 07                 ; Current Region
+    LDA      region_number                     ; 0x4378 $8368 AD 06 07                 ; Current Region
     CMP      #$02                      ; 0x437b $836B C9 02                    ; Region 02 = East Hyrule
     BNE      L838E                     ; 0x437d $836D D0 1F                    ; if NOT 02, return
     LDA      $73                       ; 0x437f $836F A5 73                    ; Y position on map (square unit)

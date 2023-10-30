@@ -641,7 +641,7 @@ L835A:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank2_Check_for_Hidden_Palace_spot:                                             ;
-    LDA      $0706                     ; 0x8378 $8368 AD 06 07                 ; Current Region
+    LDA      region_number                     ; 0x8378 $8368 AD 06 07                 ; Current Region
     CMP      #$02                      ; 0x837b $836B C9 02                    ; Region 02 = East Hyrule
     BNE      L838E                     ; 0x837d $836D D0 1F                    ; if NOT 02, return
     LDA      $73                       ; 0x837f $836F A5 73                    ; Y position on map
@@ -1049,7 +1049,7 @@ bank2_Table_for_Palaces_to_test_for_completion:                                 
 ; ---------------------------------------------------------------------------- ;
 bank2_Transform_completed_palaces_into_stone:                                   ;
     LDX      #$03                      ; 0x87ab $879B A2 03                    ; X = 03
-    LDA      $0706                     ; 0x87ad $879D AD 06 07                 ; Current Region
+    LDA      region_number                     ; 0x87ad $879D AD 06 07                 ; Current Region
     CMP      #$02                      ; 0x87b0 $87A0 C9 02                    ;
     BNE      L87A6                     ; 0x87b2 $87A2 D0 02                    ;
     LDX      #$01                      ; 0x87b4 $87A4 A2 01                    ; X = 01

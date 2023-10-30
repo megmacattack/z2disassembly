@@ -825,7 +825,7 @@ bank7_code11:                                                                   
     LDA      $0501                     ; 0x1c42e $C41E AD 01 05                ;; Timer
     BNE      LC446                     ; 0x1c431 $C421 D0 23                   ;
     LDA      #$02                      ; 0x1c433 $C423 A9 02                   ; A = 02
-    LDY      $0707                     ; 0x1c435 $C425 AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1c435 $C425 AC 07 07                ; Current World
     BEQ      LC435                     ; 0x1c438 $C428 F0 0B                   ;
     CPY      #$03                      ; 0x1c43a $C42A C0 03                   ;
     BCS      LC436                     ; 0x1c43c $C42C B0 08                   ;
@@ -922,9 +922,9 @@ bank7_code13:                                                                  ;
     STA      $0764                     ; 0x1c50b $C4FB 8D 64 07                ; Counter for Big Door in Hidden Kasuto
 ;Get Area Data Pointer Address (00-01)                                         ;
 ;And Enemy Data Pointer Address (02-03)                                        ;
-    LDY      $0707                     ; 0x1c50e $C4FE AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1c50e $C4FE AC 07 07                ; Current World
     BNE      LC50C                     ; 0x1c511 $C501 D0 09                   ;
-    LDA      $0706                     ; 0x1c513 $C503 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1c513 $C503 AD 06 07                ; Current Region
     CMP      #$01                      ; 0x1c516 $C506 C9 01                   ;
     BNE      LC50C                     ; 0x1c518 $C508 D0 02                   ;
     LDY      #$04                      ; 0x1c51a $C50A A0 04                   ; Y = 04
@@ -1204,7 +1204,7 @@ bank7_Related_to_Link_falling:                                                  
     LDA      #$10                      ; 0x1c706 $C6F6 A9 10                   ; A = 10
     STA      $29                       ; 0x1c708 $C6F8 85 29                   ; Link's Y Position
     LDA      #$02                      ; 0x1c70a $C6FA A9 02                   ; A = 02
-    LDY      $0707                     ; 0x1c70c $C6FC AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1c70c $C6FC AC 07 07                ; Current World
     BNE      LC702                     ; 0x1c70f $C6FF D0 01                   ;
     ASL                                ; 0x1c711 $C701 0A                      ;
 LC702:                                                                          ;
@@ -1363,7 +1363,7 @@ LC818:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Set_Addy_for_Area_Layer_Tiles__using_10C:                                 ;
-    LDA      $0707                     ; 0x1c829 $C819 AD 07 07                ; Current World
+    LDA      world_number                     ; 0x1c829 $C819 AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c82c $C81C 20 85 D3;
 bank7_pointer_table9:                                                           ;
 .word    L81A3                         ; 0x1c82f $C81F A3 81                   ; World 0 - Bank 1 and 2
@@ -1512,7 +1512,7 @@ LC909:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LC912:                                                                          ;
     LDX      $0731                     ; 0x1c922 $C912 AE 31 07                ; Level Object Type and Size
-    LDA      $0707                     ; 0x1c925 $C915 AD 07 07                ; Current World
+    LDA      world_number                     ; 0x1c925 $C915 AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c928 $C918 20 85 D3; Set Object Construction Address
 bank7_Pointer_table_for_Objects_Construction_Address:                           ;
 .word    L80EE                         ; 0x1c92b $C91B EE 80                   ;Overworld Areas (WH DM EH MI)
@@ -1524,7 +1524,7 @@ bank7_Pointer_table_for_Objects_Construction_Address:                           
 ; ---------------------------------------------------------------------------- ;
 bank7_Set_Address_for_Small_Object:                                             ;
     LDX      $0731                     ; 0x1c937 $C927 AE 31 07                ; Level Object Type and Size
-    LDA      $0707                     ; 0x1c93a $C92A AD 07 07                ; Current World
+    LDA      world_number                     ; 0x1c93a $C92A AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c93d $C92D 20 85 D3; Set Object Construction Address
 bank7_Pointer_table_for_Small_Objects_Construction_Address:                     ;
 .word    L812F                         ; 0x1c940 $C930 2F 81                   ;Overworld Areas (WH DM EH MI)
@@ -1864,7 +1864,7 @@ bank7_code17:                                                                   
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCB42:                                                                          ;
-    LDA      $0706                     ; 0x1cb52 $CB42 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1cb52 $CB42 AD 06 07                ; Current Region
     BNE      LCB4B                     ; 0x1cb55 $CB45 D0 04                   ;
     CPY      #$00                      ; 0x1cb57 $CB47 C0 00                   ;
     BEQ      LCB59                     ; 0x1cb59 $CB49 F0 0E                   ;
@@ -1903,12 +1903,12 @@ LCB59:                                                                          
     SBC      #$34                      ; 0x1cb96 $CB86 E9 34                   ;
     STA      $056C                     ; 0x1cb98 $CB88 8D 6C 05                ; Palace Code
 ;$056C = $0748 - #$34                                                          ;
-    LDA      $0706                     ; 0x1cb9b $CB8B AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1cb9b $CB8B AD 06 07                ; Current Region
     STA      $070A                     ; 0x1cb9e $CB8E 8D 0A 07                ;; Previous Region ?
     LDA      $6ABD,y                   ; 0x1cba1 $CB91 B9 BD 6A                ; Area Byte 3 (World Number)
     PHA                                ; 0x1cba4 $CB94 48                      ;
     AND      #$03                      ; 0x1cba5 $CB95 29 03                   ; keep bits .... ..xx
-    STA      $0706                     ; 0x1cba7 $CB97 8D 06 07                ; Current Region
+    STA      region_number                     ; 0x1cba7 $CB97 8D 06 07                ; Current Region
     BEQ      LCBA5                     ; 0x1cbaa $CB9A F0 09                   ;
 ;If Region != 0, Town Code + 4                                                 ;
     LDA      $056B                     ; 0x1cbac $CB9C AD 6B 05                ; Town Code
@@ -1920,7 +1920,7 @@ LCBA5:                                                                          
     LSR                                ; 0x1cbb6 $CBA6 4A                      ;
     LSR                                ; 0x1cbb7 $CBA7 4A                      ;
     AND      #$07                      ; 0x1cbb8 $CBA8 29 07                   ; keep bits .... .xxx
-    STA      $0707                     ; 0x1cbba $CBAA 8D 07 07                ; Current World
+    STA      world_number                     ; 0x1cbba $CBAA 8D 07 07                ; Current World
     BNE      LCBB2                     ; 0x1cbbd $CBAD D0 03                   ;
     INC      $0709                     ; 0x1cbbf $CBAF EE 09 07                ;; used for going outside??
 LCBB2:                                                                          ;
@@ -1930,8 +1930,8 @@ LCBB2:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCBB8:                                                                          ;
-    LDA      $0706                     ; 0x1cbc8 $CBB8 AD 06 07                ; Current Region
-    ORA      $0707                     ; 0x1cbcb $CBBB 0D 07 07                ; Current World
+    LDA      region_number                     ; 0x1cbc8 $CBB8 AD 06 07                ; Current Region
+    ORA      world_number                     ; 0x1cbcb $CBBB 0D 07 07                ; Current World
     ORA      $0748                     ; 0x1cbce $CBBE 0D 48 07                ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     BEQ      LCBCD                     ; 0x1cbd1 $CBC1 F0 0A                   ;
     LDA      $07AC                     ; 0x1cbd3 $CBC3 AD AC 07                ;
@@ -1977,7 +1977,7 @@ LCBF8:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Determine_the_Random_Battle_according_to_Links_position_in_OW:            ;
-    LDY      $0706                     ; 0x1cc1f $CC0F AC 06 07                ; Current Region
+    LDY      region_number                     ; 0x1cc1f $CC0F AC 06 07                ; Current Region
     LDA      $73                       ; 0x1cc22 $CC12 A5 73                   ; Y Position on OW (square unit)
     CMP      bank7_Height_of_frontier_between_North_and_South,y; 0x1cc24 $CC14 D9 32 CB; Height of frontier between North and South
     LDA      #$00                      ; 0x1cc27 $CC17 A9 00                   ; A = 00
@@ -2164,12 +2164,12 @@ bank7_Table_for_Palace_Entrance_Palettes_Offset:                                
 .byt    $40,$50,$60                    ; 0x1cd4d $CD3D 40 50 60                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_code18:                                                                   ;
-    LDY      $0707                     ; 0x1cd50 $CD40 AC 07 07                ; Current World;cd40 ;Normalized world number into Y
+    LDY      world_number                     ; 0x1cd50 $CD40 AC 07 07                ; Current World;cd40 ;Normalized world number into Y
     LDA      LC4B7,y                   ; 0x1cd53 $CD43 B9 B7 C4                ;cd43 ;Load bank number from table
     CMP      #$01                      ; 0x1cd56 $CD46 C9 01                   ;cd46 ;Bank 1 represents overworlds
     BNE      LCD59                     ; 0x1cd58 $CD48 D0 0F                   ;cd48 ;if not overworld, then done
 ; Determine if we really want bank 1 or 2                                      ;
-    LDY      $0706                     ; 0x1cd5a $CD4A AC 06 07                ; Current Region;cd4a ;Get the overworld index
+    LDY      region_number                     ; 0x1cd5a $CD4A AC 06 07                ; Current Region;cd4a ;Get the overworld index
     BEQ      LCD59                     ; 0x1cd5d $CD4D F0 0A                   ;cd4d ;If index==0 then WestHy (bank1).  done.
     DEY                                ; 0x1cd5f $CD4F 88                      ;cd4f ;Decrement index
     BNE      LCD57                     ; 0x1cd60 $CD50 D0 05                   ;cd50 ;If index!=0 then EastHy (bank2).
@@ -2183,10 +2183,10 @@ LCD59:                                                                          
     STA      PRG_bank                     ; 0x1cd69 $CD59 8D 69 07                ; Bank to switch to;cd59 ;Store desired bank number
     JSR      SwapPRG                     ; 0x1cd6c $CD5C 20 CC FF                ; Bank Switch
     LDA      PRG_bank                     ; 0x1cd6f $CD5F AD 69 07                ; Bank to switch to
-    LDY      $0707                     ; 0x1cd72 $CD62 AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1cd72 $CD62 AC 07 07                ; Current World
     CPY      #$03                      ; 0x1cd75 $CD65 C0 03                   ;
     BCC      LCD78                     ; 0x1cd77 $CD67 90 0F                   ;
-    LDA      $0706                     ; 0x1cd79 $CD69 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1cd79 $CD69 AD 06 07                ; Current Region
     ASL                                ; 0x1cd7c $CD6C 0A                      ;
     ASL                                ; 0x1cd7d $CD6D 0A                      ;
     ADC      $056C                     ; 0x1cd7e $CD6E 6D 6C 05                ; Palace Code
@@ -2196,9 +2196,9 @@ LCD59:                                                                          
 LCD78:                                                                          ;
     ASL                                ; 0x1cd88 $CD78 0A                      ;
     STA      $076E                     ; 0x1cd89 $CD79 8D 6E 07                ; Graphics bank to use
-    LDY      $0707                     ; 0x1cd8c $CD7C AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1cd8c $CD7C AC 07 07                ; Current World
     BNE      LCD8A                     ; 0x1cd8f $CD7F D0 09                   ;
-    LDA      $0706                     ; 0x1cd91 $CD81 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1cd91 $CD81 AD 06 07                ; Current Region
     CMP      #$01                      ; 0x1cd94 $CD84 C9 01                   ;
     BNE      LCD8A                     ; 0x1cd96 $CD86 D0 02                   ;
     LDY      #$04                      ; 0x1cd98 $CD88 A0 04                   ; Y = 04
@@ -2230,7 +2230,7 @@ LCDB5:                                                                          
     STA      $7300,y                   ; 0x1cdc8 $CDB8 99 00 73                ; load into 7300-73FF
     INY                                ; 0x1cdcb $CDBB C8                      ;
     BNE      LCDB5                     ; 0x1cdcc $CDBC D0 F7                   ;
-    LDX      $0706                     ; 0x1cdce $CDBE AE 06 07                ; Current Region
+    LDX      region_number                     ; 0x1cdce $CDBE AE 06 07                ; Current Region
     LDA      bank7_Region_Overworld_Map_Pointer_Offset_Selector,x; 0x1cdd1 $CDC1 BD 27 CD;
     TAX                                ; 0x1cdd4 $CDC4 AA                      ;
     LDA      L8508,x                   ; 0x1cdd5 $CDC5 BD 08 85                ; Overworld Map Data Pointer Low Byte
@@ -2287,10 +2287,10 @@ LCE17:                                                                          
     INY                                ; 0x1ce2d $CE1D C8                      ;
     CPY      #$E0                      ; 0x1ce2e $CE1E C0 E0                   ;
     BCC      LCE17                     ; 0x1ce30 $CE20 90 F5                   ;
-    LDA      $0707                     ; 0x1ce32 $CE22 AD 07 07                ; Current World
+    LDA      world_number                     ; 0x1ce32 $CE22 AD 07 07                ; Current World
     CMP      #$03                      ; 0x1ce35 $CE25 C9 03                   ;
     BCC      bank7_Transfer_2A1_bytes_from_9400_or_A900_if_World_4_to_6D00; 0x1ce37 $CE27 90 4E;
-    LDA      $0706                     ; 0x1ce39 $CE29 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1ce39 $CE29 AD 06 07                ; Current Region
     ASL                                ; 0x1ce3c $CE2C 0A                      ;
     ASL                                ; 0x1ce3d $CE2D 0A                      ;
     ADC      $056C                     ; 0x1ce3e $CE2E 6D 6C 05                ; Palace Code
@@ -2344,7 +2344,7 @@ bank7_Transfer_2A1_bytes_from_9400_or_A900_if_World_4_to_6D00:                  
     STA      $00                       ; 0x1ce89 $CE79 85 00                   ;
     LDA      #$94                      ; 0x1ce8b $CE7B A9 94                   ; A = 94
     STA      $01                       ; 0x1ce8d $CE7D 85 01                   ;
-    LDA      $0707                     ; 0x1ce8f $CE7F AD 07 07                ; Current World
+    LDA      world_number                     ; 0x1ce8f $CE7F AD 07 07                ; Current World
     CMP      #$04                      ; 0x1ce92 $CE82 C9 04                   ; World 4 = Palaces Type B
     BNE      LCE8E                     ; 0x1ce94 $CE84 D0 08                   ;
     LDA      #$00                      ; 0x1ce96 $CE86 A9 00                   ; A = 00
@@ -2387,7 +2387,7 @@ LCEA0:                                                                          
     STA      $05                       ; 0x1ced9 $CEC9 85 05                   ;
     ORA      $04                       ; 0x1cedb $CECB 05 04                   ;
     BNE      LCEA0                     ; 0x1cedd $CECD D0 D1                   ;
-    LDY      $0707                     ; 0x1cedf $CECF AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1cedf $CECF AC 07 07                ; Current World
     DEY                                ; 0x1cee2 $CED2 88                      ;
     CPY      #$02                      ; 0x1cee3 $CED3 C0 02                   ;
     BCS      LCEF6                     ; 0x1cee5 $CED5 B0 1F                   ;
@@ -2412,7 +2412,7 @@ LCEEE:                                                                          
     DEY                                ; 0x1cf03 $CEF3 88                      ;
     BPL      LCEEE                     ; 0x1cf04 $CEF4 10 F8                   ;
 LCEF6:                                                                          ;
-    LDY      $0707                     ; 0x1cf06 $CEF6 AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1cf06 $CEF6 AC 07 07                ; Current World
     BNE      LCF09                     ; 0x1cf09 $CEF9 D0 0E                   ;
     LDA      $0709                     ; 0x1cf0b $CEFB AD 09 07                ;; used for going outside??
     BNE      LCF05                     ; 0x1cf0e $CEFE D0 05                   ;
@@ -2452,11 +2452,11 @@ LCF21_SaveGameWhenChooseSAVEwhenDead__maybe:                                    
 ; ---------------------------------------------------------------------------- ;
 bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW:                                 ;
 ;Region Code * 5 + World Code                                                  ;
-    LDA      $0706                     ; 0x1cf40 $CF30 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1cf40 $CF30 AD 06 07                ; Current Region
     ASL                                ; 0x1cf43 $CF33 0A                      ;
     ASL                                ; 0x1cf44 $CF34 0A                      ;
-    ADC      $0706                     ; 0x1cf45 $CF35 6D 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
-    ADC      $0707                     ; 0x1cf48 $CF38 6D 07 07                ; Current World
+    ADC      region_number                     ; 0x1cf45 $CF35 6D 06 07                ;; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
+    ADC      world_number                     ; 0x1cf48 $CF38 6D 07 07                ; Current World
     RTS                                ; 0x1cf4b $CF3B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2474,7 +2474,7 @@ bank7_take_side_exit:                                                           
     JSR      bank7_Remove_All_Sprites  ; 0x1cf5c $CF4C 20 4C D2                ; Remove All Sprites
     JSR      SwapToSavedPRG; 0x1cf5f $CF4F 20 C9 FF                ; Load Bank $0769
     LDA      $0561                     ; 0x1cf62 $CF52 AD 61 05                ; Area Code
-    LDY      $0707                     ; 0x1cf65 $CF55 AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1cf65 $CF55 AC 07 07                ; Current World
     BNE      LCF60                     ; 0x1cf68 $CF58 D0 06                   ;
     CMP      #$1D                      ; 0x1cf6a $CF5A C9 1D                   ;
     BCC      LCF60                     ; 0x1cf6c $CF5C 90 02                   ;
@@ -2500,11 +2500,11 @@ LCF60:                                                                          
     LDY      #$90                      ; 0x1cf91 $CF81 A0 90                   ; Y = 90
     STY      $4000                     ; 0x1cf93 $CF83 8C 00 40                ;
     LDA      #$01                      ; 0x1cf96 $CF86 A9 01                   ; A = 01
-    LDY      $0707                     ; 0x1cf98 $CF88 AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1cf98 $CF88 AC 07 07                ; Current World
     BEQ      LCF9D                     ; 0x1cf9b $CF8B F0 10                   ;
     JSR      bank7_Mute_music_when_loading_between_areas; 0x1cf9d $CF8D 20 3D D0   ; Mute Music
     LDY      #$00                      ; 0x1cfa0 $CF90 A0 00                   ; Y = 00
-    STY      $0707                     ; 0x1cfa2 $CF92 8C 07 07                ; Current World
+    STY      world_number                     ; 0x1cfa2 $CF92 8C 07 07                ; Current World
     INC      $0709                     ; 0x1cfa5 $CF95 EE 09 07                ;; used for going outside??
     LDA      #$00                      ; 0x1cfa8 $CF98 A9 00                   ; A = 00
 LCF9A:                                                                          ;
@@ -2514,7 +2514,7 @@ LCF9A:                                                                          
 LCF9D:                                                                          ;
     LDY      #$04                      ; 0x1cfad $CF9D A0 04                   ; Y = 04
     STY      $05E9                     ; 0x1cfaf $CF9F 8C E9 05                ; Sound Played Out of Area
-    LDY      $0706                     ; 0x1cfb2 $CFA2 AC 06 07                ; Current Region
+    LDY      region_number                     ; 0x1cfb2 $CFA2 AC 06 07                ; Current Region
     BNE      LCF9A                     ; 0x1cfb5 $CFA5 D0 F3                   ;
     LDY      $0561                     ; 0x1cfb7 $CFA7 AC 61 05                ; Area Code
     BNE      LCF9A                     ; 0x1cfba $CFAA D0 EE                   ;
@@ -2630,7 +2630,7 @@ bank7_Set_PPU_Macro_for_Palettes:                                               
     AND      #$70                      ; 0x1d078 $D068 29 70                   ; keep bits .xxx ....
     CMP      #$10                      ; 0x1d07a $D06A C9 10                   ;
     BNE      LD07D                     ; 0x1d07c $D06C D0 0F                   ;
-    LDX      $0707                     ; 0x1d07e $D06E AE 07 07                ; Current World
+    LDX      world_number                     ; 0x1d07e $D06E AE 07 07                ; Current World
     BNE      LD07D                     ; 0x1d081 $D071 D0 0A                   ;
     LDX      $0785                     ; 0x1d083 $D073 AE 85 07                ; Have Candle
     BNE      LD07D                     ; 0x1d086 $D076 D0 05                   ;
@@ -4184,7 +4184,7 @@ bank7_table_for_Moa:                                                            
 bank7_Enemy_Routines1_Moa:                                                      ;
     JSR      bank7_Enemy_Stops_when_Hit; 0x1dadf $DACF 20 02 DA                ; Enemy Stops when Hit
     JSR      LDE54                     ; 0x1dae2 $DAD2 20 54 DE                ;
-    LDA      $0706                     ; 0x1dae5 $DAD5 AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1dae5 $DAD5 AD 06 07                ; Current Region
     CMP      #$02                      ; 0x1dae8 $DAD8 C9 02                   ; check if Region is 02 (East Hyrule)
     BNE      LDAE1                     ; 0x1daea $DADA D0 05                   ;
     LDA      $078A                     ; 0x1daec $DADC AD 8A 07                ; Have Cross ?
@@ -4916,7 +4916,7 @@ LDF7C:                                                                          
 bank7_Related_to_Hidden_Town_revealed:                                          ;
     TXA                                ; 0x1df9b $DF8B 8A                      ;
     BEQ      LDFBD                     ; 0x1df9c $DF8C F0 2F                   ;
-    LDA      $0706                     ; 0x1df9e $DF8E AD 06 07                ; Current Region
+    LDA      region_number                     ; 0x1df9e $DF8E AD 06 07                ; Current Region
     CMP      #$02                      ; 0x1dfa1 $DF91 C9 02                   ; Region 02 = East Hyrule
     BNE      LDFD1                     ; 0x1dfa3 $DF93 D0 3C                   ; if NOT 02, return
     CPX      #$03                      ; 0x1dfa5 $DF95 E0 03                   ;
@@ -5731,7 +5731,7 @@ LE4D9:                                                                          
     LDA      $A1,x                     ; 0x1e4e9 $E4D9 B5 A1                   ; Enemy Code
     CMP      #$13                      ; 0x1e4eb $E4DB C9 13                   ; 13 = Elevator
     BEQ      LE4F7                     ; 0x1e4ed $E4DD F0 18                   ;
-    LDY      $0707                     ; 0x1e4ef $E4DF AC 07 07                ; Current World
+    LDY      world_number                     ; 0x1e4ef $E4DF AC 07 07                ; Current World
     DEY                                ; 0x1e4f2 $E4E2 88                      ;
     CPY      #$02                      ; 0x1e4f3 $E4E3 C0 02                   ;
     BCC      LE4F7                     ; 0x1e4f5 $E4E5 90 10                   ;

@@ -1021,7 +1021,7 @@ bank5_routines_related_to_Ending_sequence:                                      
     LDA      #$05                      ; 0x14b60 $8B50 A9 05                   ; A = 05
     STA      $0769                     ; 0x14b62 $8B52 8D 69 07                ; Bank to switch to
     LDA      #$05                      ; 0x14b65 $8B55 A9 05                   ; A = 05
-    STA      $0707                     ; 0x14b67 $8B57 8D 07 07                ; Current World
+    STA      world_number                     ; 0x14b67 $8B57 8D 07 07                ; Current World
     LDA      #$3E                      ; 0x14b6a $8B5A A9 3E                   ; A = 3E
     LDY      $0761                     ; 0x14b6c $8B5C AC 61 07                ;
     BNE      L8B63                     ; 0x14b6f $8B5F D0 02                   ;
@@ -1037,7 +1037,7 @@ L8B69:                                                                          
     LDX      #$04                      ; 0x14b7e $8B6E A2 04                   ; X = 04
     STX      $EB                       ; 0x14b80 $8B70 86 EB                   ; Music
     LDA      #$06                      ; 0x14b82 $8B72 A9 06                   ; A = 06
-    STA      $0707                     ; 0x14b84 $8B74 8D 07 07                ; Current World
+    STA      world_number                     ; 0x14b84 $8B74 8D 07 07                ; Current World
 L8B77:                                                                          ;
     LDA      $2002                     ; 0x14b87 $8B77 AD 02 20                ;
     LDA      $FF                       ; 0x14b8a $8B7A A5 FF                   ;; Sprite Bank ?
@@ -1261,7 +1261,7 @@ L8CE3:                                                                          
     AND      #$38                      ; 0x14d11 $8D01 29 38                   ; keep bits ..xx x...
     CMP      #$08                      ; 0x14d13 $8D03 C9 08                   ;
     BNE      L8D10                     ; 0x14d15 $8D05 D0 09                   ;
-    LDA      $0707                     ; 0x14d17 $8D07 AD 07 07                ; Current World
+    LDA      world_number                     ; 0x14d17 $8D07 AD 07 07                ; Current World
     ORA      $0785                     ; 0x14d1a $8D0A 0D 85 07                ; Have Candle
     BNE      L8D10                     ; 0x14d1d $8D0D D0 01                   ;
     INY                                ; 0x14d1f $8D0F C8                      ;

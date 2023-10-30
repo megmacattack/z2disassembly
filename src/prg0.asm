@@ -237,9 +237,9 @@ North_Castle_Chandeliers_sprite_attributes:                                     
 .byt    $7F,$52,$01,$A0,$8F,$7B,$03,$A0; 0xed $80DD 7F 52 01 A0 8F 7B 03 A0    ;
 ; ---------------------------------------------------------------------------- ;
 Chandeliers_in_North_Castle:                                                    ;
-    LDA      $0707                     ; 0xf5 $80E5 AD 07 07                   ; Current World				0xF8	JMP $813F		;do jmp here and you can take all the space from 0xFB to 0x14C
+    LDA      world_number                     ; 0xf5 $80E5 AD 07 07                   ; Current World				0xF8	JMP $813F		;do jmp here and you can take all the space from 0xFB to 0x14C
     ORA      $0561                     ; 0xf8 $80E8 0D 61 05                   ; Area Code
-    ORA      $0706                     ; 0xfb $80EB 0D 06 07                   ; Current Region
+    ORA      region_number                     ; 0xfb $80EB 0D 06 07                   ; Current Region
 L80EE:                                                                          ;
     BNE      L813F                     ; 0xfe $80EE D0 4F                      ;
     LDX      #$0F                      ; 0x100 $80F0 A2 0F                     ; X = 0F
@@ -496,7 +496,7 @@ L8281:                                                                          
 .byt    $02,$02,$03                    ; 0x291 $8281 02 02 03                  ;
 ; ---------------------------------------------------------------------------- ;
 overworld1:                                                                     ;
-    LDA      $0706                     ; 0x294 $8284 AD 06 07                  ; Current Region
+    LDA      region_number                     ; 0x294 $8284 AD 06 07                  ; Current Region
     BNE      L828F                     ; 0x297 $8287 D0 06                     ;
     LDA      $73                       ; 0x299 $8289 A5 73                     ; Y Position on OW (square unit)
     CMP      #$3C                      ; 0x29b $828B C9 3C                     ; height that splits region's north and south
@@ -979,7 +979,7 @@ L8594:                                                                          
 L8599:                                                                          ;
     CPX      #$29                      ; 0x5a9 $8599 E0 29                     ; Check for Dock square unit ID (West Hyrule)
     BNE      L85A9                     ; 0x5ab $859B D0 0C                     ;
-    LDA      $0706                     ; 0x5ad $859D AD 06 07                  ; Current Region
+    LDA      region_number                     ; 0x5ad $859D AD 06 07                  ; Current Region
 L85A1     = * + $0001                                                          ;
     CMP      #$01                      ; 0x5b0 $85A0 C9 01                     ; Check if in East Hyrule
     BEQ      L85A9                     ; 0x5b2 $85A2 F0 05                     ;
@@ -1010,7 +1010,7 @@ L85D2:                                                                          
     DEX                                ; 0x5e2 $85D2 CA                        ;
     BPL      L85AE                     ; 0x5e3 $85D3 10 D9                     ; loop for both Docks
 L85D5:                                                                          ;
-    LDY      $0706                     ; 0x5e5 $85D5 AC 06 07                  ; Current Region (0 = West Hyrule, 1 = East)
+    LDY      region_number                     ; 0x5e5 $85D5 AC 06 07                  ; Current Region (0 = West Hyrule, 1 = East)
     BEQ      L85EB                     ; 0x5e8 $85D8 F0 11                     ;
     LDA      $73                       ; 0x5ea $85DA A5 73                     ; Y position on map (square unit)
     CMP      L8553,y                   ; 0x5ec $85DC D9 53 85                  ;
@@ -1410,7 +1410,7 @@ L8871:                                                                          
     LDA      $07AA                     ; 0x891 $8881 AD AA 07                  ;
     ORA      $07AD                     ; 0x894 $8884 0D AD 07                  ;; * related to Raft Animation *
     BNE      L889E                     ; 0x897 $8887 D0 15                     ;
-    LDA      $0706                     ; 0x899 $8889 AD 06 07                  ; Current Region
+    LDA      region_number                     ; 0x899 $8889 AD 06 07                  ; Current Region
     ORA      $0748                     ; 0x89c $888C 0D 48 07                  ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     BEQ      L8895                     ; 0x89f $888F F0 04                     ;
     LDA      #$02                      ; 0x8a1 $8891 A9 02                     ; A = 02 (song to play out of danger area)
@@ -1474,7 +1474,7 @@ Define_Overworld_Boundaries_Mountain_or_Water:                                  
 L88F0:                                                                          ;
     LDX      #$17                      ; 0x900 $88F0 A2 17                     ; X = 17
     LDA      #$0C                      ; 0x902 $88F2 A9 0C                     ; A = 0C (0C = 1 unit of Water)
-    LDY      $0706                     ; 0x904 $88F4 AC 06 07                  ; Current Region
+    LDY      region_number                     ; 0x904 $88F4 AC 06 07                  ; Current Region
     CPY      #$02                      ; 0x907 $88F7 C0 02                     ;
     BCS      L8903                     ; 0x909 $88F9 B0 08                     ; if Current Region >= 2, goto $0903
     LDY      $76                       ; 0x90b $88FB A4 76                     ; X position on map (Link)
@@ -1963,7 +1963,7 @@ L8C02:                                                                          
     DEX                                ; 0xc15 $8C05 CA                        ;
     BPL      L8C02                     ; 0xc16 $8C06 10 FA                     ;
     LDX      #$14                      ; 0xc18 $8C08 A2 14                     ; X = 14
-    LDY      $0706                     ; 0xc1a $8C0A AC 06 07                  ; Current Region
+    LDY      region_number                     ; 0xc1a $8C0A AC 06 07                  ; Current Region
     CPY      #$02                      ; 0xc1d $8C0D C0 02                     ;
     BCS      L8C13                     ; 0xc1f $8C0F B0 02                     ;
     LDA      #$0B                      ; 0xc21 $8C11 A9 0B                     ; A = 0B (Mountain)
@@ -2291,7 +2291,7 @@ L8E6F:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Spell_Spell:                                                                    ;
-    LDA      $0707                     ; 0xe83 $8E73 AD 07 07                  ; Current World
+    LDA      world_number                     ; 0xe83 $8E73 AD 07 07                  ; Current World
     BEQ      L8E8A                     ; 0xe86 $8E76 F0 12                     ;
     CMP      #$03                      ; 0xe88 $8E78 C9 03                     ;
     BCS      L8E8A                     ; 0xe8a $8E7A B0 0E                     ;
@@ -2548,7 +2548,7 @@ L9012:                                                                          
     BCC      L9039                     ; 0x1038 $9028 90 0F                    ;
     INC      $0726                     ; 0x103a $902A EE 26 07                 ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      #$08                      ; 0x103d $902D A9 08                    ; A = 08
-    LDY      $0707                     ; 0x103f $902F AC 07 07                 ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
+    LDY      world_number                     ; 0x103f $902F AC 07 07                 ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     BEQ      L9036                     ; 0x1042 $9032 F0 02                    ;
     LDA      #$10                      ; 0x1044 $9034 A9 10                    ; A = 10
 L9036:                                                                          ;
@@ -2882,7 +2882,7 @@ L9245:                                                                          
     AND      #$38                      ; 0x1273 $9263 29 38                    ; keep bits ..xx x...
     CMP      #$08                      ; 0x1275 $9265 C9 08                    ;
     BNE      L9272                     ; 0x1277 $9267 D0 09                    ;
-    LDA      $0707                     ; 0x1279 $9269 AD 07 07                 ; Current World
+    LDA      world_number                     ; 0x1279 $9269 AD 07 07                 ; Current World
     ORA      $0785                     ; 0x127c $926C 0D 85 07                 ; Have Candle
     BNE      L9272                     ; 0x127f $926F D0 01                    ;
     INY                                ; 0x1281 $9271 C8                       ;
@@ -3006,7 +3006,7 @@ L9341:                                                                          
     AND      #$F0                      ; 0x1363 $9353 29 F0                    ; keep bits xxxx ....
     STA      $29                       ; 0x1365 $9355 85 29                    ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
     LDY      #$0C                      ; 0x1367 $9357 A0 0C                    ; Y = 0C
-    LDA      $0707                     ; 0x1369 $9359 AD 07 07                 ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
+    LDA      world_number                     ; 0x1369 $9359 AD 07 07                 ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     BEQ      L9364                     ; 0x136c $935C F0 06                    ;
     INY                                ; 0x136e $935E C8                       ;
     CMP      #$03                      ; 0x136f $935F C9 03                    ;
@@ -6188,8 +6188,8 @@ Link_Skin_Color:                                                                
 ; ---------------------------------------------------------------------------- ;
 startup_init_begin_game:                                                        ;
     STA      $0738                     ; 0x2a18 $AA08 8D 38 07                 ;
-    STA      $0706                     ; 0x2a1b $AA0B 8D 06 07                 ; Current Region
-    STA      $0707                     ; 0x2a1e $AA0E 8D 07 07                 ; Current World
+    STA      region_number                     ; 0x2a1b $AA0B 8D 06 07                 ; Current Region
+    STA      world_number                     ; 0x2a1e $AA0E 8D 07 07                 ; Current World
     STA      $0561                     ; 0x2a21 $AA11 8D 61 05                 ; Area Code
     STA      $0748                     ; 0x2a24 $AA14 8D 48 07                 ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     STA      $073F                     ; 0x2a27 $AA17 8D 3F 07                 ;

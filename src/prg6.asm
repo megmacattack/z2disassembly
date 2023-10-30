@@ -2268,7 +2268,7 @@ L9B18:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9B24:                                                                          ;
-    LDA      $0707                     ; 0x19b34 $9B24 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
+    LDA      world_number                     ; 0x19b34 $9B24 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     CMP      #$05                      ; 0x19b37 $9B27 C9 05                   ;
     BNE      L9B34                     ; 0x19b39 $9B29 D0 09                   ;
     LDA      $07FB                     ; 0x19b3b $9B2B AD FB 07                ;
@@ -2322,7 +2322,7 @@ L9B7A:                                                                          
     BCC      L9B7A                     ; 0x19b8c $9B7C 90 FC                   ;
     STY      $E2                       ; 0x19b8e $9B7E 84 E2                   ;
 L9B80:                                                                          ;
-    LDA      $0707                     ; 0x19b90 $9B80 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
+    LDA      world_number                     ; 0x19b90 $9B80 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     BNE      L9BBC                     ; 0x19b93 $9B83 D0 37                   ;
 L9B86     = * + $0001                                                          ;
     LDY      $E2                       ; 0x19b95 $9B85 A4 E2                   ;

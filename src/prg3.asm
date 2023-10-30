@@ -3943,7 +3943,7 @@ LB5D0:                                                                          
     BEQ      LB5E7                     ; 0xf5f2 $B5E2 F0 03                    ;
     LDA      bank3_related_to_dialog_indexes2,y; 0xf5f4 $B5E4 B9 9C A2             ;
 LB5E7:                                                                          ;
-    LDX      $0707                     ; 0xf5f7 $B5E7 AE 07 07                 ; Current World
+    LDX      world_number                     ; 0xf5f7 $B5E7 AE 07 07                 ; Current World
     CPX      #$02                      ; 0xf5fa $B5EA E0 02                    ; 02 = Towns in East Hyrule
     BNE      bank3_At_this_point_A_is_the_dialog_index; 0xf5fc $B5EC D0 0A         ;
     LDA      bank3_related_to_dialog_indexes3,y; 0xf5fe $B5EE B9 DC A2             ;
@@ -3953,7 +3953,7 @@ LB5E7:                                                                          
 bank3_At_this_point_A_is_the_dialog_index:                                      ;
     ASL                                ; 0xf608 $B5F8 0A                       ;
     TAY                                ; 0xf609 $B5F9 A8                       ;
-    LDA      $0707                     ; 0xf60a $B5FA AD 07 07                 ; Current World
+    LDA      world_number                     ; 0xf60a $B5FA AD 07 07                 ; Current World
     ASL                                ; 0xf60d $B5FD 0A                       ;
     TAX                                ; 0xf60e $B5FE AA                       ;
     LDA      LB421,x                   ; 0xf60f $B5FF BD 21 B4                 ;

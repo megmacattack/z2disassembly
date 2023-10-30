@@ -8,7 +8,7 @@ Zelda2Reassembled.nes: bin/header.bin prg.bin chr.bin
 	cat $+ > .$@.new
 	mv .$@.new $@
 
-obj/%.o: src/%.asm inc/mmc1.asm inc/nes.asm inc/macros.asm inc/prg7-exports.asm src/variables.asm src/prg7/reset.asm src/prg7/vector.asm
+obj/%.o: src/%.asm inc/mmc1.asm inc/nes.asm inc/macros.asm inc/prg7-exports.asm inc/variables.asm src/prg7/reset.asm src/prg7/vector.asm
 	mkdir -p obj
 	${AS65} -I inc -o $@ $<
 
@@ -18,3 +18,6 @@ prg.bin: $(PRG)
 chr.bin: $(CHR)
 	cat $+ > .$@.new
 	mv .$@.new $@
+
+clean:
+	rm -f chr.bin prg.bin obj/*.o Zelda2Reassembled.nes

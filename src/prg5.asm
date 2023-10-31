@@ -4917,62 +4917,78 @@ LA931:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_table_intro_screen_text:                                                  ;
-.byt    $DA,$DF,$ED,$DE,$EB,$F4,$E0,$DA; 0x16942 $A932 DA DF ED DE EB F4 E0 DA ;
-.byt    $E7,$E8,$E7,$F4,$F0,$DA,$EC,$F4; 0x1694a $A93A E7 E8 E7 F4 F0 DA EC F4 ;
-.byt    $DD,$DE,$EC,$ED,$EB,$E8,$F2,$DE; 0x16952 $A942 DD DE EC ED EB E8 F2 DE ;
-.byt    $DD,$9C,$F4,$F4,$FD,$E2,$E6,$E9; 0x1695a $A94A DD 9C F4 F4 FD E2 E6 E9 ;
-.byt    $DA,$F4,$ED,$E8,$E5,$DD,$F4,$E5; 0x16962 $A952 DA F4 ED E8 E5 DD F4 E5 ;
-.byt    $E2,$E7,$E4,$F4,$DA,$F4,$EC,$E5; 0x1696a $A95A E2 E7 E4 F4 DA F4 EC E5 ;
-.byt    $DE,$DE,$E9,$E2,$E7,$E0,$F4,$F4; 0x16972 $A962 DE DE E9 E2 E7 E0 F4 F4 ;
-.byt    $F4,$FD,$EC,$E9,$DE,$E5,$E5,$F4; 0x1697a $A96A F4 FD EC E9 DE E5 E5 F4 ;
-.byt    $F0,$DA,$EC,$F4,$DC,$DA,$EC,$ED; 0x16982 $A972 F0 DA EC F4 DC DA EC ED ;
-.byt    $F4,$E8,$E7,$F4,$E9,$EB,$E2,$E7; 0x1698a $A97A F4 E8 E7 F4 E9 EB E2 E7 ;
-.byt    $DC,$DE,$EC,$EC,$F4,$F4,$FD,$F3; 0x16992 $A982 DC DE EC EC F4 F4 FD F3 ;
-.byt    $DE,$E5,$DD,$DA,$CF,$F4,$EC,$E1; 0x1699a $A98A DE E5 DD DA CF F4 EC E1 ;
-.byt    $DE,$F4,$F0,$E2,$E5,$E5,$F4,$F0; 0x169a2 $A992 DE F4 F0 E2 E5 E5 F4 F0 ;
-.byt    $DA,$E4,$DE,$F4,$E8,$E7,$E5,$F2; 0x169aa $A99A DA E4 DE F4 E8 E7 E5 F2 ;
-.byt    $F4,$F4,$F4,$FD,$F0,$E2,$ED,$E1; 0x169b2 $A9A2 F4 F4 F4 FD F0 E2 ED E1 ;
-.byt    $F4,$ED,$E1,$DE,$F4,$E9,$E8,$F0; 0x169ba $A9AA F4 ED E1 DE F4 E9 E8 F0 ;
-.byt    $DE,$EB,$F4,$E8,$DF,$F4,$E7,$E8; 0x169c2 $A9B2 DE EB F4 E8 DF F4 E7 E8 ;
-.byt    $CF,$D3,$F4,$F4,$F4,$F4,$F4,$F4; 0x169ca $A9BA CF D3 F4 F4 F4 F4 F4 F4 ;
-.byt    $FD,$ED,$EB,$E2,$DF,$E8,$EB,$DC; 0x169d2 $A9C2 FD ED EB E2 DF E8 EB DC ;
-.byt    $DE,$F4,$EC,$DE,$DA,$E5,$DE,$DD; 0x169da $A9CA DE F4 EC DE DA E5 DE DD ;
-.byt    $F4,$E2,$E7,$F4,$DA,$F4,$E9,$DA; 0x169e2 $A9D2 F4 E2 E7 F4 DA F4 E9 DA ;
-.byt    $E5,$DA,$DC,$DE,$F4,$FD,$E2,$E7; 0x169ea $A9DA E5 DA DC DE F4 FD E2 E7 ;
-.byt    $F4,$E1,$F2,$EB,$EE,$E5,$DE,$CF; 0x169f2 $A9E2 F4 E1 F2 EB EE E5 DE CF ;
-.byt    $F4,$ED,$E8,$F4,$DB,$EB,$DE,$DA; 0x169fa $A9EA F4 ED E8 F4 DB EB DE DA ;
-.byt    $E4,$F4,$ED,$E1,$DE,$F4,$F4,$F4; 0x16a02 $A9F2 E4 F4 ED E1 DE F4 F4 F4 ;
-.byt    $F4,$F4,$FD,$EC,$DE,$DA,$E5,$9C; 0x16a0a $A9FA F4 F4 FD EC DE DA E5 9C ;
-.byt    $DC,$EB,$F2,$EC,$ED,$DA        ; 0x16a12 $AA02 DC EB F2 EC ED DA       ;
-LAA08:                                                                          ;
-.byt    $E5,$EC,$F4,$E6,$EE,$EC,$ED,$F4; 0x16a18 $AA08 E5 EC F4 E6 EE EC ED F4 ;
-.byt    $DB,$DE,$F4,$F4,$F4,$F4,$F4,$F4; 0x16a20 $AA10 DB DE F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$FD,$E9,$E5,$DA,$DC,$DE,$DD; 0x16a28 $AA18 F4 FD E9 E5 DA DC DE DD ;
-.byt    $F4,$E2,$E7,$F4,$EC,$ED,$DA,$ED; 0x16a30 $AA20 F4 E2 E7 F4 EC ED DA ED ;
-.byt    $EE,$DE,$EC,$F4,$E2,$E7,$F4,$D6; 0x16a38 $AA28 EE DE EC F4 E2 E7 F4 D6 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$FD,$F0; 0x16a40 $AA30 F4 F4 F4 F4 F4 F4 FD F0 ;
-.byt    $DE,$E5,$E5,$F4,$E0,$EE,$DA,$EB; 0x16a48 $AA38 DE E5 E5 F4 E0 EE DA EB ;
-.byt    $DD,$DE,$DD,$F4,$E9,$DA,$E5,$DA; 0x16a50 $AA40 DD DE DD F4 E9 DA E5 DA ;
-.byt    $DC,$DE,$EC,$CF,$F4,$F4,$F4,$F4; 0x16a58 $AA48 DC DE EC CF F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$FD,$E5,$E2,$E7,$E4; 0x16a60 $AA50 F4 F4 F4 FD E5 E2 E7 E4 ;
-.byt    $F4,$EC,$DE,$ED,$F4,$E8,$EE,$ED; 0x16a68 $AA58 F4 EC DE ED F4 E8 EE ED ;
-.byt    $F4,$E8,$E7,$F4,$E1,$E2,$EC,$F4; 0x16a70 $AA60 F4 E8 E7 F4 E1 E2 EC F4 ;
-.byt    $E6,$E8,$EC,$ED,$F4,$F4,$F4,$F4; 0x16a78 $AA68 E6 E8 EC ED F4 F4 F4 F4 ;
-.byt    $FD,$DA,$DD,$EF,$DE,$E7,$ED,$EE; 0x16a80 $AA70 FD DA DD EF DE E7 ED EE ;
-.byt    $EB,$DE,$EC,$E8,$E6,$DE,$F4,$EA; 0x16a88 $AA78 EB DE EC E8 E6 DE F4 EA ;
-.byt    $EE,$DE,$EC,$ED,$F4,$F2,$DE,$ED; 0x16a90 $AA80 EE DE EC ED F4 F2 DE ED ;
-.byt    $CF,$CF,$CF,$F4,$F4,$FD,$F4,$F4; 0x16a98 $AA88 CF CF CF F4 F4 FD F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$0E,$D1,$D9; 0x16aa0 $AA90 F4 F4 F4 F4 F4 0E D1 D9 ;
-.byt    $D8,$D7,$F4,$E7,$E2,$E7,$ED,$DE; 0x16aa8 $AA98 D8 D7 F4 E7 E2 E7 ED DE ;
-.byt    $E7,$DD,$E8,$F4,$F4,$F4,$F4,$F4; 0x16ab0 $AAA0 E7 DD E8 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$FD,$F4,$F4,$F4,$F4,$F4; 0x16ab8 $AAA8 F4 F4 FD F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16ac0 $AAB0 F4 F4 F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16ac8 $AAB8 F4 F4 F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$FD; 0x16ad0 $AAC0 F4 F4 F4 F4 F4 F4 F4 FD ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16ad8 $AAC8 F4 F4 F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16ae0 $AAD0 F4 F4 F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16ae8 $AAD8 F4 F4 F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$FD            ; 0x16af0 $AAE0 F4 F4 F4 F4 FD          ;
+; 0x16942 $A932 DA DF ED DE EB F4 E0 DA ;
+; 0x1694a $A93A E7 E8 E7 F4 F0 DA EC F4 ;
+; 0x16952 $A942 DD DE EC ED EB E8 F2 DE ;
+; 0x1695a $A94A DD 9C F4 F4 FD E2 E6 E9 ;
+; 0x16962 $A952 DA F4 ED E8 E5 DD F4 E5 ;
+; 0x1696a $A95A E2 E7 E4 F4 DA F4 EC E5 ;
+; 0x16972 $A962 DE DE E9 E2 E7 E0 F4 F4 ;
+; 0x1697a $A96A F4 FD EC E9 DE E5 E5 F4 ;
+; 0x16982 $A972 F0 DA EC F4 DC DA EC ED ;
+; 0x1698a $A97A F4 E8 E7 F4 E9 EB E2 E7 ;
+; 0x16992 $A982 DC DE EC EC F4 F4 FD F3 ;
+; 0x1699a $A98A DE E5 DD DA CF F4 EC E1 ;
+; 0x169a2 $A992 DE F4 F0 E2 E5 E5 F4 F0 ;
+; 0x169aa $A99A DA E4 DE F4 E8 E7 E5 F2 ;
+; 0x169b2 $A9A2 F4 F4 F4 FD F0 E2 ED E1 ;
+; 0x169ba $A9AA F4 ED E1 DE F4 E9 E8 F0 ;
+; 0x169c2 $A9B2 DE EB F4 E8 DF F4 E7 E8 ;
+; 0x169ca $A9BA CF D3 F4 F4 F4 F4 F4 F4 ;
+; 0x169d2 $A9C2 FD ED EB E2 DF E8 EB DC ;
+; 0x169da $A9CA DE F4 EC DE DA E5 DE DD ;
+; 0x169e2 $A9D2 F4 E2 E7 F4 DA F4 E9 DA ;
+; 0x169ea $A9DA E5 DA DC DE F4 FD E2 E7 ;
+; 0x169f2 $A9E2 F4 E1 F2 EB EE E5 DE CF ;
+; 0x169fa $A9EA F4 ED E8 F4 DB EB DE DA ;
+; 0x16a02 $A9F2 E4 F4 ED E1 DE F4 F4 F4 ;
+; 0x16a0a $A9FA F4 F4 FD EC DE DA E5 9C ;
+; 0x16a12 $AA02 DC EB F2 EC ED DA       ;
+; 0x16a18 $AA08 E5 EC F4 E6 EE EC ED F4 ;
+; 0x16a20 $AA10 DB DE F4 F4 F4 F4 F4 F4 ;
+; 0x16a28 $AA18 F4 FD E9 E5 DA DC DE DD ;
+; 0x16a30 $AA20 F4 E2 E7 F4 EC ED DA ED ;
+; 0x16a38 $AA28 EE DE EC F4 E2 E7 F4 D6 ;
+; 0x16a40 $AA30 F4 F4 F4 F4 F4 F4 FD F0 ;
+; 0x16a48 $AA38 DE E5 E5 F4 E0 EE DA EB ;
+; 0x16a50 $AA40 DD DE DD F4 E9 DA E5 DA ;
+; 0x16a58 $AA48 DC DE EC CF F4 F4 F4 F4 ;
+; 0x16a60 $AA50 F4 F4 F4 FD E5 E2 E7 E4 ;
+; 0x16a68 $AA58 F4 EC DE ED F4 E8 EE ED ;
+; 0x16a70 $AA60 F4 E8 E7 F4 E1 E2 EC F4 ;
+; 0x16a78 $AA68 E6 E8 EC ED F4 F4 F4 F4 ;
+; 0x16a80 $AA70 FD DA DD EF DE E7 ED EE ;
+; 0x16a88 $AA78 EB DE EC E8 E6 DE F4 EA ;
+; 0x16a90 $AA80 EE DE EC ED F4 F2 DE ED ;
+; 0x16a98 $AA88 CF CF CF F4 F4 FD F4 F4 ;
+; 0x16aa0 $AA90 F4 F4 F4 F4 F4 0E D1 D9 ;
+; 0x16aa8 $AA98 D8 D7 F4 E7 E2 E7 ED DE ;
+; 0x16ab0 $AAA0 E7 DD E8 F4 F4 F4 F4 F4 ;
+; 0x16ab8 $AAA8 F4 F4 FD F4 F4 F4 F4 F4 ;
+; 0x16ac0 $AAB0 F4 F4 F4 F4 F4 F4 F4 F4 ;
+; 0x16ac8 $AAB8 F4 F4 F4 F4 F4 F4 F4 F4 ;
+; 0x16ad0 $AAC0 F4 F4 F4 F4 F4 F4 F4 FD ;
+; 0x16ad8 $AAC8 F4 F4 F4 F4 F4 F4 F4 F4 ;
+; 0x16ae0 $AAD0 F4 F4 F4 F4 F4 F4 F4 F4 ;
+; 0x16ae8 $AAD8 F4 F4 F4 F4 F4 F4 F4 F4 ;
+; 0x16af0 $AAE0 F4 F4 F4 F4 FD          ;
+.byt    "after ganon was destroyed,  ",LF
+.byt    "impa told link a sleeping   ",LF
+.byt    "spell was cast on princess  ",LF
+.byt    "zelda. she will wake only   ",LF
+.byt    "with the power of no.3      ",LF
+.byt    "triforce sealed in a palace ",LF
+.byt    "in hyrule. to break the     ",LF
+.byt    "seal,crystals must be       ",LF
+.byt    "placed in statues in 6      ",LF
+.byt    "well guarded palaces.       ",LF
+.byt    "link set out on his most    ",LF
+.byt    "adventuresome quest yet...  ",LF
+.byt    "       ",COPYRIGHT
+.byt    "1987 nintendo       ",LF
+.byt    "                            ",LF
+.byt    "                            ",LF
+setpos $aae5
 LAAE5:                                                                          ;
 .byt    $32,$4F,$6C,$89,$A6,$C3,$E0,$FD; 0x16af5 $AAE5 32 4F 6C 89 A6 C3 E0 FD ;
 .byt    $1A,$37,$54,$71,$8E,$AB,$C8    ; 0x16afd $AAED 1A 37 54 71 8E AB C8    ;

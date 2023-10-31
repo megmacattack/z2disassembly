@@ -8239,7 +8239,7 @@ setpos $ff70
 
 setpos $ffe0
 bank7_table33:                                                                 ;
-.byt    "LEGEND OF ZELDA2"
+.byt    "LEGEND",$20,"OF",$20,"ZELDA",$32
 bank7_irq:
 .byt    $98,$F2,$DD,$DB,$33,$04,$01,$0F; 0x20000 $FFF0 98 F2 DD DB 33 04 01 0F ;
 .byt    $01,$00                        ; 0x20008 $FFF8 01 00 7B C0 70 FF F0 FF ;

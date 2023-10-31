@@ -7,7 +7,6 @@ L000E = $000E
 L0302 = $0302
 L0363 = $0363
 L03A4 = $03A4
-L05C9 = $05C9
 L0600 = $0600
 L0620 = $0620
 L0640 = $0640
@@ -512,7 +511,7 @@ bank7_pointer_table0:                                                           
 ; ---------------------------------------------------------------------------- ;
 bank7_code3:                                                                    ;
     CMP      #$02                      ; 0x1c243 $C233 C9 02                   ;
-    BCS      bank7_pointer_table1+$08  ; 0x1c245 $C235 B0 0E                   ;
+    BCS      bank7_code4  ; 0x1c245 $C235 B0 0E                   ;
     JMP      bank0_unknown27           ; 0x1c247 $C237 4C 54 9D                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -523,10 +522,9 @@ bank7_pointer_table1:                                                           
 .word    LA315                         ; 0x1c24f $C23F 15 A3                   ;
 .word    LA329                         ; 0x1c251 $C241 29 A3                   ;
 .word    LA338                         ; 0x1c253 $C243 38 A3                   ;
-.word    L05C9                         ; 0x1c255 $C245 C9 05                   ;
-.word    LD7B0                         ; 0x1c257 $C247 B0 D7                   ;
-; ---------------------------------------------------------------------------- ;
 bank7_code4:                                                                    ;
+    CMP      #$05                      ; 0x1c255 $C245 C9 05
+    BCS      LC220                     ; 0x1c257 $C247 B0 D7
     JSR      SwapToSavedPRG; 0x1c259 $C249 20 C9 FF                ; Load Bank $0769
     JMP      LB082                     ; 0x1c25c $C24C 4C 82 B0                ;
                                                                                ;
@@ -3716,7 +3714,6 @@ LD7A1:                                                                          
     LDA      $051B,x                   ; 0x1d7b9 $D7A9 BD 1B 05                ; Randomizer
     AND      #$01                      ; 0x1d7bc $D7AC 29 01                   ; keep bits .... ...x
     TAY                                ; 0x1d7be $D7AE A8                      ;
-LD7B0     = * + $0001                                                          ;
     LDA      $072C                     ; 0x1d7bf $D7AF AD 2C 07                ; Scrolling Offset Low Byte
     ADC      bank7_Table_for_Bago_Bago,y; 0x1d7c2 $D7B2 79 8B D7                ;
     STA      $4E,x                     ; 0x1d7c5 $D7B5 95 4E                   ; Enemy X position (low byte)

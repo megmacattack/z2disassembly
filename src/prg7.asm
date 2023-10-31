@@ -215,7 +215,7 @@ bank7_PowerON_code:                                                            ;
     JSR      SwapPRG                   ; 0x1c01a $C00A 20 CC FF                ; Load Bank 5
     JSR      bank5_PowerON__Reset_Memory; 0x1c01d $C00D 20 A0 A6               ;
 @Loop:                                                                         ;
-    LDA      $0736                     ; 0x1c020 $C010 AD 36 07                ; Game Mode
+    LDA      game_mode                     ; 0x1c020 $C010 AD 36 07                ; Game Mode
     CMP      #$08                      ; 0x1c023 $C013 C9 08                   ;
     BEQ      :+                        ; 0x1c025 $C015 F0 04                   ;
     CMP      #$14                      ; 0x1c027 $C017 C9 14                   ;
@@ -457,7 +457,7 @@ LC1CC:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank7_related_to_Pause_Pane_routine:                                            ;
     JSR      SwapToPRG0; 0x1c1dd $C1CD 20 C5 FF                ; Load Bank 0
-    LDA      $0736                     ; 0x1c1e0 $C1D0 AD 36 07                ; Game Mode
+    LDA      game_mode                     ; 0x1c1e0 $C1D0 AD 36 07                ; Game Mode
     CMP      #$0B                      ; 0x1c1e3 $C1D3 C9 0B                   ; 0B = sidescroll mode
     BNE      LC220                     ; 0x1c1e5 $C1D5 D0 49                   ;
     JSR      LC1DD                     ; 0x1c1e7 $C1D7 20 DD C1                ;
@@ -468,10 +468,10 @@ LC1DD:                                                                          
     JSR      bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW; 0x1c1ed $C1DD 20 30 CF; Region Code * 5 + World Code
     CMP      #$01                      ; 0x1c1f0 $C1E0 C9 01                   ;
     BNE      LC206                     ; 0x1c1f2 $C1E2 D0 22                   ;
-    LDA      $056B                     ; 0x1c1f4 $C1E4 AD 6B 05                ; Town Code
+    LDA      town_code                     ; 0x1c1f4 $C1E4 AD 6B 05                ; Town Code
     CMP      #$02                      ; 0x1c1f7 $C1E7 C9 02                   ;
     BNE      LC206                     ; 0x1c1f9 $C1E9 D0 1B                   ;
-    LDA      $0561                     ; 0x1c1fb $C1EB AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1c1fb $C1EB AD 61 05                ; Area Code
     CMP      #$06                      ; 0x1c1fe $C1EE C9 06                   ;
     BNE      LC206                     ; 0x1c200 $C1F0 D0 14                   ;
     LDA      $3B                       ; 0x1c202 $C1F2 A5 3B                   ; Link's X Position (high byte)
@@ -608,7 +608,7 @@ LC2B3:                                                                          
     STA      $00                       ; 0x1c2cb $C2BB 85 00                   ;
     LDA      bank7_Pointer_table_for_Item_Presence+$01,y; 0x1c2cd $C2BD B9 66 C2   ;
     STA      $01                       ; 0x1c2d0 $C2C0 85 01                   ;
-    LDA      $0561                     ; 0x1c2d2 $C2C2 AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1c2d2 $C2C2 AD 61 05                ; Area Code
     LSR                                ; 0x1c2d5 $C2C5 4A                      ; 4 bits per Area for Items
     TAY                                ; 0x1c2d6 $C2C6 A8                      ;
     LDA      ($00),y                   ; 0x1c2d7 $C2C7 B1 00                   ;
@@ -695,7 +695,7 @@ LC34F:                                                                          
     JSR      startup_init_begin_game   ; 0x1c365 $C355 20 08 AA                ;
 bank7_Reset_Number_of_Lives__to_3_:                                             ;
     LDA      #$03                      ; 0x1c368 $C358 A9 03                   ; A = 03
-    STA      $0700                     ; 0x1c36a $C35A 8D 00 07                ; Current number of lives
+    STA      lives_remaining                    ; 0x1c36a $C35A 8D 00 07                ; Current number of lives
     INC      $0760                     ; 0x1c36d $C35D EE 60 07                ;
 LC360:                                                                          ;
     INC      $076C                     ; 0x1c370 $C360 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
@@ -776,7 +776,7 @@ LC3CB:                                                                          
     STA      $0305,y                   ; 0x1c3de $C3CE 99 05 03                ;
     DEY                                ; 0x1c3e1 $C3D1 88                      ;
     BPL      LC3CB                     ; 0x1c3e2 $C3D2 10 F7                   ;
-    LDA      $0700                     ; 0x1c3e4 $C3D4 AD 00 07                ; Current number of lives
+    LDA      lives_remaining                    ; 0x1c3e4 $C3D4 AD 00 07                ; Current number of lives
     CLC                                ; 0x1c3e7 $C3D7 18                      ;
     ADC      #$D0                      ; 0x1c3e8 $C3D8 69 D0                   ;
     STA      $0314                     ; 0x1c3ea $C3DA 8D 14 03                ;
@@ -794,7 +794,7 @@ LC3E6:                                                                          
 LC3ED:                                                                          ;
     LDA      $0501                     ; 0x1c3fd $C3ED AD 01 05                ;; Timer
     BNE      LC3F5                     ; 0x1c400 $C3F0 D0 03                   ;while timer continues, display screen, otherwise increment game mode to resume gameplay
-    INC      $0736                     ; 0x1c402 $C3F2 EE 36 07                ;; Game Mode ; screen intro type
+    INC      game_mode                     ; 0x1c402 $C3F2 EE 36 07                ;; Game Mode ; screen intro type
 LC3F5:                                                                          ;
     LDA      #$50                      ; 0x1c405 $C3F5 A9 50                   ; A = 50
     STA      $29                       ; 0x1c407 $C3F7 85 29                   ; Link's Y Position (on "Get Ready" screen)
@@ -829,7 +829,7 @@ bank7_code11:                                                                   
     BEQ      LC435                     ; 0x1c438 $C428 F0 0B                   ;
     CPY      #$03                      ; 0x1c43a $C42A C0 03                   ;
     BCS      LC436                     ; 0x1c43c $C42C B0 08                   ;
-    LDY      $056B                     ; 0x1c43e $C42E AC 6B 05                ;; Town Code	;used by wise man to pick magic to give?
+    LDY      town_code                     ; 0x1c43e $C42E AC 6B 05                ;; Town Code	;used by wise man to pick magic to give?
     CPY      #$07                      ; 0x1c441 $C431 C0 07                   ;
     BNE      LC436                     ; 0x1c443 $C433 D0 01                   ;
 LC435:                                                                          ;
@@ -840,7 +840,7 @@ LC436:                                                                          
     STA      $076C                     ; 0x1c44b $C43B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     STA      $076D                     ; 0x1c44e $C43E 8D 6D 07                ;
     LDA      #$07                      ; 0x1c451 $C441 A9 07                   ; A = 07
-    STA      $0736                     ; 0x1c453 $C443 8D 36 07                ; Game Mode
+    STA      game_mode                     ; 0x1c453 $C443 8D 36 07                ; Game Mode
 LC446:                                                                          ;
     JMP      LC3F5                     ; 0x1c456 $C446 4C F5 C3                ;
                                                                                ;
@@ -941,7 +941,7 @@ LC50C:                                                                          
     STA      $03                       ; 0x1c532 $C522 85 03                   ;
 ;Get Area Data Address (D4-D5)                                                 ;
 ;And Enemy Data Address (D6-D7)                                                ;
-    LDA      $0561                     ; 0x1c534 $C524 AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1c534 $C524 AD 61 05                ; Area Code
     ASL                                ; 0x1c537 $C527 0A                      ;
     TAY                                ; 0x1c538 $C528 A8                      ;
     LDA      ($00),y                   ; 0x1c539 $C529 B1 00                   ;
@@ -1098,13 +1098,13 @@ LC62F:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LC63E:                                                                          ;
-    INC      $0736                     ; 0x1c64e $C63E EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1c64e $C63E EE 36 07                ; Game Mode
     JMP      LC68A                     ; 0x1c651 $C641 4C 8A C6                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_take_elevator_exit:                                                       ;
     JSR      SwapToSavedPRG; 0x1c654 $C644 20 C9 FF                ; Load Bank $0769
-    LDA      $0561                     ; 0x1c657 $C647 AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1c657 $C647 AD 61 05                ; Area Code
     ASL                                ; 0x1c65a $C64A 0A                      ;
     ASL                                ; 0x1c65b $C64B 0A                      ;
     ADC      #$01                      ; 0x1c65c $C64C 69 01                   ;
@@ -1117,7 +1117,7 @@ LC657:                                                                          
     LDA      $6AFC,y                   ; 0x1c668 $C658 B9 FC 6A                ;
     LSR                                ; 0x1c66b $C65B 4A                      ;
     LSR                                ; 0x1c66c $C65C 4A                      ;
-    STA      $0561                     ; 0x1c66d $C65D 8D 61 05                ; Area Code
+    STA      area_code                     ; 0x1c66d $C65D 8D 61 05                ; Area Code
     LDA      $6AFC,y                   ; 0x1c670 $C660 B9 FC 6A                ; Area Room Connectivity
     AND      #$03                      ; 0x1c673 $C663 29 03                   ; keep bits .... ..xx
     STA      $3B                       ; 0x1c675 $C665 85 3B                   ; Link's X Position (high byte)
@@ -1218,7 +1218,7 @@ LC70C:                                                                          
     LDA      $071F                     ; 0x1c71c $C70C AD 1F 07                ;; ???
     STA      $0720                     ; 0x1c71f $C70F 8D 20 07                ;
     LDA      #$09                      ; 0x1c722 $C712 A9 09                   ; A = 09
-    STA      $0736                     ; 0x1c724 $C714 8D 36 07                ; Game Mode
+    STA      game_mode                     ; 0x1c724 $C714 8D 36 07                ; Game Mode
     JMP      bank7_code33              ; 0x1c727 $C717 4C 30 E0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1665,7 +1665,7 @@ bank7_code15:                                                                   
     STA      $696F                     ; 0x1ca1a $CA0A 8D 6F 69                ;
     LDA      #$10                      ; 0x1ca1d $CA0D A9 10                   ; A = 10
     JSR      SwapCHR; 0x1ca1f $CA0F 20 B1 FF                ;
-    INC      $0736                     ; 0x1ca22 $CA12 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1ca22 $CA12 EE 36 07                ; Game Mode
 LCA15:                                                                          ;
     LDA      #$04                      ; 0x1ca25 $CA15 A9 04                   ; A = 04
 LCA17:                                                                          ;
@@ -1697,7 +1697,7 @@ LCA3E:                                                                          
     STA      $05C3,y                   ; 0x1ca4e $CA3E 99 C3 05                ;
     DEY                                ; 0x1ca51 $CA41 88                      ;
     BPL      LCA3E                     ; 0x1ca52 $CA42 10 FA                   ;
-    DEC      $0700                     ; 0x1ca54 $CA44 CE 00 07                ; Current number of lives
+    DEC      lives_remaining                    ; 0x1ca54 $CA44 CE 00 07                ; Current number of lives
     BNE      LCA6C                     ; 0x1ca57 $CA47 D0 23                   ;
 ;Game Over                                                                     ;
     LDA      #$02                      ; 0x1ca59 $CA49 A9 02                   ; A = 02
@@ -1790,7 +1790,7 @@ LCAC4:                                                                          
 bank7_restore_in_grand_palace_restore_restart_in_gp:                            ;
     JSR      bank7_Reset_Number_of_Lives__to_3_; 0x1caee $CADE 20 58 C3            ; Reset Number of Lives (to 3)
     LDA      #$00                      ; 0x1caf1 $CAE1 A9 00                   ; A = 00
-    STA      $0561                     ; 0x1caf3 $CAE3 8D 61 05                ; Area Code
+    STA      area_code                     ; 0x1caf3 $CAE3 8D 61 05                ; Area Code
     STA      $0701                     ; 0x1caf6 $CAE6 8D 01 07                ; Facing direction when entering area
     STA      $075C                     ; 0x1caf9 $CAE9 8D 5C 07                ; Position code when entering area (0-3)
     LDA      #$01                      ; 0x1cafc $CAEC A9 01                   ; A = 01 (if 0, restart in North Castle)
@@ -1896,8 +1896,8 @@ LCB59:                                                                          
     SEC                                ; 0x1cb8b $CB7B 38                      ;
     SBC      #$2C                      ; 0x1cb8c $CB7C E9 2C                   ;
     LSR                                ; 0x1cb8e $CB7E 4A                      ;
-    STA      $056B                     ; 0x1cb8f $CB7F 8D 6B 05                ; Town Code
-;$056B = ($0748 - #$2C) / 2 (no remainder)                                     ;
+    STA      town_code                     ; 0x1cb8f $CB7F 8D 6B 05                ; Town Code
+;town_code = ($0748 - #$2C) / 2 (no remainder)                                     ;
     LDA      $0748                     ; 0x1cb92 $CB82 AD 48 07                ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     SEC                                ; 0x1cb95 $CB85 38                      ;
     SBC      #$34                      ; 0x1cb96 $CB86 E9 34                   ;
@@ -1911,10 +1911,10 @@ LCB59:                                                                          
     STA      region_number                     ; 0x1cba7 $CB97 8D 06 07                ; Current Region
     BEQ      LCBA5                     ; 0x1cbaa $CB9A F0 09                   ;
 ;If Region != 0, Town Code + 4                                                 ;
-    LDA      $056B                     ; 0x1cbac $CB9C AD 6B 05                ; Town Code
+    LDA      town_code                     ; 0x1cbac $CB9C AD 6B 05                ; Town Code
     CLC                                ; 0x1cbaf $CB9F 18                      ;
     ADC      #$04                      ; 0x1cbb0 $CBA0 69 04                   ;
-    STA      $056B                     ; 0x1cbb2 $CBA2 8D 6B 05                ;; Town Code	;used by wise man to pick magic to give?
+    STA      town_code                     ; 0x1cbb2 $CBA2 8D 6B 05                ;; Town Code	;used by wise man to pick magic to give?
 LCBA5:                                                                          ;
     PLA                                ; 0x1cbb5 $CBA5 68                      ;
     LSR                                ; 0x1cbb6 $CBA6 4A                      ;
@@ -1925,7 +1925,7 @@ LCBA5:                                                                          
     INC      $0709                     ; 0x1cbbf $CBAF EE 09 07                ;; used for going outside??
 LCBB2:                                                                          ;
     LDA      #$00                      ; 0x1cbc2 $CBB2 A9 00                   ; A = 00
-    STA      $0736                     ; 0x1cbc4 $CBB4 8D 36 07                ; Game Mode
+    STA      game_mode                     ; 0x1cbc4 $CBB4 8D 36 07                ; Game Mode
     RTS                                ; 0x1cbc7 $CBB7 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1960,7 +1960,7 @@ LCBE4:                                                                          
 LCBEF:                                                                          ;
     STA      $075C                     ; 0x1cbff $CBEF 8D 5C 07                ; Position code when entering area (0-3)
 LCBF2:                                                                          ;
-    INC      $0736                     ; 0x1cc02 $CBF2 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1cc02 $CBF2 EE 36 07                ; Game Mode
     JMP      LCC40                     ; 0x1cc05 $CBF5 4C 40 CC                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2033,7 +2033,7 @@ LCC50:                                                                          
     BCC      LCC85                     ; 0x1cc91 $CC81 90 02                   ;
     LDA      #$0C                      ; 0x1cc93 $CC83 A9 0C                   ; A = 0C
 LCC85:                                                                          ;
-    STA      $0736                     ; 0x1cc95 $CC85 8D 36 07                ; Game Mode
+    STA      game_mode                     ; 0x1cc95 $CC85 8D 36 07                ; Game Mode
 LCC88:                                                                          ;
     RTS                                ; 0x1cc98 $CC88 60                      ;
                                                                                ;
@@ -2051,7 +2051,7 @@ bank7_Get_Area_Code__Enter_Code_and_Direction:                                  
     LDA      $6A7E,y                   ; 0x1cca7 $CC97 B9 7E 6A                ; Area Byte 2 (Map Number)
     PHA                                ; 0x1ccaa $CC9A 48                      ;
     AND      #$3F                      ; 0x1ccab $CC9B 29 3F                   ; keep bits ..xx xxxx
-    STA      $0561                     ; 0x1ccad $CC9D 8D 61 05                ; Area Code
+    STA      area_code                     ; 0x1ccad $CC9D 8D 61 05                ; Area Code
     PLA                                ; 0x1ccb0 $CCA0 68                      ;
     ASL                                ; 0x1ccb1 $CCA1 0A                      ;
     ROL                                ; 0x1ccb2 $CCA2 2A                      ;
@@ -2391,7 +2391,7 @@ LCEA0:                                                                          
     DEY                                ; 0x1cee2 $CED2 88                      ;
     CPY      #$02                      ; 0x1cee3 $CED3 C0 02                   ;
     BCS      LCEF6                     ; 0x1cee5 $CED5 B0 1F                   ;
-    LDY      $056B                     ; 0x1cee7 $CED7 AC 6B 05                ; Town Code
+    LDY      town_code                     ; 0x1cee7 $CED7 AC 6B 05                ; Town Code
     DEY                                ; 0x1ceea $CEDA 88                      ;
     CPY      #$06                      ; 0x1ceeb $CEDB C0 06                   ;
     BCS      LCEF6                     ; 0x1ceed $CEDD B0 17                   ;
@@ -2421,18 +2421,18 @@ LCEF6:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCF05:                                                                          ;
-    INC      $0736                     ; 0x1cf15 $CF05 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1cf15 $CF05 EE 36 07                ; Game Mode
     RTS                                ; 0x1cf18 $CF08 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCF09:                                                                          ;
     LDA      #$07                      ; 0x1cf19 $CF09 A9 07                   ; A = 07
 LCF0B:                                                                          ;
-    STA      $0736                     ; 0x1cf1b $CF0B 8D 36 07                ; Game Mode
+    STA      game_mode                     ; 0x1cf1b $CF0B 8D 36 07                ; Game Mode
     LDA      #$01                      ; 0x1cf1e $CF0E A9 01                   ; A = 01
     CPY      #$02                      ; 0x1cf20 $CF10 C0 02                   ;
     BNE      LCF1D                     ; 0x1cf22 $CF12 D0 09                   ;
-    LDY      $056B                     ; 0x1cf24 $CF14 AC 6B 05                ; Town Code
+    LDY      town_code                     ; 0x1cf24 $CF14 AC 6B 05                ; Town Code
     CPY      #$07                      ; 0x1cf27 $CF17 C0 07                   ;
     BNE      LCF1D                     ; 0x1cf29 $CF19 D0 02                   ;
     LDA      #$08                      ; 0x1cf2b $CF1B A9 08                   ; A = 08
@@ -2473,7 +2473,7 @@ bank7_pointer_table13:                                                          
 bank7_take_side_exit:                                                           ;
     JSR      bank7_Remove_All_Sprites  ; 0x1cf5c $CF4C 20 4C D2                ; Remove All Sprites
     JSR      SwapToSavedPRG; 0x1cf5f $CF4F 20 C9 FF                ; Load Bank $0769
-    LDA      $0561                     ; 0x1cf62 $CF52 AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1cf62 $CF52 AD 61 05                ; Area Code
     LDY      world_number                     ; 0x1cf65 $CF55 AC 07 07                ; Current World
     BNE      LCF60                     ; 0x1cf68 $CF58 D0 06                   ;
     CMP      #$1D                      ; 0x1cf6a $CF5A C9 1D                   ;
@@ -2516,7 +2516,7 @@ LCF9D:                                                                          
     STY      $05E9                     ; 0x1cfaf $CF9F 8C E9 05                ; Sound Played Out of Area
     LDY      region_number                     ; 0x1cfb2 $CFA2 AC 06 07                ; Current Region
     BNE      LCF9A                     ; 0x1cfb5 $CFA5 D0 F3                   ;
-    LDY      $0561                     ; 0x1cfb7 $CFA7 AC 61 05                ; Area Code
+    LDY      area_code                     ; 0x1cfb7 $CFA7 AC 61 05                ; Area Code
     BNE      LCF9A                     ; 0x1cfba $CFAA D0 EE                   ;
     STY      $05E9                     ; 0x1cfbc $CFAC 8C E9 05                ; Sound Played Out of Area
     JMP      LCFF8                     ; 0x1cfbf $CFAF 4C F8 CF                ;
@@ -2525,7 +2525,7 @@ LCF9D:                                                                          
 LCFB2:                                                                          ;
     LSR                                ; 0x1cfc2 $CFB2 4A                      ;
     LSR                                ; 0x1cfc3 $CFB3 4A                      ;
-    STA      $0561                     ; 0x1cfc4 $CFB4 8D 61 05                ; Area Code
+    STA      area_code                     ; 0x1cfc4 $CFB4 8D 61 05                ; Area Code
     PLA                                ; 0x1cfc7 $CFB7 68                      ;
     LDX      $0704                     ; 0x1cfc8 $CFB8 AE 04 07                ;; 0=start bottom of screen, 1=start at top of screen ; elevator
     BNE      LCFC2                     ; 0x1cfcb $CFBB D0 05                   ;
@@ -2534,7 +2534,7 @@ LCFB2:                                                                          
 LCFC2:                                                                          ;
     AND      #$01                      ; 0x1cfd2 $CFC2 29 01                   ; keep bits .... ...x
     STA      $0701                     ; 0x1cfd4 $CFC4 8D 01 07                ; Facing direction when entering area
-    LDA      $0561                     ; 0x1cfd7 $CFC7 AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1cfd7 $CFC7 AD 61 05                ; Area Code
     CMP      #$24                      ; 0x1cfda $CFCA C9 24                   ;
     BCS      LCFEC                     ; 0x1cfdc $CFCC B0 1E                   ;
     LDA      $075B                     ; 0x1cfde $CFCE AD 5B 07                ;
@@ -2544,7 +2544,7 @@ LCFC2:                                                                          
     STA      $075C                     ; 0x1cfe6 $CFD6 8D 5C 07                ; Position code when entering area (0-3)
     DEC      $075B                     ; 0x1cfe9 $CFD9 CE 5B 07                ;
     BNE      LCFEC                     ; 0x1cfec $CFDC D0 0E                   ;
-    LDA      $056B                     ; 0x1cfee $CFDE AD 6B 05                ; Town Code
+    LDA      town_code                     ; 0x1cfee $CFDE AD 6B 05                ; Town Code
     CMP      #$07                      ; 0x1cff1 $CFE1 C9 07                   ;
     BEQ      LCFEC                     ; 0x1cff3 $CFE3 F0 07                   ;
     JSR      bank7_Mute_music_when_loading_between_areas; 0x1cff5 $CFE5 20 3D D0   ; Mute music when loading between areas
@@ -2559,14 +2559,14 @@ LCFF3:                                                                          
 LCFF6:                                                                          ;
     LDA      #$07                      ; 0x1d006 $CFF6 A9 07                   ; A = 07
 LCFF8:                                                                          ;
-    STA      $0736                     ; 0x1d008 $CFF8 8D 36 07                ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x1d008 $CFF8 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x1d00b $CFFB 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_take_door_exit:                                                           ;
     JSR      SwapToSavedPRG; 0x1d00c $CFFC 20 C9 FF                ; Load Bank in $0769
 LD000     = * + $0001                                                          ;
-    LDA      $0561                     ; 0x1d00f $CFFF AD 61 05                ; Area Code
+    LDA      area_code                     ; 0x1d00f $CFFF AD 61 05                ; Area Code
     ASL                                ; 0x1d012 $D002 0A                      ;
     ASL                                ; 0x1d013 $D003 0A                      ;
     ADC      $3B                       ; 0x1d014 $D004 65 3B                   ; Link's X Position (high byte)
@@ -2575,7 +2575,7 @@ LD000     = * + $0001                                                          ;
     AND      #$FC                      ; 0x1d01a $D00A 29 FC                   ; keep bits xxxx xx..
     LSR                                ; 0x1d01c $D00C 4A                      ;
     LSR                                ; 0x1d01d $D00D 4A                      ;
-    STA      $0561                     ; 0x1d01e $D00E 8D 61 05                ; Area Code
+    STA      area_code                     ; 0x1d01e $D00E 8D 61 05                ; Area Code
     LDA      L8817,y                   ; 0x1d021 $D011 B9 17 88                ;
     AND      #$03                      ; 0x1d024 $D014 29 03                   ; keep bits .... ..xx
     STA      $075C                     ; 0x1d026 $D016 8D 5C 07                ; Position code when entering area (0-3)
@@ -2590,7 +2590,7 @@ LD000     = * + $0001                                                          ;
     LDX      $075B                     ; 0x1d03b $D02B AE 5B 07                ;
     DEX                                ; 0x1d03e $D02E CA                      ;
     BNE      LD041                     ; 0x1d03f $D02F D0 10                   ;
-    LDA      $056B                     ; 0x1d041 $D031 AD 6B 05                ;; Town Code	;used by wise man to pick magic to give?
+    LDA      town_code                     ; 0x1d041 $D031 AD 6B 05                ;; Town Code	;used by wise man to pick magic to give?
     CMP      #$07                      ; 0x1d044 $D034 C9 07                   ;
     BEQ      LD041                     ; 0x1d046 $D036 F0 09                   ;
     LDA      #$08                      ; 0x1d048 $D038 A9 08                   ; A = 08		;indoor music
@@ -2744,14 +2744,14 @@ LD135:                                                                          
 LD143:                                                                          ;
     DEC      $0722                     ; 0x1d153 $D143 CE 22 07                ;
     BPL      LD14B                     ; 0x1d156 $D146 10 03                   ;
-    INC      $0736                     ; 0x1d158 $D148 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1d158 $D148 EE 36 07                ; Game Mode
 LD14B:                                                                          ;
     LDA      #$02                      ; 0x1d15b $D14B A9 02                   ; A = 02
     JMP      LD158                     ; 0x1d15d $D14D 4C 58 D1                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LD150:                                                                          ;
-    INC      $0736                     ; 0x1d160 $D150 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1d160 $D150 EE 36 07                ; Game Mode
     LDA      #$08                      ; 0x1d163 $D153 A9 08                   ; A = 08
     JMP      LD158                     ; 0x1d165 $D155 4C 58 D1                ;
                                                                                ;
@@ -2770,7 +2770,7 @@ LD15C:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LD168:                                                                          ;
-    LDA      $0736                     ; 0x1d178 $D168 AD 36 07                ; Game Mode
+    LDA      game_mode                     ; 0x1d178 $D168 AD 36 07                ; Game Mode
     CMP      $0737                     ; 0x1d17b $D16B CD 37 07                ;
     STA      $0737                     ; 0x1d17e $D16E 8D 37 07                ;
     BNE      LD18D                     ; 0x1d181 $D171 D0 1A                   ;
@@ -2786,7 +2786,7 @@ LD174:                                                                          
     LDA      $076C                     ; 0x1d192 $D182 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     LDY      #$00                      ; 0x1d195 $D185 A0 00                   ; Y = 00
     STY      $073C                     ; 0x1d197 $D187 8C 3C 07                ;
-    STY      $0736                     ; 0x1d19a $D18A 8C 36 07                ; Game Mode
+    STY      game_mode                     ; 0x1d19a $D18A 8C 36 07                ; Game Mode
 LD18D:                                                                          ;
     LDY      #$00                      ; 0x1d19d $D18D A0 00                   ; Y = 00
     STY      $073B                     ; 0x1d19f $D18F 8C 3B 07                ;
@@ -3324,7 +3324,7 @@ LD52D:                                                                          
     BNE      LD538                     ; 0x1d543 $D533 D0 03                   ;
     JSR      bank7_related_to_breakable_block; 0x1d545 $D535 20 DD E1              ;related to breakable block
 LD538:                                                                          ;
-    LDA      $0736                     ; 0x1d548 $D538 AD 36 07                ; Game Mode
+    LDA      game_mode                     ; 0x1d548 $D538 AD 36 07                ; Game Mode
     CMP      #$0B                      ; 0x1d54b $D53B C9 0B                   ;
     BNE      LD545                     ; 0x1d54d $D53D D0 06                   ;
     INC      $0727                     ; 0x1d54f $D53F EE 27 07                ;
@@ -5214,7 +5214,7 @@ LE179:                                                                          
     STA      $70                       ; 0x1e193 $E183 85 70                   ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
     LDA      #$10                      ; 0x1e195 $E185 A9 10                   ;;A = #$10 0001_0000
 LE187:                                                                          ;
-    STA      $0736                     ; 0x1e197 $E187 8D 36 07                ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x1e197 $E187 8D 36 07                ;; Game Mode ; screen intro type
 LE18A:                                                                          ;
     INC      $0726                     ; 0x1e19a $E18A EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDX      #$05                      ; 0x1e19d $E18D A2 05                   ; X = 05
@@ -5244,7 +5244,7 @@ LE1A8:                                                                          
 LE1AE:                                                                          ;
     LDA      #$00                      ; 0x1e1be $E1AE A9 00                   ; A = 00
     STA      $13                       ; 0x1e1c0 $E1B0 85 13                   ;fall down hole ?
-    INC      $0736                     ; 0x1e1c2 $E1B2 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x1e1c2 $E1B2 EE 36 07                ; Game Mode
     JMP      LE18A                     ; 0x1e1c5 $E1B5 4C 8A E1                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -6211,7 +6211,7 @@ LE80C:                                                                          
     STA      $EF                       ; 0x1e822 $E812 85 EF                   ; Sound Effects Type 4
     CPY      #$12                      ; 0x1e824 $E814 C0 12                   ; 12 = Doll
     BNE      LE81D                     ; 0x1e826 $E816 D0 05                   ;
-    INC      $0700                     ; 0x1e828 $E818 EE 00 07                ; Number of Lives
+    INC      lives_remaining                    ; 0x1e828 $E818 EE 00 07                ; Number of Lives
     BNE      LE86D                     ; 0x1e82b $E81B D0 50                   ;
 LE81D:                                                                          ;
     CPY      #$13                      ; 0x1e82d $E81D C0 13                   ; 13 = Kidnapped Child

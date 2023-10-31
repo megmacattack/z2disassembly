@@ -21,18 +21,8 @@ L0002 = $0002
 L000E = $000E
 L0302 = $0302
 L0363 = $0363
-L03A4 = $03A4
-L05C9 = $05C9
-L0600 = $0600
-L0620 = $0620
-L0640 = $0640
-L0660 = $0660
-L0680 = $0680
-L06A0 = $06A0
-L06C0 = $06C0
 L6060 = $6060
 L6261 = $6261
-L696C = $696C
 L7000 = $7000
 L700D = $700D
 L7018 = $7018
@@ -77,7 +67,6 @@ LDE6C = $DE6C
 LDF4C = $DF4C
 LDF56 = $DF56
 LDF58 = $DF58
-LE000 = $E000
 LE4D9 = $E4D9
 LEA32 = $EA32
 LF0D7 = $F0D7
@@ -1848,7 +1837,7 @@ L99CB:                                                                          
     AND      #$10                      ; 0xd9e0 $99D0 29 10                    ; keep bits ...x ....
     BEQ      L9A1C                     ; 0xd9e2 $99D2 F0 48                    ;
     STX      $048B                     ; 0xd9e4 $99D4 8E 8B 04                 ;; Conversation Pointer; Townfolk Slot				used as X position for monster ID
-    LDA      $0736                     ; 0xd9e7 $99D7 AD 36 07                 ; Game Mode
+    LDA      game_mode                     ; 0xd9e7 $99D7 AD 36 07                 ; Game Mode
     CMP      #$16                      ; 0xd9ea $99DA C9 16                    ;
     BNE      L9A1D                     ; 0xd9ec $99DC D0 3F                    ;
     LDA      $AF,x                     ; 0xd9ee $99DE B5 AF                    ;; Various enemy state variables
@@ -1864,7 +1853,7 @@ L99E6:                                                                          
     STY      $DE                       ; 0xda02 $99F2 84 DE                    ;;prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
     INC      $05C3,x                   ; 0xda04 $99F4 FE C3 05                 ;
     LDA      #$0B                      ; 0xda07 $99F7 A9 0B                    ; A = 0B
-    STA      $0736                     ; 0xda09 $99F9 8D 36 07                 ; Game Mode
+    STA      game_mode                     ; 0xda09 $99F9 8D 36 07                 ; Game Mode
     DEC      $075B                     ; 0xda0c $99FC CE 5B 07                 ;
     INC      $048D                     ; 0xda0f $99FF EE 8D 04                 ;; Related to Link's flicker after being hit ?
     LDA      #$00                      ; 0xda12 $9A02 A9 00                    ; A = 00
@@ -3741,7 +3730,7 @@ bank3_Dialog_Routines_Set_text_pointer_according_to_Townfolk_type__R5:          
     STA      L0002                     ; 0xf4a6 $B496 85 02                    ;
     LDA      bank3_Pointer_table_for_Dialog_Conditions+$01,y; 0xf4a8 $B498 B9 4F B4;
     STA      $03                       ; 0xf4ab $B49B 85 03                    ;
-    LDY      $056B                     ; 0xf4ad $B49D AC 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
+    LDY      town_code                     ; 0xf4ad $B49D AC 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
     JMP      (L0002)                   ; 0xf4b0 $B4A0 6C 02 00                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3933,7 +3922,7 @@ LB5D0:                                                                          
     ASL                                ; 0xf5e0 $B5D0 0A                       ;
     ASL                                ; 0xf5e1 $B5D1 0A                       ;
     STA      L0000                     ; 0xf5e2 $B5D2 85 00                    ;
-    LDA      $056B                     ; 0xf5e4 $B5D4 AD 6B 05                 ; Town Code
+    LDA      town_code                     ; 0xf5e4 $B5D4 AD 6B 05                 ; Town Code
     AND      #$03                      ; 0xf5e7 $B5D7 29 03                    ; keep bits .... ..xx
     CLC                                ; 0xf5e9 $B5D9 18                       ;
     ADC      L0000                     ; 0xf5ea $B5DA 65 00                    ;
@@ -3994,12 +3983,12 @@ bank3_code21:                                                                   
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB639:                                                                          ;
-    LDA      $056B                     ; 0xf649 $B639 AD 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
+    LDA      town_code                     ; 0xf649 $B639 AD 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
     CMP      #$03                      ; 0xf64c $B63C C9 03                    ;
     BCS      LB64A                     ; 0xf64e $B63E B0 0A                    ;
     BCC      LB690                     ; 0xf650 $B640 90 4E                    ;
 LB642:                                                                          ;
-    LDY      $056B                     ; 0xf652 $B642 AC 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
+    LDY      town_code                     ; 0xf652 $B642 AC 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
     LDA      $077B,y                   ; 0xf655 $B645 B9 7B 07                 ; Have magic #Y ?
     BEQ      LB690                     ; 0xf658 $B648 F0 46                    ;
 LB64A:                                                                          ;
@@ -4215,7 +4204,7 @@ LB7B6:                                                                          
     BPL      LB7B6                     ; 0xf7ca $B7BA 10 FA                    ;
     STA      $DE                       ; 0xf7cc $B7BC 85 DE                    ;;prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
     STA      $048D                     ; 0xf7ce $B7BE 8D 8D 04                 ;; Related to Link's flicker after being hit ?
-    LDA      $056B                     ; 0xf7d1 $B7C1 AD 6B 05                 ; Town Code
+    LDA      town_code                     ; 0xf7d1 $B7C1 AD 6B 05                 ; Town Code
     CMP      #$02                      ; 0xf7d4 $B7C4 C9 02                    ;
     BEQ      bank3_Townfolk_Transforming_into_Ache; 0xf7d6 $B7C6 F0 04             ;
     CMP      #$05                      ; 0xf7d8 $B7C8 C9 05                    ;

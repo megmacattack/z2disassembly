@@ -1,7 +1,13 @@
+; system ram locations
+area_code = $0561
+town_code = $056B
+lives_remaining = $0700
 region_number = $0706
 world_number = $0707
+game_mode = $0736
 PRG_bank = $0769
 
+; constants
 joy1_pressed = $F5
 joy2_pressed = $F6
 joy1_held    = $F7

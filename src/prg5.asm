@@ -21,25 +21,14 @@ L000E = $000E
 L02AD = $02AD
 L0302 = $0302
 L0363 = $0363
-L03A4 = $03A4
-L05C9 = $05C9
 L0600 = $0600
-L0620 = $0620
-L0640 = $0640
-L0660 = $0660
-L0680 = $0680
-L06A0 = $06A0
-L06C0 = $06C0
 L07AD = $07AD
 L6002 = $6002
 L6034 = $6034
-L6060 = $6060
 L6066 = $6066
 L6098 = $6098
 L6178 = $6178
 L6258 = $6258
-L6261 = $6261
-L696C = $696C
 L7000 = $7000
 L7001 = $7001
 L7004 = $7004
@@ -103,7 +92,6 @@ L749A = $749A
 L757A = $757A
 L765A = $765A
 L773A = $773A
-LC032 = $C032
 LC2A6 = $C2A6
 LC722 = $C722
 LC72D = $C72D
@@ -119,7 +107,6 @@ LDE6C = $DE6C
 LDED4 = $DED4
 LDF4C = $DF4C
 LDF56 = $DF56
-LE000 = $E000
 LE3B9 = $E3B9
 LE48A = $E48A
 LE48B = $E48B
@@ -1027,7 +1014,7 @@ bank5_routines_related_to_Ending_sequence:                                      
     BNE      L8B63                     ; 0x14b6f $8B5F D0 02                   ;
     LDA      #$3D                      ; 0x14b71 $8B61 A9 3D                   ; A = 3D
 L8B63:                                                                          ;
-    STA      $0561                     ; 0x14b73 $8B63 8D 61 05                ; Area Code
+    STA      area_code                     ; 0x14b73 $8B63 8D 61 05                ; Area Code
     JMP      LC722                     ; 0x14b76 $8B66 4C 22 C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1319,7 +1306,7 @@ L8D69:                                                                          
     LDA      $37                       ; 0x14d92 $8D82 A5 37                   ;
     BNE      L8D8C                     ; 0x14d94 $8D84 D0 06                   ;
     STA      $2001                     ; 0x14d96 $8D86 8D 01 20                ;
-    STA      $0736                     ; 0x14d99 $8D89 8D 36 07                ; Game Mode
+    STA      game_mode                     ; 0x14d99 $8D89 8D 36 07                ; Game Mode
 L8D8C:                                                                          ;
     RTS                                ; 0x14d9c $8D8C 60                      ;
                                                                                ;
@@ -1973,7 +1960,7 @@ L9254:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9255:                                                                          ;
-    INC      $0736                     ; 0x15265 $9255 EE 36 07                ; Game Mode
+    INC      game_mode                     ; 0x15265 $9255 EE 36 07                ; Game Mode
     RTS                                ; 0x15268 $9258 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4691,7 +4678,7 @@ LA6D9:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_code19:                                                                   ;
-    LDA      $0736                     ; 0x16700 $A6F0 AD 36 07                ; Game Mode
+    LDA      game_mode                     ; 0x16700 $A6F0 AD 36 07                ; Game Mode
     CMP      #$03                      ; 0x16703 $A6F3 C9 03                   ;
     BCC      LA6FF                     ; 0x16705 $A6F5 90 08                   ;
     JSR      bank5_Animation_of_Stars_in_the_Sky; 0x16707 $A6F7 20 CF A8           ; Animation of Stars in the Sky
@@ -4771,7 +4758,7 @@ LA749:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LA781:                                                                          ;
-    INC      $0736                     ; 0x16791 $A781 EE 36 07                ;; Game Mode ; screen intro type
+    INC      game_mode                     ; 0x16791 $A781 EE 36 07                ;; Game Mode ; screen intro type
     JMP      LA795                     ; 0x16794 $A784 4C 95 A7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5399,7 +5386,7 @@ LAE30:                                                                          
     STA      $34                       ; 0x16e4f $AE3F 85 34                   ;
     JSR      bank5_code21              ; 0x16e51 $AE41 20 C1 A8                ;
     LDA      #$03                      ; 0x16e54 $AE44 A9 03                   ;;A = #$03 0000_0011
-    STA      $0736                     ; 0x16e56 $AE46 8D 36 07                ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x16e56 $AE46 8D 36 07                ;; Game Mode ; screen intro type
 LAE49:                                                                          ;
     RTS                                ; 0x16e59 $AE49 60                      ;
                                                                                ;
@@ -5545,7 +5532,7 @@ LAF1F:                                                                          
 ; ---------------------------------------------------------------------------- ;
     LDA      #$04                      ; 0x16f44 $AF34 A9 04                   ;;A = #$04 0000_0100
     STA      $0725                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
-    INC      $0736                     ; 0x16f49 $AF39 EE 36 07                ;; Game Mode ; screen intro type
+    INC      game_mode                     ; 0x16f49 $AF39 EE 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x16f4c $AF3C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5708,7 +5695,7 @@ LB28B:                                                                          
     CMP      #$03                      ; 0x172b0 $B2A0 C9 03                   ;
     BNE      LB2AA                     ; 0x172b2 $B2A2 D0 06                   ;
     LDA      #$01                      ; 0x172b4 $B2A4 A9 01                   ; A = 01
-    STA      $0736                     ; 0x172b6 $B2A6 8D 36 07                ; Game Mode (01 = Register Your Name)
+    STA      game_mode                     ; 0x172b6 $B2A6 8D 36 07                ; Game Mode (01 = Register Your Name)
     RTS                                ; 0x172b9 $B2A9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5716,7 +5703,7 @@ LB2AA:                                                                          
     CMP      #$04                      ; 0x172ba $B2AA C9 04                   ;
     BNE      LB2B4                     ; 0x172bc $B2AC D0 06                   ;
     LDA      #$02                      ; 0x172be $B2AE A9 02                   ; A = 02
-    STA      $0736                     ; 0x172c0 $B2B0 8D 36 07                ; Game Mode (02 = Elimination Mode)
+    STA      game_mode                     ; 0x172c0 $B2B0 8D 36 07                ; Game Mode (02 = Elimination Mode)
     RTS                                ; 0x172c3 $B2B3 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5926,7 +5913,7 @@ LB3E1:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB3F4:                                                                          ;
     LDA      #$00                      ; 0x17404 $B3F4 A9 00                   ; A = 00
-    STA      $0736                     ; 0x17406 $B3F6 8D 36 07                ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x17406 $B3F6 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x17409 $B3F9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5993,7 +5980,7 @@ LB443:                                                                          
     STA      $073E                     ; 0x17466 $B456 8D 3E 07                ;
     STA      $073B                     ; 0x17469 $B459 8D 3B 07                ;
     LDA      #$01                      ; 0x1746c $B45C A9 01                   ; A = 01
-    STA      $0736                     ; 0x1746e $B45E 8D 36 07                ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x1746e $B45E 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x17471 $B461 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

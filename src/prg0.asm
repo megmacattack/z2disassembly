@@ -21,17 +21,6 @@ L0302 = $0302
 L0363 = $0363
 L03A4 = $03A4
 L05C9 = $05C9
-L0600 = $0600
-L0620 = $0620
-L0640 = $0640
-L0660 = $0660
-L0680 = $0680
-L06A0 = $06A0
-L06C0 = $06C0
-L6060 = $6060
-L6261 = $6261
-L696C = $696C
-L70A0 = $70A0
 L7800 = $7800
 L780E = $780E
 L781C = $781C
@@ -67,7 +56,6 @@ LDF56 = $DF56
 LDFD1 = $DFD1
 LDFD2 = $DFD2
 LDFDB = $DFDB
-LE000 = $E000
 LE001 = $E001
 LE024 = $E024
 LE187 = $E187
@@ -238,7 +226,7 @@ North_Castle_Chandeliers_sprite_attributes:                                     
 ; ---------------------------------------------------------------------------- ;
 Chandeliers_in_North_Castle:                                                    ;
     LDA      world_number                     ; 0xf5 $80E5 AD 07 07                   ; Current World				0xF8	JMP $813F		;do jmp here and you can take all the space from 0xFB to 0x14C
-    ORA      $0561                     ; 0xf8 $80E8 0D 61 05                   ; Area Code
+    ORA      area_code                     ; 0xf8 $80E8 0D 61 05                   ; Area Code
     ORA      region_number                     ; 0xfb $80EB 0D 06 07                   ; Current Region
 L80EE:                                                                          ;
     BNE      L813F                     ; 0xfe $80EE D0 4F                      ;
@@ -343,7 +331,7 @@ L817B:                                                                          
 L81A3:                                                                          ;
     STA      $0725                     ; 0x1b3 $81A3 8D 25 07                  ;; PPU Macro Selector
     INC      $0726                     ; 0x1b6 $81A6 EE 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    INC      $0736                     ; 0x1b9 $81A9 EE 36 07                  ;; Game Mode ; screen intro type
+    INC      game_mode                     ; 0x1b9 $81A9 EE 36 07                  ;; Game Mode ; screen intro type
 L81AC:                                                                          ;
     RTS                                ; 0x1bc $81AC 60                        ;
                                                                                ;
@@ -388,7 +376,7 @@ L81E5:                                                                          
     LDA      #$06                      ; 0x1f8 $81E8 A9 06                     ; A = 06
     STA      $0768                     ; 0x1fa $81EA 8D 68 07                  ;;makes weird ppu effect
     LDA      #$06                      ; 0x1fd $81ED A9 06                     ; A = 06
-    STA      $0736                     ; 0x1ff $81EF 8D 36 07                  ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x1ff $81EF 8D 36 07                  ;; Game Mode ; screen intro type
     STA      $07AA                     ; 0x202 $81F2 8D AA 07                  ;
     RTS                                ; 0x205 $81F5 60                        ;
                                                                                ;
@@ -417,7 +405,7 @@ bank0_unknown4:                                                                 
     CPX      $80                       ; 0x228 $8218 E4 80                     ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
     BNE      L8221                     ; 0x22a $821A D0 05                     ;
     LDA      #$05                      ; 0x22c $821C A9 05                     ; A = 05
-    STA      $0736                     ; 0x22e $821E 8D 36 07                  ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x22e $821E 8D 36 07                  ;; Game Mode ; screen intro type
 L8221:                                                                          ;
     RTS                                ; 0x231 $8221 60                        ;
                                                                                ;
@@ -1004,7 +992,7 @@ L85AE:                                                                          
     ASL                                ; 0x5d7 $85C7 0A                        ; A -> 00
     STA      $0729                     ; 0x5d8 $85C8 8D 29 07                  ;
     LDA      #$17                      ; 0x5db $85CB A9 17                     ; A = 17
-    STA      $0736                     ; 0x5dd $85CD 8D 36 07                  ; Game Mode
+    STA      game_mode                     ; 0x5dd $85CD 8D 36 07                  ; Game Mode
     BNE      L85FB                     ; 0x5e0 $85D0 D0 29                     ;
 L85D2:                                                                          ;
     DEX                                ; 0x5e2 $85D2 CA                        ;
@@ -1023,7 +1011,7 @@ L85EB:                                                                          
     LDA      #$00                      ; 0x5fb $85EB A9 00                     ; A = 00
     STA      $0729                     ; 0x5fd $85ED 8D 29 07                  ;
     INC      $0726                     ; 0x600 $85F0 EE 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    INC      $0736                     ; 0x603 $85F3 EE 36 07                  ; Game Mode
+    INC      game_mode                     ; 0x603 $85F3 EE 36 07                  ; Game Mode
     LDA      #$06                      ; 0x606 $85F6 A9 06                     ; A = 06
     STA      $0768                     ; 0x608 $85F8 8D 68 07                  ;;makes weird ppu effect
 L85FB:                                                                          ;
@@ -1430,7 +1418,7 @@ L88A0:                                                                          
     STX      $0726                     ; 0x8ba $88AA 8E 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      #$18                      ; 0x8bd $88AD A9 18                     ; A = 18
 L88AF:                                                                          ;
-    STA      $0736                     ; 0x8bf $88AF 8D 36 07                  ; Game Mode
+    STA      game_mode                     ; 0x8bf $88AF 8D 36 07                  ; Game Mode
 L88B2:                                                                          ;
     RTS                                ; 0x8c2 $88B2 60                        ;
                                                                                ;
@@ -2295,7 +2283,7 @@ Spell_Spell:                                                                    
     BEQ      L8E8A                     ; 0xe86 $8E76 F0 12                     ;
     CMP      #$03                      ; 0xe88 $8E78 C9 03                     ;
     BCS      L8E8A                     ; 0xe8a $8E7A B0 0E                     ;
-    LDA      $0561                     ; 0xe8c $8E7C AD 61 05                  ; Area Code
+    LDA      area_code                     ; 0xe8c $8E7C AD 61 05                  ; Area Code
     CMP      #$14                      ; 0xe8f $8E7F C9 14                     ;
     BNE      L8E95                     ; 0xe91 $8E81 D0 12                     ;RTS
     LDA      #$01                      ; 0xe93 $8E83 A9 01                     ; A = 01
@@ -2552,7 +2540,7 @@ L9012:                                                                          
     BEQ      L9036                     ; 0x1042 $9032 F0 02                    ;
     LDA      #$10                      ; 0x1044 $9034 A9 10                    ; A = 10
 L9036:                                                                          ;
-    STA      $0736                     ; 0x1046 $9036 8D 36 07                 ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x1046 $9036 8D 36 07                 ;; Game Mode ; screen intro type
 L9039:                                                                          ;
     RTS                                ; 0x1049 $9039 60                       ;
                                                                                ;
@@ -4753,9 +4741,9 @@ L9FBD:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9FC3:                                                                          ;
-    INC      $0700                     ; 0x1fd3 $9FC3 EE 00 07                 ;; Lives; Current number of lives
+    INC      lives_remaining                    ; 0x1fd3 $9FC3 EE 00 07                 ;; Lives; Current number of lives
     BPL      L9F87                     ; 0x1fd6 $9FC6 10 BF                    ;
-    DEC      $0700                     ; 0x1fd8 $9FC8 CE 00 07                 ;; Lives; Current number of lives
+    DEC      lives_remaining                    ; 0x1fd8 $9FC8 CE 00 07                 ;; Lives; Current number of lives
     JMP      L9F87                     ; 0x1fdb $9FCB 4C 87 9F                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5000,7 +4988,7 @@ LA148:                                                                          
     CLC                                ; 0x216c $A15C 18                       ;
     ADC      #$D0                      ; 0x216d $A15D 69 D0                    ;
     STA      $788F                     ; 0x216f $A15F 8D 8F 78                 ;
-    LDA      $0700                     ; 0x2172 $A162 AD 00 07                 ; Current number of lives
+    LDA      lives_remaining                    ; 0x2172 $A162 AD 00 07                 ; Current number of lives
     CLC                                ; 0x2175 $A165 18                       ;
     ADC      #$CF                      ; 0x2176 $A166 69 CF                    ;
     STA      $7803                     ; 0x2178 $A168 8D 03 78                 ;
@@ -5047,7 +5035,7 @@ LA1A5:                                                                          
     STA      $076C                     ; 0x21bd $A1AD 8D 6C 07                 ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     STA      $076D                     ; 0x21c0 $A1B0 8D 6D 07                 ;
     LDA      #$05                      ; 0x21c3 $A1B3 A9 05                    ; A = 05
-    STA      $0736                     ; 0x21c5 $A1B5 8D 36 07                 ;; Game Mode ; screen intro type
+    STA      game_mode                     ; 0x21c5 $A1B5 8D 36 07                 ;; Game Mode ; screen intro type
     LDA      #$00                      ; 0x21c8 $A1B8 A9 00                    ; A = 00
     STA      $074C                     ; 0x21ca $A1BA 8D 4C 07                 ;; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
     STA      $0524                     ; 0x21cd $A1BD 8D 24 05                 ;;menu control	(and) ; OVERWORLD: 	set to 1 to pause (will change to 2) , set to 3 to unpause (will change to 0); Routine Index
@@ -6114,7 +6102,7 @@ LA88D:                                                                          
     BPL      LA888                     ; 0x28a4 $A894 10 F2                    ;
     DEC      $00                       ; 0x28a6 $A896 C6 00                    ;
     BPL      LA886                     ; 0x28a8 $A898 10 EC                    ;
-    INC      $0736                     ; 0x28aa $A89A EE 36 07                 ;; Game Mode ; screen intro type
+    INC      game_mode                     ; 0x28aa $A89A EE 36 07                 ;; Game Mode ; screen intro type
     RTS                                ; 0x28ad $A89D 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -6190,7 +6178,7 @@ startup_init_begin_game:                                                        
     STA      $0738                     ; 0x2a18 $AA08 8D 38 07                 ;
     STA      region_number                     ; 0x2a1b $AA0B 8D 06 07                 ; Current Region
     STA      world_number                     ; 0x2a1e $AA0E 8D 07 07                 ; Current World
-    STA      $0561                     ; 0x2a21 $AA11 8D 61 05                 ; Area Code
+    STA      area_code                     ; 0x2a21 $AA11 8D 61 05                 ; Area Code
     STA      $0748                     ; 0x2a24 $AA14 8D 48 07                 ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     STA      $073F                     ; 0x2a27 $AA17 8D 3F 07                 ;
     STA      $075C                     ; 0x2a2a $AA1A 8D 5C 07                 ; Position code when entering area (0-3)

@@ -91,6 +91,14 @@ LEC02 = $EC02
 .export bank0_unknown37
 .export bank0_unknown39
 .export bank0_unknown4
+.export bank0_A199
+.export bank0_A256
+.export bank0_A30F
+.export bank0_A315
+.export bank0_A329
+.export bank0_A334
+.export bank0_A338
+.export bank0_A82A
 .export Chandeliers_in_North_Castle
 .export Check_for_Fire_Spell
 .export Hub_Update_Routine
@@ -4422,7 +4430,7 @@ L9D69:                                                                          
     LDA      $0524                     ; 0x1d85 $9D75 AD 24 05                 ;;menu control	(and) ; OVERWORLD: 	set to 1 to pause (will change to 2) , set to 3 to unpause (will change to 0); Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1d88 $9D78 20 85 D3;
 bank0_unknown_pointer_table3:                                                   ;
-.word    LA199                         ; 0x1d8b $9D7B 99 A1                    ;
+.word    bank0_A199                         ; 0x1d8b $9D7B 99 A1                    ;
 .word    bank0_Pause_Pane_LOAD_FROM_ROM_TO_RAM_FOR_MENU_TEXT__SPELL; 0x1d8d $9D7D 47 A3;
 .word    L9FCE                         ; 0x1d8f $9D7F CE 9F                    ;
 .word    LA26B                         ; 0x1d91 $9D81 6B A2                    ;
@@ -4432,7 +4440,7 @@ bank0_unknown_pointer_table3:                                                   
 .word    LA0F1                         ; 0x1d99 $9D89 F1 A0                    ;
 .word    LA26B                         ; 0x1d9b $9D8B 6B A2                    ;
 .word    LA3D7                         ; 0x1d9d $9D8D D7 A3                    ;remove menu from screen
-.word    LA338                         ; 0x1d9f $9D8F 38 A3                    ;
+.word    bank0_A338                         ; 0x1d9f $9D8F 38 A3                    ;
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown28:                                                                ;
     LDA      $0524                     ; 0x1da1 $9D91 AD 24 05                 ;check if menu open
@@ -4489,7 +4497,7 @@ Pointer_table_for_Pause_Pane:                                                   
 .word    bank0_Pause_Pane_Pointer_5__Table_1DE4; 0x1dfe $9DEE DD A1            ;
 .word    LA26B                         ; 0x1e00 $9DF0 6B A2                    ;
 .word    LA3D7                         ; 0x1e02 $9DF2 D7 A3                    ;
-.word    LA338                         ; 0x1e04 $9DF4 38 A3                    ;
+.word    bank0_A338                         ; 0x1e04 $9DF4 38 A3                    ;
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown29:                                                                ;
     LDA      $0744                     ; 0x1e06 $9DF6 AD 44 07                 ;; Controller 1 Input; Controller 1 Buttons Held
@@ -5019,12 +5027,12 @@ LA174:                                                                          
     SBC      #$0E                      ; 0x21a4 $A194 E9 0E                    ;
     TAX                                ; 0x21a6 $A196 AA                       ;
     BPL      LA174                     ; 0x21a7 $A197 10 DB                    ;
-LA199:                                                                          ;
+bank0_A199:                                                                          ;
     JMP      LA267                     ; 0x21a9 $A199 4C 67 A2                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank0_Manual_Save_Game_Routine_UP_AND_A:                                        ;
-    JSR      LA256                     ; 0x21ac $A19C 20 56 A2                 ;
+    JSR      bank0_A256                     ; 0x21ac $A19C 20 56 A2                 ;
     LDA      $F8                       ; 0x21af $A19F A5 F8                    ; Controller 2 buttons held
     CMP      #$88                      ; 0x21b1 $A1A1 C9 88                    ; 88 = 1000 1000 (Buttons A and Up)
     BNE      LA1DC                     ; 0x21b3 $A1A3 D0 37                    ;
@@ -5066,9 +5074,9 @@ LA1E7:                                                                          
     DEY                                ; 0x21fa $A1EA 88                       ;
     BPL      LA1E7                     ; 0x21fb $A1EB 10 FA                    ;
     CMP      #$00                      ; 0x21fd $A1ED C9 00                    ;
-    BEQ      LA256                     ; 0x21ff $A1EF F0 65                    ;
+    BEQ      bank0_A256                     ; 0x21ff $A1EF F0 65                    ;
     JSR      bank0_unknown29           ; 0x2201 $A1F1 20 F6 9D                 ;
-    BCC      LA256                     ; 0x2204 $A1F4 90 60                    ;
+    BCC      bank0_A256                     ; 0x2204 $A1F4 90 60                    ;
     AND      #$08                      ; 0x2206 $A1F6 29 08                    ; keep bits .... x...
     LDY      $0749                     ; 0x2208 $A1F8 AC 49 07                 ;increment magic selector position
 LA1FB:                                                                          ;
@@ -5121,7 +5129,7 @@ LA243:                                                                          
     TAY                                ; 0x2260 $A250 A8                       ;
     LDA      #$FA                      ; 0x2261 $A251 A9 FA                    ; A = FA (FA = magic bag tile)
     STA      $0305,y                   ; 0x2263 $A253 99 05 03                 ;
-LA256:                                                                          ;
+bank0_A256:                                                                          ;
     LDA      $0744                     ; 0x2266 $A256 AD 44 07                 ; Controller 1 Buttons Held
     AND      #$10                      ; 0x2269 $A259 29 10                    ; keep bits ...x .... (Start Button)
     STA      $00                       ; 0x226b $A25B 85 00                    ;
@@ -5257,11 +5265,11 @@ LA301:                                                                          
     RTS                                ; 0x231e $A30E 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LA30F:                                                                          ;
+bank0_A30F:                                                                          ;
     LDA      #$01                      ; 0x231f $A30F A9 01                    ; A = 01
     STA      $EA                       ; 0x2321 $A311 85 EA                    ;;Global Sound Switch (0 = Sound On)
     BNE      LA325                     ; 0x2323 $A313 D0 10                    ;
-LA315:                                                                          ;
+bank0_A315:                                                                          ;
     LDA      #$88                      ; 0x2325 $A315 A9 88                    ; A = 88
     STA      $0566                     ; 0x2327 $A317 8D 66 05                 ;; Delay between letters (town)		text speed text delay
     BNE      LA325                     ; 0x232a $A31A D0 09                    ;
@@ -5275,7 +5283,7 @@ LA325:                                                                          
     RTS                                ; 0x2338 $A328 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LA329:                                                                          ;
+bank0_A329:                                                                          ;
     DEC      $0566                     ; 0x2339 $A329 CE 66 05                 ;; Delay between letters (town)		text speed text delay
     LDA      $0566                     ; 0x233c $A32C AD 66 05                 ;; Delay between letters (town)		text speed text delay
     CMP      #$FF                      ; 0x233f $A32F C9 FF                    ;
@@ -5283,10 +5291,10 @@ LA329:                                                                          
     RTS                                ; 0x2343 $A333 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LA334:                                                                          ;
+bank0_A334:                                                                          ;
     LDA      #$00                      ; 0x2344 $A334 A9 00                    ; A = 00
     STA      $EA                       ; 0x2346 $A336 85 EA                    ;;Global Sound Switch (0 = Sound On)
-LA338:                                                                          ;
+bank0_A338:                                                                          ;
     LDA      #$00                      ; 0x2348 $A338 A9 00                    ; A = 00
     STA      $074C                     ; 0x234a $A33A 8D 4C 07                 ;; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
     STA      $0525                     ; 0x234d $A33D 8D 25 05                 ; Routine Delay
@@ -6050,7 +6058,7 @@ LA829:                                                                          
     RTS                                ; 0x2839 $A829 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LA82A:                                                                          ;
+bank0_A82A:                                                                          ;
     LDA      $073D                     ; 0x283a $A82A AD 3D 07                 ;; Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x283d $A82D 20 85 D3;
 bank0_unknown40:                                                                ;

@@ -934,6 +934,7 @@ L8521:                                                                          
 L8522:                                                                          ;
 .byt    $91                            ; 0x4532 $8522 91                       ;
 ; ---------------------------------------------------------------------------- ;
+setpos Main_World_Area_Pointers
 bank1_Area_Pointers_West_Hyrule:                                                ;
 .word    bank1_Area_Data__West_Hyrule_North_Castle; 0x4533 $8523 B5 8C         ;
 .word    bank1_Area_Data__West_Hyrule_Bridge; 0x4535 $8525 99 8D               ;
@@ -999,6 +1000,7 @@ L8558     = * + $0001                                                          ;
 .word    bank1_Area_Data__West_Hyrule_Random_Battle_grass_or_lava; 0x45ab $859B 07 8D;
 .word    bank1_Area_Data__West_Hyrule_North_Castle; 0x45ad $859D B5 8C         ;
 .word    bank1_Area_Data__West_Hyrule_North_Castle; 0x45af $859F B5 8C         ;
+setpos Main_World_Enemy_Pointers
 bank1_Enemy_Pointers__West_Hyrule:                                              ;
 ;\"NME-OFFSET\" in z2pledit                                                    ;
 ;Base Offset is $88A0                                                          ;
@@ -1066,6 +1068,7 @@ bank1_Enemy_Pointers__West_Hyrule:                                              
 .word    L7126                         ; 0x462b $861B 26 71                    ;
 .word    L7126                         ; 0x462d $861D 26 71                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Main_World_Key_Areas
 bank1_West_Hyrule__Key_Areas_Y_Location:                                        ;
 .byt    $34,$20,$2A,$3C,$56,$40,$4D,$39; 0x462f $861F 34 20 2A 3C 56 40 4D 39  ;
 .byt    $47,$5C,$29,$2E,$3A,$3E,$3E,$45; 0x4637 $8627 47 5C 29 2E 3A 3E 3E 45  ;
@@ -3367,7 +3370,7 @@ L9EB2:                                                                          
     RTS                                ; 0x5ec8 $9EB8 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-setpos $a000
+setpos Sub_World_Area_Pointers
 bank1_Area_Pointers_Death_Mountain:                                             ;
 .word    bank1_Area_Data_Death_Mountain; 0x6010 $A000 6C A2                    ;Crash (not enough data to make a valid area)
 .word    LA33E                         ; 0x6012 $A002 3E A3                    ;Gradual slope climb left
@@ -3432,6 +3435,7 @@ bank1_Area_Pointers_Death_Mountain:                                             
 .word    LA2BA                         ; 0x6088 $A078 BA A2                    ;
 .word    LA2BA                         ; 0x608a $A07A BA A2                    ;
 .word    LA2BA                         ; 0x608c $A07C BA A2                    ;
+setpos Sub_World_Enemy_Pointers
 bank1_Enemy_Pointers_Death_Mountain:                                            ;
 .word    L71D8                         ; 0x608e $A07E D8 71                    ;Base Offset is 48A0
 .word    L71DA                         ; 0x6090 $A080 DA 71                    ;
@@ -3497,6 +3501,7 @@ bank1_Enemy_Pointers_Death_Mountain:                                            
 .word    L71D8                         ; 0x6108 $A0F8 D8 71                    ;
 .word    L71D8                         ; 0x610a $A0FA D8 71                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sub_World_Key_Areas
 bank1_Death_Mountain_Key_Areas_Y_Location:                                      ;
 .byt    $2A,$29,$28,$2A,$2B,$27,$2D,$2D; 0x610c $A0FC 2A 29 28 2A 2B 27 2D 2D  ;
 .byt    $30,$2F,$2F,$30,$33,$36,$30,$32; 0x6114 $A104 30 2F 2F 30 33 36 30 32  ;

@@ -72,6 +72,8 @@ LEA32 = $EA32
 LF0D7 = $F0D7
 LF1F4 = $F1F4
 
+.export bank3_B082
+
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .import bank7_Determine_Enemy_Facing_Direction_relative_to_Link
 .import bank7_Display
@@ -3068,7 +3070,7 @@ bank3_Dialogs_Pointer_Table_Towns_in_East_Hyrule:                               
 .word    LAF71                         ; 0xf08e $B07E 71 AF                    ;
 .word    LAF95                         ; 0xf090 $B080 95 AF                    ;
 ; ---------------------------------------------------------------------------- ;
-bank3_code20:                                                                   ;
+bank3_B082:                                                                   ;
     LDA      $0524                     ; 0xf092 $B082 AD 24 05                 ; Routine Counter
     CMP      #$0C                      ; 0xf095 $B085 C9 0C                    ;
     BEQ      LB0AE                     ; 0xf097 $B087 F0 25                    ;

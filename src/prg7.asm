@@ -44,9 +44,6 @@ L851F = $851F
 L8520 = $8520
 L8521 = $8521
 L8522 = $8522
-L8523 = $8523
-L85A1 = $85A1
-L861F = $861F
 L8647 = $8647
 L879B = $879B
 L8817 = $8817
@@ -69,20 +66,6 @@ L99E6 = $99E6
 L9A04 = $9A04
 L9A46 = $9A46
 L9B86 = $9B86
-LA000 = $A000
-LA07E = $A07E
-LA0FC = $A0FC
-LA199 = $A199
-LA256 = $A256
-LA30F = $A30F
-LA315 = $A315
-LA329 = $A329
-LA334 = $A334
-LA338 = $A338
-LA610 = $A610
-LA82A = $A82A
-LB082 = $B082
-LB9CA = $B9CA
 
 .import bank0_Manual_Save_Game_Routine_UP_AND_A
 .import bank0_Return_of_Ganon_screen_Palettes
@@ -93,9 +76,19 @@ LB9CA = $B9CA
 .import bank0_unknown37
 .import bank0_unknown39
 .import bank0_unknown4
+.import bank0_A199
+.import bank0_A256
+.import bank0_A30F
+.import bank0_A315
+.import bank0_A329
+.import bank0_A334
+.import bank0_A338
+.import bank0_A82A
+.import bank3_B082
 .import bank4_Palettes
 .import bank5_PowerON__Reset_Memory
 .import bank5_A610
+.import bank5_B9CA
 .import Bank6Code0
 .import Bank6Code2
 .import Chandeliers_in_North_Castle
@@ -504,10 +497,10 @@ LC220:                                                                          
     BNE      LC23A                     ; 0x1c236 $C226 D0 12                   ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c238 $C228 20 85 D3;
 bank7_pointer_table0:                                                           ;
-.word    LA256                         ; 0x1c23b $C22B 56 A2                   ;
-.word    LA30F                         ; 0x1c23d $C22D 0F A3                   ;
+.word    bank0_A256                         ; 0x1c23b $C22B 56 A2                   ;
+.word    bank0_A30F                         ; 0x1c23d $C22D 0F A3                   ;
 .word    bank0_Manual_Save_Game_Routine_UP_AND_A; 0x1c23f $C22F 9C A1          ;
-.word    LA334                         ; 0x1c241 $C231 34 A3                   ;
+.word    bank0_A334                         ; 0x1c241 $C231 34 A3                   ;
 ; ---------------------------------------------------------------------------- ;
 bank7_code3:                                                                    ;
     CMP      #$02                      ; 0x1c243 $C233 C9 02                   ;
@@ -516,17 +509,20 @@ bank7_code3:                                                                    
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LC23A:                                                                          ;
+; note: bank0 is active, via prg0 swap in bank7_related_to_Pause_Pane_routine
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c24a $C23A 20 85 D3;
 bank7_pointer_table1:                                                           ;
-.word    LA199                         ; 0x1c24d $C23D 99 A1                   ;
-.word    LA315                         ; 0x1c24f $C23F 15 A3                   ;
-.word    LA329                         ; 0x1c251 $C241 29 A3                   ;
-.word    LA338                         ; 0x1c253 $C243 38 A3                   ;
+.word    bank0_A199                         ; 0x1c24d $C23D 99 A1                   ;
+.word    bank0_A315                         ; 0x1c24f $C23F 15 A3                   ;
+.word    bank0_A329                         ; 0x1c251 $C241 29 A3                   ;
+.word    bank0_A338                         ; 0x1c253 $C243 38 A3                   ;
 bank7_code4:                                                                    ;
     CMP      #$05                      ; 0x1c255 $C245 C9 05
     BCS      LC220                     ; 0x1c257 $C247 B0 D7
     JSR      SwapToSavedPRG; 0x1c259 $C249 20 C9 FF                ; Load Bank $0769
-    JMP      LB082                     ; 0x1c25c $C24C 4C 82 B0                ;
+; note: this seems to assume bank 3 is saved, and this seems to be related to
+; town dialog. I'm not sure what makes it able to assume that though.
+    JMP      bank3_B082                     ; 0x1c25c $C24C 4C 82 B0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LC24F:                                                                          ;
@@ -646,7 +642,7 @@ bank7_pointer_table__game_mode:                                                 
 .word    LC62F                         ; 0x1c310 $C300 2F C6                   ; 0A	Switch Graphics Bank, Load Bank 0, Side View Init
 .word    bank7_check_if_link_died_0494__linkdeath; 0x1c312 $C302 CC D3         ; 0B	Side View Main
 .word    LC68A                         ; 0x1c314 $C304 8A C6                   ; 0C	Fall in Hole Init
-.word    LA82A                         ; 0x1c316 $C306 2A A8                   ; 0D	Fall in Hole Tile Setup
+.word    bank0_A82A                         ; 0x1c316 $C306 2A A8                   ; 0D	Fall in Hole Tile Setup
 .word    bank7_Related_to_Link_falling ; 0x1c318 $C308 EF C6                   ; 0E	Fall in Hole Setup
 .word    L8FB7                         ; 0x1c31a $C30A B7 8F                   ; 0F	Fall in Hole Main
 .word    bank7_take_side_exit          ; 0x1c31c $C30C 4C CF                   ; 10
@@ -894,10 +890,10 @@ LC4BD:                                                                          
 .byt    $00,$00,$00,$00,$02,$00        ; 0x1c4cd $C4BD 00 00 00 00 02 00       ;Area and Enemy Pointer Offsets (6 bytes)
 ; ---------------------------------------------------------------------------- ;
 bank7_Pointer_table_for_Area_and_Enemy_Pointers:                                ;
-.word    L8523                         ; 0x1c4d3 $C4C3 23 85                   ;West Hyrule - Area Pointers
-.word    LA000                         ; 0x1c4d5 $C4C5 00 A0                   ;Death Mountain - Area Pointers
-.word    L85A1                         ; 0x1c4d7 $C4C7 A1 85                   ;West Hyrule - Enemy Pointers
-.word    LA07E                         ; 0x1c4d9 $C4C9 7E A0                   ;Death Moutain - Enemy Pointers
+.word    Main_World_Area_Pointers                         ; 0x1c4d3 $C4C3 23 85                   ;West Hyrule - Area Pointers
+.word    Sub_World_Area_Pointers                         ; 0x1c4d5 $C4C5 00 A0                   ;Death Mountain - Area Pointers
+.word    Main_World_Enemy_Pointers                         ; 0x1c4d7 $C4C7 A1 85                   ;West Hyrule - Enemy Pointers
+.word    Sub_World_Enemy_Pointers                         ; 0x1c4d9 $C4C9 7E A0                   ;Death Moutain - Enemy Pointers
 ; ---------------------------------------------------------------------------- ;
 bank7_code13:                                                                  ;
     LDA      #$30                      ; 0x1c4db $C4CB A9 30                   ; A = 30
@@ -2128,8 +2124,8 @@ bank7_pointer_table12:                                                          
 .word    LCF21_SaveGameWhenChooseSAVEwhenDead__maybe; 0x1cd2f $CD1F 21 CF      ;
 .word    LCF05                         ; 0x1cd31 $CD21 05 CF                   ;
 bank7_Pointer_table_for_Key_Areas_Data:                                         ;
-.word    L861F                         ; 0x1cd33 $CD23 1F 86                   ;West Hyrule - Key Areas (Y Pos, X Pos, Map, World)
-.word    LA0FC                         ; 0x1cd35 $CD25 FC A0                   ;Death Mountain - Key Areas (Y Pos, X Pos, Map, World)
+.word    Main_World_Key_Areas; 0x1cd33 $CD23 1F 86                   ;Hyrule - Key Areas (Y Pos, X Pos, Map, World)
+.word    Sub_World_Key_Areas; 0x1cd35 $CD25 FC A0                   ;DM/Maze Island - Key Areas (Y Pos, X Pos, Map, World)
 ; ---------------------------------------------------------------------------- ;
 bank7_Region_Overworld_Map_Pointer_Offset_Selector:                             ;
 .byt    $00,$02,$00                    ; 0x1cd37 $CD27 00 02 00                ;Region Overworld Map Pointer Offset Selector (3 bytes) for $706?
@@ -2442,7 +2438,7 @@ LCF1D:                                                                          
 LCF21_SaveGameWhenChooseSAVEwhenDead__maybe:                                    ;
     LDA      #$05                      ; 0x1cf31 $CF21 A9 05                   ; A = 05
     JSR      SwapPRG                     ; 0x1cf33 $CF23 20 CC FF                ;
-    JSR      LB9CA                     ; 0x1cf36 $CF26 20 CA B9                ;
+    JSR      bank5_B9CA                     ; 0x1cf36 $CF26 20 CA B9                ;
     JSR      SwapToSavedPRG; 0x1cf39 $CF29 20 C9 FF                ; Load Bank $0769
     INC      $0738                     ; 0x1cf3c $CF2C EE 38 07                ;
     RTS                                ; 0x1cf3f $CF2F 60                      ;

@@ -830,6 +830,7 @@ L8521:                                                                          
 L8522:                                                                          ;
 .byt    $91                            ; 0x8532 $8522 91                       ;
 ; ---------------------------------------------------------------------------- ;
+setpos Main_World_Area_Pointers
 bank2_Area_Pointers_East_Hyrule:                                                ;
 .word    L8D80                         ; 0x8533 $8523 80 8D                    ;
 .word    L8D80                         ; 0x8535 $8525 80 8D                    ;
@@ -895,6 +896,7 @@ L8558     = * + $0001                                                          ;
 .word    L8FBA                         ; 0x85ab $859B BA 8F                    ;
 .word    L8FBA                         ; 0x85ad $859D BA 8F                    ;
 .word    L9019                         ; 0x85af $859F 19 90                    ;
+setpos Main_World_Enemy_Pointers
 bank2_Enemy_Pointers__East_Hyrule:                                              ;
 .word    L70F6                         ; 0x85b1 $85A1 F6 70                    ;Base Offset is 88A0
 .word    L7110                         ; 0x85b3 $85A3 10 71                    ;
@@ -960,6 +962,7 @@ bank2_Enemy_Pointers__East_Hyrule:                                              
 .word    L70FE                         ; 0x862b $861B FE 70                    ;
 .word    L71FA                         ; 0x862d $861D FA 71                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Main_World_Key_Areas
 bank2_East_Hyrule_Key_Areas_Y_Location_:                                        ;
 .byt    $3A,$5B,$4C,$51,$54,$60,$5D,$64; 0x862f $861F 3A 5B 4C 51 54 60 5D 64  ;
 .byt    $24,$26,$38,$34,$30,$47,$4E,$4E; 0x8637 $8627 24 26 38 34 30 47 4E 4E  ;
@@ -3322,8 +3325,7 @@ L9F84_RTS:                                                                      
     RTS                                ; 0x9f94 $9F84 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-setpos $a000
-; ---------------------------------------------------------------------------- ;
+setpos Sub_World_Area_Pointers
 bank2_Area_Pointers_Maze_Island:                                                ;
 .word    bank2_Area_Data_Maze_Island   ; 0xa010 $A000 6C A2                    ;
 .word    LA33E                         ; 0xa012 $A002 3E A3                    ;
@@ -3388,6 +3390,7 @@ bank2_Area_Pointers_Maze_Island:                                                
 .word    LA2BA                         ; 0xa088 $A078 BA A2                    ;
 .word    LA2BA                         ; 0xa08a $A07A BA A2                    ;
 .word    LA2BA                         ; 0xa08c $A07C BA A2                    ;
+setpos Sub_World_Enemy_Pointers
 bank2_Enemy_Pointers_Maze_Island:                                               ;
 .word    L7200                         ; 0xa08e $A07E 00 72                    ;Base Offset is 88A0
 .word    L7202                         ; 0xa090 $A080 02 72                    ;
@@ -3453,6 +3456,7 @@ bank2_Enemy_Pointers_Maze_Island:                                               
 .word    L7200                         ; 0xa108 $A0F8 00 72                    ;
 .word    L7200                         ; 0xa10a $A0FA 00 72                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sub_World_Key_Areas
 bank2_Maze_Island_Key_Areas_Y_Location:                                         ;
 .byt    $2A,$29,$28,$2A,$2B,$27,$2D,$2D; 0xa10c $A0FC 2A 29 28 2A 2B 27 2D 2D  ;
 .byt    $30,$2F,$2F,$30,$33,$36,$30,$32; 0xa114 $A104 30 2F 2F 30 33 36 30 32  ;

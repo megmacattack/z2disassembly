@@ -57,3 +57,17 @@ COPYRIGHT = $0e
 .charmap $20, $f4 ; space
 ;linefeed = $fd
 LF = $fd
+
+; Table addresses that exist in multiple banks:
+
+; The base address of "Key Area" pointer tables in banks 1 or 2
+Main_World_Key_Areas = $861F ; The "main worlds", East Hyrule and West Hyrule
+Sub_World_Key_Areas = $A0FC  ; The "subworlds", Death Mountain and Maze Island
+
+; The base address of "Area Data" pointer tables
+Main_World_Area_Pointers = $8523 ; The "main worlds", East Hyrule and West Hyrule
+Sub_World_Area_Pointers = $A000  ; The "subworlds", Death Mountain and Maze Island
+
+; The base address of "Enemy Data" pointer tables
+Main_World_Enemy_Pointers = $85A1  ; The "main worlds", East Hyrule and West Hyrule
+Sub_World_Enemy_Pointers = $A07E   ; The "subworlds", Death Mountain and Maze Island

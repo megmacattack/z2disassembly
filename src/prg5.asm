@@ -190,6 +190,7 @@ LFCA5 = $FCA5
 
 .export bank5_PowerON__Reset_Memory
 .export bank5_A610
+.export bank5_B9CA
 
 .segment "PRG5"
 .org $8000
@@ -6831,7 +6832,7 @@ LB9B1:                                                                          
     CMP      #$BB                      ; 0x179d4 $B9C4 C9 BB                   ;
     BEQ      LB99D                     ; 0x179d6 $B9C6 F0 D5                   ;
     BNE      LB9B1                     ; 0x179d8 $B9C8 D0 E7                   ;
-LB9CA:                                                                          ;
+bank5_B9CA:                                                                          ;
     JSR      LBA6C                     ; 0x179da $B9CA 20 6C BA                ;
     LDY      #$00                      ; 0x179dd $B9CD A0 00                   ; Y = 00
     LDA      #$5A                      ; 0x179df $B9CF A9 5A                   ; A = 5A

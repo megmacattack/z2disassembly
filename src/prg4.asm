@@ -169,6 +169,14 @@ LF0C6 = $F0C6
 LF0D7 = $F0D7
 LF1F4 = $F1F4
 
+.export bank4_Palettes
+.export bank4_Palettes_for_Palaces1
+.export bank4_Palettes_for_Palaces2
+.export bank4_Palettes_for_Palaces3
+.export bank4_Palettes_for_Palaces4
+.export bank4_Palettes_for_Palaces5
+.export bank4_Palettes_for_Palaces6
+
 .import Set_Item_RAM_bit_to_0__Bits_0_3
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .import bank7_code51
@@ -6293,6 +6301,7 @@ LBEF6:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 setpos $bf00
+bank4_Palettes:
 bank4_Palettes_for_Palaces1:                                                    ;
 .byt    $0F,$30,$12,$16,$0F,$00,$10,$30; 0x13f10 $BF00 0F 30 12 16 0F 00 10 30 ;
 .byt    $0F,$00,$16,$30,$0F,$3C,$1C,$0C; 0x13f18 $BF08 0F 00 16 30 0F 3C 1C 0C ;

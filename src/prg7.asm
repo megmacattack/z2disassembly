@@ -84,7 +84,6 @@ LA610 = $A610
 LA82A = $A82A
 LB082 = $B082
 LB9CA = $B9CA
-LBF00 = $BF00
 
 .import bank0_Manual_Save_Game_Routine_UP_AND_A
 .import bank0_Return_of_Ganon_screen_Palettes
@@ -95,6 +94,7 @@ LBF00 = $BF00
 .import bank0_unknown37
 .import bank0_unknown39
 .import bank0_unknown4
+.import bank4_Palettes
 .import bank5_PowerON__Reset_Memory
 .import bank5_A610
 .import Bank6Code0
@@ -2312,7 +2312,7 @@ bank7_Load_Palace_Entrance_Palettes_into_7919_7928_10_bytes:                    
     PLA                                ; 0x1ce5a $CE4A 68                      ;
     TAY                                ; 0x1ce5b $CE4B A8                      ;
 bank7_Recopy_the_same_set_of_Palace_Palettes_into_7929_7998:                    ;
-    LDA      LBF00,y                   ; 0x1ce5c $CE4C B9 00 BF                ;
+    LDA      bank4_Palettes,y                   ; 0x1ce5c $CE4C B9 00 BF                ;
     STA      $7919,x                   ; 0x1ce5f $CE4F 9D 19 79                ;
     INY                                ; 0x1ce62 $CE52 C8                      ;
     INX                                ; 0x1ce63 $CE53 E8                      ;

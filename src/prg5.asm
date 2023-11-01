@@ -1007,7 +1007,7 @@ L8B15:                                                                          
 setpos $8b50
 bank5_routines_related_to_Ending_sequence:                                      ;
     LDA      #$05                      ; 0x14b60 $8B50 A9 05                   ; A = 05
-    STA      $0769                     ; 0x14b62 $8B52 8D 69 07                ; Bank to switch to
+    STA      PRG_bank                     ; 0x14b62 $8B52 8D 69 07                ; Bank to switch to
     LDA      #$05                      ; 0x14b65 $8B55 A9 05                   ; A = 05
     STA      world_number                     ; 0x14b67 $8B57 8D 07 07                ; Current World
     LDA      #$3E                      ; 0x14b6a $8B5A A9 3E                   ; A = 3E

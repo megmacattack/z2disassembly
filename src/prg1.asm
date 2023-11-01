@@ -2415,7 +2415,7 @@ L9895:                                                                          
     LDA      $A8,x                     ; 0x58a8 $9898 B5 A8                    ;; Enemy State
     AND      #$04                      ; 0x58aa $989A 29 04                    ; keep bits .... .x..
     BEQ      L98B2                     ; 0x58ac $989C F0 14                    ;
-    LDA      $051B,x                   ; 0x58ae $989E BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x58ae $989E BD 1B 05                 ; Randomizer
     AND      #$01                      ; 0x58b1 $98A1 29 01                    ; keep bits .... ...x
     TAY                                ; 0x58b3 $98A3 A8                       ;
     LDA      L987C,y                   ; 0x58b4 $98A4 B9 7C 98                 ; refer to table at $587A (offset +2)
@@ -2574,7 +2574,7 @@ L9980:                                                                          
     LDX      $10                       ; 0x59b4 $99A4 A6 10                    ;; used as monster x register ;draw boss hp bar
     ADC      $2A,x                     ; 0x59b6 $99A6 75 2A                    ; add Goriya's Y position
     STA      $30,y                     ; 0x59b8 $99A8 99 30 00                 ; Projectile Y Position
-    LDA      $051B,x                   ; 0x59bb $99AB BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x59bb $99AB BD 1B 05                 ; Randomizer
     AND      #$10                      ; 0x59be $99AE 29 10                    ; keep bits ...x ....
     LDX      $0458,y                   ; 0x59c0 $99B0 BE 58 04                 ;
     BEQ      L99B7                     ; 0x59c3 $99B3 F0 02                    ;
@@ -2693,7 +2693,7 @@ L9A6B:                                                                          
     INC      $AF,x                     ; 0x5a80 $9A70 F6 AF                    ;; Various enemy state variables
     AND      $AF,x                     ; 0x5a82 $9A72 35 AF                    ;; Various enemy state variables
     BNE      L9AAB                     ; 0x5a84 $9A74 D0 35                    ;
-    LDA      $051B,x                   ; 0x5a86 $9A76 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x5a86 $9A76 BD 1B 05                 ; Randomizer
     AND      L99EF,y                   ; 0x5a89 $9A79 39 EF 99                 ; refer to table at $5A06 (+17 +18)
     BNE      L9A82                     ; 0x5a8c $9A7C D0 04                    ;
     LDA      #$E0                      ; 0x5a8e $9A7E A9 E0                    ; A = E0
@@ -2707,7 +2707,7 @@ L9A82:                                                                          
     BEQ      L9AA4                     ; 0x5a9c $9A8C F0 16                    ;
     CMP      #$18                      ; 0x5a9e $9A8E C9 18                    ; 18 = Red Daira
     BEQ      L9AA4                     ; 0x5aa0 $9A90 F0 12                    ;
-    LDA      $051B,x                   ; 0x5aa2 $9A92 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x5aa2 $9A92 BD 1B 05                 ; Randomizer
     LSR                                ; 0x5aa5 $9A95 4A                       ;
     BCS      L9A9E                     ; 0x5aa6 $9A96 B0 06                    ;
     AND      #$02                      ; 0x5aa8 $9A98 29 02                    ; keep bits .... ..x.
@@ -2850,7 +2850,7 @@ L9B48:                                                                          
     STA       a:$C2,x                   ; 0x5b61 $9B51 9D C2 00                 ; Enemy Current HP
     LDA      #$1E                      ; 0x5b64 $9B54 A9 1E                    ; 1E = Moby
     STA      $A1,x                     ; 0x5b66 $9B56 95 A1                    ; Moby assigned to slot #X
-    LDA      $051B,x                   ; 0x5b68 $9B58 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x5b68 $9B58 BD 1B 05                 ; Randomizer
     AND      #$01                      ; 0x5b6b $9B5B 29 01                    ; keep bits .... ...x
     TAY                                ; 0x5b6d $9B5D A8                       ;
     LDA      $0D                       ; 0x5b6e $9B5E A5 0D                    ;

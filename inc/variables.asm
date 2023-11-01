@@ -1,4 +1,5 @@
 ; system ram locations
+rng_base = $051B
 area_code = $0561
 town_code = $056B
 lives_remaining = $0700

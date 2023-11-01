@@ -1405,7 +1405,7 @@ L96EF:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L96F0:                                                                          ;
-    LDA      $051B,x                   ; 0xd700 $96F0 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0xd700 $96F0 BD 1B 05                 ; Randomizer
     STA      L0002                     ; 0xd703 $96F3 85 02                    ;
     AND      #$03                      ; 0xd705 $96F5 29 03                    ; keep bits .... ..xx
     TAY                                ; 0xd707 $96F7 A8                       ;
@@ -4221,7 +4221,7 @@ bank3_Townfolk_Transforming_into_Ache:                                          
     CMP      #$1D                      ; 0xf7e5 $B7D5 C9 1D                    ;
     BCS      LB7F0                     ; 0xf7e7 $B7D7 B0 17                    ;
 ;19 to 1C = Generated Townfolk                                                 ;
-    LDA      $051C,x                   ; 0xf7e9 $B7D9 BD 1C 05                 ; Randomizer
+    LDA      rng_base+$1,x                   ; 0xf7e9 $B7D9 BD 1C 05                 ; Randomizer
     CMP      #$67                      ; 0xf7ec $B7DC C9 67                    ; Approx. 26% chance of Townfolk transforming
     BCS      LB7F0                     ; 0xf7ee $B7DE B0 10                    ;
     LDA      #$03                      ; 0xf7f0 $B7E0 A9 03                    ; A = 03 (03 = Code for Ache)

@@ -531,7 +531,7 @@ L82B0:                                                                          
     LDA      L823F,y                   ; 0x2c4 $82B4 B9 3F 82                  ;
     STA      $0516                     ; 0x2c7 $82B7 8D 16 05                  ; Timer for Overworld Demons wave
 L82BA:                                                                          ;
-    LDA      $051C                     ; 0x2ca $82BA AD 1C 05                  ; Alternate randomizer
+    LDA      rng_base+$1                     ; 0x2ca $82BA AD 1C 05                  ; Alternate randomizer
     AND      #$03                      ; 0x2cd $82BD 29 03                     ; keep bits .... ..xx
     STA      $00                       ; 0x2cf $82BF 85 00                     ;
     STY      $0B                       ; 0x2d1 $82C1 84 0B                     ;
@@ -550,7 +550,7 @@ L82BA:                                                                          
     TAY                                ; 0x2e7 $82D7 A8                        ;
     DEY                                ; 0x2e8 $82D8 88                        ;
 L82D9:                                                                          ;
-    LDA      $051B                     ; 0x2e9 $82D9 AD 1B 05                  ; Randomizer
+    LDA      rng_base                     ; 0x2e9 $82D9 AD 1B 05                  ; Randomizer
     CMP      L824D,y                   ; 0x2ec $82DC D9 4D 82                  ;
     BCS      L82E4                     ; 0x2ef $82DF B0 03                     ;
     DEY                                ; 0x2f1 $82E1 88                        ;
@@ -822,7 +822,7 @@ L8481:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L8488:                                                                          ;
     LDY      #$01                      ; 0x498 $8488 A0 01                     ; Y = 01
-    LDA      $051B,x                   ; 0x49a $848A BD 1B 05                  ;; Randomizer
+    LDA      rng_base,x                   ; 0x49a $848A BD 1B 05                  ;; Randomizer
     BPL      L8491                     ; 0x49d $848D 10 02                     ;
     LDY      #$FF                      ; 0x49f $848F A0 FF                     ; Y = FF
 L8491:                                                                          ;

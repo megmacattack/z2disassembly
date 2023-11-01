@@ -2039,7 +2039,7 @@ bank2_Pointer_table_for_Rock_Tossing_Lizalfos_routines:                         
 bank2_code13:                                                                   ;
     LDA      $0504,x                   ; 0x979e $978E BD 04 05                 ; Timer for Enemy AI
     BNE      L97B6                     ; 0x97a1 $9791 D0 23                    ;
-    LDA      $051B,x                   ; 0x97a3 $9793 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x97a3 $9793 BD 1B 05                 ; Randomizer
     LSR                                ; 0x97a6 $9796 4A                       ;
     ADC      #$40                      ; 0x97a7 $9797 69 40                    ;
     ADC      $70                       ; 0x97a9 $9799 65 70                    ; Link's X Velocity
@@ -2086,7 +2086,7 @@ L97C8:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L97D1:                                                                          ;
-    LDA      $051B,x                   ; 0x97e1 $97D1 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x97e1 $97D1 BD 1B 05                 ; Randomizer
     LSR                                ; 0x97e4 $97D4 4A                       ;
 L97D5:                                                                          ;
     ORA      #$40                      ; 0x97e5 $97D5 09 40                    ; set  bits .x.. ....
@@ -2113,7 +2113,7 @@ L97F0:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Init_Routines_Leever:                                               ;
-    LDA      $051B,x                   ; 0x9803 $97F3 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9803 $97F3 BD 1B 05                 ; Randomizer
     STA      $0504,x                   ; 0x9806 $97F6 9D 04 05                 ; Timer for Enemy AI
     LDA      $2A,x                     ; 0x9809 $97F9 B5 2A                    ; Enemy Y Position
     CLC                                ; 0x980b $97FB 18                       ;
@@ -2145,7 +2145,7 @@ L9814:                                                                          
 L9820:                                                                          ;
     CMP      #$F8                      ; 0x9830 $9820 C9 F8                    ;
     BNE      L9837                     ; 0x9832 $9822 D0 13                    ;
-    LDA      $051B,x                   ; 0x9834 $9824 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9834 $9824 BD 1B 05                 ; Randomizer
     LSR                                ; 0x9837 $9827 4A                       ;
     BCC      L9837                     ; 0x9838 $9828 90 0D                    ;
     LDA      $A8,x                     ; 0x983a $982A B5 A8                    ; Enemy State
@@ -2178,7 +2178,7 @@ L985C:                                                                          
     LDA      $12                       ; 0x986c $985C A5 12                    ;; Frame Counter (ascending)
     AND      #$3F                      ; 0x986e $985E 29 3F                    ; keep bits ..xx xxxx (attack window) (C0-F0)
     BNE      L987F                     ; 0x9870 $9860 D0 1D                    ;
-    LDA      $051B,x                   ; 0x9872 $9862 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9872 $9862 BD 1B 05                 ; Randomizer
     AND      #$01                      ; 0x9875 $9865 29 01                    ; keep bits .... ...x (probability 50%)
     BNE      L987F                     ; 0x9877 $9867 D0 16                    ;
     JSR      bank7_Spawn_New_Projectile; 0x9879 $9869 20 CE DB                 ; Spawn New Projectile
@@ -2266,7 +2266,7 @@ L98E9:                                                                          
     STA      $0444,x                   ; 0x9908 $98F8 9D 44 04                 ; Enemy Vulnerability
     JSR      LE617                     ; 0x990b $98FB 20 17 E6                 ;
     JSR      LDE40                     ; 0x990e $98FE 20 40 DE                 ;
-    LDA      $051B,x                   ; 0x9911 $9901 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9911 $9901 BD 1B 05                 ; Randomizer
     AND      #$1F                      ; 0x9914 $9904 29 1F                    ; keep bits ...x xxxx
     BNE      L990D                     ; 0x9916 $9906 D0 05                    ; 1F = probability of eye opening
     LDA      #$3F                      ; 0x9918 $9908 A9 3F                    ; A = 3F (delay for eye stay open)
@@ -2298,7 +2298,7 @@ bank2_Leever_routines_Lurking:                                                  
     BNE      L994F                     ; 0x993b $992B D0 22                    ;
     LDA      #$50                      ; 0x993d $992D A9 50                    ; A = 50 (delay for lurking before emerging)
     STA      $0504,x                   ; 0x993f $992F 9D 04 05                 ; Timer for Enemy AI
-    LDA      $051B,x                   ; 0x9942 $9932 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9942 $9932 BD 1B 05                 ; Randomizer
     ADC      $072C                     ; 0x9945 $9935 6D 2C 07                 ; Scrolling Offset Low Byte
     STA      $4E,x                     ; 0x9948 $9938 95 4E                    ; Enemy X position (low byte)
     LDA      $072A                     ; 0x994a $993A AD 2A 07                 ; Scrolling Offset High Byte
@@ -2328,7 +2328,7 @@ L995F:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9960:                                                                          ;
     INC      $AF,x                     ; 0x9970 $9960 F6 AF                    ;; Various enemy state variables
-    LDA      $051B,x                   ; 0x9972 $9962 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9972 $9962 BD 1B 05                 ; Randomizer
     LSR                                ; 0x9975 $9965 4A                       ;
     ORA      #$30                      ; 0x9976 $9966 09 30                    ; set  bits ..xx ....
     STA      $0504,x                   ; 0x9978 $9968 9D 04 05                 ; delay for movement (between 30 and 7F)
@@ -2386,7 +2386,7 @@ L999F:                                                                          
     STA      $2A,x                     ; 0x99c5 $99B5 95 2A                    ; Enemy Y Position
     LDA      #$01                      ; 0x99c7 $99B7 A9 01                    ; A = 01
     STA      $1A,x                     ; 0x99c9 $99B9 95 1A                    ;
-    LDA      $051B,x                   ; 0x99cb $99BB BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x99cb $99BB BD 1B 05                 ; Randomizer
     ADC      $072C                     ; 0x99ce $99BE 6D 2C 07                 ; Scrolling Offset Low Byte
     STA      $4E,x                     ; 0x99d1 $99C1 95 4E                    ; Enemy X position (low byte)
     LDA      $072A                     ; 0x99d3 $99C3 AD 2A 07                 ; Scrolling Offset High Byte
@@ -2406,7 +2406,7 @@ L99D2:                                                                          
 L99DA:                                                                          ;
     LDA      $0504,x                   ; 0x99ea $99DA BD 04 05                 ; Timer for Enemy AI
     BNE      L99EF                     ; 0x99ed $99DD D0 10                    ;
-    LDA      $051B,x                   ; 0x99ef $99DF BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x99ef $99DF BD 1B 05                 ; Randomizer
     PHA                                ; 0x99f2 $99E2 48                       ;
     AND      #$0F                      ; 0x99f3 $99E3 29 0F                    ; keep bits .... xxxx
 L99E6     = * + $0001                                                          ;
@@ -2468,7 +2468,7 @@ bank2_Enemy_Routines1_Zora:                                                     
     LDA      $12                       ; 0x9a3a $9A2A A5 12                    ;; Frame Counter (ascending)
     AND      #$3F                      ; 0x9a3c $9A2C 29 3F                    ; keep bits ..xx xxxx
     BNE      L9A3A                     ; 0x9a3e $9A2E D0 0A                    ; probability of shooting Energy Ball
-    LDA      $051B,x                   ; 0x9a40 $9A30 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9a40 $9A30 BD 1B 05                 ; Randomizer
     LSR                                ; 0x9a43 $9A33 4A                       ;
     BCC      L9A3A                     ; 0x9a44 $9A34 90 04                    ;
     LDA      #$0A                      ; 0x9a46 $9A36 A9 0A                    ; A = 0A
@@ -2554,14 +2554,14 @@ L9AC5:                                                                          
     BNE      L9AD7                     ; 0x9ae2 $9AD2 D0 03                    ; delay before changing direction (towards Link)
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x9ae4 $9AD4 20 91 DC; Determine Enemy Facing Direction
 L9AD7:                                                                          ;
-    LDA      $051B,x                   ; 0x9ae7 $9AD7 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9ae7 $9AD7 BD 1B 05                 ; Randomizer
     EOR      #$FF                      ; 0x9aea $9ADA 49 FF                    ; flip all bits
     AND      #$FC                      ; 0x9aec $9ADC 29 FC                    ; keep bits xxxx xx..
     BNE      L9AE4                     ; 0x9aee $9ADE D0 04                    ; used to calculate delay for eye open
     LDA      #$20                      ; 0x9af0 $9AE0 A9 20                    ; A = 20
     STA      $81,x                     ; 0x9af2 $9AE2 95 81                    ; Current Animation Frame for Enemy
 L9AE4:                                                                          ;
-    LDA      $051C,x                   ; 0x9af4 $9AE4 BD 1C 05                 ; Alternate Randomizer ?
+    LDA      rng_base+$1,x                   ; 0x9af4 $9AE4 BD 1C 05                 ; Alternate Randomizer ?
     AND      #$3F                      ; 0x9af7 $9AE7 29 3F                    ; keep bits ..xx xxxx
     BNE      L9AF0                     ; 0x9af9 $9AE9 D0 05                    ; flame shooting frequency
     LDA      #$10                      ; 0x9afb $9AEB A9 10                    ; A = 10 (delay during which tail is pointed)
@@ -2694,7 +2694,7 @@ L9B96:                                                                          
     LDA      $F5                       ; 0x9bb2 $9BA2 A5 F5                    ; Controller 1 buttons pressed
     AND      #$40                      ; 0x9bb4 $9BA4 29 40                    ; keep bits .x.. .... (B button)
     BEQ      L9BB4                     ; 0x9bb6 $9BA6 F0 0C                    ;
-    LDA      $051B,x                   ; 0x9bb8 $9BA8 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9bb8 $9BA8 BD 1B 05                 ; Randomizer
     AND      #$03                      ; 0x9bbb $9BAB 29 03                    ; keep bits .... ..xx
     BEQ      L9BB4                     ; 0x9bbd $9BAD F0 05                    ;
 ;1 chance out of 4 that the enemy will NOT move its shield                     ;
@@ -2782,7 +2782,7 @@ L9C34:                                                                          
     LDA      L9B6E,y                   ; 0x9c48 $9C38 B9 6E 9B                 ;
     AND      $AF,x                     ; 0x9c4b $9C3B 35 AF                    ;; Various enemy state variables
     BNE      L9C66                     ; 0x9c4d $9C3D D0 27                    ;
-    LDA      $051B,x                   ; 0x9c4f $9C3F BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9c4f $9C3F BD 1B 05                 ; Randomizer
     AND      #$03                      ; 0x9c52 $9C42 29 03                    ; keep bits .... ..xx
     BNE      L9C4A                     ; 0x9c54 $9C44 D0 04                    ;
     LDA      #$C0                      ; 0x9c56 $9C46 A9 C0                    ; A = C0
@@ -2792,7 +2792,7 @@ L9C4A:                                                                          
     LDA      $A1,x                     ; 0x9c5c $9C4C B5 A1                    ; Enemy Code
     CMP      #$1B                      ; 0x9c5e $9C4E C9 1B                    ; 1B = Orange Lizalfos
     BNE      L9C5F                     ; 0x9c60 $9C50 D0 0D                    ;
-    LDA      $051B,x                   ; 0x9c62 $9C52 BD 1B 05                 ; Randomizer
+    LDA      rng_base,x                   ; 0x9c62 $9C52 BD 1B 05                 ; Randomizer
     LSR                                ; 0x9c65 $9C55 4A                       ;
     BCS      L9C5C                     ; 0x9c66 $9C56 B0 04                    ;
     LDA      $17                       ; 0x9c68 $9C58 A5 17                    ; Link's Shield Position (0 = Link ducked)

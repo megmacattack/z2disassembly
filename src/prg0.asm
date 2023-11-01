@@ -91,6 +91,11 @@ LEC02 = $EC02
 .export bank0_unknown37
 .export bank0_unknown39
 .export bank0_unknown4
+.export bank0_unknown12
+.export bank0_903A
+.export bank0_96A8
+.export bank0_9925
+.export bank0_9A04
 .export bank0_A199
 .export bank0_A256
 .export bank0_A30F
@@ -2487,10 +2492,14 @@ L8FB3:                                                                          
 .byt    $1C                            ; 0xfc3 $8FB3 1C                        ;
 L8FB4:                                                                          ;
 .byt    $0C,$2C,$1C                    ; 0xfc4 $8FB4 0C 2C 1C                  ;
-L8FB7:                                                                          ;
-.byt    $E6,$29,$E6,$29,$A5,$29,$E9,$08; 0xfc7 $8FB7 E6 29 E6 29 A5 29 E9 08   ;
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown12:                                                                ;
+;L8FB7: original disassembly had this as the following data, but more likely code;
+;.byt    $E6,$29,$E6,$29,$A5,$29,$E9,$08; 0xfc7 $8FB7 E6 29 E6 29 A5 29 E9 08   ;
+    INC      $29
+    INC      $29
+    LDA      $29
+    SBC      #$08
     STA      $2A                       ; 0xfcf $8FBF 85 2A                     ; Enemy 0 Y Position
     LDA      #$78                      ; 0xfd1 $8FC1 A9 78                     ; A = 78
     STA      $CC                       ; 0xfd3 $8FC3 85 CC                     ;; Link's X Position on Screen; Player X On Screen; Link's X Position on Screen
@@ -2553,7 +2562,7 @@ L9039:                                                                          
     RTS                                ; 0x1049 $9039 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-L903A:                                                                          ;
+bank0_903A:                                                                          ;
     LDA      $B5                       ; 0x104a $903A A5 B5                    ;;2 will make link die in lava	;3 move right like when win game at dark link
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x104c $903C 20 85 D3;
 bank0_pointer_table_unknown13:                                                  ;
@@ -3558,7 +3567,7 @@ L96A1:                                                                          
     LDY      $0301                     ; 0x16b1 $96A1 AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     CPY      #$08                      ; 0x16b4 $96A4 C0 08                    ;
     BCS      L971C                     ; 0x16b6 $96A6 B0 74                    ;
-L96A8:                                                                          ;
+bank0_96A8:                                                                          ;
     LDX      #$00                      ; 0x16b8 $96A8 A2 00                    ; X = 00
     LDA      $0750                     ; 0x16ba $96AA AD 50 07                 ;
     BIT      $074F                     ; 0x16bd $96AD 2C 4F 07                 ;; Related to Pause Pane
@@ -3954,7 +3963,7 @@ L9924:                                                                          
     RTS                                ; 0x1934 $9924 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-L9925:                                                                          ;
+bank0_9925:                                                                          ;
     LDY      $D1                       ; 0x1935 $9925 A4 D1                    ;max map pages
     BEQ      L9924                     ; 0x1937 $9927 F0 FB                    ;if 0 (only 1 map page?), rts
     LDA      $0728                     ; 0x1939 $9929 AD 28 07                 ;728	1=freeze screen, prevent from exiting left/right
@@ -4061,7 +4070,7 @@ L99E5:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L99E6:                                                                          ;
     LDA      $0740                     ; 0x19f6 $99E6 AD 40 07                 ;
-    BNE      L9A04                     ; 0x19f9 $99E9 D0 19                    ;
+    BNE      bank0_9A04                     ; 0x19f9 $99E9 D0 19                    ;
     LDA      $0721                     ; 0x19fb $99EB AD 21 07                 ;
     BMI      L99F9                     ; 0x19fe $99EE 30 09                    ;
     CMP      #$20                      ; 0x1a00 $99F0 C9 20                    ;
@@ -4077,7 +4086,7 @@ L99FC:                                                                          
     STA      $0721                     ; 0x1a0c $99FC 8D 21 07                 ;
     LDA      #$00                      ; 0x1a0f $99FF A9 00                    ; A = 00
     STA      $03A3                     ; 0x1a11 $9A01 8D A3 03                 ;
-L9A04:                                                                          ;
+bank0_9A04:                                                                          ;
     DEC      $0740                     ; 0x1a14 $9A04 CE 40 07                 ;
     BPL      L9A18                     ; 0x1a17 $9A07 10 0F                    ;
     LDA      #$08                      ; 0x1a19 $9A09 A9 08                    ; A = 08

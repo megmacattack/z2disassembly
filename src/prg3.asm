@@ -73,6 +73,8 @@ LF0D7 = $F0D7
 LF1F4 = $F1F4
 
 .export bank3_B082
+.export bank3_Door_Destinations_in_Towns
+.export bank3_Build_a_pointer_with_86_and_a_value_from_C643
 
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .import bank7_Determine_Enemy_Facing_Direction_relative_to_Link
@@ -605,7 +607,7 @@ L8470:                                                                          
 L84D8:                                                                          ;
 .byt    $5E,$5E                        ; 0xc4e8 $84D8 5E 5E                    ;
 ; ---------------------------------------------------------------------------- ;
-setpos $8500
+setpos Object_Tile_Mappings
 bank3_Pointer_table_for_Objects_Tile_Mappings:                                  ;
 .word    bank3_Table_0_1_for_Area_Objects_Tile_Mappings; 0xc510 $8500 A2 86    ;
 .word    bank3_Table_0_1_for_Area_Objects_Tile_Mappings; 0xc512 $8502 A2 86    ;

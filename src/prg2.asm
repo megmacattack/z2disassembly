@@ -684,6 +684,7 @@ L83AA:                                                                          
     RTS                                ; 0x83de $83CE 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Limit_Check_Function
 L83CF:                                                                          ;
     LDA      L0000                     ; 0x83df $83CF A5 00                    ;
     CMP      #$40                      ; 0x83e1 $83D1 C9 40                    ; Check if at the extreme right of the map
@@ -724,6 +725,7 @@ L8408:                                                                          
     RTS                                ; 0x8418 $8408 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Random_Battle_Tables
 bank2_Code_values_for_Random_Battle_Areas_Desert:                               ;
 ;xx.. ....	Enter Code (1 = Middle of Screen 1)                                 ;
 ;..xx xxxx	Area Code                                                           ;
@@ -788,13 +790,14 @@ bank2_Table_2_for_Area_Objects_Tile_Mappings:                                   
 L84D8:                                                                          ;
 .byt    $7F,$7C,$81,$36,$36,$37,$37,$48; 0x84e8 $84D8 7F 7C 81 36 36 37 37 48  ;
 .byt    $49,$4A,$4B,$99,$99,$99,$99    ; 0x84f0 $84E0 49 4A 4B 99 99 99 99     ;
-setpos $8500
+setpos Object_Tile_Mappings
 ; ---------------------------------------------------------------------------- ;
 bank2_Pointer_table_for_Objects_Tile_Mappings_:                                 ;
 .word    bank2_Table_0_1_for_Area_Objects_Tile_Mappings; 0x8510 $8500 17 84    ;
 .word    bank2_Table_0_1_for_Area_Objects_Tile_Mappings; 0x8512 $8502 17 84    ;
 .word    bank2_Table_2_for_Area_Objects_Tile_Mappings; 0x8514 $8504 9F 84      ;
 .word    bank2_Table_3_for_Area_Objects_Tile_Mappings; 0x8516 $8506 60 93      ;
+setpos Overworld_Map_Data_Pointers
 bank2_Pointer_table_for_Overworld_Map_Data:                                     ;
 .word    bank2_East_Hyrule_Overworld_Map_Data; 0x8518 $8508 46 90              ;
 .word    bank2_Maze_Island_Overworld_Map_Data; 0x851a $850A 4C A6              ;

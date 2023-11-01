@@ -114,6 +114,8 @@ LF0CC = $F0CC
 LF0D7 = $F0D7
 LF1F4 = $F1F4
 
+.export bank1_Transform_completed_palaces_into_stone
+
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .import bank7_code39
 .import bank7_code43
@@ -713,6 +715,7 @@ L83AA:                                                                          
     RTS                                ; 0x43de $83CE 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Limit_Check_Function
 bank1_overworld_limit_check_jmp_from_bank7:                                     ;
     LDA      L0000                     ; 0x43df $83CF A5 00                    ;
     CMP      #$40                      ; 0x43e1 $83D1 C9 40                    ; Check if at the extreme right of the map
@@ -753,6 +756,7 @@ L8408:                                                                          
     RTS                                ; 0x4418 $8408 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Random_Battle_Tables
 bank1_Code_values_for_Random_Battle_Areas_Desert:                               ;
 ;North-West Hyrule / South-West Hyrule                                         ;
 ;xx.. ....	Enter Code (1 = Middle of Screen 1)                                 ;
@@ -893,12 +897,13 @@ bank1_Table_2_for_Area_Objects_Tile_Mappings_Ground_Forest:                     
 bank1_Table_2_for_Area_Objects_Tile_Mappings_Ground_Swamp:                      ;
 .byt    $99,$99,$99,$99                ; 0x44f3 $84E3 99 99 99 99              ;
 
-setpos $8500
+setpos Object_Tile_Mappings
 bank1_Pointer_table_for_Objects_Tile_Mappings:                                  ;
 .word    bank1_Table_0_1_for_Area_Objects_Tile_Mappings_Background; 0x4510 $8500 17 84;
 .word    bank1_Table_0_1_for_Area_Objects_Tile_Mappings_Background; 0x4512 $8502 17 84;
 .word    bank1_Table_2_for_Area_Objects_Tile_Mappings_Lava_Water_Surface; 0x4514 $8504 9F 84;
 .word    bank1_Table_3_for_Area_Objects_Tile_Mappings_North_Castle_Curtains_Top; 0x4516 $8506 7D 93;
+setpos Overworld_Map_Data_Pointers
 Pointer_table_for_Overworld_Map_Data:                                           ;
 .word    bank1_West_Hyrule_Overworld_Map_Data; 0x4518 $8508 5C 90              ;
 .word    bank1_Death_Mountain_Overworld_Map_Data; 0x451a $850A 4C A6           ;

@@ -27,45 +27,20 @@ L817B = $817B
 L81A3 = $81A3
 L8368 = $8368
 L83A1 = $83A1
-L83CF = $83CF
-L8409 = $8409
-L8470 = $8470
-L84D8 = $84D8
-L8500 = $8500
-L8501 = $8501
-L8508 = $8508
-L8509 = $8509
-L850C = $850C
-L851A = $851A
-L851B = $851B
-L851C = $851C
-L851E = $851E
-L851F = $851F
-L8520 = $8520
-L8521 = $8521
-L8522 = $8522
-L8647 = $8647
-L879B = $879B
-L8817 = $8817
-L88A0 = $88A0
-L89A0 = $89A0
-L8AA0 = $8AA0
-L8B50 = $8B50
-L8B69 = $8B69
-L8BA0 = $8BA0
-L8BBF = $8BBF
-L8FB7 = $8FB7
-L9000 = $9000
-L903A = $903A
-L9624 = $9624
-L9625 = $9625
-L96A8 = $96A8
-L9764 = $9764
-L9925 = $9925
-L99E6 = $99E6
-L9A04 = $9A04
-L9A46 = $9A46
-L9B86 = $9B86
+L850C = $850C ; multibank function related to tiles? banks 1-5 seem to have similar code here.
+L851A = $851A ; multibank tables relating to floor tiles? banks 1-5 all look plausible
+L851B = $851B ; ^ used with
+L851C = $851C ; ^ used with
+L851E = $851E ; ^ used with
+L851F = $851F ; ^ used with
+L8520 = $8520 ; ^ used with
+L8521 = $8521 ; ^ used with
+L8522 = $8522 ; ^ used with
+L9624 = $9624 ; probably a table in prg4 but prg5 also has data there.
+L9625 = $9625 ; ^ one byte offset from the same place
+L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
+L9A46 = $9A46 ; could be bank 4 or 5 - unlikely to be any others
+L9B86 = $9B86 ; part of a table of multibank locations
 
 .import bank0_Manual_Save_Game_Routine_UP_AND_A
 .import bank0_Return_of_Ganon_screen_Palettes
@@ -76,6 +51,11 @@ L9B86 = $9B86
 .import bank0_unknown37
 .import bank0_unknown39
 .import bank0_unknown4
+.import bank0_unknown12
+.import bank0_903A
+.import bank0_96A8
+.import bank0_9925
+.import bank0_9A04
 .import bank0_A199
 .import bank0_A256
 .import bank0_A30F
@@ -84,8 +64,17 @@ L9B86 = $9B86
 .import bank0_A334
 .import bank0_A338
 .import bank0_A82A
+.import bank1_Transform_completed_palaces_into_stone
 .import bank3_B082
+.import bank3_Door_Destinations_in_Towns
+.import bank3_Build_a_pointer_with_86_and_a_value_from_C643
+.import bank4_Unknown_Palettes
 .import bank4_Palettes
+.import bank4_Palaces_Type_A_B_Palettes
+.import bank5_routines_related_to_Ending_sequence
+.import bank5_8B69
+.import bank5_code4
+.import bank5_9764
 .import bank5_PowerON__Reset_Memory
 .import bank5_A610
 .import bank5_B9CA
@@ -439,7 +428,7 @@ bank7_code2:                                                                    
 bank7_related_to_sound:                                                         ;
     LDA      #$06                      ; 0x1c1d1 $C1C1 A9 06                   ; A = 06
     JSR      SwapPRG                     ; 0x1c1d3 $C1C3 20 CC FF                ; bank switch routine
-    JSR      L9000                     ; 0x1c1d6 $C1C6 20 00 90                ;
+    JSR      Bank6Code2                     ; 0x1c1d6 $C1C6 20 00 90                ;
     JMP      SwapToPRG0; 0x1c1d9 $C1C9 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -644,7 +633,7 @@ bank7_pointer_table__game_mode:                                                 
 .word    LC68A                         ; 0x1c314 $C304 8A C6                   ; 0C	Fall in Hole Init
 .word    bank0_A82A                         ; 0x1c316 $C306 2A A8                   ; 0D	Fall in Hole Tile Setup
 .word    bank7_Related_to_Link_falling ; 0x1c318 $C308 EF C6                   ; 0E	Fall in Hole Setup
-.word    L8FB7                         ; 0x1c31a $C30A B7 8F                   ; 0F	Fall in Hole Main
+.word    bank0_unknown12                         ; 0x1c31a $C30A B7 8F                   ; 0F	Fall in Hole Main
 .word    bank7_take_side_exit          ; 0x1c31c $C30C 4C CF                   ; 10
 .word    bank7_code9                   ; 0x1c31e $C30E 97 C3                   ; 11
 .word    LC63E                         ; 0x1c320 $C310 3E C6                   ; 12	Increment Game Mode and execute Game Mode 0C
@@ -709,17 +698,17 @@ bank7_pointer_table5:                                                           
 ; ---------------------------------------------------------------------------- ;
 bank7_code8:                                                                    ;
     JSR      LC388                     ; 0x1c386 $C376 20 88 C3                ;
-    JMP      L8B50                     ; 0x1c389 $C379 4C 50 8B                ;
+    JMP      bank5_routines_related_to_Ending_sequence                     ; 0x1c389 $C379 4C 50 8B                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LC37C:                                                                          ;
     JSR      LC388                     ; 0x1c38c $C37C 20 88 C3                ;
-    JMP      L8B69                     ; 0x1c38f $C37F 4C 69 8B                ;
+    JMP      bank5_8B69                     ; 0x1c38f $C37F 4C 69 8B                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LC382:                                                                          ;
     JSR      LC388                     ; 0x1c392 $C382 20 88 C3                ;
-    JMP      L8BBF                     ; 0x1c395 $C385 4C BF 8B                ;
+    JMP      bank5_code4                     ; 0x1c395 $C385 4C BF 8B                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LC388:                                                                          ;
@@ -1361,8 +1350,8 @@ bank7_Set_Addy_for_Area_Layer_Tiles__using_10C:                                 
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c82c $C81C 20 85 D3;
 bank7_pointer_table9:                                                           ;
 .word    L81A3                         ; 0x1c82f $C81F A3 81                   ; World 0 - Bank 1 and 2
-.word    L8647                         ; 0x1c831 $C821 47 86                   ; World 1 - Bank 3
-.word    L8647                         ; 0x1c833 $C823 47 86                   ; World 2 - Bank 3
+.word    bank3_Build_a_pointer_with_86_and_a_value_from_C643                         ; 0x1c831 $C821 47 86                   ; World 1 - Bank 3
+.word    bank3_Build_a_pointer_with_86_and_a_value_from_C643                         ; 0x1c833 $C823 47 86                   ; World 2 - Bank 3
 .word    L8167                         ; 0x1c835 $C825 67 81                   ; World 3 - Bank 4
 .word    L8167                         ; 0x1c837 $C827 67 81                   ; World 4 - Bank 4
 .word    L817B                         ; 0x1c839 $C829 7B 81                   ; World 5 - Bank 5
@@ -1983,7 +1972,7 @@ bank7_Determine_the_Random_Battle_according_to_Links_position_in_OW:            
     ASL                                ; 0x1cc32 $CC22 0A                      ;
     ADC      $00                       ; 0x1cc33 $CC23 65 00                   ;
     TAY                                ; 0x1cc35 $CC25 A8                      ;
-    LDA      L8409,y                   ; 0x1cc36 $CC26 B9 09 84                ;
+    LDA      Random_Battle_Tables,y                   ; 0x1cc36 $CC26 B9 09 84                ;
     LDY      #$3E                      ; 0x1cc39 $CC29 A0 3E                   ; Y = 3E
     STA      $6A7E,y                   ; 0x1cc3b $CC2B 99 7E 6A                ; Area Byte 2 (Map Number)
     LDA      $73                       ; 0x1cc3e $CC2E A5 73                   ;; Overworld Y; Y Position on OW (square unit)
@@ -2205,31 +2194,31 @@ LCD8A:                                                                          
     STA      $01                       ; 0x1cda6 $CD96 85 01                   ;
     LDY      #$00                      ; 0x1cda8 $CD98 A0 00                   ; Y = 00
 LOOP_load_enemy_data_to_ram7000_7CFF:                                           ;
-    LDA      L88A0,y                   ; 0x1cdaa $CD9A B9 A0 88                ; Enemy Data Table
-    STA      $7000,y                   ; 0x1cdad $CD9D 99 00 70                ; load into 7000-70FF
+    LDA      Enemy_Data_ROM+$000,y                   ; 0x1cdaa $CD9A B9 A0 88                ; Enemy Data Table
+    STA      Enemy_Data_RAM+$000,y                   ; 0x1cdad $CD9D 99 00 70                ; load into 7000-70FF
     INY                                ; 0x1cdb0 $CDA0 C8                      ;
     BNE      LOOP_load_enemy_data_to_ram7000_7CFF; 0x1cdb1 $CDA1 D0 F7             ;
 LCDA3:                                                                          ;
-    LDA      L89A0,y                   ; 0x1cdb3 $CDA3 B9 A0 89                ; Enemy Data Table
-    STA      $7100,y                   ; 0x1cdb6 $CDA6 99 00 71                ; load into 7100-71FF
+    LDA      Enemy_Data_ROM+$100,y                   ; 0x1cdb3 $CDA3 B9 A0 89                ; Enemy Data Table
+    STA      Enemy_Data_RAM+$100,y                   ; 0x1cdb6 $CDA6 99 00 71                ; load into 7100-71FF
     INY                                ; 0x1cdb9 $CDA9 C8                      ;
     BNE      LCDA3                     ; 0x1cdba $CDAA D0 F7                   ;
 LCDAC:                                                                          ;
-    LDA      L8AA0,y                   ; 0x1cdbc $CDAC B9 A0 8A                ; Enemy Data Table
-    STA      $7200,y                   ; 0x1cdbf $CDAF 99 00 72                ; load into 7200-72FF
+    LDA      Enemy_Data_ROM+$200,y                   ; 0x1cdbc $CDAC B9 A0 8A                ; Enemy Data Table
+    STA      Enemy_Data_RAM+$200,y                   ; 0x1cdbf $CDAF 99 00 72                ; load into 7200-72FF
     INY                                ; 0x1cdc2 $CDB2 C8                      ;
     BNE      LCDAC                     ; 0x1cdc3 $CDB3 D0 F7                   ;
 LCDB5:                                                                          ;
-    LDA      L8BA0,y                   ; 0x1cdc5 $CDB5 B9 A0 8B                ; Enemy Data Table
-    STA      $7300,y                   ; 0x1cdc8 $CDB8 99 00 73                ; load into 7300-73FF
+    LDA      Enemy_Data_ROM+$300,y                   ; 0x1cdc5 $CDB5 B9 A0 8B                ; Enemy Data Table
+    STA      Enemy_Data_RAM+$300,y                   ; 0x1cdc8 $CDB8 99 00 73                ; load into 7300-73FF
     INY                                ; 0x1cdcb $CDBB C8                      ;
     BNE      LCDB5                     ; 0x1cdcc $CDBC D0 F7                   ;
     LDX      region_number                     ; 0x1cdce $CDBE AE 06 07                ; Current Region
     LDA      bank7_Region_Overworld_Map_Pointer_Offset_Selector,x; 0x1cdd1 $CDC1 BD 27 CD;
     TAX                                ; 0x1cdd4 $CDC4 AA                      ;
-    LDA      L8508,x                   ; 0x1cdd5 $CDC5 BD 08 85                ; Overworld Map Data Pointer Low Byte
+    LDA      Overworld_Map_Data_Pointers,x                   ; 0x1cdd5 $CDC5 BD 08 85                ; Overworld Map Data Pointer Low Byte
     STA      $02                       ; 0x1cdd8 $CDC8 85 02                   ;
-    LDA      L8509,x                   ; 0x1cdda $CDCA BD 09 85                ; Overworld Map Data Pointer High Byte
+    LDA      Overworld_Map_Data_Pointers+$1,x                   ; 0x1cdda $CDCA BD 09 85                ; Overworld Map Data Pointer High Byte
     STA      $03                       ; 0x1cddd $CDCD 85 03                   ;
 LCDCF:                                                                          ;
     LDA      ($02),y                   ; 0x1cddf $CDCF B1 02                   ; Overworld Data
@@ -2297,7 +2286,7 @@ LCE17:                                                                          
     PHA                                ; 0x1ce4b $CE3B 48                      ;
     LDX      #$00                      ; 0x1ce4c $CE3C A2 00                   ; X = 00
 bank7_Load_Palace_Entrance_Palettes_into_7919_7928_10_bytes:                    ;
-    LDA      L8470,y                   ; 0x1ce4e $CE3E B9 70 84                ;
+    LDA      bank4_Palaces_Type_A_B_Palettes,y                   ; 0x1ce4e $CE3E B9 70 84                ;
     STA      $7919,x                   ; 0x1ce51 $CE41 9D 19 79                ;
     INY                                ; 0x1ce54 $CE44 C8                      ;
     INX                                ; 0x1ce55 $CE45 E8                      ;
@@ -2326,7 +2315,7 @@ LCE63:                                                                          
     TAY                                ; 0x1ce75 $CE65 A8                      ;
     LDX      #$00                      ; 0x1ce76 $CE66 A2 00                   ; X = 00
 LCE68:                                                                          ;
-    LDA      L84D8,y                   ; 0x1ce78 $CE68 B9 D8 84                ;
+    LDA      bank4_Unknown_Palettes,y                   ; 0x1ce78 $CE68 B9 D8 84                ;
     STA      $79C5,x                   ; 0x1ce7b $CE6B 9D C5 79                ;
     STA      $79D5,x                   ; 0x1ce7e $CE6E 9D D5 79                ;
     INY                                ; 0x1ce81 $CE71 C8                      ;
@@ -2565,12 +2554,12 @@ LD000     = * + $0001                                                          ;
     ASL                                ; 0x1d013 $D003 0A                      ;
     ADC      $3B                       ; 0x1d014 $D004 65 3B                   ; Link's X Position (high byte)
     TAY                                ; 0x1d016 $D006 A8                      ;
-    LDA      L8817,y                   ; 0x1d017 $D007 B9 17 88                ;
+    LDA      bank3_Door_Destinations_in_Towns,y                   ; 0x1d017 $D007 B9 17 88                ;
     AND      #$FC                      ; 0x1d01a $D00A 29 FC                   ; keep bits xxxx xx..
     LSR                                ; 0x1d01c $D00C 4A                      ;
     LSR                                ; 0x1d01d $D00D 4A                      ;
     STA      area_code                     ; 0x1d01e $D00E 8D 61 05                ; Area Code
-    LDA      L8817,y                   ; 0x1d021 $D011 B9 17 88                ;
+    LDA      bank3_Door_Destinations_in_Towns,y                   ; 0x1d021 $D011 B9 17 88                ;
     AND      #$03                      ; 0x1d024 $D014 29 03                   ; keep bits .... ..xx
     STA      $075C                     ; 0x1d026 $D016 8D 5C 07                ; Position code when entering area (0-3)
     AND      #$01                      ; 0x1d029 $D019 29 01                   ; keep bits .... ...x
@@ -2704,11 +2693,11 @@ bank7_code19:                                                                   
     STA      $074F                     ; 0x1d111 $D101 8D 4F 07                ;; Related to Pause Pane
     STA      $0750                     ; 0x1d114 $D104 8D 50 07                ;
     LDY      $0301                     ; 0x1d117 $D107 AC 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    JSR      L96A8                     ; 0x1d11a $D10A 20 A8 96                ;
+    JSR      bank0_96A8                     ; 0x1d11a $D10A 20 A8 96                ;
     LDA      #$40                      ; 0x1d11d $D10D A9 40                   ; A = 40
     STA      $074F                     ; 0x1d11f $D10F 8D 4F 07                ;; Related to Pause Pane
     LDY      $0301                     ; 0x1d122 $D112 AC 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    JSR      L96A8                     ; 0x1d125 $D115 20 A8 96                ;
+    JSR      bank0_96A8                     ; 0x1d125 $D115 20 A8 96                ;
     LDA      #$07                      ; 0x1d128 $D118 A9 07                   ; A = 07
 LD11A:                                                                          ;
     INC      $073D                     ; 0x1d12a $D11A EE 3D 07                ;; Routine Index
@@ -2717,7 +2706,7 @@ LD11A:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LD120:                                                                          ;
     JSR      SwapToPRG0; 0x1d130 $D120 20 C5 FF                ; Load Bank 0
-    JSR      L9A04                     ; 0x1d133 $D123 20 04 9A                ;
+    JSR      bank0_9A04                     ; 0x1d133 $D123 20 04 9A                ;
     JSR      SwapToSavedPRG; 0x1d136 $D126 20 C9 FF                ; Load Bank $0769
 bank7_function_find_a_free_enemy_slot__maybe:                                   ;
     LDX      #$05                      ; 0x1d139 $D129 A2 05                   ; X = 05
@@ -3288,11 +3277,11 @@ LD4CE:                                                                          
     ORA      #$40                      ; 0x1d4ff $D4EF 09 40                   ; set bits .x.. ....
     STA      $EF                       ; 0x1d501 $D4F1 85 EF                   ; sound for Low Health Beeping
 LD4F3:                                                                          ;
-    JSR      L903A                     ; 0x1d503 $D4F3 20 3A 90                ;
+    JSR      bank0_903A                     ; 0x1d503 $D4F3 20 3A 90                ;
     LDA      #$00                      ; 0x1d506 $D4F6 A9 00                   ; A = 00
     STA      $0754                     ; 0x1d508 $D4F8 8D 54 07                ;;in_elevator (boolean)
     STA      $05E7                     ; 0x1d50b $D4FB 8D E7 05                ;
-    JSR      L9925                     ; 0x1d50e $D4FE 20 25 99                ;
+    JSR      bank0_9925                     ; 0x1d50e $D4FE 20 25 99                ;
     JSR      SwapToSavedPRG; 0x1d511 $D501 20 C9 FF                ; Load Bank $0769
     JSR      bank7_code21              ; 0x1d514 $D504 20 A7 D5                ;
     JSR      SwapToPRG0; 0x1d517 $D507 20 C5 FF                ; Load Bank 0
@@ -4532,7 +4521,7 @@ LDD27:                                                                          
     JSR      bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW; 0x1dd37 $DD27 20 30 CF; Region Code * 5 + World Code
     CMP      #$0F                      ; 0x1dd3a $DD2A C9 0F                   ;
     BNE      LDD31                     ; 0x1dd3c $DD2C D0 03                   ;
-    JMP      L9764                     ; 0x1dd3e $DD2E 4C 64 97                ;
+    JMP      bank5_9764                     ; 0x1dd3e $DD2E 4C 64 97                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LDD31:                                                                          ;
@@ -4894,7 +4883,7 @@ bank7_PPU_Macros_for_Hidden_Palace:                                             
 .byt    $61,$63,$23,$F6,$01,$FB,$FF    ; 0x1df82 $DF72 61 63 23 F6 01 FB FF    ;
 ; ---------------------------------------------------------------------------- ;
 bank7_forest_chop_with_hammer:                                                  ;
-    JSR      L83CF                     ; 0x1df89 $DF79 20 CF 83                ;
+    JSR      Limit_Check_Function                     ; 0x1df89 $DF79 20 CF 83                ;
 LDF7C:                                                                          ;
     LDA      (L000E),y                 ; 0x1df8c $DF7C B1 0E                   ;
     CMP      bank7_Table_for_OW_tiles_that_transform_into_another_type,x; 0x1df8e $DF7E DD 5E DF;
@@ -4959,16 +4948,16 @@ LDFDB:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank7_Set_0E_0F_pointer_according_to_Object_Group:                              ;
 ;Y is the index, already multiplied by 2                                       ;
-    LDA      L8500,y                   ; 0x1dff4 $DFE4 B9 00 85                ;
+    LDA      Object_Tile_Mappings,y                   ; 0x1dff4 $DFE4 B9 00 85                ;
     STA      L000E                     ; 0x1dff7 $DFE7 85 0E                   ;
-    LDA      L8501,y                   ; 0x1dff9 $DFE9 B9 01 85                ;
+    LDA      Object_Tile_Mappings+1,y                   ; 0x1dff9 $DFE9 B9 01 85                ;
     STA      $0F                       ; 0x1dffc $DFEC 85 0F                   ;
     RTS                                ; 0x1dffe $DFEE 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1:                           ;
     JSR      SwapToSavedPRG; 0x1dfff $DFEF 20 C9 FF                ; Load Bank $0769
-    JSR      L83CF                     ; 0x1e002 $DFF2 20 CF 83                ;
+    JSR      Limit_Check_Function                     ; 0x1e002 $DFF2 20 CF 83                ;
     JMP      SwapToPRG0; 0x1e005 $DFF5 4C C5 FF                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5000,7 +4989,7 @@ LE001:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank7_Turn_Palaces_into_Stone_Bank_1:                                           ;
     JSR      SwapToSavedPRG; 0x1e02b $E01B 20 C9 FF                ; Load Bank $0769
-    JSR      L879B                     ; 0x1e02e $E01E 20 9B 87                ;
+    JSR      bank1_Transform_completed_palaces_into_stone                     ; 0x1e02e $E01E 20 9B 87                ;
     JMP      SwapToPRG0; 0x1e031 $E021 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -8165,9 +8154,9 @@ LFED3:                                                                          
     ROL                                ; 0x1feee $FEDE 2A                      ;
     ASL                                ; 0x1feef $FEDF 0A                      ;
     TAY                                ; 0x1fef0 $FEE0 A8                      ;
-    LDA      L8500,y                   ; 0x1fef1 $FEE1 B9 00 85                ;
+    LDA      Object_Tile_Mappings,y                   ; 0x1fef1 $FEE1 B9 00 85                ;
     STA      L000E                     ; 0x1fef4 $FEE4 85 0E                   ;
-    LDA      L8501,y                   ; 0x1fef6 $FEE6 B9 01 85                ;
+    LDA      Object_Tile_Mappings+1,y                   ; 0x1fef6 $FEE6 B9 01 85                ;
     STA      $0F                       ; 0x1fef9 $FEE9 85 0F                   ;
     LDA      $0464,x                   ; 0x1fefb $FEEB BD 64 04                ;
     AND      #$3F                      ; 0x1fefe $FEEE 29 3F                   ; keep bits ..xx xxxx

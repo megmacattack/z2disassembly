@@ -176,6 +176,9 @@ LF1F4 = $F1F4
 .export bank4_Palettes_for_Palaces4
 .export bank4_Palettes_for_Palaces5
 .export bank4_Palettes_for_Palaces6
+.export bank4_Palaces_Type_A_B_Palettes
+.export bank4_Unknown_Palettes
+
 
 .import Set_Item_RAM_bit_to_0__Bits_0_3
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
@@ -668,12 +671,12 @@ bank4_Palaces_Type_A_B_Palettes:                                                
 .byt    $22,$30,$12,$16,$22,$0F,$05,$25; 0x104d0 $84C0 22 30 12 16 22 0F 05 25 ;Palace 6 Entrance
 .byt    $22,$27,$17,$0F,$22,$30,$10,$00; 0x104d8 $84C8 22 27 17 0F 22 30 10 00 ;
 .byt    $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF; 0x104e0 $84D0 FF FF FF FF FF FF FF FF ;
-L84D8:                                                                          ;
+bank4_Unknown_Palettes:                                                                          ;
 .byt    $FF,$00,$10,$30,$FF,$0C,$1C,$3C; 0x104e8 $84D8 FF 00 10 30 FF 0C 1C 3C ;Palettes related to Gooma. and other bosses maybe?
 .byt    $FF,$0F,$06,$26,$FF,$00,$10,$30; 0x104f0 $84E0 FF 0F 06 26 FF 00 10 30 ;
 .byt    $FF,$0F,$0A,$2A,$FF,$00,$10,$30; 0x104f8 $84E8 FF 0F 0A 2A FF 00 10 30 ;
 ; ---------------------------------------------------------------------------- ;
-setpos $8500
+setpos Object_Tile_Mappings
 bank4_Pointer_table_for_Objects_Tile_Mappings:                                  ;
 .word    bank4_Table_0_1_for_Area_Objects_Tile_Mappings; 0x10510 $8500 3D 83   ;
 .word    bank4_Table_0_1_for_Area_Objects_Tile_Mappings; 0x10512 $8502 3D 83   ;

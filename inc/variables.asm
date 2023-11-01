@@ -2,8 +2,8 @@
 area_code = $0561
 town_code = $056B
 lives_remaining = $0700
-region_number = $0706
-world_number = $0707
+region_number = $0706 ; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
+world_number = $0707 ; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
 game_mode = $0736
 PRG_bank = $0769
 
@@ -71,3 +71,21 @@ Sub_World_Area_Pointers = $A000  ; The "subworlds", Death Mountain and Maze Isla
 ; The base address of "Enemy Data" pointer tables
 Main_World_Enemy_Pointers = $85A1  ; The "main worlds", East Hyrule and West Hyrule
 Sub_World_Enemy_Pointers = $A07E   ; The "subworlds", Death Mountain and Maze Island
+
+; The base address of "Enemy Data" copied from different banks into SRAM at $7000
+Enemy_Data_ROM = $88A0
+Enemy_Data_RAM = $7000
+
+; The base address of overworld map data pointers (in banks 1 & 2)
+Overworld_Map_Data_Pointers = $8508
+
+; The base address of Object Tile Mapping pointers
+Object_Tile_Mappings = $8500
+
+; The base address of Random Battle Tables (in banks 1 & 2)
+Random_Battle_Tables = $8409
+
+; The address of the "limit check" function in banks 1 and 2
+; (note: these might be identical and could potentially be
+;  deduped?)
+Limit_Check_Function = $83CF

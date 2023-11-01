@@ -188,6 +188,10 @@ LFCA5 = $FCA5
 .import ConfigureMMC1
 .import L_Bank6Code0
 
+.export bank5_8B69
+.export bank5_code4
+.export bank5_routines_related_to_Ending_sequence
+.export bank5_9764
 .export bank5_PowerON__Reset_Memory
 .export bank5_A610
 .export bank5_B9CA
@@ -643,7 +647,7 @@ setpos $84f0
 bank5_table0:                                                                   ;
 .byt    $FF,$00,$10,$30                ; 0x14500 $84F0 FF 00 10 30             ;
 ; ---------------------------------------------------------------------------- ;
-setpos $8500
+setpos Object_Tile_Mappings
 bank5_Pointer_table_for_Objects_Tile_Mappings:                                  ;
 .word    bank5_Table_0_1_for_Area_Objects_Tile_Mappings; 0x14510 $8500 C7 82   ;
 .word    bank5_Table_0_1_for_Area_Objects_Tile_Mappings; 0x14512 $8502 C7 82   ;
@@ -1019,7 +1023,7 @@ L8B63:                                                                          
     JMP      LC722                     ; 0x14b76 $8B66 4C 22 C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-L8B69:                                                                          ;
+bank5_8B69:                                                                          ;
     LDY      $0761                     ; 0x14b79 $8B69 AC 61 07                ;
     BNE      L8B77                     ; 0x14b7c $8B6C D0 09                   ;
     LDX      #$04                      ; 0x14b7e $8B6E A2 04                   ; X = 04
@@ -2429,7 +2433,7 @@ L975A:                                                                          
     RTS                                ; 0x15773 $9763 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-L9764:                                                                          ;
+bank5_9764:                                                                          ;
     LDA      $12                       ; 0x15774 $9764 A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x15776 $9766 4A                      ;
     BCS      L9795                     ; 0x15777 $9767 B0 2C                   ;

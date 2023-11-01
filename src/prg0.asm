@@ -272,7 +272,7 @@ L8124:                                                                          
     SEC                                ; 0x136 $8126 38                        ;
     SBC      $072C                     ; 0x137 $8127 ED 2C 07                  ;; Scrolling Offset Low Byte
     STA      $025B                     ; 0x13a $812A 8D 5B 02                  ;
-L812F     = * + $0002                                                          ;
+
     STA      $025F                     ; 0x13d $812D 8D 5F 02                  ;
     LDA      #$01                      ; 0x140 $8130 A9 01                     ; A = 01	High Byte of X Position
     SBC      $072A                     ; 0x142 $8132 ED 2A 07                  ;;link Pagepos SideScroll		; Scrolling Offset High Byte
@@ -305,7 +305,7 @@ Initialization_stuff:                                                           
     SEC                                ; 0x171 $8161 38                        ;
     SBC      #$08                      ; 0x172 $8162 E9 08                     ; relative X offset
     STA      $76                       ; 0x174 $8164 85 76                     ;; X Position on OW (Link)
-L8167     = * + $0001                                                          ;
+
     LDA      $73                       ; 0x176 $8166 A5 73                     ; Y position in OW (square unit)
     SEC                                ; 0x178 $8168 38                        ;
     SBC      #$0B                      ; 0x179 $8169 E9 0B                     ; relative Y offset
@@ -697,7 +697,7 @@ L83AB:                                                                          
     STA      $70                       ; 0x3d8 $83C8 85 70                     ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
     LDX      $80                       ; 0x3da $83CA A6 80                     ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
     BCS      L83FD                     ; 0x3dc $83CC B0 2F                     ;
-L83CF     = * + $0001                                                          ;
+
     LDA      $0563                     ; 0x3de $83CE AD 63 05                  ; Type of terrain Link is facing in OW
     CMP      #$04                      ; 0x3e1 $83D1 C9 04                     ;
     BCC      L83FD                     ; 0x3e3 $83D3 90 28                     ;
@@ -864,7 +864,7 @@ overworld2:                                                                     
     ADC      Table_for_Hammer_tile_XY_offset,y; 0x4df $84CF 79 AD 84               ;
     STA      $76                       ; 0x4e2 $84D2 85 76                     ; X position on map (Link)
     JSR      L8A0D                     ; 0x4e4 $84D4 20 0D 8A                  ;
-L84D8     = * + $0001                                                          ;
+
     LDA      $0568                     ; 0x4e7 $84D7 AD 68 05                  ; if 0, flute is not playing ?
     BEQ      bank0_A_Button_in_Overworld_Hammer; 0x4ea $84DA F0 16                 ;
     LDA      $0567                     ; 0x4ec $84DC AD 67 05                  ;; Related to Flute in Overworld		TIMER: can't move on overworld while this occurs
@@ -887,7 +887,7 @@ bank0_A_Button_in_Overworld_Hammer:                                             
     LDA      $0563                     ; 0x508 $84F8 AD 63 05                  ; Type of terrain Link is facing
     CMP      #$0E                      ; 0x50b $84FB C9 0E                     ; Terrain Type E = Rock
     BEQ      L8503                     ; 0x50d $84FD F0 04                     ;
-L8500     = * + $0001                                                          ;
+
     CMP      #$06                      ; 0x50f $84FF C9 06                     ; Terrain Type 6 = Forest
 L8501:                                                                          ;
     BNE      bank0_B_Button_in_Overworld_Flute; 0x511 $8501 D0 0F                  ;
@@ -895,7 +895,7 @@ L8503:                                                                          
     LDA      $078B                     ; 0x513 $8503 AD 8B 07                  ; Have Hammer ?
     BEQ      bank0_B_Button_in_Overworld_Flute; 0x516 $8506 F0 0A                  ;
 L8508:                                                                          ;
-L8509     = * + $0001                                                          ;
+
     LDA      #$04                      ; 0x518 $8508 A9 04                     ; A = 04
     STA      $ED                       ; 0x51a $850A 85 ED                     ; Sound Effects Type 2
 L850C:                                                                          ;
@@ -907,19 +907,19 @@ bank0_B_Button_in_Overworld_Flute:                                              
     LDA      $F5                       ; 0x522 $8512 A5 F5                     ;; Controller 1 Buttons Pressed
     AND      #$40                      ; 0x524 $8514 29 40                     ; keep bits .x.. .... (B Button pressed)
     BEQ      L8527                     ; 0x526 $8516 F0 0F                     ;
-L851A     = * + $0002                                                          ;
+
     LDA      $0789                     ; 0x528 $8518 AD 89 07                  ; Have Flute?
 L851B:                                                                          ;
-L851C     = * + $0001                                                          ;
+
     BEQ      L8527                     ; 0x52b $851B F0 0A                     ; if Not, skip (return)
-L851E     = * + $0001                                                          ;
+
     LDA      #$08                      ; 0x52d $851D A9 08                     ; A = 08
 L851F:                                                                          ;
-L8520     = * + $0001                                                          ;
+
     STA      $EC                       ; 0x52f $851F 85 EC                     ; Sound Effects Type 1
 L8521:                                                                          ;
-L8522     = * + $0001                                                          ;
-L8523     = * + $0002                                                          ;
+
+
     STA      $0567                     ; 0x531 $8521 8D 67 05                  ;; Related to Flute in Overworld		TIMER: can't move on overworld while this occurs
     STA      $0568                     ; 0x534 $8524 8D 68 05                  ;; Related to Flute in Overworld
 L8527:                                                                          ;
@@ -981,7 +981,7 @@ L8599:                                                                          
     CPX      #$29                      ; 0x5a9 $8599 E0 29                     ; Check for Dock square unit ID (West Hyrule)
     BNE      L85A9                     ; 0x5ab $859B D0 0C                     ;
     LDA      region_number                     ; 0x5ad $859D AD 06 07                  ; Current Region
-L85A1     = * + $0001                                                          ;
+
     CMP      #$01                      ; 0x5b0 $85A0 C9 01                     ; Check if in East Hyrule
     BEQ      L85A9                     ; 0x5b2 $85A2 F0 05                     ;
     LDA      $0787                     ; 0x5b4 $85A4 AD 87 07                  ; Have Raft ?
@@ -1574,7 +1574,7 @@ L897E:                                                                          
     ORA      #$80                      ; 0x9a8 $8998 09 80                     ; set bits  x... ....
     STA      $0304                     ; 0x9aa $899A 8D 04 03                  ;; Text memory offset?
     LDA      #$FF                      ; 0x9ad $899D A9 FF                     ; A = FF
-L89A0     = * + $0001                                                          ;
+
     STA      $0306,y                   ; 0x9af $899F 99 06 03                  ;
     LDA      $7E                       ; 0x9b2 $89A2 A5 7E                     ;
     AND      #$04                      ; 0x9b4 $89A4 29 04                     ; keep bits .... .x..
@@ -1844,7 +1844,7 @@ L8B42:                                                                          
     CMP      #$0E                      ; 0xb59 $8B49 C9 0E                     ;
     BEQ      L8B51                     ; 0xb5b $8B4B F0 04                     ;
     INC      $75                       ; 0xb5d $8B4D E6 75                     ; Y Position on OW (Link)
-L8B50     = * + $0001                                                          ;
+
     INC      $72                       ; 0xb5f $8B4F E6 72                     ;
 L8B51:                                                                          ;
     INC      $75                       ; 0xb61 $8B51 E6 75                     ; Y Position on OW (Link)
@@ -2163,7 +2163,6 @@ L8CF7:                                                                          
     STA      $EB                       ; 0xd81 $8D71 85 EB                     ; Music Channel
     LDA      #$00                      ; 0xd83 $8D73 A9 00                     ; A = 00
     STA      $075F                     ; 0xd85 $8D75 8D 5F 07                  ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
-L8D7A     = * + $0002                                                          ;
     JMP      LC72D                     ; 0xd88 $8D78 4C 2D C7                  ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2210,7 +2209,7 @@ Spell_Casting_Routine:                                                          
     TAY                                ; 0xdfb $8DEB A8                        ;
     LDA      $0773                     ; 0xdfc $8DEC AD 73 07                  ; Current Magic left in meter
     SEC                                ; 0xdff $8DEF 38                        ;
-    SBC      L8D7A,y                   ; 0xe00 $8DF0 F9 7A 8D                  ; refer to table at $0D7A (+1)
+    SBC      Table_for_Magic_Needed_for_Spells-1,y                   ; 0xe00 $8DF0 F9 7A 8D                  ; refer to table at $0D7A (+1 -- one based indexing?)
     BCC      L8E3B                     ; 0xe03 $8DF3 90 46                     ; if Carry Clear (not enough magic) goto $0E3B
 L8DF5:                                                                          ;
     STA      $0773                     ; 0xe05 $8DF5 8D 73 07                  ; else store new amount in meter
@@ -3483,7 +3482,7 @@ bank0_goto__1610:                                                               
     BEQ      L9626                     ; 0x1630 $9620 F0 04                    ;
     LDA      #$20                      ; 0x1632 $9622 A9 20                    ; A = 20
 L9624:                                                                          ;
-L9625     = * + $0001                                                          ;
+
     STA      $EE                       ; 0x1634 $9624 85 EE                    ; Sound Effects Type 3
 L9626:                                                                          ;
     LDX      #$00                      ; 0x1636 $9626 A2 00                    ; X = 00
@@ -3669,7 +3668,7 @@ L972E:                                                                          
     LDA      $00                       ; 0x176b $975B A5 00                    ;
     STA      $0312,y                   ; 0x176d $975D 99 12 03                 ;
     LDA      $01                       ; 0x1770 $9760 A5 01                    ;
-L9764     = * + $0002                                                          ;
+
     STA      $0311,y                   ; 0x1772 $9762 99 11 03                 ;
     PLA                                ; 0x1775 $9765 68                       ;
     STA      $0314,y                   ; 0x1776 $9766 99 14 03                 ;
@@ -4123,7 +4122,7 @@ L9A38:                                                                          
     AND      #$0F                      ; 0x1a4d $9A3D 29 0F                    ; keep bits .... xxxx
     STA      $0734,x                   ; 0x1a4f $9A3F 9D 34 07                 ;
     BNE      L9A56                     ; 0x1a52 $9A42 D0 12                    ;
-L9A46     = * + $0002                                                          ;
+
     INC      $0732,x                   ; 0x1a54 $9A44 FE 32 07                 ;
     LDA      $0732,x                   ; 0x1a57 $9A47 BD 32 07                 ;
     CMP      $071B                     ; 0x1a5a $9A4A CD 1B 07                 ;
@@ -4317,7 +4316,6 @@ Pointer_Table_for_Contents_of_Panes_in_Cartridge_RAM:                           
 Pointer_table_for_Panes_tile_mappings:                                          ;
 .word    LevelUp_Pane_tile_mappings    ; 0x1b90 $9B80 AA 9B                    ;check here for spell menu
 lpointerTable__panes_tile_mappings__9B82:                                       ;
-lpointerTable__panes_tile_mappings__9B83 = * + $0001                       ;
 .word    LevelUp_Pane__LineWithBar     ; 0x1b92 $9B82 B8 9B                    ;
 .word    LevelUp_Pane__UpCancel        ; 0x1b94 $9B84 0C 9C                    ;
 L9B86:                                                                          ;
@@ -4330,7 +4328,6 @@ L9B86:                                                                          
 .word    L78E0                         ; 0x1ba2 $9B92 E0 78                    ;
 .word    L78B6                         ; 0x1ba4 $9B94 B6 78                    ;
 lpointerTable__panes_tile_mappings__9B96:                                       ;
-lpointerTable__panes_tile_mappings__9B97 = * + $0001                       ;
 .word    LevelUp_Pane__Next            ; 0x1ba6 $9B96 D4 9B                    ;
 .word    LevelUp_Pane__LineWithBar     ; 0x1ba8 $9B98 B8 9B                    ;
 .word    LevelUp_Pane__Attack          ; 0x1baa $9B9A E2 9B                    ;
@@ -4946,7 +4943,7 @@ LA0F1:                                                                          
     LDA      $07FB                     ; 0x2104 $A0F4 AD FB 07                 ;
     CMP      #$10                      ; 0x2107 $A0F7 C9 10                    ;
     BEQ      LA0FE                     ; 0x2109 $A0F9 F0 03                    ;
-LA0FC     = * + $0001                                                          ;
+
     JMP      LA325                     ; 0x210b $A0FB 4C 25 A3                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5808,11 +5805,11 @@ bank0_Pause_Pane_LOAD_FROM_ROM_TO_RAM_FOR_MENU_TEXT__LEVELUP:                   
     TAY                                ; 0x265b $A64B A8                       ;
     LDA      lpointerTable__panes_tile_mappings__9B82,y; 0x265c $A64C B9 82 9B     ;
     STA      $02                       ; 0x265f $A64F 85 02                    ;
-    LDA      lpointerTable__panes_tile_mappings__9B83,y; 0x2661 $A651 B9 83 9B     ;
+    LDA      lpointerTable__panes_tile_mappings__9B82+1,y; 0x2661 $A651 B9 83 9B     ;
     STA      $03                       ; 0x2664 $A654 85 03                    ;
     LDA      lpointerTable__panes_tile_mappings__9B96,y; 0x2666 $A656 B9 96 9B     ;
     STA      $04                       ; 0x2669 $A659 85 04                    ;
-    LDA      lpointerTable__panes_tile_mappings__9B97,y; 0x266b $A65B B9 97 9B     ;
+    LDA      lpointerTable__panes_tile_mappings__9B96+1,y; 0x266b $A65B B9 97 9B     ;
     STA      $05                       ; 0x266e $A65E 85 05                    ;
     LDY      #$0D                      ; 0x2670 $A660 A0 0D                    ;;Y = #$0d 0000_1101
 LA662:                                                                          ;

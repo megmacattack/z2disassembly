@@ -30,7 +30,6 @@ L9624 = $9624 ; probably a table in prg4 but prg5 also has data there.
 L9625 = $9625 ; ^ one byte offset from the same place
 L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
 L9A46 = $9A46 ; could be bank 4 or 5 - unlikely to be any others
-L9B86 = $9B86 ; part of a table of multibank locations
 
 .import bank0_Manual_Save_Game_Routine_UP_AND_A
 .import bank0_Return_of_Ganon_screen_Palettes
@@ -1496,8 +1495,8 @@ LC912:                                                                          
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c928 $C918 20 85 D3; Set Object Construction Address
 bank7_Pointer_table_for_Objects_Construction_Address:                           ;
 .word    Object_Construction_Addresses                         ; 0x1c92b $C91B EE 80                   ;Overworld Areas (WH DM EH MI)
-.word    L9B86                         ; 0x1c92d $C91D 86 9B                   ;Towns in West Hyrule
-.word    L9B86                         ; 0x1c92f $C91F 86 9B                   ;Towns in East Hyrule
+.word    bank3_Object_Construction_Routine                         ; 0x1c92d $C91D 86 9B                   ;Towns in West Hyrule
+.word    bank3_Object_Construction_Routine                         ; 0x1c92f $C91F 86 9B                   ;Towns in East Hyrule
 .word    Object_Construction_Addresses                         ; 0x1c931 $C921 EE 80                   ;Palaces Type A
 .word    Object_Construction_Addresses                         ; 0x1c933 $C923 EE 80                   ;Palaces Type B
 .word    bank5_Object_Construction_Routine                         ; 0x1c935 $C925 EE 80                   ;Great Palace

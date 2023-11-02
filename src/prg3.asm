@@ -152,7 +152,6 @@ L80E5:                                                                          
 .byt    $30,$FF,$11,$21,$30,$FF,$07,$16; 0xc0f5 $80E5 30 FF 11 21 30 FF 07 16  ;
 .byt    $30                            ; 0xc0fd $80ED 30                       ;
 ; ---------------------------------------------------------------------------- ;
-bank3_Object_Construction_Routine:
 bank3_Objects_Construction_Routines_Cross_Hatched_Roof_2_high_X_wide_1x:        ;
     LDX      #$00                      ; 0xc0fe $80EE A2 00                    ;;X = #$00 0000_0000
     BEQ      L8104                     ; 0xc100 $80F0 F0 12                    ;
@@ -2090,7 +2089,7 @@ L9B7D:                                                                          
 .byt    $09,$20,$08,$7A,$E1,$00,$AB,$0F; 0xdb8d $9B7D 09 20 08 7A E1 00 AB 0F  ;
 .byt    $07                            ; 0xdb95 $9B85 07                       ;
 ; ---------------------------------------------------------------------------- ;
-bank3_code18:                                                                   ;
+bank3_Object_Construction_Routine:                                                                   ;
     TXA                                ; 0xdb96 $9B86 8A                       ;
     LSR                                ; 0xdb97 $9B87 4A                       ;
     LSR                                ; 0xdb98 $9B88 4A                       ;

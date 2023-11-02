@@ -14,12 +14,7 @@ L0660 = $0660
 L0680 = $0680
 L06A0 = $06A0
 L06C0 = $06C0
-L6060 = $6060
-L6261 = $6261
 L696C = $696C
-L70A0 = $70A0
-
-L8001 = $8001
 
 L83A1 = $83A1 ; probably bank1?
 L850C = $850C ; multibank function related to tiles? banks 1-5 seem to have similar code here.
@@ -1519,10 +1514,11 @@ bank7_Pointer_table_for_Small_Objects_Construction_Address:                     
 .word    Small_Objects_Construction_Address                         ; 0x1c948 $C938 2F 81                   ;Palaces Type B
 .word    bank5_Small_Objects_Construction_Routine                         ; 0x1c94a $C93A 2F 81                   ;Great Palace
 bank7_Pointer_table_for_location_of_the_4_screens_in_RAM:                       ;
-.word    LD000                         ; 0x1c94c $C93C 00 D0                   ;
-.word    L70A0                         ; 0x1c94e $C93E A0 70                   ;
-.word    L6060                         ; 0x1c950 $C940 60 60                   ;
-.word    L6261                         ; 0x1c952 $C942 61 62                   ;
+; this table has the pointers split up by a stride of 4, so that for eg. the first
+; entry is t[0],t[4]=$00,$60 (or $6000 in little endian), the second is
+; t[1],t[5]=$D0,$60 (or $60D0 in little endian), etc.
+.byt     $00,$D0,$A0,$70                         ; 0x1c94c $C93C 00 D0 A0 70                    ;
+.byt     $60,$60,$61,$62                         ; 0x1c950 $C940 60 60 61 62                  ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Set_RAM_Address_for_Object0E0F:                                           ;
     LDY      $0730                     ; 0x1c954 $C944 AC 30 07                ; Position of Object Placement
@@ -1533,7 +1529,7 @@ bank7_Set_Ram_Addy_for_Object__0E_0F:                                           
     AND      #$03                      ; 0x1c95c $C94C 29 03                   ; keep bits .... ..xx
     TAY                                ; 0x1c95e $C94E A8                      ;
     LDA      bank7_Pointer_table_for_location_of_the_4_screens_in_RAM,y; 0x1c95f $C94F B9 3C C9;
-    STA      L000E                     ; 0x1c962 $C952 85 0E                   ;
+    STA      $0E                     ; 0x1c962 $C952 85 0E                   ;
     LDA      bank7_Pointer_table_for_location_of_the_4_screens_in_RAM+$04,y; 0x1c964 $C954 B9 40 C9;
     STA      $0F                       ; 0x1c967 $C957 85 0F                   ;
     PLA                                ; 0x1c969 $C959 68                      ;

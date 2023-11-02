@@ -195,6 +195,9 @@ LFCA5 = $FCA5
 .export bank5_PowerON__Reset_Memory
 .export bank5_A610
 .export bank5_B9CA
+.export bank5_Build_a_pointer_with_81_and_a_value_from_14177
+.export bank5_Object_Construction_Routine
+.export bank5_Small_Objects_Construction_Routine
 
 .segment "PRG5"
 .org $8000
@@ -205,6 +208,7 @@ bank5_nothing:                                                                  
 L8001:                                                                          ;
 .byt    $00,$00,$00,$00,$00,$00,$00,$00; 0x14011 $8001 00 00 00 00 00 00 00 00 ;
 .byt    $00,$00,$00,$00,$00            ; 0x14019 $8009 00 00 00 00 00          ;
+setpos Sidescroll_Palettes
 bank5_Palettes_for_Great_Palace0:                                               ;
 .byt    $0F,$30,$12,$16,$0F,$07,$27,$37; 0x1401e $800E 0F 30 12 16 0F 07 27 37 ;
 .byt    $0F,$27,$16,$0F,$0F,$30,$10,$00; 0x14026 $8016 0F 27 16 0F 0F 30 10 00 ;
@@ -239,7 +243,7 @@ L80E5:                                                                          
 .byt    $30,$FF,$0F,$0F,$0F,$FF,$0F,$0F; 0x140f5 $80E5 30 FF 0F 0F 0F FF 0F 0F ;
 .byt    $0F                            ; 0x140fd $80ED 0F                      ;
 ; ---------------------------------------------------------------------------- ;
-bank5_code0:                                                                    ;
+bank5_Object_Construction_Routine:                                                                    ;
     TXA                                ; 0x140fe $80EE 8A                      ;
     LSR                                ; 0x140ff $80EF 4A                      ;
     LSR                                ; 0x14100 $80F0 4A                      ;
@@ -281,7 +285,7 @@ bank5_Special_Objects_Y_Position_F:                                             
 .word    bank5_Objects_Construction_Routines_Object_Lava_Pit__3_high_bottom_of_screen; 0x1413b $812B 1F 82;Lava Pit, 3 high, bottom of screen	(4x)
 .word    bank5_Objects_Construction_Routines_Object_Elevator; 0x1413d $812D 4F 82;Elevator				(5x)
 ; ---------------------------------------------------------------------------- ;
-bank5_code1:                                                                    ;
+bank5_Small_Objects_Construction_Routine:                                                                    ;
     TXA                                ; 0x1413f $812F 8A                      ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x14140 $8130 20 85 D3;
 bank5_Pointer_table_for_Small_Objects_Construction_Routines:                    ;

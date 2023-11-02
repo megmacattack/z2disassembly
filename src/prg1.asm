@@ -115,6 +115,7 @@ LF0D7 = $F0D7
 LF1F4 = $F1F4
 
 .export bank1_Transform_completed_palaces_into_stone
+.export bank1_Check_for_Hidden_Palace_spot
 
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .import bank7_code39
@@ -180,6 +181,7 @@ bank1_Pointer_table_for_Background_Areas_Data:                                  
 .word    L8CA8                         ; 0x401a $800A A8 8C                    ;
 .word    L0000                         ; 0x401c $800C 00 00                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Palettes
 bank1_Palettes_for_West_Hyrule:                                                 ;
 ;The first byte of 0x10 sets the background color                              ;
 ;FF = black                                                                    ;
@@ -247,7 +249,8 @@ bank1_Grotto_without_Candle__Sprites_and_Background2:                           
 bank1_Grotto_without_Candle__Sprites_and_Background3:                           ;
 .byt    $FF,$0F,$0F,$0F                ; 0x40fa $80EA FF 0F 0F 0F              ;
 ; ---------------------------------------------------------------------------- ;
-bank1_code0:                                                                    ;
+setpos Object_Construction_Addresses
+bank1_Object_Construction_Routine:                                                                    ;
     TXA                                ; 0x40fe $80EE 8A                       ;
     LSR                                ; 0x40ff $80EF 4A                       ;
     LSR                                ; 0x4100 $80F0 4A                       ;
@@ -289,7 +292,8 @@ bank1_Special_Objects__Y_Position_F:                                            
 .word    bank1_Objects_Construction_Object_Cactus_with_Stem; 0x413b $812B D5 82;Cactus with Stem	(4x)
 .word    bank1_Objects_Construction_Object_Elevator; 0x413d $812D BA 82        ;Elevator		(5x)
 ; ---------------------------------------------------------------------------- ;
-bank1_code1:                                                                    ;
+setpos Small_Objects_Construction_Address
+bank1_Small_Object_Construction_Object:                                                                    ;
     TXA                                ; 0x413f $812F 8A                       ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x4140 $8130 20 85 D3; Set Object Construction Address (below)
 bank1_Pointer_table_for_Small_Objects_Construction_0x:                          ;
@@ -328,6 +332,7 @@ L817B:                                                                          
 bank1_Table_for_Level_Layers_Data_pointers:                                     ;
 .byt    $53,$5C,$65,$6E,$77,$80,$89,$92; 0x41ab $819B 53 5C 65 6E 77 80 89 92  ;Pointer created from 81 ($81AC) and a value from this table
 ; ---------------------------------------------------------------------------- ;
+setpos Main_World_Build_Pointer_for_Layer_Tiles
 Build_Pointer_for_Layer_Tiles_Bank_1_and_2:                                     ;
 ;bank1_Build_A_Pointer_With_81                                                 ;
 ;Build a pointer with 81 and a value from $819B, 10C as the index              ;

@@ -75,6 +75,8 @@ LF1F4 = $F1F4
 .export bank3_B082
 .export bank3_Door_Destinations_in_Towns
 .export bank3_Build_a_pointer_with_86_and_a_value_from_C643
+.export bank3_Small_Objects_Construction_Routine
+.export bank3_Object_Construction_Routine
 
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .import bank7_Determine_Enemy_Facing_Direction_relative_to_Link
@@ -113,6 +115,7 @@ bank3_Pointer_table_for_Background_Areas_Data:                                  
 .word    L0000                         ; 0xc01a $800A 00 00                    ;
 .word    L0000                         ; 0xc01c $800C 00 00                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Palettes
 bank3_Palettes_for_Towns:                                                       ;
 ;The first byte of 0x10 sets the background color                              ;
 ;FF = transparency                                                             ;
@@ -149,6 +152,7 @@ L80E5:                                                                          
 .byt    $30,$FF,$11,$21,$30,$FF,$07,$16; 0xc0f5 $80E5 30 FF 11 21 30 FF 07 16  ;
 .byt    $30                            ; 0xc0fd $80ED 30                       ;
 ; ---------------------------------------------------------------------------- ;
+bank3_Object_Construction_Routine:
 bank3_Objects_Construction_Routines_Cross_Hatched_Roof_2_high_X_wide_1x:        ;
     LDX      #$00                      ; 0xc0fe $80EE A2 00                    ;;X = #$00 0000_0000
     BEQ      L8104                     ; 0xc100 $80F0 F0 12                    ;
@@ -188,7 +192,6 @@ L811F:                                                                          
     PLA                                ; 0xc13b $812B 68                       ;
     TAX                                ; 0xc13c $812C AA                       ;
     DEX                                ; 0xc13d $812D CA                       ;
-L812F     = * + $0001                                                          ;
     BMI      L813A                     ; 0xc13e $812E 30 0A                    ;
     TXA                                ; 0xc140 $8130 8A                       ;
     PHA                                ; 0xc141 $8131 48                       ;
@@ -2130,7 +2133,7 @@ bank3_Pointer_table_for_Objects_Construction_Routines:                          
 .word    bank3_Objects_Construction_Routines_Bridge_with_Water_X_wide_Y_Position_A_6x; 0xdbd7 $9BC7 66 83;Bridge with Water, X wide (Y Position A)	(6x)
 .word    bank3_Objects_Construction_Routines_Water_X_wide_Y_Position_A___7x; 0xdbd9 $9BC9 0A 83;Water, X wide (Y Position A)			(7x)
 ; ---------------------------------------------------------------------------- ;
-bank3_code19:                                                                   ;
+bank3_Small_Objects_Construction_Routine:                                                                   ;
     LDA      $0730                     ; 0xdbdb $9BCB AD 30 07                 ; Position of Object Placement
     AND      #$F0                      ; 0xdbde $9BCE 29 F0                    ; keep bits xxxx ....
     CMP      #$F0                      ; 0xdbe0 $9BD0 C9 F0                    ;

@@ -179,6 +179,7 @@ bank2_Pointer_table_for_background_level_data:                                  
 .word    L8CCE                         ; 0x801a $800A CE 8C                    ;
 .word    L0000                         ; 0x801c $800C 00 00                    ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Palettes
 bank2_Palettes_for_East_Hyrule:                                                 ;
 .byt    $0F,$30,$12,$16,$0F,$36,$16,$07; 0x801e $800E 0F 30 12 16 0F 36 16 07  ;? (Palette Type 0)
 .byt    $0F,$00,$10,$30,$0F,$23,$03,$0F; 0x8026 $8016 0F 00 10 30 0F 23 03 0F  ;
@@ -213,7 +214,8 @@ L80E5:                                                                          
 .byt    $30,$FF,$0F,$0F,$0F,$FF,$0F,$0F; 0x80f5 $80E5 30 FF 0F 0F 0F FF 0F 0F  ;
 .byt    $0F                            ; 0x80fd $80ED 0F                       ;
 ; ---------------------------------------------------------------------------- ;
-bank2_code0:                                                                    ;
+setpos Object_Construction_Addresses
+bank2_Object_Construction_Routine:                                                                    ;
     TXA                                ; 0x80fe $80EE 8A                       ;
     LSR                                ; 0x80ff $80EF 4A                       ;
     LSR                                ; 0x8100 $80F0 4A                       ;
@@ -255,7 +257,8 @@ bank2_Special_Objects__Y_Position_F:                                            
 .word    bank2_Objects_Construction_Object_Cactus_with_Stem; 0x813b $812B D5 82;
 .word    bank2_Objects_Construction_Object_Elevator; 0x813d $812D BA 82        ;
 ; ---------------------------------------------------------------------------- ;
-bank2_code1:                                                                    ;
+setpos Small_Objects_Construction_Address
+bank2_Small_Objects_Construction_Object:                                                                    ;
     TXA                                ; 0x813f $812F 8A                       ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x8140 $8130 20 85 D3;
 bank2_Pointer_table_for_Small_Objects_Construction_Routines:                    ;
@@ -294,6 +297,7 @@ L817B:                                                                          
 bank2_Table_for_Level_Layers_Data_pointers:                                     ;
 .byt    $53,$5C,$65,$6E,$77,$80,$89,$92; 0x81ab $819B 53 5C 65 6E 77 80 89 92  ;
 ; ---------------------------------------------------------------------------- ;
+setpos Main_World_Build_Pointer_for_Layer_Tiles
 bank2_Build_A_Pointer_With_81:                                                  ;
 ;Pointer created from 81 ($81AC?) and a value from this table                  ;
     LDX      $010C                     ; 0x81b3 $81A3 AE 0C 01                 ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)

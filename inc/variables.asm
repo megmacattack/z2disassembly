@@ -60,6 +60,14 @@ COPYRIGHT = $0e
 LF = $fd
 
 ; Table addresses that exist in multiple banks:
+; world<->bank:
+; - world 0 = bank1 or bank2 (overworld encounters)
+; - world 1 = bank3 (west hyrule towns)
+; - world 2 = bank3 (east hyrule towns)
+; - world 3 = bank4 (palaces 1,2,5)
+; - world 4 = bank4 (palaces 3,4,6)
+; - world 5 = bank5 (grand palace)
+; (note: table at $C4B7 is this except always bank1, bank7_code18($CD40) does this logic)
 
 ; The base address of "Key Area" pointer tables in banks 1 or 2
 Main_World_Key_Areas = $861F ; The "main worlds", East Hyrule and West Hyrule
@@ -72,6 +80,9 @@ Sub_World_Area_Pointers = $A000  ; The "subworlds", Death Mountain and Maze Isla
 ; The base address of "Enemy Data" pointer tables
 Main_World_Enemy_Pointers = $85A1  ; The "main worlds", East Hyrule and West Hyrule
 Sub_World_Enemy_Pointers = $A07E   ; The "subworlds", Death Mountain and Maze Island
+
+; The base address of layer tile pointer builders
+Main_World_Build_Pointer_for_Layer_Tiles = $81A3
 
 ; The base address of "Enemy Data" copied from different banks into SRAM at $7000
 Enemy_Data_ROM = $88A0
@@ -90,3 +101,10 @@ Random_Battle_Tables = $8409
 ; (note: these might be identical and could potentially be
 ;  deduped?)
 Limit_Check_Function = $83CF
+
+; Base address for "Object Construction Addresses" in banks 1,2 and 4
+Small_Objects_Construction_Address = $812F
+Object_Construction_Addresses = $80EE
+
+; Base address of sidescroll palettes in banks 1-5
+Sidescroll_Palettes = $800E

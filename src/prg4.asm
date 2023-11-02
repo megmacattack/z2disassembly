@@ -178,7 +178,7 @@ LF1F4 = $F1F4
 .export bank4_Palettes_for_Palaces6
 .export bank4_Palaces_Type_A_B_Palettes
 .export bank4_Unknown_Palettes
-
+.export bank4_Build_a_pointer_with_81_and_a_value_from_10165
 
 .import Set_Item_RAM_bit_to_0__Bits_0_3
 .import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
@@ -234,6 +234,7 @@ bank4_Pointer_table_for_Background_Areas_Data:                                  
 .word    bank4_Area_Data_for_Palaces_Type_A_Entrance; 0x1001a $800A E5 82      ;
 .word    bank4_Area_Data_for_Palaces_Type_A_Entrance; 0x1001c $800C E5 82      ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Palettes
 bank4_Default_Palettes_for_Palaces_Type_A_B_:                                   ;
 .byt    $22,$30,$12,$16,$22,$0F,$10,$30; 0x1001e $800E 22 30 12 16 22 0F 10 30 ;
 .byt    $22,$27,$17,$0F,$22,$30,$10,$0F; 0x10026 $8016 22 27 17 0F 22 30 10 0F ;
@@ -268,7 +269,8 @@ L80E5:                                                                          
 .byt    $30,$FF,$0F,$0F,$0F,$FF,$0F,$0F; 0x100f5 $80E5 30 FF 0F 0F 0F FF 0F 0F ;
 .byt    $0F                            ; 0x100fd $80ED 0F                      ;
 ; ---------------------------------------------------------------------------- ;
-bank4_code0:                                                                    ;
+setpos Object_Construction_Addresses
+bank4_Object_Construction_Routine:                                                                    ;
     TXA                                ; 0x100fe $80EE 8A                      ;
     LSR                                ; 0x100ff $80EF 4A                      ;
     LSR                                ; 0x10100 $80F0 4A                      ;
@@ -309,7 +311,8 @@ bank4_Pointer_table_for_Objects_Construction_Routines:                          
 .word    bank4_Objects_Construction_Routines_Lava_Pit_2_high_bottom_of_screen; 0x1013b $812B 0E 82;Lava Pit, 2 high, bottom of screen	(4x)
 .word    bank4_Objects_Construction_Routines_Elevator; 0x1013d $812D 3E 82     ;Elevator				(5x)
 ; ---------------------------------------------------------------------------- ;
-bank4_code1:                                                                    ;
+setpos Small_Objects_Construction_Address
+bank4_Small_Objects_Construction_Object:                                                                    ;
     TXA                                ; 0x1013f $812F 8A                      ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x10140 $8130 20 85 D3;
 bank4_Pointer_table_for_Small_Objects_Construction_Routines:                    ;

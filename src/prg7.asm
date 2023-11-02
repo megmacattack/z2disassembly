@@ -20,15 +20,8 @@ L696C = $696C
 L70A0 = $70A0
 
 L8001 = $8001
-L800E = $800E
-L80EE = $80EE
-L812F = $812F
-L8167 = $8167
-L817B = $817B
-L81A3 = $81A3
-L8368 = $8368
-L83A1 = $83A1
 
+L83A1 = $83A1 ; probably bank1?
 L850C = $850C ; multibank function related to tiles? banks 1-5 seem to have similar code here.
 L851A = $851A ; multibank tables relating to floor tiles? banks 1-5 all look plausible
 L851B = $851B ; ^ used with
@@ -67,19 +60,26 @@ L9B86 = $9B86 ; part of a table of multibank locations
 .import bank0_A338
 .import bank0_A82A
 .import bank1_Transform_completed_palaces_into_stone
+.import bank1_Check_for_Hidden_Palace_spot
 .import bank3_B082
 .import bank3_Door_Destinations_in_Towns
 .import bank3_Build_a_pointer_with_86_and_a_value_from_C643
+.import bank3_Small_Objects_Construction_Routine
+.import bank3_Object_Construction_Routine
 .import bank4_Unknown_Palettes
 .import bank4_Palettes
 .import bank4_Palaces_Type_A_B_Palettes
+.import bank4_Build_a_pointer_with_81_and_a_value_from_10165
 .import bank5_routines_related_to_Ending_sequence
+.import bank5_Build_a_pointer_with_81_and_a_value_from_14177
 .import bank5_8B69
 .import bank5_code4
 .import bank5_9764
 .import bank5_PowerON__Reset_Memory
 .import bank5_A610
 .import bank5_B9CA
+.import bank5_Small_Objects_Construction_Routine
+.import bank5_Object_Construction_Routine
 .import Bank6Code0
 .import Bank6Code2
 .import Chandeliers_in_North_Castle
@@ -1011,7 +1011,7 @@ LC579:                                                                          
     PHA                                ; 0x1c5bb $C5AB 48                      ;
     LDA      Tables_for_Game_Over_screen_text,x; 0x1c5bc $C5AC BD 00 80            ; Background Map Data Pointer Byte 1
     STA      $D4                       ; 0x1c5bf $C5AF 85 D4                   ;
-    LDA      L8001,x                   ; 0x1c5c1 $C5B1 BD 01 80                ; Background Map Data Pointer Byte 1
+    LDA      Tables_for_Game_Over_screen_text+1,x                   ; 0x1c5c1 $C5B1 BD 01 80                ; Background Map Data Pointer Byte 1
     STA      $D5                       ; 0x1c5c4 $C5B4 85 D5                   ;
     JSR      bank7_process_map_data    ; 0x1c5c6 $C5B6 20 55 C7                ; Process Map Data
     JSR      LC89D                     ; 0x1c5c9 $C5B9 20 9D C8                ;this jsr function call draws the map data, nop nop nop it out for header-commands-only drawing of the map data
@@ -1351,12 +1351,12 @@ bank7_Set_Addy_for_Area_Layer_Tiles__using_10C:                                 
     LDA      world_number                     ; 0x1c829 $C819 AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c82c $C81C 20 85 D3;
 bank7_pointer_table9:                                                           ;
-.word    L81A3                         ; 0x1c82f $C81F A3 81                   ; World 0 - Bank 1 and 2
+.word    Main_World_Build_Pointer_for_Layer_Tiles                         ; 0x1c82f $C81F A3 81                   ; World 0 - Bank 1 and 2
 .word    bank3_Build_a_pointer_with_86_and_a_value_from_C643                         ; 0x1c831 $C821 47 86                   ; World 1 - Bank 3
 .word    bank3_Build_a_pointer_with_86_and_a_value_from_C643                         ; 0x1c833 $C823 47 86                   ; World 2 - Bank 3
-.word    L8167                         ; 0x1c835 $C825 67 81                   ; World 3 - Bank 4
-.word    L8167                         ; 0x1c837 $C827 67 81                   ; World 4 - Bank 4
-.word    L817B                         ; 0x1c839 $C829 7B 81                   ; World 5 - Bank 5
+.word    bank4_Build_a_pointer_with_81_and_a_value_from_10165                         ; 0x1c835 $C825 67 81                   ; World 3 - Bank 4
+.word    bank4_Build_a_pointer_with_81_and_a_value_from_10165                         ; 0x1c837 $C827 67 81                   ; World 4 - Bank 4
+.word    bank5_Build_a_pointer_with_81_and_a_value_from_14177                         ; 0x1c839 $C829 7B 81                   ; World 5 - Bank 5
 ; ---------------------------------------------------------------------------- ;
 bank7_code14:                                                                   ;
 ;$0A = Memory Offset of the tile to process                                    ;
@@ -1500,24 +1500,24 @@ LC912:                                                                          
     LDA      world_number                     ; 0x1c925 $C915 AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c928 $C918 20 85 D3; Set Object Construction Address
 bank7_Pointer_table_for_Objects_Construction_Address:                           ;
-.word    L80EE                         ; 0x1c92b $C91B EE 80                   ;Overworld Areas (WH DM EH MI)
+.word    Object_Construction_Addresses                         ; 0x1c92b $C91B EE 80                   ;Overworld Areas (WH DM EH MI)
 .word    L9B86                         ; 0x1c92d $C91D 86 9B                   ;Towns in West Hyrule
 .word    L9B86                         ; 0x1c92f $C91F 86 9B                   ;Towns in East Hyrule
-.word    L80EE                         ; 0x1c931 $C921 EE 80                   ;Palaces Type A
-.word    L80EE                         ; 0x1c933 $C923 EE 80                   ;Palaces Type B
-.word    L80EE                         ; 0x1c935 $C925 EE 80                   ;Great Palace
+.word    Object_Construction_Addresses                         ; 0x1c931 $C921 EE 80                   ;Palaces Type A
+.word    Object_Construction_Addresses                         ; 0x1c933 $C923 EE 80                   ;Palaces Type B
+.word    bank5_Object_Construction_Routine                         ; 0x1c935 $C925 EE 80                   ;Great Palace
 ; ---------------------------------------------------------------------------- ;
 bank7_Set_Address_for_Small_Object:                                             ;
     LDX      $0731                     ; 0x1c937 $C927 AE 31 07                ; Level Object Type and Size
     LDA      world_number                     ; 0x1c93a $C92A AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c93d $C92D 20 85 D3; Set Object Construction Address
 bank7_Pointer_table_for_Small_Objects_Construction_Address:                     ;
-.word    L812F                         ; 0x1c940 $C930 2F 81                   ;Overworld Areas (WH DM EH MI)
-.word    LevelUp_Pane__BlankLine_SecondHalfOnly; 0x1c942 $C932 CB 9B           ;Towns in West Hyrule
-.word    LevelUp_Pane__BlankLine_SecondHalfOnly; 0x1c944 $C934 CB 9B           ;Towns in East Hyrule
-.word    L812F                         ; 0x1c946 $C936 2F 81                   ;Palaces Type A
-.word    L812F                         ; 0x1c948 $C938 2F 81                   ;Palaces Type B
-.word    L812F                         ; 0x1c94a $C93A 2F 81                   ;Great Palace
+.word    Small_Objects_Construction_Address                         ; 0x1c940 $C930 2F 81                   ;Overworld Areas (WH DM EH MI)
+.word    bank3_Small_Objects_Construction_Routine; 0x1c942 $C932 CB 9B           ;Towns in West Hyrule
+.word    bank3_Small_Objects_Construction_Routine; 0x1c944 $C934 CB 9B           ;Towns in East Hyrule
+.word    Small_Objects_Construction_Address                         ; 0x1c946 $C936 2F 81                   ;Palaces Type A
+.word    Small_Objects_Construction_Address                         ; 0x1c948 $C938 2F 81                   ;Palaces Type B
+.word    bank5_Small_Objects_Construction_Routine                         ; 0x1c94a $C93A 2F 81                   ;Great Palace
 bank7_Pointer_table_for_location_of_the_4_screens_in_RAM:                       ;
 .word    LD000                         ; 0x1c94c $C93C 00 D0                   ;
 .word    L70A0                         ; 0x1c94e $C93E A0 70                   ;
@@ -2267,7 +2267,7 @@ LCE0B:                                                                          
 ;Load All Palettes for Palaces into 7919-79F8 (E0 bytes)                       ;
     LDY      #$00                      ; 0x1ce25 $CE15 A0 00                   ; Y = 00
 LCE17:                                                                          ;
-    LDA      L800E,y                   ; 0x1ce27 $CE17 B9 0E 80                ; Palettes Table
+    LDA      Sidescroll_Palettes,y                   ; 0x1ce27 $CE17 B9 0E 80                ; Palettes Table
     STA      $7919,y                   ; 0x1ce2a $CE1A 99 19 79                ;
     INY                                ; 0x1ce2d $CE1D C8                      ;
     CPY      #$E0                      ; 0x1ce2e $CE1E C0 E0                   ;
@@ -4965,8 +4965,7 @@ bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1:                           
 ; ---------------------------------------------------------------------------- ;
 bank7_Check_for_Hidden_Palace_spot_Bank_1:                                      ;
     JSR      SwapToSavedPRG; 0x1e008 $DFF8 20 C9 FF                ; Load Bank $0769
-    JSR      L8368                     ; 0x1e00b $DFFB 20 68 83                ;
-LE000     = * + $0002                                                          ;
+    JSR      bank1_Check_for_Hidden_Palace_spot                     ; 0x1e00b $DFFB 20 68 83                ;
     JMP      SwapToPRG0; 0x1e00e $DFFE 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4995,7 +4994,7 @@ bank7_Turn_Palaces_into_Stone_Bank_1:                                           
     JMP      SwapToPRG0; 0x1e031 $E021 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LE024:                                                                          ;
+LE024:   ; referenced from bank0                                                                       ;
     JSR      SwapToSavedPRG; 0x1e034 $E024 20 C9 FF                ; Load Bank $0769
     JSR      L83A1                     ; 0x1e037 $E027 20 A1 83                ;
     JMP      SwapToPRG0; 0x1e03a $E02A 4C C5 FF                ; Load Bank 0

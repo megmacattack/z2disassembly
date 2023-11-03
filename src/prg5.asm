@@ -184,8 +184,6 @@ LFCA5 = $FCA5
 .import bank7_Spawn_New_Projectile
 .import bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least
 .import bank7_LD2EC
-.import SwapCHR
-.import ConfigureMMC1
 .import L_Bank6Code0
 
 .export bank5_8B69
@@ -4706,7 +4704,7 @@ bank5_pointer_table3:                                                           
 bank5_code20:                                                                   ;
     JSR      bank7_Set_Memory_300_4FF_and_00_DF_to_Zero; 0x1671f $A70F 20 9C D2    ;
     LDA      #$0F                      ; 0x16722 $A712 A9 0F                   ; A = 0F
-    JSR      _ConfigureMMC1             ; 0x16724 $A714 20 9D BF                ;
+    JSR      ConfigureMMC1             ; 0x16724 $A714 20 9D BF                ;
     LDA      $0568                     ; 0x16727 $A717 AD 68 05                ;; Related to Flute in Overworld
     BNE      LA723                     ; 0x1672a $A71A D0 07                   ;
     LDA      #$01                      ; 0x1672c $A71C A9 01                   ; A = 01
@@ -4715,7 +4713,7 @@ bank5_code20:                                                                   
 LA723:                                                                          ;
     JSR      bank5_code_ADE0           ; 0x16733 $A723 20 E0 AD                ;
     LDA      #$00                      ; 0x16736 $A726 A9 00                   ; A = 00
-    JSR      _SwapCHR                   ; 0x16738 $A728 20 B1 BF                ;
+    JSR      SwapCHR                   ; 0x16738 $A728 20 B1 BF                ;
     JMP      LC722                     ; 0x1673b $A72B 4C 22 C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

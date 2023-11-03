@@ -79,8 +79,6 @@ LEC02 = $EC02
 .import bank7_Turn_Palaces_into_Stone_Bank_1
 .import bank7_XY_Movements_Routine
 .import bank7_LD2EC
-.import SwapCHR
-.import ConfigureMMC1
 
 .export bank0_Manual_Save_Game_Routine_UP_AND_A
 .export bank0_Return_of_Ganon_screen_Palettes
@@ -135,10 +133,8 @@ Tables_for_Game_Over_screen_text:                                               
 ;aoeuaoeuA                                                                     ;
 ;aoeuaoeuB                                                                     ;
 ;aoeuaoeuC                                                                     ;
-L8001:                                                                          ;
 .byt    $6B,$0A,$E0,$DA,$E6,$DE,$F4,$F4; 0x11 $8001 6B 0A E0 DA E6 DE F4 F4    ;
 .byt    $E8,$EF,$DE,$EB,$21            ; 0x19 $8009 E8 EF DE EB 21             ;
-L800E:                                                                          ;
 .byt    $C8,$0F,$EB,$DE,$ED,$EE,$EB,$E7; 0x1e $800E C8 0F EB DE ED EE EB E7    ;
 .byt    $F4,$E8,$DF,$F4,$E0,$DA,$E7,$E8; 0x26 $8016 F4 E8 DF F4 E0 DA E7 E8    ;
 .byt    $E7                            ; 0x2e $801E E7                         ;
@@ -293,9 +289,9 @@ bank0_unknown1:                                                                 
 ; ---------------------------------------------------------------------------- ;
 Initialization_stuff:                                                           ;
     LDA      #$0F                      ; 0x159 $8149 A9 0F                     ; A = 0F
-    JSR      _ConfigureMMC1             ; 0x15b $814B 20 9D BF           ; Set Mapper Parameters at 0x8000
+    JSR      ConfigureMMC1             ; 0x15b $814B 20 9D BF           ; Set Mapper Parameters at 0x8000
     LDA      #$10                      ; 0x15e $814E A9 10                     ; A = 10
-    JSR      _SwapCHR                   ; 0x160 $8150 20 B1 BF           ; Set Mapper Parameters at 0xA000
+    JSR      SwapCHR                   ; 0x160 $8150 20 B1 BF           ; Set Mapper Parameters at 0xA000
     JSR      bank7_Turn_Palaces_into_Stone_Bank_1; 0x163 $8153 20 1B E0            ;
     LDA      #$FC                      ; 0x166 $8156 A9 FC                     ; A = FC
     STA      $81                       ; 0x168 $8158 85 81                     ;
@@ -6092,7 +6088,7 @@ bank0_unknown42:                                                                
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown43:                                                                ;
     LDA      #$02                      ; 0x2879 $A869 A9 02                    ; A = 02
-    JSR      _SwapCHR                   ; 0x287b $A86B 20 B1 BF          ;
+    JSR      SwapCHR                   ; 0x287b $A86B 20 B1 BF          ;
     LDA      $FF                       ; 0x287e $A86E A5 FF                    ;; Sprite Bank ?
     AND      #$FB                      ; 0x2880 $A870 29 FB                    ; keep bits xxxx x.xx
     STA      $2000                     ; 0x2882 $A872 8D 00 20                 ;

@@ -18,14 +18,14 @@ bank7_reset:                                                                   ;
     STX      MMC1_CHR1_bank            ; 0x1ff97 $FF87 8E 00 C0                ;
     STX      MMC1_PRG_bank             ; 0x1ff9a $FF8A 8E 00 E0                ;
     LDA      #$0F                      ; 0x1ff9d $FF8D A9 0F                   ; A = 0F
-    JSR      _ConfigureMMC1             ; 0x1ff9f $FF8F 20 9D FF                ;
-    JSR      _SwapCHR                   ; 0x1ffa2 $FF92 20 B1 FF                ;
+    JSR      ConfigureMMC1             ; 0x1ff9f $FF8F 20 9D FF                ;
+    JSR      SwapCHR                   ; 0x1ffa2 $FF92 20 B1 FF                ;
     LDA      #$07                      ; 0x1ffa5 $FF95 A9 07                   ; A = 07
-    JSR      _SwapPRG                   ; 0x1ffa7 $FF97 20 CC FF                ;
+    JSR      SwapPRG                   ; 0x1ffa7 $FF97 20 CC FF                ;
     JMP      bank7_PowerON_code        ; 0x1ffaa $FF9A 4C 00 C0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-_ConfigureMMC1:                                                                 ;
+ConfigureMMC1:                                                                 ;
     STA      MMC1_Control              ; 0x1ffad $FF9D 8D 00 80                ;
     LSR                                ; 0x1ffb0 $FFA0 4A                      ;
     STA      MMC1_Control              ; 0x1ffb1 $FFA1 8D 00 80                ;
@@ -38,7 +38,7 @@ _ConfigureMMC1:                                                                 
     RTS                                ; 0x1ffc0 $FFB0 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-_SwapCHR:                                                  ;
+SwapCHR:                                                  ;
     STA      MMC1_CHR0_bank            ; 0x1ffc1 $FFB1 8D 00 A0                ;
     LSR                                ; 0x1ffc4 $FFB4 4A                      ;
     STA      MMC1_CHR0_bank            ; 0x1ffc5 $FFB5 8D 00 A0                ;
@@ -51,12 +51,12 @@ _SwapCHR:                                                  ;
     RTS                                ; 0x1ffd4 $FFC4 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-_SwapToPRG0:                                                                    ;
+SwapToPRG0:                                                                    ;
     LDA      #$00                      ; 0x1ffd5 $FFC5 A9 00                   ; A = 00
-    BEQ      _SwapPRG                   ; 0x1ffd7 $FFC7 F0 03                   ;
-_SwapToSavedPRG:                                                                ;
+    BEQ      SwapPRG                   ; 0x1ffd7 $FFC7 F0 03                   ;
+SwapToSavedPRG:                                                                ;
     LDA      PRG_bank                  ; 0x1ffd9 $FFC9 AD 69 07                ; Bank to switch to (other than 0 or 7)
-_SwapPRG:                                                                       ;
+SwapPRG:                                                                       ;
     STA      MMC1_PRG_bank             ; 0x1ffdc $FFCC 8D 00 E0                ;
     LSR                                ; 0x1ffdf $FFCF 4A                      ;
     STA      MMC1_PRG_bank             ; 0x1ffe0 $FFD0 8D 00 E0                ;

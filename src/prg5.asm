@@ -14,7 +14,7 @@
 .include "mmc1.asm"
 .include "variables.asm"
 .include "macros.asm"
-.include "prg7-exports.asm"
+.include "globals.asm"
 
 L0000 = $0000
 L000E = $000E

@@ -14,7 +14,7 @@
 .include "mmc1.asm"
 .include "variables.asm"
 .include "macros.asm"
-.include "prg7-exports.asm"
+.include "globals.asm"
 
 .import bank7_NMI_Entry_Point
 .import bank7_PowerON_code

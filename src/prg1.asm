@@ -12,7 +12,7 @@
 
 .include "mmc1.asm"
 .include "nes.asm"
-.include "prg7-exports.asm"
+.include "globals.asm"
 .include "variables.asm"
 .include "macros.asm"
 

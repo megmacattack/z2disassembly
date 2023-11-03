@@ -1,13 +1,3 @@
-; system ram locations
-rng_base = $051B
-area_code = $0561
-town_code = $056B
-lives_remaining = $0700
-region_number = $0706 ; overworld index (0=west hyrule, 1=death mtn/maze island, 2=east hyrule)
-world_number = $0707 ; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
-game_mode = $0736
-PRG_bank = $0769
-
 ; constants
 joy1_pressed = $F5
 joy2_pressed = $F6

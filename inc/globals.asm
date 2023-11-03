@@ -1,4 +1,14 @@
+; globals in system RAM
+.global rng_base
+.global area_code
+.global town_code
+.global lives_remaining
+.global region_number
+.global world_number
+.global game_mode
+.global PRG_bank
 
+; bank 7 exports
 .global bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .global bank7_Check_for_Hidden_Palace_spot_Bank_1
 .global bank7_Controllers_Input

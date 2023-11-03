@@ -298,17 +298,17 @@ bank7_NMI_Entry_Point:                                                         ;
     INC      a:$12                     ; 0x1c192 $C182 EE 12 00                ;
     LDX      #$00                      ; 0x1c195 $C185 A2 00                   ; X = 00
     LDY      #$09                      ; 0x1c197 $C187 A0 09                   ; Y = 09
-    LDA      $051A                     ; 0x1c199 $C189 AD 1A 05                ;
+    LDA      rng_base                     ; 0x1c199 $C189 AD 1A 05                ;
     AND      #$02                      ; 0x1c19c $C18C 29 02                   ; keep bits .... ..x.
     STA      $00                       ; 0x1c19e $C18E 85 00                   ;
-    LDA      rng_base                     ; 0x1c1a0 $C190 AD 1B 05                ;
+    LDA      rng_out                    ; 0x1c1a0 $C190 AD 1B 05                ;
     AND      #$02                      ; 0x1c1a3 $C193 29 02                   ; keep bits .... ..x.
     EOR      $00                       ; 0x1c1a5 $C195 45 00                   ;
     CLC                                ; 0x1c1a7 $C197 18                      ;
     BEQ      :+                        ; 0x1c1a8 $C198 F0 01                   ;
     SEC                                ; 0x1c1aa $C19A 38                      ;
 :                                                                              ;
-    ROR      $051A,x                   ; 0x1c1ab $C19B 7E 1A 05                ;
+    ROR      rng_base,x                   ; 0x1c1ab $C19B 7E 1A 05                ;
     INX                                ; 0x1c1ae $C19E E8                      ;
     DEY                                ; 0x1c1af $C19F 88                      ;
     BNE      :-                        ; 0x1c1b0 $C1A0 D0 F9                   ;
@@ -1790,7 +1790,7 @@ LCB59:                                                                          
     LDA      $0748                     ; 0x1cb92 $CB82 AD 48 07                ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     SEC                                ; 0x1cb95 $CB85 38                      ;
     SBC      #$34                      ; 0x1cb96 $CB86 E9 34                   ;
-    STA      $056C                     ; 0x1cb98 $CB88 8D 6C 05                ; Palace Code
+    STA      palace_code                     ; 0x1cb98 $CB88 8D 6C 05                ; Palace Code
 ;$056C = $0748 - #$34                                                          ;
     LDA      region_number                     ; 0x1cb9b $CB8B AD 06 07                ; Current Region
     STA      $070A                     ; 0x1cb9e $CB8E 8D 0A 07                ;; Previous Region ?
@@ -2078,7 +2078,7 @@ LCD59:                                                                          
     LDA      region_number                     ; 0x1cd79 $CD69 AD 06 07                ; Current Region
     ASL                                ; 0x1cd7c $CD6C 0A                      ;
     ASL                                ; 0x1cd7d $CD6D 0A                      ;
-    ADC      $056C                     ; 0x1cd7e $CD6E 6D 6C 05                ; Palace Code
+    ADC      palace_code                     ; 0x1cd7e $CD6E 6D 6C 05                ; Palace Code
     TAY                                ; 0x1cd81 $CD71 A8                      ;
     LDA      bank7_Graphics_Bank_for_Palaces_Palace_1,y; 0x1cd82 $CD72 B9 2A CD    ;
     STA      $070B                     ; 0x1cd85 $CD75 8D 0B 07                ;Graphics Bank for Palaces
@@ -2182,7 +2182,7 @@ LCE17:                                                                          
     LDA      region_number                     ; 0x1ce39 $CE29 AD 06 07                ; Current Region
     ASL                                ; 0x1ce3c $CE2C 0A                      ;
     ASL                                ; 0x1ce3d $CE2D 0A                      ;
-    ADC      $056C                     ; 0x1ce3e $CE2E 6D 6C 05                ; Palace Code
+    ADC      palace_code                     ; 0x1ce3e $CE2E 6D 6C 05                ; Palace Code
     TAY                                ; 0x1ce41 $CE31 A8                      ;
     LDA      bank7_Table_for_Palace_Entrance_Palettes_Offset,y; 0x1ce42 $CE32 B9 35 CD;
     TAY                                ; 0x1ce45 $CE35 A8                      ;
@@ -3506,7 +3506,7 @@ LD6FB:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Deeler_Red_Blue:                                                          ;
-    LDA      rng_base,x                   ; 0x1d716 $D706 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1d716 $D706 BD 1B 05                ; Randomizer
     AND      #$1F                      ; 0x1d719 $D709 29 1F                   ; keep bits ...x xxxx
     ORA      $C9                       ; 0x1d71b $D70B 05 C9                   ;
     BNE      LD6FB                     ; 0x1d71d $D70D D0 EC                   ;
@@ -3550,7 +3550,7 @@ LD74D:                                                                          
 bank7_Enemy_Routines1_Deeler_Code:                                              ;
     LDA      $0504,x                   ; 0x1d760 $D750 BD 04 05                ; Timer for Enemy
     BNE      LD773                     ; 0x1d763 $D753 D0 1E                   ;
-    LDA      rng_base,x                   ; 0x1d765 $D755 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1d765 $D755 BD 1B 05                ; Randomizer
     AND      #$3F                      ; 0x1d768 $D758 29 3F                   ; keep bits ..xx xxxx
     ORA      #$40                      ; 0x1d76a $D75A 09 40                   ; set  bits .x.. ....
     STA      $0504,x                   ; 0x1d76c $D75C 9D 04 05                ; random 40-7F (delay before next jump)
@@ -3559,7 +3559,7 @@ bank7_Enemy_Routines1_Deeler_Code:                                              
     ASL                                ; 0x1d775 $D765 0A                      ;
     ASL                                ; 0x1d776 $D766 0A                      ;
     STA      $71,x                     ; 0x1d777 $D767 95 71                   ; Enemy X Velocity
-    LDA      rng_base,x                   ; 0x1d779 $D769 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1d779 $D769 BD 1B 05                ; Randomizer
     AND      #$07                      ; 0x1d77c $D76C 29 07                   ; keep bits .... .xxx
     ORA      #$E8                      ; 0x1d77e $D76E 09 E8                   ; set  bits xxx. x...
     STA      $057E,x                   ; 0x1d780 $D770 9D 7E 05                ; Enemy Y Velocity (random E8-EF) (-18 -11)
@@ -3602,7 +3602,7 @@ LD7A1:                                                                          
     STA      $B6,x                     ; 0x1d7b3 $D7A3 95 B6                   ;; Generated Enemy Slot
     LDA      #$10                      ; 0x1d7b5 $D7A5 A9 10                   ; A = 10
     STA      $A1,x                     ; 0x1d7b7 $D7A7 95 A1                   ; Enemy Code (10 = Bago Bago)
-    LDA      rng_base,x                   ; 0x1d7b9 $D7A9 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1d7b9 $D7A9 BD 1B 05                ; Randomizer
     AND      #$01                      ; 0x1d7bc $D7AC 29 01                   ; keep bits .... ...x
     TAY                                ; 0x1d7be $D7AE A8                      ;
     LDA      $072C                     ; 0x1d7bf $D7AF AD 2C 07                ; Scrolling Offset Low Byte
@@ -3671,7 +3671,7 @@ LD818:                                                                          
     BCS      LD832                     ; 0x1d833 $D823 B0 0D                   ;
     LDA      #$70                      ; 0x1d835 $D825 A9 70                   ; A = 70
     STA      $0504,x                   ; 0x1d837 $D827 9D 04 05                ; Minimum delay between rocks
-    LDA      rng_base,x                   ; 0x1d83a $D82A BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1d83a $D82A BD 1B 05                ; Randomizer
     BMI      LD832                     ; 0x1d83d $D82D 30 03                   ; 50% chance of shooting rock at right Y pos
     JSR      bank7_shoot_rock          ; 0x1d83f $D82F 20 6C D8                ; Shoot Rock
 LD832:                                                                          ;
@@ -3749,7 +3749,7 @@ LD897:                                                                          
 LD8A9:                                                                          ;
     LDA      $0504,x                   ; 0x1d8b9 $D8A9 BD 04 05                ;; Timer for Enemy
     BNE      LD8BE                     ; 0x1d8bc $D8AC D0 10                   ;
-    LDA      rng_base,x                   ; 0x1d8be $D8AE BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1d8be $D8AE BD 1B 05                ; Randomizer
     AND      #$7F                      ; 0x1d8c1 $D8B1 29 7F                   ; keep bits .xxx xxxx
     ORA      #$80                      ; 0x1d8c3 $D8B3 09 80                   ; set  bits x... ....
     STA      $0504,x                   ; 0x1d8c5 $D8B5 9D 04 05                ; random 80-FF (delay before shooting rock)
@@ -3959,7 +3959,7 @@ bank7_Enemy_Routines1_Bot:                                                      
     LDA      $A8,x                     ; 0x1da1f $DA0F B5 A8                   ; Enemy state ?
     AND      #$04                      ; 0x1da21 $DA11 29 04                   ;;Keep Bits:0000_0100
     BEQ      LDA28                     ; 0x1da23 $DA13 F0 13                   ;
-    LDA      rng_base,x                   ; 0x1da25 $DA15 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1da25 $DA15 BD 1B 05                ; Randomizer
     ASL                                ; 0x1da28 $DA18 0A                      ; 1 : 128
     BNE      LDA28                     ; 0x1da29 $DA19 D0 0D                   ;
     LDA      #$E5                      ; 0x1da2b $DA1B A9 E5                   ; Bot's initial Y velocity when jumping
@@ -4045,7 +4045,7 @@ LDAA4:                                                                          
     EOR      #$01                      ; 0x1dabb $DAAB 49 01                   ; flip bits .... ...x
     STA      $AF,x                     ; 0x1dabd $DAAD 95 AF                   ;; Various enemy state variables
     TAY                                ; 0x1dabf $DAAF A8                      ;
-    LDA      rng_base,x                   ; 0x1dac0 $DAB0 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1dac0 $DAB0 BD 1B 05                ; Randomizer
     AND      #$3F                      ; 0x1dac3 $DAB3 29 3F                   ; keep bits ..xx xxxx
     ORA      LDA00,y                   ; 0x1dac5 $DAB5 19 00 DA                ; refer to table at $1D9FE (offset +2)
     STA      $0504,x                   ; 0x1dac8 $DAB8 9D 04 05                ;; Timer for Enemy
@@ -4101,7 +4101,7 @@ LDB00:                                                                          
     LDA      $0504,x                   ; 0x1db16 $DB06 BD 04 05                ;; Timer for Enemy
     BNE      LDB2C                     ; 0x1db19 $DB09 D0 21                   ;
     INC      $AF,x                     ; 0x1db1b $DB0B F6 AF                   ;; Various enemy state variables
-    LDA      rng_base,x                   ; 0x1db1d $DB0D BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1db1d $DB0D BD 1B 05                ; Randomizer
     AND      #$01                      ; 0x1db20 $DB10 29 01                   ; keep bits .... ...x
     TAY                                ; 0x1db22 $DB12 A8                      ;
     LDA      $2A,x                     ; 0x1db23 $DB13 B5 2A                   ; Enemy Y Position
@@ -4197,7 +4197,7 @@ bank7_Ache_Acheman1:                                                            
     ADC      #$20                      ; 0x1dba0 $DB90 69 20                   ; 30 and 60 work, reaction distance increased
     CMP      #$40                      ; 0x1dba2 $DB92 C9 40                   ; 40 and 80 work, too
     BCS      LDBC8                     ; 0x1dba4 $DB94 B0 32                   ;
-    LDA      rng_base,x                   ; 0x1dba6 $DB96 BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1dba6 $DB96 BD 1B 05                ; Randomizer
     AND      #$01                      ; 0x1dba9 $DB99 29 01                   ; keep bits .... ...x
     TAY                                ; 0x1dbab $DB9B A8                      ; fly down direction (random 0-1)
 LDB9C:                                                                          ;
@@ -4284,7 +4284,7 @@ bank7_Enemy_Routines1_Raising_Bubbles:                                          
     LDA      #$02                      ; 0x1dc32 $DC22 A9 02                   ; 02 = bubble
     STA      $87,y                     ; 0x1dc34 $DC24 99 87 00                ; projectile type
     LDA      $072C                     ; 0x1dc37 $DC27 AD 2C 07                ; Scrolling Offset Low Byte
-    ADC      rng_base,x                   ; 0x1dc3a $DC2A 7D 1B 05                ; Randomizer
+    ADC      rng_out,x                   ; 0x1dc3a $DC2A 7D 1B 05                ; Randomizer
     AND      #$F0                      ; 0x1dc3d $DC2D 29 F0                   ; keep bits xxxx ....
     STA      $54,y                     ; 0x1dc3f $DC2F 99 54 00                ;
     LDA      $072A                     ; 0x1dc42 $DC32 AD 2A 07                ; Scrolling Offset High Byte
@@ -4309,7 +4309,7 @@ bank7_Desert_Rocks_initialization_routine:                                      
     BNE      LDC90                     ; 0x1dc63 $DC53 D0 3B                   ;
     JSR      bank7_spawn_new_bubble_or_rock; 0x1dc65 $DC55 20 FB DB                ; spawn new rock
     BCS      LDC90                     ; 0x1dc68 $DC58 B0 36                   ;
-    LDA      rng_base,x                   ; 0x1dc6a $DC5A BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1dc6a $DC5A BD 1B 05                ; Randomizer
     AND      #$07                      ; 0x1dc6d $DC5D 29 07                   ; keep bits .... .xxx
     TAX                                ; 0x1dc6f $DC5F AA                      ;
     LDA      $29                       ; 0x1dc70 $DC60 A5 29                   ; Link's Y Position
@@ -6175,7 +6175,7 @@ bank7_Drop_Item:                                                                
     STA      $05DE,x                   ; 0x1e8b5 $E8A5 9D DE 05                ; Reset item counter
     LDX      $10                       ; 0x1e8b8 $E8A8 A6 10                   ;; used as monster x register ;draw boss hp bar
     ROR      $0414,x                   ; 0x1e8ba $E8AA 7E 14 04                ;
-    LDA      rng_base,x                   ; 0x1e8bd $E8AD BD 1B 05                ; Randomizer
+    LDA      rng_out,x                   ; 0x1e8bd $E8AD BD 1B 05                ; Randomizer
     AND      #$07                      ; 0x1e8c0 $E8B0 29 07                   ; keep bits .... .xxx
     CPY      #$02                      ; 0x1e8c2 $E8B2 C0 02                   ; 02 = Strong Enemy (200P and Red Jar)
     BNE      LE8B8                     ; 0x1e8c4 $E8B4 D0 02                   ;

@@ -1,7 +1,11 @@
 ; globals in system RAM
 .global rng_base
+.global rng_out
+.global rng_alt
+.global rng_tail
 .global area_code
 .global town_code
+.global palace_code
 .global lives_remaining
 .global region_number
 .global world_number

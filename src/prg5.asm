@@ -2443,12 +2443,12 @@ bank5_9764:                                                                     
     BCS      L9795                     ; 0x1577c $976C B0 27                   ;
     LDA      #$0C                      ; 0x1577e $976E A9 0C                   ;;A = #$0c 0000_1100
     STA      $87,y                     ; 0x15780 $9770 99 87 00                ;
-    LDA      rng_base,x                   ; 0x15783 $9773 BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x15783 $9773 BD 1B 05                ;; Randomizer
     AND      #$1F                      ; 0x15786 $9776 29 1F                   ;;Keep Bits:0001_1111
     ADC      $2A,x                     ; 0x15788 $9778 75 2A                   ;; Enemy Y Position
     SBC      #$06                      ; 0x1578a $977A E9 06                   ;
     STA      $30,y                     ; 0x1578c $977C 99 30 00                ;
-    LDA      rng_base+$1,x                   ; 0x1578f $977F BD 1C 05                ;
+    LDA      rng_alt,x                   ; 0x1578f $977F BD 1C 05                ;
     AND      #$0F                      ; 0x15792 $9782 29 0F                   ;;Keep Bits:0000_1111
     SBC      #$08                      ; 0x15794 $9784 E9 08                   ;
     ADC      $4E,x                     ; 0x15796 $9786 75 4E                   ;; Enemy X Position (low byte)
@@ -2694,7 +2694,7 @@ L9911:                                                                          
     BEQ      L994F                     ; 0x15929 $9919 F0 34                   ;
     LDA      $17                       ; 0x1592b $991B A5 17                   ;; Link's Shield Position; Link's Shield Position (0 = Link ducked)
     STA      $18                       ; 0x1592d $991D 85 18                   ;;dark link:	$18	0=duck,1=stand
-    LDA      rng_base                     ; 0x1592f $991F AD 1B 05                ;
+    LDA      rng_out                    ; 0x1592f $991F AD 1B 05                ;
     AND      #$07                      ; 0x15932 $9922 29 07                   ;;Keep Bits:0000_0111
 .byt    $D0                            ; 0x15934 $9924 D0                      ;
 L9925:                                                                          ;
@@ -2709,7 +2709,7 @@ L992C:                                                                          
     BPL      L9935                     ; 0x15942 $9932 10 01                   ;
     INY                                ; 0x15944 $9934 C8                      ;
 L9935:                                                                          ;
-    LDA      rng_base+$1                     ; 0x15945 $9935 AD 1C 05                ;
+    LDA      rng_alt                     ; 0x15945 $9935 AD 1C 05                ;
     AND      #$03                      ; 0x15948 $9938 29 03                   ;;Keep Bits:0000_0011
     BNE      L993E                     ; 0x1594a $993A D0 02                   ;
     INY                                ; 0x1594c $993C C8                      ;
@@ -2727,7 +2727,7 @@ L994E:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L994F:                                                                          ;
-    LDA      rng_base+$2                     ; 0x1595f $994F AD 1D 05                ;
+    LDA      rng_tail                     ; 0x1595f $994F AD 1D 05                ;
     AND      #$03                      ; 0x15962 $9952 29 03                   ;;Keep Bits:0000_0011
     BNE      L9964                     ; 0x15964 $9954 D0 0E                   ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x15966 $9956 20 91 DC;
@@ -2879,7 +2879,7 @@ L9A1D:                                                                          
     BNE      L9A33                     ; 0x15a37 $9A27 D0 0A                   ;
     PHA                                ; 0x15a39 $9A29 48                      ;
     LDA      #$03                      ; 0x15a3a $9A2A A9 03                   ;;A = #$03 0000_0011
-    STA      rng_base+$1                     ; 0x15a3c $9A2C 8D 1C 05                ;
+    STA      rng_alt                     ; 0x15a3c $9A2C 8D 1C 05                ;
     JSR      L992C                     ; 0x15a3f $9A2F 20 2C 99                ;
     PLA                                ; 0x15a42 $9A32 68                      ;
 L9A33:                                                                          ;
@@ -3165,7 +3165,7 @@ L9BE1:                                                                          
     BNE      L9C23                     ; 0x15c05 $9BF5 D0 2C                   ;
     STA      $77,x                     ; 0x15c07 $9BF7 95 77                   ;; Projectile X Velocity
     LDY      #$30                      ; 0x15c09 $9BF9 A0 30                   ;;Y = #$30 0011_0000
-    LDA      rng_base,x                   ; 0x15c0b $9BFB BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x15c0b $9BFB BD 1B 05                ;; Randomizer
     AND      #$03                      ; 0x15c0e $9BFE 29 03                   ;;Keep Bits:0000_0011
     BNE      L9C15                     ; 0x15c10 $9C00 D0 13                   ;
     LDY      #$F0                      ; 0x15c12 $9C02 A0 F0                   ;;Y = #$f0 1111_0000
@@ -3472,7 +3472,7 @@ L9DE6:                                                                          
     BNE      L9DF1                     ; 0x15dfd $9DED D0 02                   ;
     BEQ      L9E1E                     ; 0x15dff $9DEF F0 2D                   ;
 L9DF1:                                                                          ;
-    LDA      rng_base,x                   ; 0x15e01 $9DF1 BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x15e01 $9DF1 BD 1B 05                ;; Randomizer
     AND      #$1F                      ; 0x15e04 $9DF4 29 1F                   ;;Keep Bits:0001_1111
     BNE      L9E06                     ; 0x15e06 $9DF6 D0 0E                   ;
     LDA      #$C8                      ; 0x15e08 $9DF8 A9 C8                   ;;A = #$c8 1100_1000
@@ -3506,7 +3506,7 @@ L9E1E:                                                                          
     INC      $AF,x                     ; 0x15e33 $9E23 F6 AF                   ;; Various enemy state variables
     AND      $AF,x                     ; 0x15e35 $9E25 35 AF                   ;; Various enemy state variables
     BNE      L9E37                     ; 0x15e37 $9E27 D0 0E                   ;
-    LDA      rng_base,x                   ; 0x15e39 $9E29 BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x15e39 $9E29 BD 1B 05                ;; Randomizer
     AND      #$02                      ; 0x15e3c $9E2C 29 02                   ;;Keep Bits:0000_0010
     TAY                                ; 0x15e3e $9E2E A8                      ;
     INY                                ; 0x15e3f $9E2F C8                      ;
@@ -3587,7 +3587,7 @@ L9E98:                                                                          
     AND      #$04                      ; 0x15eb3 $9EA3 29 04                   ;;Keep Bits:0000_0100
     BEQ      L9EBE                     ; 0x15eb5 $9EA5 F0 17                   ;
     JSR      bank7_Floor_Y_Position    ; 0x15eb7 $9EA7 20 C1 DA                ;
-    LDA      rng_base,x                   ; 0x15eba $9EAA BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x15eba $9EAA BD 1B 05                ;; Randomizer
     LSR                                ; 0x15ebd $9EAD 4A                      ;
     AND      #$03                      ; 0x15ebe $9EAE 29 03                   ;;Keep Bits:0000_0011
     TAY                                ; 0x15ec0 $9EB0 A8                      ;
@@ -4015,7 +4015,7 @@ LA19C:                                                                          
     LDA      #$D0                      ; 0x161c4 $A1B4 A9 D0                   ;;A = #$d0 1101_0000
     STA      $057E,y                   ; 0x161c6 $A1B6 99 7E 05                ;
     STA      $C2,y                     ; 0x161c9 $A1B9 99 C2 00                ;
-    LDA      rng_base+$1,y                   ; 0x161cc $A1BC B9 1C 05                ;
+    LDA      rng_alt,y                   ; 0x161cc $A1BC B9 1C 05                ;
     AND      #$1F                      ; 0x161cf $A1BF 29 1F                   ;;Keep Bits:0001_1111
     ADC      #$F0                      ; 0x161d1 $A1C1 69 F0                   ;
     STA      $71,y                     ; 0x161d3 $A1C3 99 71 00                ;
@@ -4049,7 +4049,7 @@ LA1EB:                                                                          
     LDA      $A8,x                     ; 0x16201 $A1F1 B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x16203 $A1F3 29 04                   ;;Keep Bits:0000_0100
     BEQ      LA20A                     ; 0x16205 $A1F5 F0 13                   ;
-    LDA      rng_base,x                   ; 0x16207 $A1F7 BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x16207 $A1F7 BD 1B 05                ;; Randomizer
     AND      #$07                      ; 0x1620a $A1FA 29 07                   ;;Keep Bits:0000_0111
     BNE      LA20D                     ; 0x1620c $A1FC D0 0F                   ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x1620e $A1FE 20 91 DC;
@@ -4372,7 +4372,7 @@ LA407:                                                                          
     LDA      $3C,x                     ; 0x1642c $A41C B5 3C                   ;; Enemy X Position (high byte)
     ADC      #$00                      ; 0x1642e $A41E 69 00                   ;
     STA      $42,y                     ; 0x16430 $A420 99 42 00                ;
-    LDA      rng_base+$1                     ; 0x16433 $A423 AD 1C 05                ;
+    LDA      rng_alt                     ; 0x16433 $A423 AD 1C 05                ;
     AND      #$07                      ; 0x16436 $A426 29 07                   ;;Keep Bits:0000_0111
     TAX                                ; 0x16438 $A428 AA                      ;
     LDA      LA351,x                   ; 0x16439 $A429 BD 51 A3                ;
@@ -4547,7 +4547,7 @@ bank5_Enemy_Routines1_HiddenRedJar:                                             
     STA      $AF,x                     ; 0x16540 $A530 95 AF                   ;; Various enemy state variables
     LDY      #$01                      ; 0x16542 $A532 A0 01                   ;;Y = #$01 0000_0001
     STY      $C2,x                     ; 0x16544 $A534 94 C2                   ;; Enemy Current HP
-    LDA      rng_base,x                   ; 0x16546 $A536 BD 1B 05                ;; Randomizer
+    LDA      rng_out,x                   ; 0x16546 $A536 BD 1B 05                ;; Randomizer
     BPL      LA541                     ; 0x16549 $A539 10 06                   ;
     LDA      #$30                      ; 0x1654b $A53B A9 30                   ;;A = #$30 0011_0000
     STA      $C2,x                     ; 0x1654d $A53D 95 C2                   ;; Enemy Current HP

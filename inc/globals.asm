@@ -12,6 +12,10 @@
 .global game_mode
 .global PRG_bank
 
+; bank 6 exports
+.global bank6_Title_Music_Tick
+.global bank6_Game_Music_Tick
+
 ; bank 7 exports
 .global bank7_Change_Enemy_Facing_Direction_and_X_Velocity
 .global bank7_Check_for_Hidden_Palace_spot_Bank_1
@@ -91,4 +95,4 @@
 .global bank7_LD2EC
 .global bank7_irq
 .global Set_Item_RAM_bit_to_0__Bits_0_3
-.global L_Bank6Code0
+.global bank7_Title_Music_Tick

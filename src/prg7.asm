@@ -75,8 +75,6 @@ L9A46 = $9A46 ; could be bank 4 or 5 - unlikely to be any others
 .import bank5_B9CA
 .import bank5_Small_Objects_Construction_Routine
 .import bank5_Object_Construction_Routine
-.import Bank6Code0
-.import Bank6Code2
 .import Chandeliers_in_North_Castle
 .import Check_for_Fire_Spell
 .import Hub_Update_Routine
@@ -118,10 +116,10 @@ bank7_PowerON_code:                                                            ;
     JMP      @Loop                     ; 0x1c03f $C02F 4C 10 C0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-L_Bank6Code0:
+bank7_Title_Music_Tick:
     LDA      #$06                      ; 0x1c042 $C032 A9 06                   ; A = 06
     JSR      SwapPRG                   ; 0x1c044 $C034 20 CC FF                ;
-    JSR      Bank6Code0                ; 0x1c047 $C037 20 00 80                ;
+    JSR      bank6_Title_Music_Tick                ; 0x1c047 $C037 20 00 80                ;
     JMP      LC388                     ; 0x1c04a $C03A 4C 88 C3                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -154,7 +152,7 @@ bank7_code1:                                                                    
     PHA                                ; 0x1c074 $C064 48                      ;
     LDA      #$06                      ; 0x1c075 $C065 A9 06                   ; A = 06
     JSR      SwapPRG                   ; 0x1c077 $C067 20 CC FF                ; Load Bank 6
-    JSR      Bank6Code2                ; 0x1c07a $C06A 20 00 90                ; Play Sounds
+    JSR      bank6_Game_Music_Tick                ; 0x1c07a $C06A 20 00 90                ; Play Sounds
     JSR      SwapToSavedPRG            ; 0x1c07d $C06D 20 C9 FF                ; Load Bank X at 0x8000 (X = $0769)
     PLA                                ; 0x1c080 $C070 68                      ;
     TAY                                ; 0x1c081 $C071 A8                      ;
@@ -333,7 +331,7 @@ bank7_code2:                                                                    
 bank7_related_to_sound:                                                         ;
     LDA      #$06                      ; 0x1c1d1 $C1C1 A9 06                   ; A = 06
     JSR      SwapPRG                     ; 0x1c1d3 $C1C3 20 CC FF                ; bank switch routine
-    JSR      Bank6Code2                     ; 0x1c1d6 $C1C6 20 00 90                ;
+    JSR      bank6_Game_Music_Tick                     ; 0x1c1d6 $C1C6 20 00 90                ;
     JMP      SwapToPRG0; 0x1c1d9 $C1C9 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

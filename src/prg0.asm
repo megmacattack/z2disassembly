@@ -62,59 +62,6 @@ LE187 = $E187
 LE726 = $E726
 LEC02 = $EC02
 
-.import bank7_applyGravityMotion
-.import bank7_Check_for_Hidden_Palace_spot_Bank_1
-.import bank7_code2
-.import bank7_code33
-.import bank7_code34
-.import bank7_code51
-.import bank7_code55
-.import bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0
-.import bank7_Links_Display_Routine
-.import bank7_Mute_music_when_loading_between_areas
-.import bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1
-.import bank7_PowerON_code
-.import bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP
-.import bank7_Remove_All_Sprites
-.import bank7_Turn_Palaces_into_Stone_Bank_1
-.import bank7_XY_Movements_Routine
-.import bank7_LD2EC
-
-.export bank0_Manual_Save_Game_Routine_UP_AND_A
-.export bank0_Return_of_Ganon_screen_Palettes
-.export bank0_unknown1
-.export bank0_unknown2
-.export bank0_unknown27
-.export bank0_unknown28
-.export bank0_unknown37
-.export bank0_unknown39
-.export bank0_unknown4
-.export bank0_unknown12
-.export bank0_903A
-.export bank0_96A8
-.export bank0_9925
-.export bank0_9A04
-.export bank0_A199
-.export bank0_A256
-.export bank0_A30F
-.export bank0_A315
-.export bank0_A329
-.export bank0_A334
-.export bank0_A338
-.export bank0_A82A
-.export Chandeliers_in_North_Castle
-.export Check_for_Fire_Spell
-.export Hub_Update_Routine
-.export Initialization_stuff
-.export LevelUp_Pane__BlankLine_SecondHalfOnly
-.export Side_View_Initialization_when_entering_a_Key_Area
-.export Some_Palettes_Data_related_to_Falling_Animation
-.export Spell_Casting_Routine
-.export Tables_for_Game_Over_screen_text
-.export overworld3
-.export overworld4
-.export startup_init_begin_game
-
 .segment "PRG0"
 .org $8000
 

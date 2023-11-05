@@ -12,6 +12,77 @@
 .global game_mode
 .global PRG_bank
 
+; bank 0 exports
+.global bank0_Manual_Save_Game_Routine_UP_AND_A
+.global bank0_Return_of_Ganon_screen_Palettes
+.global bank0_unknown1
+.global bank0_unknown2
+.global bank0_unknown27
+.global bank0_unknown28
+.global bank0_unknown37
+.global bank0_unknown39
+.global bank0_unknown4
+.global bank0_unknown12
+.global bank0_903A
+.global bank0_96A8
+.global bank0_9925
+.global bank0_9A04
+.global bank0_A199
+.global bank0_A256
+.global bank0_A30F
+.global bank0_A315
+.global bank0_A329
+.global bank0_A334
+.global bank0_A338
+.global bank0_A82A
+.global Chandeliers_in_North_Castle
+.global Check_for_Fire_Spell
+.global Hub_Update_Routine
+.global Initialization_stuff
+.global LevelUp_Pane__BlankLine_SecondHalfOnly
+.global Side_View_Initialization_when_entering_a_Key_Area
+.global Some_Palettes_Data_related_to_Falling_Animation
+.global Spell_Casting_Routine
+.global Tables_for_Game_Over_screen_text
+.global overworld3
+.global overworld4
+.global startup_init_begin_game
+
+; bank 1 exports
+.global bank1_Transform_completed_palaces_into_stone
+.global bank1_Check_for_Hidden_Palace_spot
+
+; bank 3 exports
+.global bank3_B082
+.global bank3_Door_Destinations_in_Towns
+.global bank3_Build_a_pointer_with_86_and_a_value_from_C643
+.global bank3_Small_Objects_Construction_Routine
+.global bank3_Object_Construction_Routine
+
+; bank 4 exports
+.global bank4_Palettes
+.global bank4_Palettes_for_Palaces1
+.global bank4_Palettes_for_Palaces2
+.global bank4_Palettes_for_Palaces3
+.global bank4_Palettes_for_Palaces4
+.global bank4_Palettes_for_Palaces5
+.global bank4_Palettes_for_Palaces6
+.global bank4_Palaces_Type_A_B_Palettes
+.global bank4_Unknown_Palettes
+.global bank4_Build_a_pointer_with_81_and_a_value_from_10165
+
+; bank 5 exports
+.global bank5_8B69
+.global bank5_code4
+.global bank5_routines_related_to_Ending_sequence
+.global bank5_9764
+.global bank5_PowerON__Reset_Memory
+.global bank5_A610
+.global bank5_B9CA
+.global bank5_Build_a_pointer_with_81_and_a_value_from_14177
+.global bank5_Object_Construction_Routine
+.global bank5_Small_Objects_Construction_Routine
+
 ; bank 6 exports
 .global bank6_Title_Music_Tick
 .global bank6_Game_Music_Tick

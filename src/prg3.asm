@@ -72,36 +72,6 @@ LEA32 = $EA32
 LF0D7 = $F0D7
 LF1F4 = $F1F4
 
-.export bank3_B082
-.export bank3_Door_Destinations_in_Towns
-.export bank3_Build_a_pointer_with_86_and_a_value_from_C643
-.export bank3_Small_Objects_Construction_Routine
-.export bank3_Object_Construction_Routine
-
-.import bank7_Change_Enemy_Facing_Direction_and_X_Velocity
-.import bank7_Determine_Enemy_Facing_Direction_relative_to_Link
-.import bank7_Display
-.import bank7_Enemy_Routines1_Ache_and_Acheman
-.import bank7_Enemy_Routines1_Bit
-.import bank7_Enemy_Routines1_Bot
-.import bank7_Enemy_Routines1_Fairy
-.import bank7_Enemy_Routines1_Locked_Door
-.import bank7_Enemy_Routines1_Moa
-.import bank7_Enemy_Routines1_Red_Jar
-.import bank7_Enemy_Routines2_Ache_and_Acheman
-.import bank7_Enemy_Routines2_Bot_and_Bit
-.import bank7_Enemy_Routines2_Fairy
-.import bank7_Enemy_Routines2_LockedDoor
-.import bank7_Enemy_Routines2_Moa
-.import bank7_Enemy_Routines2_RedJar
-.import bank7_PowerON_code
-.import bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP
-.import bank7_Set_0E_0F_pointer_according_to_Object_Group
-.import bank7_Set_RAM_Address_for_Object0E0F
-.import bank7_Set_tile_and_go_down_1_row_in_2x2_tiles_units
-.import bank7_Set_tile_and_move_right_1_column
-.import bank7_Simple_Horizontal_Movement
-
 .segment "PRG3"
 .org $8000
 

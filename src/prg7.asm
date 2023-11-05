@@ -32,62 +32,6 @@ L9625 = $9625 ; ^ one byte offset from the same place
 L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
 L9A46 = $9A46 ; could be bank 4 or 5 - unlikely to be any others
 
-.import bank0_Manual_Save_Game_Routine_UP_AND_A
-.import bank0_Return_of_Ganon_screen_Palettes
-.import bank0_unknown1
-.import bank0_unknown2
-.import bank0_unknown27
-.import bank0_unknown28
-.import bank0_unknown37
-.import bank0_unknown39
-.import bank0_unknown4
-.import bank0_unknown12
-.import bank0_903A
-.import bank0_96A8
-.import bank0_9925
-.import bank0_9A04
-.import bank0_A199
-.import bank0_A256
-.import bank0_A30F
-.import bank0_A315
-.import bank0_A329
-.import bank0_A334
-.import bank0_A338
-.import bank0_A82A
-.import bank1_Transform_completed_palaces_into_stone
-.import bank1_Check_for_Hidden_Palace_spot
-.import bank3_B082
-.import bank3_Door_Destinations_in_Towns
-.import bank3_Build_a_pointer_with_86_and_a_value_from_C643
-.import bank3_Small_Objects_Construction_Routine
-.import bank3_Object_Construction_Routine
-.import bank4_Unknown_Palettes
-.import bank4_Palettes
-.import bank4_Palaces_Type_A_B_Palettes
-.import bank4_Build_a_pointer_with_81_and_a_value_from_10165
-.import bank5_routines_related_to_Ending_sequence
-.import bank5_Build_a_pointer_with_81_and_a_value_from_14177
-.import bank5_8B69
-.import bank5_code4
-.import bank5_9764
-.import bank5_PowerON__Reset_Memory
-.import bank5_A610
-.import bank5_B9CA
-.import bank5_Small_Objects_Construction_Routine
-.import bank5_Object_Construction_Routine
-.import Chandeliers_in_North_Castle
-.import Check_for_Fire_Spell
-.import Hub_Update_Routine
-.import Initialization_stuff
-.import LevelUp_Pane__BlankLine_SecondHalfOnly
-.import overworld3
-.import overworld4
-.import Side_View_Initialization_when_entering_a_Key_Area
-.import Some_Palettes_Data_related_to_Falling_Animation
-.import Spell_Casting_Routine
-.import startup_init_begin_game
-.import Tables_for_Game_Over_screen_text
-
 .segment "PRG7"
 .org $c000
 

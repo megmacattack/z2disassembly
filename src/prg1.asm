@@ -2600,7 +2600,6 @@ L9A3B:                                                                          
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x5a4e $9A3E 20 91 DC; Determine Enemy Facing Direction
     LDA      $0F                       ; 0x5a51 $9A41 A5 0F                    ;
     CLC                                ; 0x5a53 $9A43 18                       ;
-L9A46     = * + $0002                                                          ;
     ADC      $05E5                     ; 0x5a54 $9A44 6D E5 05                 ;
     CMP      $05E6                     ; 0x5a57 $9A47 CD E6 05                 ;
     BCC      L9A6B                     ; 0x5a5a $9A4A 90 1F                    ;

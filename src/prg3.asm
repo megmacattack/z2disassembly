@@ -1864,7 +1864,6 @@ L9A33:                                                                          
     STA      $0400                     ; 0xda4f $9A3F 8D 00 04                 ; Sword slash frame code
     LDA      #$03                      ; 0xda52 $9A42 A9 03                    ; A = 03 (Link set to stand when talking)
     STA      $80                       ; 0xda54 $9A44 85 80                    ; Current Animation Frame for Link
-L9A46:                                                                          ;
     LDA      $29                       ; 0xda56 $9A46 A5 29                    ; Link's Y position
     AND      #$F0                      ; 0xda58 $9A48 29 F0                    ; keep bits xxxx ....
     STA      $29                       ; 0xda5a $9A4A 85 29                    ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position

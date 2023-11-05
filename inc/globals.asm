@@ -71,6 +71,7 @@
 .global bank4_Palaces_Type_A_B_Palettes
 .global bank4_Unknown_Palettes
 .global bank4_Build_a_pointer_with_81_and_a_value_from_10165
+.global bank4_9A46
 
 ; bank 5 exports
 .global bank5_8B69

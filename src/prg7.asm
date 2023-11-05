@@ -19,7 +19,6 @@ L696C = $696C
 
 L83A1 = $83A1 ; probably bank1?
 L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
-L9A46 = $9A46 ; could be bank 4 or 5 - unlikely to be any others
 
 .segment "PRG7"
 .org $c000
@@ -4363,7 +4362,7 @@ LDD27:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LDD31:                                                                          ;
-    JMP      L9A46                     ; 0x1dd41 $DD31 4C 46 9A                ;
+    JMP      bank4_9A46                     ; 0x1dd41 $DD31 4C 46 9A                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LDD34:                                                                          ;

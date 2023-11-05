@@ -92,6 +92,10 @@ Random_Battle_Tables = $8409
 ;  deduped?)
 Limit_Check_Function = $83CF
 
+; The address of the function that acts on chopping down trees
+; with the hammer in either bank 1 or 2
+Chop_Down_Tree_Function = $83A1
+
 ; Base address for "Object Construction Addresses" in banks 1,2 and 4
 Small_Objects_Construction_Address = $812F
 Object_Construction_Addresses = $80EE
@@ -102,3 +106,5 @@ Sidescroll_Palettes = $800E
 ; Base address of sidescroll collision logic(?) in banks 1-5
 Sidescroll_Collision_Function = $850C
 Sidescroll_Collision_Table = $851A
+
+; Address of an unknown function that's in bank 1 or 2

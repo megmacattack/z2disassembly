@@ -17,8 +17,6 @@ L06A0 = $06A0
 L06C0 = $06C0
 L696C = $696C
 
-L83A1 = $83A1 ; probably bank1?
-
 .segment "PRG7"
 .org $c000
 
@@ -4834,7 +4832,7 @@ bank7_Turn_Palaces_into_Stone_Bank_1:                                           
 ; ---------------------------------------------------------------------------- ;
 bank7_E024:   ; referenced from bank0                                                                       ;
     JSR      SwapToSavedPRG; 0x1e034 $E024 20 C9 FF                ; Load Bank $0769
-    JSR      L83A1                     ; 0x1e037 $E027 20 A1 83                ;
+    JSR      Chop_Down_Tree_Function                     ; 0x1e037 $E027 20 A1 83                ;
     JMP      SwapToPRG0; 0x1e03a $E02A 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

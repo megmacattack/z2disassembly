@@ -18,8 +18,6 @@ L06C0 = $06C0
 L696C = $696C
 
 L83A1 = $83A1 ; probably bank1?
-L9624 = $9624 ; probably a table in prg4 but prg5 also has data there.
-L9625 = $9625 ; ^ one byte offset from the same place
 L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
 L9A46 = $9A46 ; could be bank 4 or 5 - unlikely to be any others
 
@@ -2223,9 +2221,9 @@ LCEA0:                                                                          
     TYA                                ; 0x1ceef $CEDF 98                      ;
     ASL                                ; 0x1cef0 $CEE0 0A                      ;
     TAY                                ; 0x1cef1 $CEE1 A8                      ;
-    LDA      L9624,y                   ; 0x1cef2 $CEE2 B9 24 96                ;
+    LDA      bank3_Townfolks_Tile_Mappings_unknown0,y                   ; 0x1cef2 $CEE2 B9 24 96                ;
     STA      $00                       ; 0x1cef5 $CEE5 85 00                   ;
-    LDA      L9625,y                   ; 0x1cef7 $CEE7 B9 25 96                ;
+    LDA      bank3_Townfolks_Tile_Mappings_unknown0+1,y                   ; 0x1cef7 $CEE7 B9 25 96                ;
     STA      $01                       ; 0x1cefa $CEEA 85 01                   ;
     LDY      #$13                      ; 0x1cefc $CEEC A0 13                   ; Y = 13
 LCEEE:                                                                          ;

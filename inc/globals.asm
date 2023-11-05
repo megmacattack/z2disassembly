@@ -58,6 +58,7 @@
 .global bank3_Build_a_pointer_with_86_and_a_value_from_C643
 .global bank3_Small_Objects_Construction_Routine
 .global bank3_Object_Construction_Routine
+.global bank3_Townfolks_Tile_Mappings_unknown0
 
 ; bank 4 exports
 .global bank4_Palettes

@@ -91,137 +91,137 @@
 .global bank6_Game_Music_Tick
 
 ; bank 7 exports
-.global bank7_Change_Enemy_Facing_Direction_and_X_Velocity
-.global bank7_Check_for_Hidden_Palace_spot_Bank_1
-.global bank7_Controllers_Input
-.global bank7_Desert_Rocks_initialization_routine
-.global bank7_Determine_Enemy_Facing_Direction_relative_to_Link
-.global bank7_Display
-.global bank7_Enemy_Routines1_Ache_and_Acheman
-.global bank7_Enemy_Routines1_Bago_Bago0
-.global bank7_Enemy_Routines1_Bago_Bago1
-.global bank7_Enemy_Routines1_Bago_Bago_Generator
-.global bank7_Enemy_Routines1_Bit
-.global bank7_Enemy_Routines1_Bot
-.global bank7_Enemy_Routines1_Deeler
-.global bank7_Enemy_Routines1_Elevator
-.global bank7_Enemy_Routines1_Fairy
-.global bank7_Enemy_Routines1_Locked_Door
-.global bank7_Enemy_Routines1_Moa
-.global bank7_Enemy_Routines1_Myu
-.global bank7_Enemy_Routines1_Octorok
-.global bank7_Enemy_Routines1_Raising_Bubbles
-.global bank7_Enemy_Routines1_Red_Jar
-.global bank7_Enemy_Routines2_Ache_and_Acheman
-.global bank7_Enemy_Routines2_BagoBago
-.global bank7_Enemy_Routines2_Bot_and_Bit
-.global bank7_Enemy_Routines2_Deeler
-.global bank7_Enemy_Routines2_Elevator
-.global bank7_Enemy_Routines2_Fairy
-.global bank7_Enemy_Routines2_LockedDoor
-.global bank7_Enemy_Routines2_Moa
-.global bank7_Enemy_Routines2_Myu
-.global bank7_Enemy_Routines2_Octorok
-.global bank7_Enemy_Routines2_RedJar
-.global bank7_Enemy_Routines2_unknown
-.global bank7_Enemy_Stops_when_Hit
-.global bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0
-.global bank7_Floor_Y_Position
-.global bank7_Gravity
-.global bank7_Link_Collision_Detection
-.global bank7_Link_Hit_Routine
-.global bank7_Links_Display_Routine
-.global bank7_Mute_music_when_loading_between_areas
-.global bank7_NMI_Entry_Point
-.global bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1
-.global bank7_PowerON_code
-.global bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP
-.global bank7_Remove_All_Sprites
-.global bank7_Remove_All_Sprites_except_Sprite0
-.global bank7_Reset_Memory_Ranges
-.global bank7_Set_0E_0F_pointer_according_to_Object_Group
-.global bank7_Set_Memory_300_4FF_and_00_DF_to_Zero
-.global bank7_Set_RAM_Address_for_Object0E0F
-.global bank7_Set_Ram_Addy_for_Object__0E_0F
-.global bank7_Set_tile_and_go_down_1_row_in_2x2_tiles_units
-.global bank7_Set_tile_and_move_right_1_column
-.global bank7_Simple_Horizontal_Movement
-.global bank7_Simple_Vertical_Movement
-.global bank7_Spawn_New_Projectile
-.global bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least
-.global bank7_Turn_Palaces_into_Stone_Bank_1
-.global bank7_XY_Movements_Routine
-.global bank7_applyGravityMotion
-.global bank7_code2
-.global bank7_code33
-.global bank7_code34
-.global bank7_code37
-.global bank7_code39
-.global bank7_code43
-.global bank7_code44
-.global bank7_code45
-.global bank7_code49
-.global bank7_code51
-.global bank7_code55
-.global bank7_forest_chop_with_hammer
-.global bank7_idem__maybe
-.global bank7_remove_enemy_or_item
-.global bank7_LD2EC
-.global bank7_irq
-.global Set_Item_RAM_bit_to_0__Bits_0_3
-.global bank7_Title_Music_Tick
-.global LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe
-.global bank7_C24F
-.global bank7_DFDB
-.global bank7_DF01
-.global bank7_DF3F
-.global bank7_E024
-.global bank7_DFD2
-.global bank7_DFD1
-.global bank7_E001
-.global bank7_C72D
-.global bank7_DF56
-.global bank7_EC02
-.global bank7_C2A6
-.global bank7_E726
-.global bank7_E187
-.global bank7_D55E
-.global bank7_D20A
-.global bank7_DAC7
-.global bank7_DD3D
-.global bank7_DE3D
-.global bank7_DE40
-.global bank7_DECE
-.global bank7_DED4
-.global bank7_DF4C
-.global bank7_E3B9
-.global bank7_E469
-.global bank7_E48A
-.global bank7_E563
-.global bank7_E94C
-.global bank7_F0CC
-.global bank7_F0D7
-.global bank7_F1F4
-.global bank7_DE6C
-.global bank7_E48B
-.global bank7_E4D9
-.global bank7_E617
-.global bank7_EA1C
-.global bank7_EA32
-.global bank7_C258
-.global bank7_D000
-.global bank7_DF58
-.global bank7_E579
-.global bank7_E942
-.global bank7_EA14
-.global bank7_F0C6
-.global bank7_C722
-.global bank7_CF05
-.global bank7_D168
-.global bank7_D174
-.global bank7_D293
-.global bank7_E5B2
-.global bank7_EA18
-.global bank7_EF08
-.global bank7_F2D3
-.global bank7_FCA5
+.global bank7_Change_Enemy_Facing_Direction_and_X_Velocity ; banks 1 2 3 4 5
+.global bank7_Check_for_Hidden_Palace_spot_Bank_1 ; banks 0
+.global bank7_Controllers_Input ; banks 5
+.global bank7_Desert_Rocks_initialization_routine ; banks 1 2 5
+.global bank7_Determine_Enemy_Facing_Direction_relative_to_Link ; banks 1 2 3 4 5
+.global bank7_Display ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines1_Ache_and_Acheman ; banks 1 2 3 5
+.global bank7_Enemy_Routines1_Bago_Bago0 ; banks 1 2 4 5
+.global bank7_Enemy_Routines1_Bago_Bago1 ; banks 1 2 4 5
+.global bank7_Enemy_Routines1_Bago_Bago_Generator ; banks 1 2 4 5
+.global bank7_Enemy_Routines1_Bit ; banks 1 2 3
+.global bank7_Enemy_Routines1_Bot ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines1_Deeler ; banks 1 2 5
+.global bank7_Enemy_Routines1_Elevator ; banks 1 2 4 5
+.global bank7_Enemy_Routines1_Fairy ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines1_Locked_Door ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines1_Moa ; banks 1 2 3 5
+.global bank7_Enemy_Routines1_Myu ; banks 1 2 4 5
+.global bank7_Enemy_Routines1_Octorok ; banks 1 2 4 5
+.global bank7_Enemy_Routines1_Raising_Bubbles ; banks 1 2 5
+.global bank7_Enemy_Routines1_Red_Jar ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines2_Ache_and_Acheman ; banks 1 2 3 5
+.global bank7_Enemy_Routines2_BagoBago ; banks 1 2 4 5
+.global bank7_Enemy_Routines2_Bot_and_Bit ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines2_Deeler ; banks 1 2 5
+.global bank7_Enemy_Routines2_Elevator ; banks 1 2 4 5
+.global bank7_Enemy_Routines2_Fairy ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines2_LockedDoor ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines2_Moa ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines2_Myu ; banks 1 2 4 5
+.global bank7_Enemy_Routines2_Octorok ; banks 1 2 4
+.global bank7_Enemy_Routines2_RedJar ; banks 1 2 3 4 5
+.global bank7_Enemy_Routines2_unknown ; banks 1 2 4 5
+.global bank7_Enemy_Stops_when_Hit ; banks 1 2 4 5
+.global bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0 ; banks 0 5
+.global bank7_Floor_Y_Position ; banks 1 2 4 5
+.global bank7_Gravity ; banks 1 2 4 5
+.global bank7_Link_Collision_Detection ; banks 1 2 4 5
+.global bank7_Link_Hit_Routine ; banks 1 4 5
+.global bank7_Links_Display_Routine ; banks 0
+.global bank7_Mute_music_when_loading_between_areas ; banks 0
+.global bank7_NMI_Entry_Point ; banks
+.global bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1 ; banks 0
+.global bank7_PowerON_code ; banks
+.global bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP ; banks 0 1 2 3 4 5
+.global bank7_Remove_All_Sprites ; banks 0 5
+.global bank7_Remove_All_Sprites_except_Sprite0 ; banks 5
+.global bank7_Reset_Memory_Ranges ; banks 5
+.global bank7_Set_0E_0F_pointer_according_to_Object_Group ; banks 3
+.global bank7_Set_Memory_300_4FF_and_00_DF_to_Zero ; banks 5
+.global bank7_Set_RAM_Address_for_Object0E0F ; banks 1 2 3 4 5
+.global bank7_Set_Ram_Addy_for_Object__0E_0F ; banks 1 2
+.global bank7_Set_tile_and_go_down_1_row_in_2x2_tiles_units ; banks 3
+.global bank7_Set_tile_and_move_right_1_column ; banks 1 2 3 4 5
+.global bank7_Simple_Horizontal_Movement ; banks 1 2 3 4 5
+.global bank7_Simple_Vertical_Movement ; banks 1 2 4 5
+.global bank7_Spawn_New_Projectile ; banks 1 2 4 5
+.global bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least ; banks 2 4 5
+.global bank7_Turn_Palaces_into_Stone_Bank_1 ; banks 0
+.global bank7_XY_Movements_Routine ; banks 0
+.global bank7_applyGravityMotion ; banks 0
+.global bank7_code2 ; banks 0
+.global bank7_code33 ; banks 0
+.global bank7_code34 ; banks 0
+.global bank7_code37 ; banks 5
+.global bank7_code39 ; banks 1 2
+.global bank7_code43 ; banks 1 5
+.global bank7_code44 ; banks 1 5
+.global bank7_code45 ; banks 5
+.global bank7_code49 ; banks 5
+.global bank7_code51 ; banks 0 2 4 5
+.global bank7_code55 ; banks 0
+.global bank7_forest_chop_with_hammer ; banks 1 2
+.global bank7_idem__maybe ; banks 1 4 5
+.global bank7_remove_enemy_or_item ; banks 4
+.global bank7_LD2EC ; banks 0 5
+.global bank7_irq ; banks
+.global Set_Item_RAM_bit_to_0__Bits_0_3 ; banks 4
+.global bank7_Title_Music_Tick ; banks 5
+.global LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe ; banks 0
+.global bank7_C24F ; banks 0
+.global bank7_DFDB ; banks 0
+.global bank7_DF01 ; banks 0 1 2
+.global bank7_DF3F ; banks 0
+.global bank7_E024 ; banks 0
+.global bank7_DFD2 ; banks 0
+.global bank7_DFD1 ; banks 0
+.global bank7_E001 ; banks 0
+.global bank7_C72D ; banks 0 5
+.global bank7_DF56 ; banks 0 1 2 3 4 5
+.global bank7_EC02 ; banks 0 5
+.global bank7_C2A6 ; banks 0 4 5
+.global bank7_E726 ; banks 0 4 5
+.global bank7_E187 ; banks 0
+.global bank7_D55E ; banks 0
+.global bank7_D20A ; banks 0
+.global bank7_DAC7 ; banks 1 4 5
+.global bank7_DD3D ; banks 1 2 3 4 5
+.global bank7_DE3D ; banks 1 4 5
+.global bank7_DE40 ; banks 1 2 4 5
+.global bank7_DECE ; banks 1
+.global bank7_DED4 ; banks 1 2 4 5
+.global bank7_DF4C ; banks 1 2 3 4 5
+.global bank7_E3B9 ; banks 1 2 4 5
+.global bank7_E469 ; banks 1 4
+.global bank7_E48A ; banks 1 2 4 5
+.global bank7_E563 ; banks 1 2 4 5
+.global bank7_E94C ; banks 1
+.global bank7_F0CC ; banks 1 2 5
+.global bank7_F0D7 ; banks 1 2 3 4 5
+.global bank7_F1F4 ; banks 1 2 3 4 5
+.global bank7_DE6C ; banks 2 3 4 5
+.global bank7_E48B ; banks 2 4 5
+.global bank7_E4D9 ; banks 2 3 4 5
+.global bank7_E617 ; banks 2 4 5
+.global bank7_EA1C ; banks 2 4 5
+.global bank7_EA32 ; banks 2 3 4 5
+.global bank7_C258 ; banks 3
+.global bank7_D000 ; banks 3
+.global bank7_DF58 ; banks 3
+.global bank7_E579 ; banks 4
+.global bank7_E942 ; banks 4 5
+.global bank7_EA14 ; banks 4
+.global bank7_F0C6 ; banks 4 5
+.global bank7_C722 ; banks 5
+.global bank7_CF05 ; banks 5
+.global bank7_D168 ; banks 5
+.global bank7_D174 ; banks 5
+.global bank7_D293 ; banks 5
+.global bank7_E5B2 ; banks 5
+.global bank7_EA18 ; banks 5
+.global bank7_EF08 ; banks 5
+.global bank7_F2D3 ; banks 5
+.global bank7_FCA5 ; banks 5

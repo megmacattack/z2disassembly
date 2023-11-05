@@ -18,7 +18,6 @@ L06C0 = $06C0
 L696C = $696C
 
 L83A1 = $83A1 ; probably bank1?
-L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
 
 .segment "PRG7"
 .org $c000
@@ -3149,7 +3148,7 @@ LD538:                                                                          
     INC      $0727                     ; 0x1d54f $D53F EE 27 07                ;
     INC      $0729                     ; 0x1d552 $D542 EE 29 07                ;
 LD545:                                                                          ;
-    JMP      L99E6                     ; 0x1d555 $D545 4C E6 99                ;
+    JMP      bank0_99E6                     ; 0x1d555 $D545 4C E6 99                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Flying_Blade_Disappearing__maybe:                                         ;

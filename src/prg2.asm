@@ -2349,7 +2349,6 @@ L99DA:                                                                          
     LDA      rng_out,x                   ; 0x99ef $99DF BD 1B 05                 ; Randomizer
     PHA                                ; 0x99f2 $99E2 48                       ;
     AND      #$0F                      ; 0x99f3 $99E3 29 0F                    ; keep bits .... xxxx
-L99E6     = * + $0001                                                          ;
     ORA      #$08                      ; 0x99f5 $99E5 09 08                    ; set  bits .... x...
     STA      $0504,x                   ; 0x99f7 $99E7 9D 04 05                 ; Timer for Enemy AI
     PLA                                ; 0x99fa $99EA 68                       ; delay before direction change (08-0F)

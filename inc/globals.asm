@@ -35,6 +35,7 @@
 .global bank0_A334
 .global bank0_A338
 .global bank0_A82A
+.global bank0_99E6
 .global Chandeliers_in_North_Castle
 .global Check_for_Fire_Spell
 .global Hub_Update_Routine

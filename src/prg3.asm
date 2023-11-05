@@ -575,7 +575,7 @@ bank3_Pointer_table_for_Objects_Tile_Mappings:                                  
 .word    bank3_Table_2_for_Area_Objects_Tile_Mappings; 0xc514 $8504 CA 83      ;
 .word    bank3_Table_3_for_Area_Objects_Tile_Mappings; 0xc516 $8506 2E 84      ;
 ; ---------------------------------------------------------------------------- ;
-setpos $850c
+setpos Sidescroll_Collision_Function
 bank3_code7:                                                                    ;
     PHA                                ; 0xc51c $850C 48                       ;
     AND      #$C0                      ; 0xc51d $850D 29 C0                    ; keep bits xx.. ....
@@ -590,6 +590,7 @@ bank3_code7:                                                                    
     RTS                                ; 0xc529 $8519 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Collision_Table
 bank3_table3:                                                                   ;
 .byt    $54                            ; 0xc52a $851A 54                       ;
 L851B:                                                                          ;

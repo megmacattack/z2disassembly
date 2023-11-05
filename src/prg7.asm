@@ -18,15 +18,6 @@ L06C0 = $06C0
 L696C = $696C
 
 L83A1 = $83A1 ; probably bank1?
-L850C = $850C ; multibank function related to tiles? banks 1-5 seem to have similar code here.
-L851A = $851A ; multibank tables relating to floor tiles? banks 1-5 all look plausible
-L851B = $851B ; ^ used with
-L851C = $851C ; ^ used with
-L851E = $851E ; ^ used with
-L851F = $851F ; ^ used with
-L8520 = $8520 ; ^ used with
-L8521 = $8521 ; ^ used with
-L8522 = $8522 ; ^ used with
 L9624 = $9624 ; probably a table in prg4 but prg5 also has data there.
 L9625 = $9625 ; ^ one byte offset from the same place
 L99E6 = $99E6 ; almost certainly bank0 but not as clear cut as I'd like
@@ -4907,7 +4898,7 @@ bank7_Related_to_Link_falling_in_Lava_Water:                                    
     LDA      #$00                      ; 0x1e0a8 $E098 A9 00                   ; A = 00
     STA      $0752                     ; 0x1e0aa $E09A 8D 52 07                ;
     LDA      $03                       ; 0x1e0ad $E09D A5 03                   ;tile index stepped on?
-    CMP      L8520                     ; 0x1e0af $E09F CD 20 85                ;
+    CMP      Sidescroll_Collision_Table+6                     ; 0x1e0af $E09F CD 20 85                ;
     BNE      LE0B0                     ; 0x1e0b2 $E0A2 D0 0C                   ;
 bank7_Link_touched_Lava_Water:                                                  ;
     LDA      #$01                      ; 0x1e0b4 $E0A4 A9 01                   ; A = 01
@@ -4919,9 +4910,9 @@ bank7_Link_touched_Lava_Water:                                                  
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LE0B0:                                                                          ;
-    CMP      L8521                     ; 0x1e0c0 $E0B0 CD 21 85                ;
+    CMP      Sidescroll_Collision_Table+7                     ; 0x1e0c0 $E0B0 CD 21 85                ;
     BEQ      LE0BA                     ; 0x1e0c3 $E0B3 F0 05                   ;
-    CMP      L8522                     ; 0x1e0c5 $E0B5 CD 22 85                ;
+    CMP      Sidescroll_Collision_Table+8                     ; 0x1e0c5 $E0B5 CD 22 85                ;
     BNE      LE0C5                     ; 0x1e0c8 $E0B8 D0 0B                   ;
 ;at this point:                                                                ;
 ;$2 is the offset for below foot(10*Y position), add to $E or $F               ;
@@ -4934,13 +4925,13 @@ LE0BA:                                                                          
     LDY      #$20                      ; 0x1e0d0 $E0C0 A0 20                   ; Y = 20
     STY      $0752                     ; 0x1e0d2 $E0C2 8C 52 07                ;
 LE0C5:                                                                          ;
-    CMP      L851F                     ; 0x1e0d5 $E0C5 CD 1F 85                ;breakable step on break-able step-on
+    CMP      Sidescroll_Collision_Table+5                     ; 0x1e0d5 $E0C5 CD 1F 85                ;breakable step on break-able step-on
     BEQ      LE0FC                     ; 0x1e0d8 $E0C8 F0 32                   ;
-    CMP      L851A                     ; 0x1e0da $E0CA CD 1A 85                ;
+    CMP      Sidescroll_Collision_Table                     ; 0x1e0da $E0CA CD 1A 85                ;
     BEQ      LE0E6                     ; 0x1e0dd $E0CD F0 17                   ;
-    CMP      L851C                     ; 0x1e0df $E0CF CD 1C 85                ;
+    CMP      Sidescroll_Collision_Table+2                     ; 0x1e0df $E0CF CD 1C 85                ;
     BEQ      LE0E6                     ; 0x1e0e2 $E0D2 F0 12                   ;
-    CMP      L851B                     ; 0x1e0e4 $E0D4 CD 1B 85                ;
+    CMP      Sidescroll_Collision_Table+1                     ; 0x1e0e4 $E0D4 CD 1B 85                ;
     BEQ      LE0E6                     ; 0x1e0e7 $E0D7 F0 0D                   ;
 bank7_table22:                                                                  ;
 .byt    $CD,$1D,$85,$D0                ; 0x1e0e9 $E0D9 CD 1D 85 D0             ;
@@ -5089,7 +5080,7 @@ LE1B8:                                                                          
 LE1BE:                                                                          ;
     LDY      $00                       ; 0x1e1ce $E1BE A4 00                   ;
     JSR      bank7_Generic_Collision_Test_with_Level_Objects; 0x1e1d0 $E1C0 20 E8 EA;
-    JSR      L850C                     ; 0x1e1d3 $E1C3 20 0C 85                ; Check for False Wall	while step on?
+    JSR      Sidescroll_Collision_Function                     ; 0x1e1d3 $E1C3 20 0C 85                ; Check for False Wall	while step on?
     BCC      LE1D2                     ; 0x1e1d6 $E1C6 90 0A                   ;007 CHANGE THIS AND CAN EXIST IN TILES, COLLIDE WITH SKY?
     LDY      $00                       ; 0x1e1d8 $E1C8 A4 00                   ;
     LDA      $A7,x                     ; 0x1e1da $E1CA B5 A7                   ;;collision bits for Link - 0000ABLR (above,below,left,right)
@@ -5153,9 +5144,9 @@ LE214:                                                                          
     LDX      #$10                      ; 0x1e233 $E223 A2 10                   ; X = 10
     LDY      #$1C                      ; 0x1e235 $E225 A0 1C                   ; Y = 1C
     JSR      bank7_Generic_Collision_Test_with_Level_Objects; 0x1e237 $E227 20 E8 EA;sets $e $f $2 and $3	, with Y as offset: based on location of link, below his foot	;60D3	Y=B0	54B0
-    CMP      L851E                     ; 0x1e23a $E22A CD 1E 85                ; check for Breakable Block Tile Code
+    CMP      Sidescroll_Collision_Table+4                     ; 0x1e23a $E22A CD 1E 85                ; check for Breakable Block Tile Code
     BEQ      LE235                     ; 0x1e23d $E22D F0 06                   ;
-    JSR      L850C                     ; 0x1e23f $E22F 20 0C 85                ; Check for False Wall
+    JSR      Sidescroll_Collision_Function                     ; 0x1e23f $E22F 20 0C 85                ; Check for False Wall
     BCS      LE26A                     ; 0x1e242 $E232 B0 36                   ;
 LE234:                                                                          ;
     RTS                                ; 0x1e244 $E234 60                      ;
@@ -6326,7 +6317,7 @@ LEA24:                                                                          
     ADC      #$07                      ; 0x1ea36 $EA26 69 07                   ;
     TAX                                ; 0x1ea38 $EA28 AA                      ;
     JSR      bank7_Generic_Collision_Test_with_Level_Objects; 0x1ea39 $EA29 20 E8 EA;
-    JSR      L850C                     ; 0x1ea3c $EA2C 20 0C 85                ;
+    JSR      Sidescroll_Collision_Function                     ; 0x1ea3c $EA2C 20 0C 85                ;
     LDX      $10                       ; 0x1ea3f $EA2F A6 10                   ;; used as monster x register ;draw boss hp bar
 LEA31:                                                                          ;
     RTS                                ; 0x1ea41 $EA31 60                      ;

@@ -609,7 +609,7 @@ bank4_Pointer_table_for_Objects_Tile_Mappings:                                  
 .word    bank4_Table_2_for_Area_Objects_Tile_Mappings_; 0x10514 $8504 79 83    ;
 .word    bank4_Table_3_for_Area_Objects_Tile_Mappings_; 0x10516 $8506 91 83    ;
 ; ---------------------------------------------------------------------------- ;
-setpos $850c
+setpos Sidescroll_Collision_Function
 bank4_Related_to_False_Wall_maybe:                                              ;
     PHA                                ; 0x1051c $850C 48                      ;
     AND      #$C0                      ; 0x1051d $850D 29 C0                   ; keep bits xx.. ....
@@ -624,6 +624,7 @@ bank4_Related_to_False_Wall_maybe:                                              
     RTS                                ; 0x10529 $8519 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Collision_Table
 bank4_table0:                                                                   ;
 .byt    $00                            ; 0x1052a $851A 00                      ;
 L851B:                                                                          ;

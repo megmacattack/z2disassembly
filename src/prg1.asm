@@ -843,6 +843,7 @@ Pointer_table_for_Overworld_Map_Data:                                           
 .word    bank1_West_Hyrule_Overworld_Map_Data; 0x4518 $8508 5C 90              ;
 .word    bank1_Death_Mountain_Overworld_Map_Data; 0x451a $850A 4C A6           ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Collision_Function
 bank1_code7:                                                                    ;
     PHA                                ; 0x451c $850C 48                       ;
     AND      #$C0                      ; 0x451d $850D 29 C0                    ; keep bits xx.. ....

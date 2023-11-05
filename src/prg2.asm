@@ -740,6 +740,7 @@ bank2_Pointer_table_for_Overworld_Map_Data:                                     
 .word    bank2_East_Hyrule_Overworld_Map_Data; 0x8518 $8508 46 90              ;
 .word    bank2_Maze_Island_Overworld_Map_Data; 0x851a $850A 4C A6              ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Collision_Function
 bank2_code6:                                                                    ;
     PHA                                ; 0x851c $850C 48                       ;
     AND      #$C0                      ; 0x851d $850D 29 C0                    ; keep bits xx.. ....
@@ -754,6 +755,7 @@ bank2_code6:                                                                    
     RTS                                ; 0x8529 $8519 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+setpos Sidescroll_Collision_Table
 bank2_table1:                                                                   ;
 .byt    $00                            ; 0x852a $851A 00                       ;
 L851B:                                                                          ;

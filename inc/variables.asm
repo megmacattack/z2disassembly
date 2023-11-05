@@ -98,3 +98,7 @@ Object_Construction_Addresses = $80EE
 
 ; Base address of sidescroll palettes in banks 1-5
 Sidescroll_Palettes = $800E
+
+; Base address of sidescroll collision logic(?) in banks 1-5
+Sidescroll_Collision_Function = $850C
+Sidescroll_Collision_Table = $851A

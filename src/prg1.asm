@@ -96,23 +96,6 @@ L7C18 = $7C18
 L7D76 = $7D76
 L7DA6 = $7DA6
 L7EEA = $7EEA
-LDAC7 = $DAC7
-LDD3D = $DD3D
-LDE3D = $DE3D
-LDE40 = $DE40
-LDECE = $DECE
-LDED4 = $DED4
-LDF01 = $DF01
-LDF4C = $DF4C
-LDF56 = $DF56
-LE3B9 = $E3B9
-LE469 = $E469
-LE48A = $E48A
-LE563 = $E563
-LE94C = $E94C
-LF0CC = $F0CC
-LF0D7 = $F0D7
-LF1F4 = $F1F4
 
 .segment "PRG1"
 .org $8000
@@ -365,7 +348,7 @@ bank1_Objects_Construction_Object_2high_Xwide:                                  
     JSR      bank1_Objects_Construction_Object_1high_Xwide; 0x4203 $81F3 20 01 82  ; Object 1 high, X wide
     LDA      L0000                     ; 0x4206 $81F6 A5 00                    ;
     STA      $0112                     ; 0x4208 $81F8 8D 12 01                 ;; Tile Code 0 for Object
-    JSR      LDF4C                     ; 0x420b $81FB 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0x420b $81FB 20 4C DF                 ; Go down 1 row
     JMP      L8204                     ; 0x420e $81FE 4C 04 82                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -394,7 +377,7 @@ bank1_Objects_Construction_Object_Xhigh_1wide:                                  
     JSR      L8247                     ; 0x422d $821D 20 47 82                 ; Get Tile Codes for Object ($112 and $00)
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x4230 $8220 20 44 C9           ; Set RAM Address for Object (0E-0F)
     LDA      $0112                     ; 0x4233 $8223 AD 12 01                 ;; Tile Code 0 for Object
-    JSR      LDF56                     ; 0x4236 $8226 20 56 DF                 ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0x4236 $8226 20 56 DF                 ; Set tile and go down 1 row
     STA      $0730                     ; 0x4239 $8229 8D 30 07                 ; Position of Object Placement
     DEC      $0731                     ; 0x423c $822C CE 31 07                 ; Level Object Type and Size
     LDA      L0000                     ; 0x423f $822F A5 00                    ;
@@ -406,7 +389,7 @@ L8234:                                                                          
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x424a $823A 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L823D:                                                                          ;
     LDA      $0112                     ; 0x424d $823D AD 12 01                 ;
-    JSR      LDF56                     ; 0x4250 $8240 20 56 DF                 ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0x4250 $8240 20 56 DF                 ; Set tile and go down 1 row
     DEX                                ; 0x4253 $8243 CA                       ;
     BPL      L823D                     ; 0x4254 $8244 10 F7                    ; Loop
     RTS                                ; 0x4256 $8246 60                       ;
@@ -475,7 +458,7 @@ L82A2:                                                                          
     BPL      L82A2                     ; 0x42b9 $82A9 10 F7                    ; loop to $42A2
     LDA      #$89                      ; 0x42bb $82AB A9 89                    ; A = 89 (Lava Tile Code)
     STA      $0112                     ; 0x42bd $82AD 8D 12 01                 ;; Tile Code 0 for Object
-    JSR      LDF4C                     ; 0x42c0 $82B0 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0x42c0 $82B0 20 4C DF                 ; Go down 1 row
     AND      #$F0                      ; 0x42c3 $82B3 29 F0                    ; keep bits xxxx ....
     CMP      #$D0                      ; 0x42c5 $82B5 C9 D0                    ;
     BCC      L8299                     ; 0x42c7 $82B7 90 E0                    ;
@@ -497,7 +480,7 @@ bank1_Small_Objects_Construction_LockedDoor_Ypos8:                              
 bank1_Small_Objects_Construction_TreeStump:                                     ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x42d8 $82C8 20 44 C9           ; Set RAM Address for Object (0E-0F)
     LDA      #$5B                      ; 0x42db $82CB A9 5B                    ; A = 5B (Tree Stump Top Tile Code)
-    JSR      LDF56                     ; 0x42dd $82CD 20 56 DF                 ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0x42dd $82CD 20 56 DF                 ; Set tile and go down 1 row
     LDA      #$5C                      ; 0x42e0 $82D0 A9 5C                    ; A = 5C (Tree Stump Bottom Tile Code)
     STA      (L000E),y                 ; 0x42e2 $82D2 91 0E                    ;
     RTS                                ; 0x42e4 $82D4 60                       ;
@@ -559,7 +542,7 @@ L8318:                                                                          
 L8326:                                                                          ;
     CPX      #$0E                      ; 0x4336 $8326 E0 0E                    ; bottom limit
     BEQ      L8303                     ; 0x4338 $8328 F0 D9                    ;
-    JSR      LDF4C                     ; 0x433a $832A 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0x433a $832A 20 4C DF                 ; Go down 1 row
     INX                                ; 0x433d $832D E8                       ;
     JMP      L8315                     ; 0x433e $832E 4C 15 83                 ;
                                                                                ;
@@ -568,7 +551,7 @@ bank1_Small_Objects_Construction_PitExtendingToGround:                          
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x4341 $8331 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L8334:                                                                          ;
     LDA      #$40                      ; 0x4344 $8334 A9 40                    ; A = 40 (Empty Tile)
-    JSR      LDF56                     ; 0x4346 $8336 20 56 DF                 ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0x4346 $8336 20 56 DF                 ; Set tile and go down 1 row
     AND      #$F0                      ; 0x4349 $8339 29 F0                    ; keep bits xxxx ....
     CMP      #$D0                      ; 0x434b $833B C9 D0                    ; stop at bottom of screen
     BCC      L8334                     ; 0x434d $833D 90 F5                    ;
@@ -643,7 +626,7 @@ bank1_table0:                                                                   
 .byt    $82,$6C,$6C,$FF                ; 0x43ad $839D 82 6C 6C FF              ;
 ; ---------------------------------------------------------------------------- ;
 bank1_code6:                                                                    ;
-    JSR      LDF01                     ; 0x43b1 $83A1 20 01 DF                 ;
+    JSR      bank7_DF01                     ; 0x43b1 $83A1 20 01 DF                 ;
     LDA      #$00                      ; 0x43b4 $83A4 A9 00                    ; A = 00
     STA      $7D                       ; 0x43b6 $83A6 85 7D                    ;;number of pixels to move? automove? on overworld, only partially, causes bug
     LDY      #$0B                      ; 0x43b8 $83A8 A0 0B                    ; Y = 0B
@@ -2054,7 +2037,7 @@ L96B4:                                                                          
     LDA      $4E,x                     ; 0x56d7 $96C7 B5 4E                    ; Enemy X Position (low byte)
     SBC      $072C                     ; 0x56d9 $96C9 ED 2C 07                 ; Scrolling Offset Low Byte
     LDY      #$00                      ; 0x56dc $96CC A0 00                    ; Y = 00
-    JSR      LE94C                     ; 0x56de $96CE 20 4C E9                 ; goto $1E94C
+    JSR      bank7_E94C                     ; 0x56de $96CE 20 4C E9                 ; goto $1E94C
     LDY      #$03                      ; 0x56e1 $96D1 A0 03                    ; Y = 03
 L96D3:                                                                          ;
     LDA      $04,y                     ; 0x56e3 $96D3 B9 04 00                 ;
@@ -2062,7 +2045,7 @@ L96D3:                                                                          
     DEY                                ; 0x56e9 $96D9 88                       ;
     BPL      L96D3                     ; 0x56ea $96DA 10 F7                    ; if (Y >= 0) loop to $56D3
     LDX      $10                       ; 0x56ec $96DC A6 10                    ;; used as monster x register ;draw boss hp bar
-    JSR      LE469                     ; 0x56ee $96DE 20 69 E4                 ;
+    JSR      bank7_E469                     ; 0x56ee $96DE 20 69 E4                 ;
     JSR      bank7_idem__maybe         ; 0x56f1 $96E1 20 F9 E9                 ;
     BCC      L96EA                     ; 0x56f4 $96E4 90 04                    ;
     LDA      #$00                      ; 0x56f6 $96E6 A9 00                    ; A = 00
@@ -2085,7 +2068,7 @@ L96F2:                                                                          
     INC      $0584,x                   ; 0x5709 $96F9 FE 84 05                 ; affects octorok rocks and boomerangs
     INC      $0584,x                   ; 0x570c $96FC FE 84 05                 ; when blocked, but not spears
 L96FF:                                                                          ;
-    JSR      LDED4                     ; 0x570f $96FF 20 D4 DE                 ; goto 1DED4
+    JSR      bank7_DED4                     ; 0x570f $96FF 20 D4 DE                 ; goto 1DED4
     LDA      $CA                       ; 0x5712 $9702 A5 CA                    ;
     AND      #$FC                      ; 0x5714 $9704 29 FC                    ; keep bits xxxx xx..
     BEQ      L970D                     ; 0x5716 $9706 F0 05                    ; if (A < 04) goto $570D
@@ -2096,9 +2079,9 @@ L96FF:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L970D:                                                                          ;
     JSR      bank1_code12              ; 0x571d $970D 20 18 97                 ; goto $5718
-    JSR      LE48A                     ; 0x5720 $9710 20 8A E4                 ; goto $1E48A
+    JSR      bank7_E48A                     ; 0x5720 $9710 20 8A E4                 ; goto $1E48A
 L9715     = * + $0002                                                          ;
-    JMP      LE3B9                     ; 0x5723 $9713 4C B9 E3                 ; goto $1E3B9
+    JMP      bank7_E3B9                     ; 0x5723 $9713 4C B9 E3                 ; goto $1E3B9
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_table7:                                                                   ;
@@ -2196,7 +2179,7 @@ L9794:                                                                          
     STA      $C9                       ; 0x57a6 $9796 85 C9                    ;
     STA      $040E,x                   ; 0x57a8 $9798 9D 0E 04                 ; Enemy Hit State
     LDX      #$48                      ; 0x57ab $979B A2 48                    ; Spear Tile Mapping index
-    JSR      LF0D7                     ; 0x57ad $979D 20 D7 F0                 ; goto $1F0D7
+    JSR      bank7_F0D7                     ; 0x57ad $979D 20 D7 F0                 ; goto $1F0D7
     PLA                                ; 0x57b0 $97A0 68                       ;
     STA      $040E,x                   ; 0x57b1 $97A1 9D 0E 04                 ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     RTS                                ; 0x57b4 $97A4 60                       ;
@@ -2325,7 +2308,7 @@ L9860:                                                                          
 L9864:                                                                          ;
     TYA                                ; 0x5874 $9864 98                       ;
     TAX                                ; 0x5875 $9865 AA                       ;
-    JSR      LDD3D                     ; 0x5876 $9866 20 3D DD                 ;
+    JSR      bank7_DD3D                     ; 0x5876 $9866 20 3D DD                 ;
     LDX      $10                       ; 0x5879 $9869 A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x587b $986B 60                       ;
                                                                                ;
@@ -2355,7 +2338,7 @@ bank1_Enemy_Routines1_Megmat:                                                   
     LDA      $A8,x                     ; 0x5891 $9881 B5 A8                    ;; Enemy State
     AND      #$08                      ; 0x5893 $9883 29 08                    ; keep bits .... x...
     BEQ      L988C                     ; 0x5895 $9885 F0 05                    ;
-    JSR      LDAC7                     ; 0x5897 $9887 20 C7 DA                 ; Set Enemy Y Velocity to 0
+    JSR      bank7_DAC7                     ; 0x5897 $9887 20 C7 DA                 ; Set Enemy Y Velocity to 0
     INC      $2A,x                     ; 0x589a $988A F6 2A                    ; Enemy Y Position
 L988C:                                                                          ;
     LDA      $A8,x                     ; 0x589c $988C B5 A8                    ;; Enemy State
@@ -2379,8 +2362,8 @@ L98B2:                                                                          
     LDA      #$30                      ; 0x58c2 $98B2 A9 30                    ; A = 30 (gravity factor while jumping up)
     STA      L0000                     ; 0x58c4 $98B4 85 00                    ;
     STA      $02                       ; 0x58c6 $98B6 85 02                    ;
-    JSR      LDECE                     ; 0x58c8 $98B8 20 CE DE                 ;
-    JSR      LDE3D                     ; 0x58cb $98BB 20 3D DE                 ; Display
+    JSR      bank7_DECE                     ; 0x58c8 $98B8 20 CE DE                 ;
+    JSR      bank7_DE3D                     ; 0x58cb $98BB 20 3D DE                 ; Display
     JMP      bank7_Link_Collision_Detection; 0x58ce $98BE 4C C1 D6                 ; Link Collision Detection
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2392,7 +2375,7 @@ bank1_Table_for_Lowder_Fast_Speeds:                                             
 bank1_Enemy_Routines1_Lowder:                                                   ;
     JSR      bank7_Enemy_Stops_when_Hit; 0x58d3 $98C3 20 02 DA                 ; Enemy Stops when Hit
     JSR      bank7_Link_Collision_Detection; 0x58d6 $98C6 20 C1 D6                 ; Link Collision Detection
-    JSR      LDE3D                     ; 0x58d9 $98C9 20 3D DE                 ; Display
+    JSR      bank7_DE3D                     ; 0x58d9 $98C9 20 3D DE                 ; Display
     LDA      $71,x                     ; 0x58dc $98CC B5 71                    ; Enemy X Velocity
     PHA                                ; 0x58de $98CE 48                       ;
     LDA      $60,x                     ; 0x58df $98CF B5 60                    ;; Enemy facing direction
@@ -2436,7 +2419,7 @@ L9910:                                                                          
     STA      L0000                     ; 0x5926 $9916 85 00                    ;
     LDA      #$03                      ; 0x5928 $9918 A9 03                    ; A = 03
     STA      $02                       ; 0x592a $991A 85 02                    ;
-    JMP      LDECE                     ; 0x592c $991C 4C CE DE                 ;
+    JMP      bank7_DECE                     ; 0x592c $991C 4C CE DE                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L991F:                                                                          ;
@@ -2479,8 +2462,8 @@ bank1_Enemy_Routines1_Dumb_Moblin:                                              
     LDA      #$08                      ; 0x595f $994F A9 08                    ; A = 08 (Dumb Moblin spear tile offset ?)
     STA      $0504,x                   ; 0x5961 $9951 9D 04 05                 ;; Timer for Enemy
     JSR      bank7_Enemy_Stops_when_Hit; 0x5964 $9954 20 02 DA                 ; Enemy Stops when Hit
-    JSR      LDE3D                     ; 0x5967 $9957 20 3D DE                 ;
-    JSR      LE563                     ; 0x596a $995A 20 63 E5                 ;
+    JSR      bank7_DE3D                     ; 0x5967 $9957 20 3D DE                 ;
+    JSR      bank7_E563                     ; 0x596a $995A 20 63 E5                 ;
     JSR      bank7_Link_Collision_Detection; 0x596d $995D 20 C1 D6                 ; Link Collision Detection
     JSR      L9B22                     ; 0x5970 $9960 20 22 9B                 ;
     JSR      bank7_Gravity             ; 0x5973 $9963 20 BE DE                 ; Gravity
@@ -2604,7 +2587,7 @@ L9A22:                                                                          
     STA      $05E5                     ; 0x5a32 $9A22 8D E5 05                 ; store distance (Orange or Red)
     ASL                                ; 0x5a35 $9A25 0A                       ; A * 2
     STA      $05E6                     ; 0x5a36 $9A26 8D E6 05                 ; Daira back off speed value (?)
-    JSR      LDE3D                     ; 0x5a39 $9A29 20 3D DE                 ;
+    JSR      bank7_DE3D                     ; 0x5a39 $9A29 20 3D DE                 ;
     JSR      bank7_Link_Collision_Detection; 0x5a3c $9A2C 20 C1 D6                 ;
     JSR      bank7_Gravity             ; 0x5a3f $9A2F 20 BE DE                 ;
     LDA      $A8,x                     ; 0x5a42 $9A32 B5 A8                    ;; Enemy State
@@ -2843,11 +2826,11 @@ bank1_Enemy_Routines1_Moby:                                                     
     LDY      $60,x                     ; 0x5bad $9B9D B4 60                    ; Moby facing direction ?
     LDA      L9B2A,y                   ; 0x5baf $9B9F B9 2A 9B                 ; refer to table at $5B2B (offset +1)
     STA      $71,x                     ; 0x5bb2 $9BA2 95 71                    ; Enemy X velocity
-    JSR      LDAC7                     ; 0x5bb4 $9BA4 20 C7 DA                 ; Set Enemy Y Velocity to 0
+    JSR      bank7_DAC7                     ; 0x5bb4 $9BA4 20 C7 DA                 ; Set Enemy Y Velocity to 0
 L9BA7:                                                                          ;
     JSR      bank7_Simple_Vertical_Movement; 0x5bb7 $9BA7 20 C8 DE                 ; Simple Vertical Movement
     JSR      bank7_Simple_Horizontal_Movement; 0x5bba $9BAA 20 B8 DE               ; Simple Horizontal Movement
-    JSR      LDE40                     ; 0x5bbd $9BAD 20 40 DE                 ;
+    JSR      bank7_DE40                     ; 0x5bbd $9BAD 20 40 DE                 ;
     JMP      bank7_Link_Collision_Detection; 0x5bc0 $9BB0 4C C1 D6                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2933,7 +2916,7 @@ L9C35:                                                                          
     SBC      bank1_Table_for_Geldarm,y ; 0x5c48 $9C38 F9 B3 9B                 ; subtract FF (-1) or 01 (1)
     STA      $2A,x                     ; 0x5c4b $9C3B 95 2A                    ;; Enemy Y Position
 L9C3D:                                                                          ;
-    JSR      LDE40                     ; 0x5c4d $9C3D 20 40 DE                 ; goto $1DE40 (Next Enemy)
+    JSR      bank7_DE40                     ; 0x5c4d $9C3D 20 40 DE                 ; goto $1DE40 (Next Enemy)
     JMP      bank7_Link_Collision_Detection; 0x5c50 $9C40 4C C1 D6                 ; goto $1D6C1
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2963,7 +2946,7 @@ bank1_Enemy_Routines2_DumbMoblin:                                               
     BNE      L9C6C                     ; 0x5c78 $9C68 D0 02                    ;
     LDX      #$4A                      ; 0x5c7a $9C6A A2 4A                    ; X = 4A
 L9C6C:                                                                          ;
-    JMP      LF0D7                     ; 0x5c7c $9C6C 4C D7 F0                 ;
+    JMP      bank7_F0D7                     ; 0x5c7c $9C6C 4C D7 F0                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines2_Goriya:                                                   ;
@@ -2986,8 +2969,8 @@ L9C8B:                                                                          
     TYA                                ; 0x5c9b $9C8B 98                       ;
     LDY      $91,x                     ; 0x5c9c $9C8C B4 91                    ;
     TAX                                ; 0x5c9e $9C8E AA                       ;
-    JSR      LF1F4                     ; 0x5c9f $9C8F 20 F4 F1                 ;
-    JMP      LF0D7                     ; 0x5ca2 $9C92 4C D7 F0                 ;
+    JSR      bank7_F1F4                     ; 0x5c9f $9C8F 20 F4 F1                 ;
+    JMP      bank7_F0D7                     ; 0x5ca2 $9C92 4C D7 F0                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Tables_for_Moblin_and_Spear__before_throw__tile_mapping_and_offsets:      ;
@@ -3028,8 +3011,8 @@ L9CD4:                                                                          
     LDX      $10                       ; 0x5ce4 $9CD4 A6 10                    ;; used as monster x register ;draw boss hp bar
     LDY      $91,x                     ; 0x5ce6 $9CD6 B4 91                    ;
     TAX                                ; 0x5ce8 $9CD8 AA                       ;
-    JSR      LF1F4                     ; 0x5ce9 $9CD9 20 F4 F1                 ;
-    JSR      LF1F4                     ; 0x5cec $9CDC 20 F4 F1                 ;
+    JSR      bank7_F1F4                     ; 0x5ce9 $9CD9 20 F4 F1                 ;
+    JSR      bank7_F1F4                     ; 0x5cec $9CDC 20 F4 F1                 ;
     STX      $0D                       ; 0x5cef $9CDF 86 0D                    ;
     LDX      $10                       ; 0x5cf1 $9CE1 A6 10                    ;; used as monster x register ;draw boss hp bar
     LDA      $C9                       ; 0x5cf3 $9CE3 A5 C9                    ;
@@ -3080,7 +3063,7 @@ L9D2C:                                                                          
     PLA                                ; 0x5d41 $9D31 68                       ;
     TAY                                ; 0x5d42 $9D32 A8                       ;
     LDX      $0D                       ; 0x5d43 $9D33 A6 0D                    ;
-    JSR      LF0D7                     ; 0x5d45 $9D35 20 D7 F0                 ;
+    JSR      bank7_F0D7                     ; 0x5d45 $9D35 20 D7 F0                 ;
     LDA      $05E4                     ; 0x5d48 $9D38 AD E4 05                 ;
     CLC                                ; 0x5d4b $9D3B 18                       ;
     ADC      #$01                      ; 0x5d4c $9D3C 69 01                    ;
@@ -3148,8 +3131,8 @@ L9D91:                                                                          
     BNE      L9DA0                     ; 0x5dac $9D9C D0 02                    ;
     LDX      #$1A                      ; 0x5dae $9D9E A2 1A                    ; A = 1A
 L9DA0:                                                                          ;
-    JSR      LF1F4                     ; 0x5db0 $9DA0 20 F4 F1                 ;
-    JSR      LF1F4                     ; 0x5db3 $9DA3 20 F4 F1                 ;
+    JSR      bank7_F1F4                     ; 0x5db0 $9DA0 20 F4 F1                 ;
+    JSR      bank7_F1F4                     ; 0x5db3 $9DA3 20 F4 F1                 ;
     LDA      $C9                       ; 0x5db6 $9DA6 A5 C9                    ;
     BNE      L9DEE                     ; 0x5db8 $9DA8 D0 44                    ;
     LDX      L000E                     ; 0x5dba $9DAA A6 0E                    ;
@@ -3164,7 +3147,7 @@ L9DA0:                                                                          
 L9DBC:                                                                          ;
     LDA      bank1_Table_for_Daira_backswing_tile_mapping__offset_and_hitbox,x; 0x5dcc $9DBC BD 59 9D; refer to table at $5D59
     TAX                                ; 0x5dcf $9DBF AA                       ;
-    JSR      LF0D7                     ; 0x5dd0 $9DC0 20 D7 F0                 ;
+    JSR      bank7_F0D7                     ; 0x5dd0 $9DC0 20 D7 F0                 ;
     LDA      $2A,x                     ; 0x5dd3 $9DC3 B5 2A                    ; Enemy Y Position
     LDX      L000E                     ; 0x5dd5 $9DC5 A6 0E                    ;
     CLC                                ; 0x5dd7 $9DC7 18                       ;
@@ -3195,12 +3178,12 @@ L9DEE:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines2_Lowder:                                                   ;
     LDA      #$3C                      ; 0x5e01 $9DF1 A9 3C                    ; A = 3C
-    JMP      LF0CC                     ; 0x5e03 $9DF3 4C CC F0                 ;
+    JMP      bank7_F0CC                     ; 0x5e03 $9DF3 4C CC F0                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines2_Moby:                                                     ;
     LDA      #$44                      ; 0x5e06 $9DF6 A9 44                    ; A = 44
-    JMP      LF0CC                     ; 0x5e08 $9DF8 4C CC F0                 ;
+    JMP      bank7_F0CC                     ; 0x5e08 $9DF8 4C CC F0                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines2_Megmat:                                                   ;
@@ -3211,7 +3194,7 @@ bank1_Enemy_Routines2_Megmat:                                                   
     INX                                ; 0x5e14 $9E04 E8                       ;
     INX                                ; 0x5e15 $9E05 E8                       ;
 L9E06:                                                                          ;
-    JMP      LF0D7                     ; 0x5e16 $9E06 4C D7 F0                 ;
+    JMP      bank7_F0D7                     ; 0x5e16 $9E06 4C D7 F0                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9E09:                                                                          ;

@@ -60,17 +60,6 @@ L710C = $710C
 L710F = $710F
 L711A = $711A
 L711D = $711D
-LC258 = $C258
-LD000 = $D000
-LDD3D = $DD3D
-LDE6C = $DE6C
-LDF4C = $DF4C
-LDF56 = $DF56
-LDF58 = $DF58
-LE4D9 = $E4D9
-LEA32 = $EA32
-LF0D7 = $F0D7
-LF1F4 = $F1F4
 
 .segment "PRG3"
 .org $8000
@@ -157,7 +146,7 @@ L811F:                                                                          
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc132 $8122 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc135 $8125 CA                       ;
     BPL      L811F                     ; 0xc136 $8126 10 F7                    ;
-    JSR      LDF4C                     ; 0xc138 $8128 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0xc138 $8128 20 4C DF                 ; Go down 1 row
     PLA                                ; 0xc13b $812B 68                       ;
     TAX                                ; 0xc13c $812C AA                       ;
     DEX                                ; 0xc13d $812D CA                       ;
@@ -238,7 +227,7 @@ L818E:                                                                          
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc19e $818E 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L8191:                                                                          ;
     LDA      bank3_Tile_Codes_for_House_Windows,x; 0xc1a1 $8191 BD 86 81           ;
-    JSR      LDF56                     ; 0xc1a4 $8194 20 56 DF                 ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0xc1a4 $8194 20 56 DF                 ; Set tile and go down 1 row
     LDA      L8189,x                   ; 0xc1a7 $8197 BD 89 81                 ; refer to table at $C186 (offset +3)
     STA      (L000E),y                 ; 0xc1aa $819A 91 0E                    ;
     TYA                                ; 0xc1ac $819C 98                       ;
@@ -270,7 +259,7 @@ L81BF:                                                                          
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc1d1 $81C1 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc1d4 $81C4 CA                       ;
     BPL      L81BF                     ; 0xc1d5 $81C5 10 F8                    ;
-    JSR      LDF4C                     ; 0xc1d7 $81C7 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0xc1d7 $81C7 20 4C DF                 ; Go down 1 row
     INC      $0730                     ; 0xc1da $81CA EE 30 07                 ; Position of Object Placement
     DEC      $04                       ; 0xc1dd $81CD C6 04                    ;
     BPL      L81B6                     ; 0xc1df $81CF 10 E5                    ;
@@ -294,7 +283,7 @@ L81E9:                                                                          
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc1fb $81EB 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc1fe $81EE CA                       ;
     BPL      L81E9                     ; 0xc1ff $81EF 10 F8                    ;
-    JSR      LDF4C                     ; 0xc201 $81F1 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0xc201 $81F1 20 4C DF                 ; Go down 1 row
     DEC      $0731                     ; 0xc204 $81F4 CE 31 07                 ; Level Object Type and Size
     DEC      $04                       ; 0xc207 $81F7 C6 04                    ;
     BPL      L81E0                     ; 0xc209 $81F9 10 E5                    ;
@@ -349,7 +338,7 @@ L828E:                                                                          
 L8297:                                                                          ;
     DEC      L0000                     ; 0xc2a7 $8297 C6 00                    ;
     DEX                                ; 0xc2a9 $8299 CA                       ;
-    JSR      LDF58                     ; 0xc2aa $829A 20 58 DF                 ; Go down 1 row
+    JSR      bank7_DF58                     ; 0xc2aa $829A 20 58 DF                 ; Go down 1 row
     CMP      #$B0                      ; 0xc2ad $829D C9 B0                    ;
     BCC      L828E                     ; 0xc2af $829F 90 ED                    ;
     INC      $0730                     ; 0xc2b1 $82A1 EE 30 07                 ; Position of Object Placement
@@ -394,7 +383,7 @@ L82DE:                                                                          
     LDA      bank3_table1,x            ; 0xc2ee $82DE BD C9 82                 ; refer to table at $C2C9
     STA      (L000E),y                 ; 0xc2f1 $82E1 91 0E                    ;
     DEX                                ; 0xc2f3 $82E3 CA                       ;
-    JSR      LDF58                     ; 0xc2f4 $82E4 20 58 DF                 ; Go down 1 row
+    JSR      bank7_DF58                     ; 0xc2f4 $82E4 20 58 DF                 ; Go down 1 row
     AND      #$F0                      ; 0xc2f7 $82E7 29 F0                    ; keep bits xxxx ....
     CMP      #$C0                      ; 0xc2f9 $82E9 C9 C0                    ;
     BCC      L82DE                     ; 0xc2fb $82EB 90 F1                    ;
@@ -438,7 +427,7 @@ L8321:                                                                          
     BPL      L8321                     ; 0xc337 $8327 10 F8                    ;
     LDA      #$92                      ; 0xc339 $8329 A9 92                    ; A = 92
     STA      L0000                     ; 0xc33b $832B 85 00                    ;
-    JSR      LDF4C                     ; 0xc33d $832D 20 4C DF                 ;
+    JSR      bank7_DF4C                     ; 0xc33d $832D 20 4C DF                 ;
     AND      #$F0                      ; 0xc340 $8330 29 F0                    ; keep bits xxxx ....
     CMP      #$D0                      ; 0xc342 $8332 C9 D0                    ;
     BCC      L8318                     ; 0xc344 $8334 90 E2                    ;
@@ -465,7 +454,7 @@ L8351:                                                                          
     INY                                ; 0xc366 $8356 C8                       ;
     DEX                                ; 0xc367 $8357 CA                       ;
     BPL      L8351                     ; 0xc368 $8358 10 F7                    ;
-    JSR      LDF4C                     ; 0xc36a $835A 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0xc36a $835A 20 4C DF                 ; Go down 1 row
     DEC      $0731                     ; 0xc36d $835D CE 31 07                 ; Level Object Type and Size
     BPL      L834C                     ; 0xc370 $8360 10 EA                    ;
     RTS                                ; 0xc372 $8362 60                       ;
@@ -495,7 +484,7 @@ L8384:                                                                          
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc396 $8386 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc399 $8389 CA                       ;
     BPL      L8384                     ; 0xc39a $838A 10 F8                    ;
-    JSR      LDF4C                     ; 0xc39c $838C 20 4C DF                 ; Go down 1 row
+    JSR      bank7_DF4C                     ; 0xc39c $838C 20 4C DF                 ; Go down 1 row
     DEC      L0000                     ; 0xc39f $838F C6 00                    ;
     BPL      L8374                     ; 0xc3a1 $8391 10 E1                    ;
     RTS                                ; 0xc3a3 $8393 60                       ;
@@ -528,7 +517,7 @@ L83B2:                                                                          
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc3cb $83BB 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L83BE:                                                                          ;
     LDA      bank3_Tile_Codes_for_Doors,x; 0xc3ce $83BE BD 94 83                 ;
-    JSR      LDF56                     ; 0xc3d1 $83C1 20 56 DF                 ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0xc3d1 $83C1 20 56 DF                 ; Set tile and go down 1 row
     DEX                                ; 0xc3d4 $83C4 CA                       ;
     DEC      L0000                     ; 0xc3d5 $83C5 C6 00                    ;
     BPL      L83BE                     ; 0xc3d7 $83C7 10 F5                    ;
@@ -1312,7 +1301,7 @@ L969A:                                                                          
 bank3_code13:                                                                   ;
     LDA      $C9                       ; 0xd6b8 $96A8 A5 C9                    ;
     BEQ      L96AF                     ; 0xd6ba $96AA F0 03                    ;
-    JMP      LDD3D                     ; 0xd6bc $96AC 4C 3D DD                 ;
+    JMP      bank7_DD3D                     ; 0xd6bc $96AC 4C 3D DD                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L96AF:                                                                          ;
@@ -1338,7 +1327,7 @@ L96C4:                                                                          
 L96C8:                                                                          ;
     TYA                                ; 0xd6d8 $96C8 98                       ;
     TAX                                ; 0xd6d9 $96C9 AA                       ;
-    JSR      LDD3D                     ; 0xd6da $96CA 20 3D DD                 ;
+    JSR      bank7_DD3D                     ; 0xd6da $96CA 20 3D DD                 ;
     LDX      $10                       ; 0xd6dd $96CD A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0xd6df $96CF 60                       ;
                                                                                ;
@@ -1530,7 +1519,7 @@ L97D4:                                                                          
     ADC      #$60                      ; 0xd7ff $97EF 69 60                    ;
     CMP      #$C0                      ; 0xd801 $97F1 C9 C0                    ;
     BCS      L983B                     ; 0xd803 $97F3 B0 46                    ;
-    JSR      LEA32                     ; 0xd805 $97F5 20 32 EA                 ;
+    JSR      bank7_EA32                     ; 0xd805 $97F5 20 32 EA                 ;
     JSR      L989F                     ; 0xd808 $97F8 20 9F 98                 ;
     LDY      $60,x                     ; 0xd80b $97FB B4 60                    ; Enemy facing direction
     LDA      $4E,x                     ; 0xd80d $97FD B5 4E                    ; Enemy X position (low byte)
@@ -1633,7 +1622,7 @@ L9878:                                                                          
     CMP      #$21                      ; 0xd8a2 $9892 C9 21                    ;
     BCC      L98BB                     ; 0xd8a4 $9894 90 25                    ;
 L9896:                                                                          ;
-    JSR      LEA32                     ; 0xd8a6 $9896 20 32 EA                 ;
+    JSR      bank7_EA32                     ; 0xd8a6 $9896 20 32 EA                 ;
     LDA      $D9                       ; 0xd8a9 $9899 A5 D9                    ; Thunder Spell modifier ?
     CMP      #$8B                      ; 0xd8ab $989B C9 8B                    ;
     BNE      L98BB                     ; 0xd8ad $989D D0 1C                    ;
@@ -1694,7 +1683,7 @@ L98DF:                                                                          
     STA      $05BD,x                   ; 0xd901 $98F1 9D BD 05                 ;
     BNE      L98F9                     ; 0xd904 $98F4 D0 03                    ;
 L98F6:                                                                          ;
-    JSR      LDD3D                     ; 0xd906 $98F6 20 3D DD                 ;
+    JSR      bank7_DD3D                     ; 0xd906 $98F6 20 3D DD                 ;
 L98F9:                                                                          ;
     LDA      $058D,x                   ; 0xd909 $98F9 BD 8D 05                 ;
     STA      L0000                     ; 0xd90c $98FC 85 00                    ;
@@ -1808,7 +1797,7 @@ L99B9:                                                                          
     LDA      $0479                     ; 0xd9d6 $99C6 AD 79 04                 ; Link is in mid-air ? (1 = mid-air)
     BNE      L9A1C                     ; 0xd9d9 $99C9 D0 51                    ;
 L99CB:                                                                          ;
-    JSR      LE4D9                     ; 0xd9db $99CB 20 D9 E4                 ;
+    JSR      bank7_E4D9                     ; 0xd9db $99CB 20 D9 E4                 ;
     LDA      $A8,x                     ; 0xd9de $99CE B5 A8                    ;; Enemy State
     AND      #$10                      ; 0xd9e0 $99D0 29 10                    ; keep bits ...x ....
     BEQ      L9A1C                     ; 0xd9e2 $99D2 F0 48                    ;
@@ -1920,7 +1909,7 @@ L9A89:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9A8A:                                                                          ;
-    JSR      LDE6C                     ; 0xda9a $9A8A 20 6C DE                 ;
+    JSR      bank7_DE6C                     ; 0xda9a $9A8A 20 6C DE                 ;
 L9A8D:                                                                          ;
     JSR      bank7_Display             ; 0xda9d $9A8D 20 11 EF                 ;
 L9A90:                                                                          ;
@@ -1959,7 +1948,7 @@ L9ABD:                                                                          
     LDA      #$00                      ; 0xdacd $9ABD A9 00                    ; A = 00
     STA      $05BD,x                   ; 0xdacf $9ABF 9D BD 05                 ;
     JSR      L99B9                     ; 0xdad2 $9AC2 20 B9 99                 ;
-    JMP      LDE6C                     ; 0xdad5 $9AC5 4C 6C DE                 ;
+    JMP      bank7_DE6C                     ; 0xdad5 $9AC5 4C 6C DE                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Enemy_Routines1_Wise_Man:                                                 ;
@@ -2035,8 +2024,8 @@ L9B3B:                                                                          
     LSR      $03                       ; 0xdb4b $9B3B 46 03                    ;
     LDY      $0F                       ; 0xdb4d $9B3D A4 0F                    ;
 L9B3F:                                                                          ;
-    JSR      LF1F4                     ; 0xdb4f $9B3F 20 F4 F1                 ;
-    JMP      LF0D7                     ; 0xdb52 $9B42 4C D7 F0                 ;
+    JSR      bank7_F1F4                     ; 0xdb4f $9B3F 20 F4 F1                 ;
+    JMP      bank7_F0D7                     ; 0xdb52 $9B42 4C D7 F0                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9B45:                                                                          ;
@@ -2149,7 +2138,7 @@ bank3_SmallObjectsConstructionRoutines_Sign__06:                                
     STA      $0730                     ; 0xdc28 $9C18 8D 30 07                 ;; Position of Object Placement
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xdc2b $9C1B 20 44 C9           ;
     LDA      #$E3                      ; 0xdc2e $9C1E A9 E3                    ; A = E3
-    JSR      LDF56                     ; 0xdc30 $9C20 20 56 DF                 ;
+    JSR      bank7_DF56                     ; 0xdc30 $9C20 20 56 DF                 ;
     LDA      #$E4                      ; 0xdc33 $9C23 A9 E4                    ; A = E4
     STA      (L000E),y                 ; 0xdc35 $9C25 91 0E                    ;
     RTS                                ; 0xdc37 $9C27 60                       ;
@@ -3274,9 +3263,9 @@ LB1CF:                                                                          
     ASL                                ; 0xf1f2 $B1E2 0A                       ;
     TAY                                ; 0xf1f3 $B1E3 A8                       ;
     LDX      $01                       ; 0xf1f4 $B1E4 A6 01                    ;
-    JSR      LC258                     ; 0xf1f6 $B1E6 20 58 C2                 ;
+    JSR      bank7_C258                     ; 0xf1f6 $B1E6 20 58 C2                 ;
     INY                                ; 0xf1f9 $B1E9 C8                       ;
-    JSR      LC258                     ; 0xf1fa $B1EA 20 58 C2                 ;
+    JSR      bank7_C258                     ; 0xf1fa $B1EA 20 58 C2                 ;
     STX      $01                       ; 0xf1fd $B1ED 86 01                    ;
     INC      L0000                     ; 0xf1ff $B1EF E6 00                    ;
     CPX      #$0E                      ; 0xf201 $B1F1 E0 0E                    ; row width (in 8x8 tiles)
@@ -3612,7 +3601,7 @@ LB3D9:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Pointer_table_for_location_of_the_4_screens_in_RAM_:                      ;
-.word    LD000                         ; 0xf3ed $B3DD 00 D0                    ;
+.word    bank7_D000                         ; 0xf3ed $B3DD 00 D0                    ;
 .word    L70A0                         ; 0xf3ef $B3DF A0 70                    ;
 .word    L6060                         ; 0xf3f1 $B3E1 60 60                    ;
 .word    L6261                         ; 0xf3f3 $B3E3 61 62                    ;

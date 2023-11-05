@@ -44,23 +44,6 @@ L78E0 = $78E0
 L78EE = $78EE
 L78FC = $78FC
 L790A = $790A
-LC24F = $C24F
-LC2A6 = $C2A6
-LC72D = $C72D
-LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe = $CB18 ;???
-LD20A = $D20A
-LD55E = $D55E
-LDF01 = $DF01
-LDF3F = $DF3F
-LDF56 = $DF56
-LDFD1 = $DFD1
-LDFD2 = $DFD2
-LDFDB = $DFDB
-LE001 = $E001
-LE024 = $E024
-LE187 = $E187
-LE726 = $E726
-LEC02 = $EC02
 
 .segment "PRG0"
 .org $8000
@@ -253,11 +236,11 @@ Initialization_stuff:                                                           
     SEC                                ; 0x178 $8168 38                        ;
     SBC      #$0B                      ; 0x179 $8169 E9 0B                     ; relative Y offset
     STA      $75                       ; 0x17b $816B 85 75                     ;; Y Position on OW (Link)
-    JSR      LDF01                     ; 0x17d $816D 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x17d $816D 20 01 DF                  ;
     LDA      $73                       ; 0x180 $8170 A5 73                     ; Y position in OW (square unit)
     SEC                                ; 0x182 $8172 38                        ;
     SBC      #$07                      ; 0x183 $8173 E9 07                     ;
-    JSR      LDF3F                     ; 0x185 $8175 20 3F DF                  ;
+    JSR      bank7_DF3F                     ; 0x185 $8175 20 3F DF                  ;
     ASL                                ; 0x188 $8178 0A                        ;
     ASL                                ; 0x189 $8179 0A                        ;
     ASL                                ; 0x18a $817A 0A                        ;
@@ -842,8 +825,8 @@ L8508:                                                                          
     LDA      #$04                      ; 0x518 $8508 A9 04                     ; A = 04
     STA      $ED                       ; 0x51a $850A 85 ED                     ; Sound Effects Type 2
 L850C:                                                                          ;
-    JSR      LE024                     ; 0x51c $850C 20 24 E0                  ;
-    JMP      LDFD2                     ; 0x51f $850F 4C D2 DF                  ;
+    JSR      bank7_E024                     ; 0x51c $850C 20 24 E0                  ;
+    JMP      bank7_DFD2                     ; 0x51f $850F 4C D2 DF                  ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank0_B_Button_in_Overworld_Flute:                                              ;
@@ -1002,13 +985,13 @@ L861F:                                                                          
     SEC                                ; 0x633 $8623 38                        ;
     SBC      #$0B                      ; 0x634 $8624 E9 0B                     ;
     STA      $75                       ; 0x636 $8626 85 75                     ; Y position on map (Link)
-    JSR      LDF01                     ; 0x638 $8628 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x638 $8628 20 01 DF                  ;
     LDA      $77                       ; 0x63b $862B A5 77                     ;;projectile speed	77,78,79,7A,7B,7C	77,Y
     LSR                                ; 0x63d $862D 4A                        ;
     BCC      L8637                     ; 0x63e $862E 90 07                     ;
     DEC      $75                       ; 0x640 $8630 C6 75                     ; Y position on map (Link)
     LDA      $75                       ; 0x642 $8632 A5 75                     ;; Y Position on OW (Link)
-    JSR      LDF01                     ; 0x644 $8634 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x644 $8634 20 01 DF                  ;
 L8637:                                                                          ;
     JMP      L86AF                     ; 0x647 $8637 4C AF 86                  ;
                                                                                ;
@@ -1034,13 +1017,13 @@ L864C:                                                                          
     SEC                                ; 0x664 $8654 38                        ;
     SBC      #$0B                      ; 0x665 $8655 E9 0B                     ;
     STA      $75                       ; 0x667 $8657 85 75                     ;; Y Position on OW (Link)
-    JSR      LDF01                     ; 0x669 $8659 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x669 $8659 20 01 DF                  ;
     LDA      $77                       ; 0x66c $865C A5 77                     ;;projectile speed	77,78,79,7A,7B,7C	77,Y
     LSR                                ; 0x66e $865E 4A                        ;
     BCC      L8668                     ; 0x66f $865F 90 07                     ;
     DEC      $75                       ; 0x671 $8661 C6 75                     ;; Y Position on OW (Link)
     LDA      $75                       ; 0x673 $8663 A5 75                     ;; Y Position on OW (Link)
-    JSR      LDF01                     ; 0x675 $8665 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x675 $8665 20 01 DF                  ;
 L8668:                                                                          ;
     JMP      L86AF                     ; 0x678 $8668 4C AF 86                  ;
                                                                                ;
@@ -1065,7 +1048,7 @@ L867D:                                                                          
     CLC                                ; 0x695 $8685 18                        ;
     ADC      #$0B                      ; 0x696 $8686 69 0B                     ;
     STA      $75                       ; 0x698 $8688 85 75                     ;; Y Position on OW (Link)
-    JSR      LDF01                     ; 0x69a $868A 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x69a $868A 20 01 DF                  ;
     JMP      L86AF                     ; 0x69d $868D 4C AF 86                  ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1088,7 +1071,7 @@ L869F:                                                                          
     SEC                                ; 0x6b7 $86A7 38                        ;
     SBC      #$0B                      ; 0x6b8 $86A8 E9 0B                     ;
     STA      $75                       ; 0x6ba $86AA 85 75                     ;; Y Position on OW (Link)
-    JSR      LDF01                     ; 0x6bc $86AC 20 01 DF                  ;
+    JSR      bank7_DF01                     ; 0x6bc $86AC 20 01 DF                  ;
 L86AF:                                                                          ;
     LDA      $0563                     ; 0x6bf $86AF AD 63 05                  ; Type of terrain Link is facing
     CMP      #$07                      ; 0x6c2 $86B2 C9 07                     ; check if terrain is Swamp
@@ -1327,7 +1310,7 @@ L882C:                                                                          
     BNE      L882C                     ; 0x860 $8850 D0 DA                     ;
     INC      $75                       ; 0x862 $8852 E6 75                     ;; Y Position on OW (Link)
     LDA      $75                       ; 0x864 $8854 A5 75                     ;; Y Position on OW (Link)
-    JSR      LDF3F                     ; 0x866 $8856 20 3F DF                  ;
+    JSR      bank7_DF3F                     ; 0x866 $8856 20 3F DF                  ;
     STA      $00                       ; 0x869 $8859 85 00                     ;
     TYA                                ; 0x86b $885B 98                        ;
     ASL                                ; 0x86c $885C 0A                        ;
@@ -1389,7 +1372,7 @@ unknown_pointer_table1:                                                         
 .word    overworld6                    ; 0x8cf $88BF 1A 8A                     ;
 .word    L8A57                         ; 0x8d1 $88C1 57 8A                     ;
 .word    L8A79                         ; 0x8d3 $88C3 79 8A                     ;
-.word    LDFD1                         ; 0x8d5 $88C5 D1 DF                     ;
+.word    bank7_DFD1                         ; 0x8d5 $88C5 D1 DF                     ;
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown6:                                                                 ;
     LDA      $7D                       ; 0x8d7 $88C7 A5 7D                     ;;number of pixels to move? automove? on overworld, only partially, causes bug
@@ -1408,7 +1391,7 @@ unknown_pointer_table2:                                                         
 .word    L8B02                         ; 0x8f0 $88E0 02 8B                     ;
 .word    L8B3A                         ; 0x8f2 $88E2 3A 8B                     ;
 .word    L8B6E                         ; 0x8f4 $88E4 6E 8B                     ;
-.word    LDFD1                         ; 0x8f6 $88E6 D1 DF                     ;
+.word    bank7_DFD1                         ; 0x8f6 $88E6 D1 DF                     ;
 ; ---------------------------------------------------------------------------- ;
 Define_Overworld_Boundaries_Mountain_or_Water:                                  ;
     LDA      $0562                     ; 0x8f8 $88E8 AD 62 05                  ; Link's facing direction in OW
@@ -1450,7 +1433,7 @@ L8920:                                                                          
     LDA      #$FF                      ; 0x939 $8929 A9 FF                     ; A = FF
     STA      $03                       ; 0x93b $892B 85 03                     ;
 L892D:                                                                          ;
-    JSR      LE001                     ; 0x93d $892D 20 01 E0                  ;
+    JSR      bank7_E001                     ; 0x93d $892D 20 01 E0                  ;
     INY                                ; 0x940 $8930 C8                        ;
     CMP      $76                       ; 0x941 $8931 C5 76                     ; X position on map (Link)
     BCC      L892D                     ; 0x943 $8933 90 F8                     ;
@@ -1793,7 +1776,7 @@ L8B51:                                                                          
     INC      $75                       ; 0xb61 $8B51 E6 75                     ; Y Position on OW (Link)
     INC      $72                       ; 0xb63 $8B53 E6 72                     ;
     LDA      $75                       ; 0xb65 $8B55 A5 75                     ; Y Position on OW (Link)
-    JSR      LDF3F                     ; 0xb67 $8B57 20 3F DF                  ;
+    JSR      bank7_DF3F                     ; 0xb67 $8B57 20 3F DF                  ;
     STA      $00                       ; 0xb6a $8B5A 85 00                     ;
     TYA                                ; 0xb6c $8B5C 98                        ;
     ASL                                ; 0xb6d $8B5D 0A                        ;
@@ -1928,7 +1911,7 @@ L8C13:                                                                          
     BCS      L8C45                     ; 0xc3b $8C2B B0 18                     ;
     JSR      L8C48                     ; 0xc3d $8C2D 20 48 8C                  ;
 L8C30:                                                                          ;
-    JSR      LE001                     ; 0xc40 $8C30 20 01 E0                  ;
+    JSR      bank7_E001                     ; 0xc40 $8C30 20 01 E0                  ;
     CMP      #$41                      ; 0xc43 $8C33 C9 41                     ;
     BPL      L8C45                     ; 0xc45 $8C35 10 0E                     ;
     LDA      $02                       ; 0xc47 $8C37 A5 02                     ;
@@ -2106,7 +2089,7 @@ L8CF7:                                                                          
     STA      $EB                       ; 0xd81 $8D71 85 EB                     ; Music Channel
     LDA      #$00                      ; 0xd83 $8D73 A9 00                     ; A = 00
     STA      $075F                     ; 0xd85 $8D75 8D 5F 07                  ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
-    JMP      LC72D                     ; 0xd88 $8D78 4C 2D C7                  ;
+    JMP      bank7_C72D                     ; 0xd88 $8D78 4C 2D C7                  ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Table_for_Magic_Needed_for_Spells:                                              ;
@@ -2410,7 +2393,7 @@ L8F92:                                                                          
     LDY      $02                       ; 0xfa2 $8F92 A4 02                     ;
     LDA      bank0_unknown9,x          ; 0xfa4 $8F94 BD 7A 8F                  ; refer to table at $0F7A
 L8F97:                                                                          ;
-    JSR      LDF56                     ; 0xfa7 $8F97 20 56 DF                  ; Set tile and go down 1 row
+    JSR      bank7_DF56                     ; 0xfa7 $8F97 20 56 DF                  ; Set tile and go down 1 row
     CMP      #$B0                      ; 0xfaa $8F9A C9 B0                     ; bottom limit
     BCS      L8FA4                     ; 0xfac $8F9C B0 06                     ;
     LDA      L8F7F,x                   ; 0xfae $8F9E BD 7F 8F                  ;
@@ -2460,12 +2443,12 @@ bank0_unknown12:                                                                
     INX                                ; 0xfed $8FDD E8                        ;
     STX      $11                       ; 0xfee $8FDE 86 11                     ;
     STX      $0753                     ; 0xff0 $8FE0 8E 53 07                  ;
-    JSR      LEC02                     ; 0xff3 $8FE3 20 02 EC                  ;
+    JSR      bank7_EC02                     ; 0xff3 $8FE3 20 02 EC                  ;
     LDA      #$08                      ; 0xff6 $8FE6 A9 08                     ; A = 08
     STA      $90                       ; 0xff8 $8FE8 85 90                     ;
     LDX      #$00                      ; 0xffa $8FEA A2 00                     ; X = 00
     STX      $11                       ; 0xffc $8FEC 86 11                     ;
-    JSR      LEC02                     ; 0xffe $8FEE 20 02 EC                  ;
+    JSR      bank7_EC02                     ; 0xffe $8FEE 20 02 EC                  ;
     LDA       a:$12                     ; 0x1001 $8FF1 AD 12 00                 ;
 ;LDA $0012                                                                     ;
     AND      #$01                      ; 0x1004 $8FF4 29 01                    ; keep bits .... ...x
@@ -2616,7 +2599,7 @@ bank0_Place_Locked_Door:                                                        
     LSR                                ; 0x1112 $9102 4A                       ;
     STA      $0D                       ; 0x1113 $9103 85 0D                    ;
     TAX                                ; 0x1115 $9105 AA                       ;
-    JSR      LC2A6                     ; 0x1116 $9106 20 A6 C2                 ; Check if Locked Door was previously unlocked
+    JSR      bank7_C2A6                     ; 0x1116 $9106 20 A6 C2                 ; Check if Locked Door was previously unlocked
     BEQ      L912E                     ; 0x1119 $9109 F0 23                    ;
     LDA      $0D                       ; 0x111b $910B A5 0D                    ;
     STA      $3D                       ; 0x111d $910D 85 3D                    ; Enemy 1 X Position (high byte)
@@ -2792,7 +2775,7 @@ L91FB:                                                                          
     BEQ      L922A                     ; 0x1236 $9226 F0 02                    ;
     LDY      #$01                      ; 0x1238 $9228 A0 01                    ; Y = 01;attack power level to use for thunder spell when using on (thunderbird) monster with special attribute ?
 L922A:                                                                          ;
-    JSR      LE726                     ; 0x123a $922A 20 26 E7                 ;
+    JSR      bank7_E726                     ; 0x123a $922A 20 26 E7                 ;
 L922D:                                                                          ;
     DEX                                ; 0x123d $922D CA                       ;
     BPL      L91FB                     ; 0x123e $922E 10 CB                    ;
@@ -2891,7 +2874,7 @@ bank0_Side_View3:                                                               
 L92E1:                                                                          ;
     INC      $075B                     ; 0x12f1 $92E1 EE 5B 07                 ;
     LDA      #$16                      ; 0x12f4 $92E4 A9 16                    ; A = 16
-    JMP      LE187                     ; 0x12f6 $92E6 4C 87 E1                 ;
+    JMP      bank7_E187                     ; 0x12f6 $92E6 4C 87 E1                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L92E9:                                                                          ;
@@ -2934,7 +2917,7 @@ L9336:                                                                          
     AND      $F7                       ; 0x1346 $9336 25 F7                    ;; Controller 1 Buttons Held
     BNE      L9340                     ; 0x1348 $9338 D0 06                    ;
     JSR      bank0_goto__1610          ; 0x134a $933A 20 10 96                 ; goto $1610
-    JMP      LD20A                     ; 0x134d $933D 4C 0A D2                 ;
+    JMP      bank7_D20A                     ; 0x134d $933D 4C 0A D2                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9340:                                                                          ;
@@ -3890,7 +3873,7 @@ L9908:                                                                          
     JSR      L98A6                     ; 0x1918 $9908 20 A6 98                 ;
     LDY      $9D,x                     ; 0x191b $990B B4 9D                    ;
     LDA      $8D,x                     ; 0x191d $990D B5 8D                    ;; Flying Blade/Flame slot
-    JSR      LD55E                     ; 0x191f $990F 20 5E D5                 ;
+    JSR      bank7_D55E                     ; 0x191f $990F 20 5E D5                 ;
     LDA      $36,x                     ; 0x1922 $9912 B5 36                    ; Flying Blade/Flame Y Position
     STA      $0200,y                   ; 0x1924 $9914 99 00 02                 ;
     LDA      $5A,x                     ; 0x1927 $9917 B5 5A                    ; Flying Blade/Flame X Position (low byte)
@@ -5401,15 +5384,15 @@ LA423:                                                                          
     ROL                                ; 0x243c $A42C 2A                       ;
     ASL                                ; 0x243d $A42D 0A                       ;
     TAY                                ; 0x243e $A42E A8                       ;
-    JSR      LDFDB                     ; 0x243f $A42F 20 DB DF                 ;
+    JSR      bank7_DFDB                     ; 0x243f $A42F 20 DB DF                 ;
     LDA      $055A,x                   ; 0x2442 $A432 BD 5A 05                 ;
     ASL                                ; 0x2445 $A435 0A                       ;
     ASL                                ; 0x2446 $A436 0A                       ;
     TAY                                ; 0x2447 $A437 A8                       ;
     LDX      $01                       ; 0x2448 $A438 A6 01                    ;
-    JSR      LC24F                     ; 0x244a $A43A 20 4F C2                 ;
+    JSR      bank7_C24F                     ; 0x244a $A43A 20 4F C2                 ;
     INY                                ; 0x244d $A43D C8                       ;
-    JSR      LC24F                     ; 0x244e $A43E 20 4F C2                 ;
+    JSR      bank7_C24F                     ; 0x244e $A43E 20 4F C2                 ;
     STX      $01                       ; 0x2451 $A441 86 01                    ;
     INC      $00                       ; 0x2453 $A443 E6 00                    ;
     CPX      #$0E                      ; 0x2455 $A445 E0 0E                    ;

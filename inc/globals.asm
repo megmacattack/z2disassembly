@@ -11,6 +11,19 @@
 .global world_number
 .global game_mode
 .global PRG_bank
+.global bss_0302
+.global bss_0363
+.global bss_03A4
+.global bss_05C9
+.global bss_0600
+.global bss_0620
+.global bss_0640
+.global bss_0660
+.global bss_0680
+.global bss_06A0
+.global bss_06C0
+.global bss_07AD
+
 
 ; bank 0 exports
 .global bank0_Manual_Save_Game_Routine_UP_AND_A

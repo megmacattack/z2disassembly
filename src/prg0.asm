@@ -17,10 +17,6 @@
 .include "macros.asm"
 
 L000E = $000E
-L0302 = $0302
-L0363 = $0363
-L03A4 = $03A4
-L05C9 = $05C9
 L7800 = $7800
 L780E = $780E
 L781C = $781C
@@ -1304,7 +1300,7 @@ L882C:                                                                          
     LDA      #$00                      ; 0x852 $8842 A9 00                     ; A = 00
     STA      $0301                     ; 0x854 $8844 8D 01 03                  ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDA      #$FF                      ; 0x857 $8847 A9 FF                     ; A = FF
-    STA      L0302                     ; 0x859 $8849 8D 02 03                  ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x859 $8849 8D 02 03                  ;; Used when writing text to screen
     LDA      $7E                       ; 0x85c $884C A5 7E                     ;
     CMP      #$06                      ; 0x85e $884E C9 06                     ;
     BNE      L882C                     ; 0x860 $8850 D0 DA                     ;
@@ -1453,7 +1449,7 @@ L8941:                                                                          
 ; ---------------------------------------------------------------------------- ;
 Overworld_Redrawing_Horizontal_Movement:                                        ;
     LDA      $79                       ; 0x958 $8948 A5 79                     ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
-    STA      L0302                     ; 0x95a $894A 8D 02 03                  ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x95a $894A 8D 02 03                  ;; Used when writing text to screen
     STA      L000E                     ; 0x95d $894D 85 0E                     ;
     LDA      $7A                       ; 0x95f $894F A5 7A                     ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      $0303                     ; 0x961 $8951 8D 03 03                  ;; Letter position when writing to screen
@@ -1653,7 +1649,7 @@ L8A79:                                                                          
     AND      #$10                      ; 0xa8b $8A7B 29 10                     ; keep bits ...x ....
     LSR                                ; 0xa8d $8A7D 4A                        ;
     ORA      #$23                      ; 0xa8e $8A7E 09 23                     ;;Set Bits:0010_0011
-    STA      L0302                     ; 0xa90 $8A80 8D 02 03                  ;; Used when writing text to screen
+    STA      bss_0302                     ; 0xa90 $8A80 8D 02 03                  ;; Used when writing text to screen
     LDA      $77                       ; 0xa93 $8A83 A5 77                     ;;projectile speed	77,78,79,7A,7B,7C	77,Y
     AND      #$0E                      ; 0xa95 $8A85 29 0E                     ; keep bits .... xxx.
     ASL                                ; 0xa97 $8A87 0A                        ;
@@ -1804,7 +1800,7 @@ L8B76:                                                                          
     AND      #$10                      ; 0xb8a $8B7A 29 10                     ; keep bits ...x ....
     LSR                                ; 0xb8c $8B7C 4A                        ;
     ORA      #$23                      ; 0xb8d $8B7D 09 23                     ;;Set Bits:0010_0011
-    STA      L0302,x                   ; 0xb8f $8B7F 9D 02 03                  ;
+    STA      bss_0302,x                   ; 0xb8f $8B7F 9D 02 03                  ;
     LDA      $77                       ; 0xb92 $8B82 A5 77                     ;;projectile speed	77,78,79,7A,7B,7C	77,Y
     AND      #$0E                      ; 0xb94 $8B84 29 0E                     ;;Keep Bits:0000_1110
     ASL                                ; 0xb96 $8B86 0A                        ;
@@ -1942,7 +1938,7 @@ L8C48:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L8C57:                                                                          ;
     LDA      $79                       ; 0xc67 $8C57 A5 79                     ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
-    STA      L0302                     ; 0xc69 $8C59 8D 02 03                  ;; Used when writing text to screen
+    STA      bss_0302                     ; 0xc69 $8C59 8D 02 03                  ;; Used when writing text to screen
     LDA      $7A                       ; 0xc6c $8C5C A5 7A                     ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     AND      #$E0                      ; 0xc6e $8C5E 29 E0                     ; keep bits xxx. ....
     STA      $0303                     ; 0xc70 $8C60 8D 03 03                  ;; Letter position when writing to screen
@@ -2040,9 +2036,9 @@ L8CF7:                                                                          
     STA      $0728                     ; 0xd10 $8D00 8D 28 07                  ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
     STA      $074B                     ; 0xd13 $8D03 8D 4B 07                  ;; Spell Flash Counter (bit 7 set = decor flash)
     DEY                                ; 0xd16 $8D06 88                        ;
-    STY      L0363                     ; 0xd17 $8D07 8C 63 03                  ;
-    STY      L03A4                     ; 0xd1a $8D0A 8C A4 03                  ;
-    STY      L0302                     ; 0xd1d $8D0D 8C 02 03                  ;; Used when writing text to screen
+    STY      bss_0363                     ; 0xd17 $8D07 8C 63 03                  ;
+    STY      bss_03A4                     ; 0xd1a $8D0A 8C A4 03                  ;
+    STY      bss_0302                     ; 0xd1d $8D0D 8C 02 03                  ;; Used when writing text to screen
     LDY      $075C                     ; 0xd20 $8D10 AC 5C 07                  ; Position code when entering area (0-3)
     TYA                                ; 0xd23 $8D13 98                        ;
     PHA                                ; 0xd24 $8D14 48                        ;
@@ -2342,7 +2338,7 @@ L8F31:                                                                          
     LDX      #$00                      ; 0xf4c $8F3C A2 00                     ; X = 00
 L8F3E:                                                                          ;
     LDA      bank0_table0,x            ; 0xf4e $8F3E BD BA 8E                  ; refer to table at $0EBA
-    STA      L0363,x                   ; 0xf51 $8F41 9D 63 03                  ;
+    STA      bss_0363,x                   ; 0xf51 $8F41 9D 63 03                  ;
     INX                                ; 0xf54 $8F44 E8                        ;
     CPX      #$18                      ; 0xf55 $8F45 E0 18                     ;
     BNE      L8F3E                     ; 0xf57 $8F47 D0 F5                     ;
@@ -2350,7 +2346,7 @@ L8F3E:                                                                          
     DEC      $0763                     ; 0xf5c $8F4C CE 63 07                  ;; Counter for Big Door in Hidden Kasuto
 L8F4F:                                                                          ;
     LDA      #$FF                      ; 0xf5f $8F4F A9 FF                     ; A = FF
-    STA      L0363,x                   ; 0xf61 $8F51 9D 63 03                  ;
+    STA      bss_0363,x                   ; 0xf61 $8F51 9D 63 03                  ;
     INC      $0763                     ; 0xf64 $8F54 EE 63 07                  ;; Counter for Big Door in Hidden Kasuto
 L8F57:                                                                          ;
     RTS                                ; 0xf67 $8F57 60                        ;
@@ -2360,7 +2356,7 @@ L8F58:                                                                          
     LDA      #$01                      ; 0xf68 $8F58 A9 01                     ; A = 01
     STA      $0725                     ; 0xf6a $8F5A 8D 25 07                  ; PPU Macro Selector
     LDA      $00                       ; 0xf6d $8F5D A5 00                     ;
-    STA      L0363,x                   ; 0xf6f $8F5F 9D 63 03                  ;
+    STA      bss_0363,x                   ; 0xf6f $8F5F 9D 63 03                  ;
     LDA      $01                       ; 0xf72 $8F62 A5 01                     ;
     STA      $0364,x                   ; 0xf74 $8F64 9D 64 03                  ;
     LDA      #$0A                      ; 0xf77 $8F67 A9 0A                     ; A = 0A
@@ -2456,7 +2452,7 @@ bank0_unknown12:                                                                
     LDX      #$07                      ; 0x1008 $8FF8 A2 07                    ; X = 07
 L8FFA:                                                                          ;
     LDA      bank0_unknown11,x         ; 0x100a $8FFA BD AA 8F                 ; refer to table at $0FAA
-    STA      L0302,x                   ; 0x100d $8FFD 9D 02 03                 ;
+    STA      bss_0302,x                   ; 0x100d $8FFD 9D 02 03                 ;
 L9000:                                                                          ;
     DEX                                ; 0x1010 $9000 CA                       ;
     BPL      L8FFA                     ; 0x1011 $9001 10 F7                    ; loop
@@ -2802,7 +2798,7 @@ L9245:                                                                          
     BCS      L9244                     ; 0x125a $924A B0 F8                    ;
     DEC      $074B                     ; 0x125c $924C CE 4B 07                 ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$3F                      ; 0x125f $924F A9 3F                    ; A = 3F
-    STA      L0302,x                   ; 0x1261 $9251 9D 02 03                 ;
+    STA      bss_0302,x                   ; 0x1261 $9251 9D 02 03                 ;
     LDA      #$10                      ; 0x1264 $9254 A9 10                    ; A = 10
     STA      $0303,x                   ; 0x1266 $9256 9D 03 03                 ;
     LDA      #$04                      ; 0x1269 $9259 A9 04                    ; A = 04
@@ -3503,7 +3499,7 @@ L96B7:                                                                          
     ASL      $074F                     ; 0x16c7 $96B7 0E 4F 07                 ;; Related to Pause Pane
     LSR      $074F                     ; 0x16ca $96BA 4E 4F 07                 ;; Related to Pause Pane
     LDA      Table_for_Hub_Tile_Mapping,x; 0x16cd $96BD BD 2E 96                 ; refer to table at $162E			0x163E ;contains location to draw levels ,status bar
-    STA      L0302,y                   ; 0x16d0 $96C0 99 02 03                 ;
+    STA      bss_0302,y                   ; 0x16d0 $96C0 99 02 03                 ;
     INY                                ; 0x16d3 $96C3 C8                       ;
     INX                                ; 0x16d4 $96C4 E8                       ;
     CPX      #$13                      ; 0x16d5 $96C5 E0 13                    ;
@@ -3571,7 +3567,7 @@ L9723:                                                                          
     LDY      $0301                     ; 0x173b $972B AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
 L972E:                                                                          ;
     LDA      Table_for_Hub_Tile_Mapping2,x; 0x173e $972E BD 41 96                 ; refer to table at $1641
-    STA      L0302,y                   ; 0x1741 $9731 99 02 03                 ;
+    STA      bss_0302,y                   ; 0x1741 $9731 99 02 03                 ;
     INY                                ; 0x1744 $9734 C8                       ;
     INX                                ; 0x1745 $9735 E8                       ;
     CPX      #$18                      ; 0x1746 $9736 E0 18                    ;
@@ -3893,7 +3889,7 @@ bank0_9925:                                                                     
     BEQ      L9924                     ; 0x1937 $9927 F0 FB                    ;if 0 (only 1 map page?), rts
     LDA      $0728                     ; 0x1939 $9929 AD 28 07                 ;728	1=freeze screen, prevent from exiting left/right
     BNE      L9924                     ; 0x193c $992C D0 F6                    ;if frozen, rts
-    STA      L05C9                     ; 0x193e $992E 8D C9 05                 ;
+    STA      bss_05C9                     ; 0x193e $992E 8D C9 05                 ;
     LDA       a:$14                     ; 0x1941 $9931 AD 14 00                 ;
     STA      $00                       ; 0x1944 $9934 85 00                    ;
     LDX      $5F                       ; 0x1946 $9936 A6 5F                    ; Link's facing direction
@@ -3928,7 +3924,7 @@ L9955:                                                                          
     CMP      #$51                      ; 0x197d $996D C9 51                    ;
     BCC      L9977                     ; 0x197f $996F 90 06                    ;
 L9971:                                                                          ;
-    INC      L05C9                     ; 0x1981 $9971 EE C9 05                 ;
+    INC      bss_05C9                     ; 0x1981 $9971 EE C9 05                 ;
     JMP      L99D4                     ; 0x1984 $9974 4C D4 99                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4149,7 +4145,7 @@ bank0_unknown26:                                                                
     LDA      $071E                     ; 0x1af7 $9AE7 AD 1E 07                 ;
     STA      $03A5,y                   ; 0x1afa $9AEA 99 A5 03                 ;
     LDA      $071D                     ; 0x1afd $9AED AD 1D 07                 ;
-    STA      L03A4,y                   ; 0x1b00 $9AF0 99 A4 03                 ;
+    STA      bss_03A4,y                   ; 0x1b00 $9AF0 99 A4 03                 ;
     LDA      #$9A                      ; 0x1b03 $9AF3 A9 9A                    ; A = 9A
     STA      $03A6,y                   ; 0x1b05 $9AF5 99 A6 03                 ;
     LDA      #$00                      ; 0x1b08 $9AF8 A9 00                    ; A = 00
@@ -4161,7 +4157,7 @@ bank0_unknown26:                                                                
     INY                                ; 0x1b13 $9B03 C8                       ;
     INY                                ; 0x1b14 $9B04 C8                       ;
     LDA      #$FF                      ; 0x1b15 $9B05 A9 FF                    ; A = FF
-    STA      L03A4,y                   ; 0x1b17 $9B07 99 A4 03                 ;
+    STA      bss_03A4,y                   ; 0x1b17 $9B07 99 A4 03                 ;
     STY      $03A3                     ; 0x1b1a $9B0A 8C A3 03                 ;
     LDA      #$02                      ; 0x1b1d $9B0D A9 02                    ; A = 02
     STA      $0725                     ; 0x1b1f $9B0F 8D 25 07                 ;; PPU Macro Selector
@@ -4548,7 +4544,7 @@ L9ECA:                                                                          
     LDX      #$00                      ; 0x1ee0 $9ED0 A2 00                    ; X = 00
 L9ED2:                                                                          ;
     LDA      bank0_unknown30,x         ; 0x1ee2 $9ED2 BD 1F 9E                 ;
-    STA      L0302,y                   ; 0x1ee5 $9ED5 99 02 03                 ;
+    STA      bss_0302,y                   ; 0x1ee5 $9ED5 99 02 03                 ;
     INX                                ; 0x1ee8 $9ED8 E8                       ;
     TXA                                ; 0x1ee9 $9ED9 8A                       ;
     AND      #$03                      ; 0x1eea $9EDA 29 03                    ; keep bits .... ..xx
@@ -4567,7 +4563,7 @@ L9ED2:                                                                          
     ASL                                ; 0x1f03 $9EF3 0A                       ;
     ASL                                ; 0x1f04 $9EF4 0A                       ;
     ADC      #$21                      ; 0x1f05 $9EF5 69 21                    ;
-    STA      L0302                     ; 0x1f07 $9EF7 8D 02 03                 ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x1f07 $9EF7 8D 02 03                 ;; Used when writing text to screen
     STA      $0306                     ; 0x1f0a $9EFA 8D 06 03                 ;; Letter Written to Screen
     STA      $030A                     ; 0x1f0d $9EFD 8D 0A 03                 ;
     STA      $030E                     ; 0x1f10 $9F00 8D 0E 03                 ;
@@ -5040,7 +5036,7 @@ LA20C:                                                                          
     ASL                                ; 0x2239 $A229 0A                       ;
     ASL                                ; 0x223a $A22A 0A                       ;
     ADC      #$20                      ; 0x223b $A22B 69 20                    ;
-    STA      L0302                     ; 0x223d $A22D 8D 02 03                 ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x223d $A22D 8D 02 03                 ;; Used when writing text to screen
     LDA      $01                       ; 0x2240 $A230 A5 01                    ;
     LSR                                ; 0x2242 $A232 4A                       ;
     LSR                                ; 0x2243 $A233 4A                       ;
@@ -5293,7 +5289,7 @@ LA39A:                                                                          
     BCC      LA362                     ; 0x23b3 $A3A3 90 BD                    ;
 LA3A5:                                                                          ;
     LDA      #$FF                      ; 0x23b5 $A3A5 A9 FF                    ; A = FF
-    STA      L0363,y                   ; 0x23b7 $A3A7 99 63 03                 ;
+    STA      bss_0363,y                   ; 0x23b7 $A3A7 99 63 03                 ;
     STY      $0362                     ; 0x23ba $A3AA 8C 62 03                 ;; PPU Macro Offset
     LDA      #$01                      ; 0x23bd $A3AD A9 01                    ; A = 01
     STA      $0725                     ; 0x23bf $A3AF 8D 25 07                 ;; PPU Macro Selector
@@ -5318,7 +5314,7 @@ LA3B3:                                                                          
     ASL                                ; 0x23d7 $A3C7 0A                       ;
     ASL                                ; 0x23d8 $A3C8 0A                       ;
     ADC      #$23                      ; 0x23d9 $A3C9 69 23                    ;
-    STA      L0363,y                   ; 0x23db $A3CB 99 63 03                 ;
+    STA      bss_0363,y                   ; 0x23db $A3CB 99 63 03                 ;
     LDA      $0525                     ; 0x23de $A3CE AD 25 05                 ;; Routine Delay
     CLC                                ; 0x23e1 $A3D1 18                       ;
     ADC      #$01                      ; 0x23e2 $A3D2 69 01                    ;
@@ -5512,7 +5508,7 @@ LA4D6:                                                                          
     ASL                                ; 0x250f $A4FF 0A                       ;
     ADC      #$20                      ; 0x2510 $A500 69 20                    ;
     ADC      $04                       ; 0x2512 $A502 65 04                    ;
-    STA      L0363,y                   ; 0x2514 $A504 99 63 03                 ;
+    STA      bss_0363,y                   ; 0x2514 $A504 99 63 03                 ;
     LDA      $06                       ; 0x2517 $A507 A5 06                    ;
     ASL                                ; 0x2519 $A509 0A                       ;
     STA      $0365,y                   ; 0x251a $A50A 99 65 03                 ;
@@ -5521,7 +5517,7 @@ LA4D6:                                                                          
     INY                                ; 0x251f $A50F C8                       ;
 LA510:                                                                          ;
     LDA      $053E,x                   ; 0x2520 $A510 BD 3E 05                 ;; Tiles for Dialog Box Rows
-    STA      L0363,y                   ; 0x2523 $A513 99 63 03                 ;
+    STA      bss_0363,y                   ; 0x2523 $A513 99 63 03                 ;
     INX                                ; 0x2526 $A516 E8                       ;
     LDA      $053E,x                   ; 0x2527 $A517 BD 3E 05                 ;; Tiles for Dialog Box Rows
     STA      $0364,y                   ; 0x252a $A51A 99 64 03                 ;
@@ -5896,7 +5892,7 @@ LA726:                                                                          
     LDX      $0362                     ; 0x277f $A76F AE 62 03                 ;; PPU Macro Offset
     PLA                                ; 0x2782 $A772 68                       ;
     ORA      $00                       ; 0x2783 $A773 05 00                    ;
-    STA      L0363,x                   ; 0x2785 $A775 9D 63 03                 ;
+    STA      bss_0363,x                   ; 0x2785 $A775 9D 63 03                 ;
     STA      $0368,x                   ; 0x2788 $A778 9D 68 03                 ;
     TXA                                ; 0x278b $A77B 8A                       ;
     CLC                                ; 0x278c $A77C 18                       ;
@@ -5948,7 +5944,7 @@ LA7C1:                                                                          
     LDY      #$09                      ; 0x27e7 $A7D7 A0 09                    ; Y = 09
 LA7D9:                                                                          ;
     LDA      bank0_PPU_addresses__maybe,y; 0x27e9 $A7D9 B9 A1 A7                 ;
-    STA      L0302,y                   ; 0x27ec $A7DC 99 02 03                 ;
+    STA      bss_0302,y                   ; 0x27ec $A7DC 99 02 03                 ;
     DEY                                ; 0x27ef $A7DF 88                       ;
     BPL      LA7D9                     ; 0x27f0 $A7E0 10 F7                    ;
     LDA      $0303                     ; 0x27f2 $A7E2 AD 03 03                 ;; Letter position when writing to screen

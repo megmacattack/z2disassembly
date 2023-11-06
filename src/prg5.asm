@@ -19,10 +19,6 @@
 L0000 = $0000
 L000E = $000E
 L02AD = $02AD
-L0302 = $0302
-L0363 = $0363
-L0600 = $0600
-L07AD = $07AD
 L6002 = $6002
 L6034 = $6034
 L6066 = $6066
@@ -973,7 +969,7 @@ bank5_code4:                                                                    
     LDY      #$00                      ; 0x14bd2 $8BC2 A0 00                   ; Y = 00
 L8BC4:                                                                          ;
     LDA      bank5_ppu_command,y       ; 0x14bd4 $8BC4 B9 B3 8B                ;
-    STA      L0302,x                   ; 0x14bd7 $8BC7 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x14bd7 $8BC7 9D 02 03                ;
     INX                                ; 0x14bda $8BCA E8                      ;
     INY                                ; 0x14bdb $8BCB C8                      ;
     CPY      #$08                      ; 0x14bdc $8BCC C0 08                   ;
@@ -1141,7 +1137,7 @@ L8CE3:                                                                          
     BCS      L8CE2                     ; 0x14cf8 $8CE8 B0 F8                   ;
     DEC      $074B                     ; 0x14cfa $8CEA CE 4B 07                ; Spell Flash Counter
     LDA      #$3F                      ; 0x14cfd $8CED A9 3F                   ; A = 3F
-    STA      L0302,x                   ; 0x14cff $8CEF 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x14cff $8CEF 9D 02 03                ;
     LDA      #$10                      ; 0x14d02 $8CF2 A9 10                   ; A = 10
     STA      $0303,x                   ; 0x14d04 $8CF4 9D 03 03                ;
     LDA      #$04                      ; 0x14d07 $8CF7 A9 04                   ; A = 04
@@ -1197,7 +1193,7 @@ bank5_change_tile_of_zelda_to_wake_her_up:                                      
     LDX      $0301                     ; 0x14d76 $8D66 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
 L8D69:                                                                          ;
     LDA      bank5_ppu_macro0,y        ; 0x14d79 $8D69 B9 4E 8D                ;
-    STA      L0302,x                   ; 0x14d7c $8D6C 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x14d7c $8D6C 9D 02 03                ;
     INX                                ; 0x14d7f $8D6F E8                      ;
     INY                                ; 0x14d80 $8D70 C8                      ;
     CPY      #$16                      ; 0x14d81 $8D71 C0 16                   ;
@@ -1230,7 +1226,7 @@ bank5_code7:                                                                    
 L8DBF:                                                                          ;
     LDA      bank5_ppu_macro1,y        ; 0x14dcf $8DBF B9 AD 8D                ;
 L8DC3     = * + $0001                                                          ;
-    STA      L0302,x                   ; 0x14dd2 $8DC2 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x14dd2 $8DC2 9D 02 03                ;
     INX                                ; 0x14dd5 $8DC5 E8                      ;
     INY                                ; 0x14dd6 $8DC6 C8                      ;
     CPY      #$0D                      ; 0x14dd7 $8DC7 C0 0D                   ;
@@ -1309,7 +1305,7 @@ L8E4D:                                                                          
     ADC      $01                       ; 0x14e60 $8E50 65 01                   ;
     STA      $0303                     ; 0x14e62 $8E52 8D 03 03                ;; Letter position when writing to screen
     LDA      L0000                     ; 0x14e65 $8E55 A5 00                   ;
-    STA      L0302                     ; 0x14e67 $8E57 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x14e67 $8E57 8D 02 03                ;; Used when writing text to screen
     LDA      #$01                      ; 0x14e6a $8E5A A9 01                   ; A = 01
     STA      $0304                     ; 0x14e6c $8E5C 8D 04 03                ;; Text memory offset?
     LDA      bank5_Ending_Text_Zelda_,x; 0x14e6f $8E5F BD E1 8D                ;
@@ -1372,7 +1368,7 @@ bank5_code10:                                                                   
     STA      $0303                     ; 0x14ecd $8EBD 8D 03 03                ;; Letter position when writing to screen
     LDA      $27                       ; 0x14ed0 $8EC0 A5 27                   ;
     ADC      #$00                      ; 0x14ed2 $8EC2 69 00                   ;
-    STA      L0302                     ; 0x14ed4 $8EC4 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x14ed4 $8EC4 8D 02 03                ;; Used when writing text to screen
     LDX      #$06                      ; 0x14ed7 $8EC7 A2 06                   ; X = 06
 L8EC9:                                                                          ;
     LDA      bank5_table5,x            ; 0x14ed9 $8EC9 BD A1 8E                ;
@@ -1492,7 +1488,7 @@ bank5_code12:                                                                   
     LDY      #$0E                      ; 0x14fb2 $8FA2 A0 0E                   ; Y = 0E
 L8FA4:                                                                          ;
     LDA      bank5_ppu_macro2,y        ; 0x14fb4 $8FA4 B9 8F 8F                ;
-    STA      L0302,y                   ; 0x14fb7 $8FA7 99 02 03                ;
+    STA      bss_0302,y                   ; 0x14fb7 $8FA7 99 02 03                ;
     DEY                                ; 0x14fba $8FAA 88                      ;
     BPL      L8FA4                     ; 0x14fbb $8FAB 10 F7                   ;
     LDA      #$01                      ; 0x14fbd $8FAD A9 01                   ; A = 01
@@ -1551,7 +1547,7 @@ L8FF6:                                                                          
     TAY                                ; 0x1500e $8FFE A8                      ;
 L9000     = * + $0001                                                          ;
     LDA      $27                       ; 0x1500f $8FFF A5 27                   ;
-    STA      L0302                     ; 0x15011 $9001 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x15011 $9001 8D 02 03                ;; Used when writing text to screen
     LDA      $28                       ; 0x15014 $9004 A5 28                   ;
     STA      $0303                     ; 0x15016 $9006 8D 03 03                ;; Letter position when writing to screen
     CLC                                ; 0x15019 $9009 18                      ;
@@ -1608,7 +1604,7 @@ bank5_code13:                                                                   
     LDY      #$1C                      ; 0x15085 $9075 A0 1C                   ; Y = 1C
 L9077:                                                                          ;
     LDA      bank5_ppu_macro3,y        ; 0x15087 $9077 B9 58 90                ;
-    STA      L0302,y                   ; 0x1508a $907A 99 02 03                ;
+    STA      bss_0302,y                   ; 0x1508a $907A 99 02 03                ;
     DEY                                ; 0x1508d $907D 88                      ;
     BPL      L9077                     ; 0x1508e $907E 10 F7                   ;
     LDA      #$11                      ; 0x15090 $9080 A9 11                   ; A = 11
@@ -1633,7 +1629,7 @@ L908D:                                                                          
     LDY      #$00                      ; 0x150af $909F A0 00                   ; Y = 00
 L90A1:                                                                          ;
     LDA      (L0000),y                 ; 0x150b1 $90A1 B1 00                   ;
-    STA      L0302,y                   ; 0x150b3 $90A3 99 02 03                ;
+    STA      bss_0302,y                   ; 0x150b3 $90A3 99 02 03                ;
     INY                                ; 0x150b6 $90A6 C8                      ;
     CMP      #$FF                      ; 0x150b7 $90A7 C9 FF                   ;
     BNE      L90A1                     ; 0x150b9 $90A9 D0 F6                   ;
@@ -1681,7 +1677,7 @@ L9109:                                                                          
     LDA      bank5_pointer_table1+$01,x; 0x15128 $9118 BD B7 90                ;
     STA      $01                       ; 0x1512b $911B 85 01                   ;
     LDA      #$3F                      ; 0x1512d $911D A9 3F                   ; A = 3F
-    STA      L0302                     ; 0x1512f $911F 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x1512f $911F 8D 02 03                ;; Used when writing text to screen
     LDA      $54                       ; 0x15132 $9122 A5 54                   ;;projectile x		54,55,56,57,58,59	54,y	? only 56,59confirmed
     AND      #$01                      ; 0x15134 $9124 29 01                   ; keep bits .... ...x
     TAX                                ; 0x15136 $9126 AA                      ;
@@ -1755,7 +1751,7 @@ L9194:                                                                          
     LDY      #$04                      ; 0x151aa $919A A0 04                   ; Y = 04
 L919C:                                                                          ;
     LDA      bank5_ppu_macro4,y        ; 0x151ac $919C B9 6E 91                ;
-    STA      L0302,y                   ; 0x151af $919F 99 02 03                ;
+    STA      bss_0302,y                   ; 0x151af $919F 99 02 03                ;
     DEY                                ; 0x151b2 $91A2 88                      ;
     BPL      L919C                     ; 0x151b3 $91A3 10 F7                   ;
 L91A5:                                                                          ;
@@ -1777,7 +1773,7 @@ L91B3:                                                                          
     LDA      bank5_pointer_table1+$01  ; 0x151cc $91BC AD B7 90                ;
     STA      $01                       ; 0x151cf $91BF 85 01                   ;
     LDA      #$3F                      ; 0x151d1 $91C1 A9 3F                   ; A = 3F
-    STA      L0302                     ; 0x151d3 $91C3 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x151d3 $91C3 8D 02 03                ;; Used when writing text to screen
     LDA      #$00                      ; 0x151d6 $91C6 A9 00                   ; A = 00
     STA      $0303                     ; 0x151d8 $91C8 8D 03 03                ;; Letter position when writing to screen
     LDA      #$04                      ; 0x151db $91CB A9 04                   ; A = 04
@@ -4020,7 +4016,7 @@ LA28D:                                                                          
     LDY      #$00                      ; 0x1629e $A28E A0 00                   ;;Y = #$00 0000_0000
 LA290:                                                                          ;
     LDA      bank5_table_A210,x        ; 0x162a0 $A290 BD 10 A2                ;
-    STA      L0363,y                   ; 0x162a3 $A293 99 63 03                ;
+    STA      bss_0363,y                   ; 0x162a3 $A293 99 63 03                ;
     INX                                ; 0x162a6 $A296 E8                      ;
     INY                                ; 0x162a7 $A297 C8                      ;
     CPY      #$08                      ; 0x162a8 $A298 C0 08                   ;
@@ -4075,7 +4071,7 @@ LA2D8:                                                                          
     STA      $84                       ; 0x162f4 $A2E4 85 84                   ;
 LA2E6:                                                                          ;
     LDA      $3F                       ; 0x162f6 $A2E6 A5 3F                   ;
-    STA      L0363                     ; 0x162f8 $A2E8 8D 63 03                ;
+    STA      bss_0363                     ; 0x162f8 $A2E8 8D 63 03                ;
     LDA      $51                       ; 0x162fb $A2EB A5 51                   ;
     STA      $0364                     ; 0x162fd $A2ED 8D 64 03                ;
     LDX      #$0C                      ; 0x16300 $A2F0 A2 0C                   ;;X = #$0c 0000_1100
@@ -4376,7 +4372,7 @@ LA4C4:                                                                          
     LDY      #$00                      ; 0x164d7 $A4C7 A0 00                   ;;Y = #$00 0000_0000
 LA4C9:                                                                          ;
     LDA      LA4B8,y                   ; 0x164d9 $A4C9 B9 B8 A4                ;
-    STA      L0302,x                   ; 0x164dc $A4CC 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x164dc $A4CC 9D 02 03                ;
     INX                                ; 0x164df $A4CF E8                      ;
     INY                                ; 0x164e0 $A4D0 C8                      ;
     CPY      #$08                      ; 0x164e1 $A4D1 C0 08                   ;
@@ -4523,7 +4519,7 @@ bank5_A610:                                                                    ;
     STY      $0301                     ; 0x16688 $A678 8C 01 03                ; ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     STY      $0725                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector
     DEY                                ; 0x1668e $A67E 88                      ;
-    STY      L0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
+    STY      bss_0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
     JSR      bank7_Title_Music_Tick              ; 0x16692 $A682 20 32 C0                ;
     LDA      $F7                       ; 0x16695 $A685 A5 F7                   ; Controller 1 Buttons Held
 LA687:                                                                         ;
@@ -4936,7 +4932,7 @@ LAB7F:                                                                          
 .byt    $AD                            ; 0x16ba7 $AB97 AD                      ;
 LAB98:                                                                          ;
 .byt    $07                            ; 0x16ba8 $AB98 07                      ;
-    JSR      L07AD                     ; 0x16ba9 $AB99 20 AD 07                ;; * related to Raft Animation *
+    JSR      bss_07AD                     ; 0x16ba9 $AB99 20 AD 07                ;; * related to Raft Animation *
     JSR      L02AD                     ; 0x16bac $AB9C 20 AD 02                ;
     JSR      L9520                     ; 0x16baf $AB9F 20 20 95                ;
 .byt    $A7                            ; 0x16bb2 $ABA2 A7                      ;
@@ -5022,7 +5018,7 @@ bank5_code_AC30:                                                                
 ; ---------------------------------------------------------------------------- ;
 LAC3D:                                                                          ;
     LDA      $2B                       ; 0x16c4d $AC3D A5 2B                   ;
-    STA      L0302                     ; 0x16c4f $AC3F 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x16c4f $AC3F 8D 02 03                ;; Used when writing text to screen
     LDA      $2C                       ; 0x16c52 $AC42 A5 2C                   ;
     STA      $0303                     ; 0x16c54 $AC44 8D 03 03                ;; Letter position when writing to screen
     JSR      LAEC1                     ; 0x16c57 $AC47 20 C1 AE                ;
@@ -5053,7 +5049,7 @@ LAC5E:                                                                          
     STA      $01                       ; 0x16c8d $AC7D 85 01                   ;
     LDY      #$1D                      ; 0x16c8f $AC7F A0 1D                   ;;Y = #$1d 0001_1101
     LDA      $2B                       ; 0x16c91 $AC81 A5 2B                   ;
-    STA      L0302                     ; 0x16c93 $AC83 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x16c93 $AC83 8D 02 03                ;; Used when writing text to screen
     LDA      $2C                       ; 0x16c96 $AC86 A5 2C                   ;
     CLC                                ; 0x16c98 $AC88 18                      ;
     ADC      #$03                      ; 0x16c99 $AC89 69 03                   ;
@@ -5090,7 +5086,7 @@ LACB8:                                                                          
     STA      $03                       ; 0x16cd2 $ACC2 85 03                   ;
     LDY      #$08                      ; 0x16cd4 $ACC4 A0 08                   ;;Y = #$08 0000_1000
     LDA      $2D                       ; 0x16cd6 $ACC6 A5 2D                   ;
-    STA      L0302                     ; 0x16cd8 $ACC8 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x16cd8 $ACC8 8D 02 03                ;; Used when writing text to screen
     LDA      $2E                       ; 0x16cdb $ACCB A5 2E                   ;
     STA      $0303                     ; 0x16cdd $ACCD 8D 03 03                ;; Letter position when writing to screen
     STY      $0304                     ; 0x16ce0 $ACD0 8C 04 03                ;; Text memory offset?
@@ -5127,7 +5123,7 @@ LACFA:                                                                          
     STA      $01                       ; 0x16d14 $AD04 85 01                   ;
     LDY      #$20                      ; 0x16d16 $AD06 A0 20                   ;;Y = #$20 0010_0000
     LDA      $29                       ; 0x16d18 $AD08 A5 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
-    STA      L0302                     ; 0x16d1a $AD0A 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x16d1a $AD0A 8D 02 03                ;; Used when writing text to screen
     LDA      $2A                       ; 0x16d1d $AD0D A5 2A                   ;;monster y	2a,2b,2c,2d,2e,2f
     STA      $0303                     ; 0x16d1f $AD0F 8D 03 03                ;; Letter position when writing to screen
     STY      $0304                     ; 0x16d22 $AD12 8C 04 03                ;; Text memory offset?
@@ -5191,7 +5187,7 @@ bank5_code_AD7C:                                                                
     STA      $03                       ; 0x16d92 $AD82 85 03                   ;
     LDY      #$18                      ; 0x16d94 $AD84 A0 18                   ;;Y = #$18 0001_1000
     LDA      $2F                       ; 0x16d96 $AD86 A5 2F                   ;
-    STA      L0302                     ; 0x16d98 $AD88 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x16d98 $AD88 8D 02 03                ;; Used when writing text to screen
     STA      $031D                     ; 0x16d9b $AD8B 8D 1D 03                ;
     LDA      $30                       ; 0x16d9e $AD8E A5 30                   ;;projectile y		30,31,32,33,34,35	30,y
     STA      $0303                     ; 0x16da0 $AD90 8D 03 03                ;; Letter position when writing to screen
@@ -5323,7 +5319,7 @@ LAE72:                                                                          
     LDA      LAB60,x                   ; 0x16e8b $AE7B BD 60 AB                ;
     STA      $01                       ; 0x16e8e $AE7E 85 01                   ;
     LDA      $2B                       ; 0x16e90 $AE80 A5 2B                   ;
-    STA      L0302                     ; 0x16e92 $AE82 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x16e92 $AE82 8D 02 03                ;; Used when writing text to screen
     LDA      $2C                       ; 0x16e95 $AE85 A5 2C                   ;
     STA      $0303                     ; 0x16e97 $AE87 8D 03 03                ;; Letter position when writing to screen
     LDA      #$20                      ; 0x16e9a $AE8A A9 20                   ;;A = #$20 0010_0000
@@ -5632,7 +5628,7 @@ bank5_Load_Initial_Item_Presence_Bits:                                          
     LDY      #$DF                      ; 0x172e7 $B2D7 A0 DF                   ; Y = DF
 LB2D9:                                                                          ;
     LDA      bank5_Initial_Item_Presence_Bits_600_61F__West_Hyrule,y; 0x172e9 $B2D9 B9 15 BB;
-    STA      L0600,y                   ; 0x172ec $B2DC 99 00 06                ;
+    STA      bss_0600,y                   ; 0x172ec $B2DC 99 00 06                ;
     DEY                                ; 0x172ef $B2DF 88                      ;
     CPY      #$FF                      ; 0x172f0 $B2E0 C0 FF                   ;
     BNE      LB2D9                     ; 0x172f2 $B2E2 D0 F5                   ;
@@ -6015,7 +6011,7 @@ LB52D:                                                                          
     LDA      LB23D,y                   ; 0x17545 $B535 B9 3D B2                ;
     STA      $03                       ; 0x17548 $B538 85 03                   ;
     LDA      L0000                     ; 0x1754a $B53A A5 00                   ;
-    STA      L0302,x                   ; 0x1754c $B53C 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x1754c $B53C 9D 02 03                ;
     LDA      $01                       ; 0x1754f $B53F A5 01                   ;
     STA      $0303,x                   ; 0x17551 $B541 9D 03 03                ;
     LDA      #$08                      ; 0x17554 $B544 A9 08                   ; A = 08
@@ -6044,7 +6040,7 @@ LB54B:                                                                          
     CPX      #$21                      ; 0x1757a $B56A E0 21                   ;
     BNE      LB52D                     ; 0x1757c $B56C D0 BF                   ;
     LDA      #$FF                      ; 0x1757e $B56E A9 FF                   ; A = FF
-    STA      L0302,x                   ; 0x17580 $B570 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x17580 $B570 9D 02 03                ;
     RTS                                ; 0x17583 $B573 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

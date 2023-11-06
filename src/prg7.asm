@@ -5,16 +5,6 @@
 .include "globals.asm"
 
 L000E = $000E
-L0302 = $0302
-L0363 = $0363
-L03A4 = $03A4
-L0600 = $0600
-L0620 = $0620
-L0640 = $0640
-L0660 = $0660
-L0680 = $0680
-L06A0 = $06A0
-L06C0 = $06C0
 L696C = $696C
 
 .segment "PRG7"
@@ -53,9 +43,9 @@ bank7_Title_Music_Tick:
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_PPU_Adresses_according_to_725_as_index:                                  ;
-.word    L0302                         ; 0x1c04d $C03D 02 03                   ;; Used when writing text to screen
-.word    L0363                         ; 0x1c04f $C03F 63 03                   ;
-.word    L03A4                         ; 0x1c051 $C041 A4 03                   ;
+.word    bss_0302                         ; 0x1c04d $C03D 02 03                   ;; Used when writing text to screen
+.word    bss_0363                         ; 0x1c04f $C03F 63 03                   ;
+.word    bss_03A4                         ; 0x1c051 $C041 A4 03                   ;
 .word    bank7_Table_for_some_Palettes ; 0x1c053 $C043 BD D0                   ;Some Palettes
 .word    L696C                         ; 0x1c055 $C045 6C 69                   ;
 .word    bank0_Return_of_Ganon_screen_Palettes; 0x1c057 $C047 C9 80            ;Game Over Palettes
@@ -177,7 +167,7 @@ bank7_NMI_Entry_Point:                                                         ;
     LDA      #$00                      ; 0x1c12f $C11F A9 00                   ; A = 00
     STA      $0301,x                   ; 0x1c131 $C121 9D 01 03                ;
     LDA      #$FF                      ; 0x1c134 $C124 A9 FF                   ; A = FF
-    STA      L0302,x                   ; 0x1c136 $C126 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x1c136 $C126 9D 02 03                ;
     LDA      $0725                     ; 0x1c139 $C129 AD 25 07                ; PPU Macro Selector
 :                                                                              ;
     STA      $0725                     ; 0x1c13c $C12C 8D 25 07                ; PPU Macro Selector
@@ -363,22 +353,22 @@ bank7_C258:                                                                     
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Pointer_table_for_Item_Presence:                                          ;
-.word    L0600                         ; 0x1c275 $C265 00 06                   ;West Hyrule
-.word    L0660                         ; 0x1c277 $C267 60 06                   ;Towns in West Hyrule
-.word    L0660                         ; 0x1c279 $C269 60 06                   ;
-.word    L0680                         ; 0x1c27b $C26B 80 06                   ;Palace 1 / Palace 2
-.word    L06A0                         ; 0x1c27d $C26D A0 06                   ;Palace 3
-.word    L0620                         ; 0x1c27f $C26F 20 06                   ;Death Mountain / Maze Island
-.word    L0660                         ; 0x1c281 $C271 60 06                   ;
-.word    L0660                         ; 0x1c283 $C273 60 06                   ;
-.word    L0680                         ; 0x1c285 $C275 80 06                   ;
-.word    L06A0                         ; 0x1c287 $C277 A0 06                   ;Palace 4
-.word    L0640                         ; 0x1c289 $C279 40 06                   ;East Hyrule
-.word    L0660                         ; 0x1c28b $C27B 60 06                   ;
-.word    L0660                         ; 0x1c28d $C27D 60 06                   ;Towns in East Hyrule
-.word    L0680                         ; 0x1c28f $C27F 80 06                   ;Palace 5
-.word    L06A0                         ; 0x1c291 $C281 A0 06                   ;Palace 6
-.word    L06C0                         ; 0x1c293 $C283 C0 06                   ;Palace 7
+.word    bss_0600                         ; 0x1c275 $C265 00 06                   ;West Hyrule
+.word    bss_0660                         ; 0x1c277 $C267 60 06                   ;Towns in West Hyrule
+.word    bss_0660                         ; 0x1c279 $C269 60 06                   ;
+.word    bss_0680                         ; 0x1c27b $C26B 80 06                   ;Palace 1 / Palace 2
+.word    bss_06A0                         ; 0x1c27d $C26D A0 06                   ;Palace 3
+.word    bss_0620                         ; 0x1c27f $C26F 20 06                   ;Death Mountain / Maze Island
+.word    bss_0660                         ; 0x1c281 $C271 60 06                   ;
+.word    bss_0660                         ; 0x1c283 $C273 60 06                   ;
+.word    bss_0680                         ; 0x1c285 $C275 80 06                   ;
+.word    bss_06A0                         ; 0x1c287 $C277 A0 06                   ;Palace 4
+.word    bss_0640                         ; 0x1c289 $C279 40 06                   ;East Hyrule
+.word    bss_0660                         ; 0x1c28b $C27B 60 06                   ;
+.word    bss_0660                         ; 0x1c28d $C27D 60 06                   ;Towns in East Hyrule
+.word    bss_0680                         ; 0x1c28f $C27F 80 06                   ;Palace 5
+.word    bss_06A0                         ; 0x1c291 $C281 A0 06                   ;Palace 6
+.word    bss_06C0                         ; 0x1c293 $C283 C0 06                   ;Palace 7
 ; ---------------------------------------------------------------------------- ;
 bank7_Tables_for_Various_Bitmasks1:                                             ;
 .byt    $F7,$FB,$FD,$FE                ; 0x1c295 $C285 F7 FB FD FE             ;
@@ -582,7 +572,7 @@ bank7_Load_Lives_Remaining_Screen:                                              
     LDY      #$13                      ; 0x1c3ce $C3BE A0 13                   ; Y = 13
 LC3C0:                                                                          ;
     LDA      $6958,y                   ; 0x1c3d0 $C3C0 B9 58 69                ;
-    STA      L0302,y                   ; 0x1c3d3 $C3C3 99 02 03                ;
+    STA      bss_0302,y                   ; 0x1c3d3 $C3C3 99 02 03                ;
     DEY                                ; 0x1c3d6 $C3C6 88                      ;
     BPL      LC3C0                     ; 0x1c3d7 $C3C7 10 F7                   ;
     LDY      #$07                      ; 0x1c3d9 $C3C9 A0 07                   ; Y = 07
@@ -1625,7 +1615,7 @@ LCAF7_gameoverscreen_select_button_pressed:                                     
     LDY      #$06                      ; 0x1cb0d $CAFD A0 06                   ; Y = 06
 LCAFF:                                                                          ;
     LDA      $6974,y                   ; 0x1cb0f $CAFF B9 74 69                ;
-    STA      L0302,y                   ; 0x1cb12 $CB02 99 02 03                ;
+    STA      bss_0302,y                   ; 0x1cb12 $CB02 99 02 03                ;
     DEY                                ; 0x1cb15 $CB05 88                      ;
     BPL      LCAFF                     ; 0x1cb16 $CB06 10 F7                   ;
     LDA      $0488                     ; 0x1cb18 $CB08 AD 88 04                ;
@@ -2457,7 +2447,7 @@ LD07D:                                                                          
     TAX                                ; 0x1d08d $D07D AA                      ;
     LDY      #$00                      ; 0x1d08e $D07E A0 00                   ; Y = 00
     LDA      #$3F                      ; 0x1d090 $D080 A9 3F                   ; A = 3F
-    STA      L0302                     ; 0x1d092 $D082 8D 02 03                ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x1d092 $D082 8D 02 03                ;; Used when writing text to screen
     STY      $0303                     ; 0x1d095 $D085 8C 03 03                ;; Letter position when writing to screen
 LD088:                                                                          ;
     LDA      $7919,x                   ; 0x1d098 $D088 BD 19 79                ;
@@ -2778,7 +2768,7 @@ bank7_Reset_Memory_Ranges:                                                     ;
     LDX      #$00                      ; 0x1d29a $D28A A2 00                   ; X = 00
     TXA                                ; 0x1d29c $D28C 8A                      ;
 @Loop0600:                                                                     ;
-    STA      L0600,x                   ; 0x1d29d $D28D 9D 00 06                ;
+    STA      bss_0600,x                   ; 0x1d29d $D28D 9D 00 06                ;
     DEX                                ; 0x1d2a0 $D290 CA                      ;
     BNE      @Loop0600                 ; 0x1d2a1 $D291 D0 FA                   ;
 bank7_D293:                                                                         ;
@@ -2807,8 +2797,8 @@ bank7_Set_Memory_300_4FF_and_00_DF_to_Zero:                                    ;
     DEX                                ; 0x1d2c2 $D2B2 CA                      ;
     CPX      #$FF                      ; 0x1d2c3 $D2B3 E0 FF                   ;
     BNE      @LoopZeroPage             ; 0x1d2c5 $D2B5 D0 F9                   ;
-    STX      L0302                     ; 0x1d2c7 $D2B7 8E 02 03                ; Used when writing text to screen
-    STX      L0363                     ; 0x1d2ca $D2BA 8E 63 03                ;
+    STX      bss_0302                     ; 0x1d2c7 $D2B7 8E 02 03                ; Used when writing text to screen
+    STX      bss_0363                     ; 0x1d2ca $D2BA 8E 63 03                ;
     RTS                                ; 0x1d2cd $D2BD 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -7975,7 +7965,7 @@ bank7_code54__Flash_Text_QUIT_Red_and_White:                                    
     LDX      #$04                      ; 0x1fea0 $FE90 A2 04                   ; X = 04
 LFE92:                                                                          ;
     LDA      bank7_pointer_table+$06,x ; 0x1fea2 $FE92 BD 82 FE                ;
-    STA      L0302,x                   ; 0x1fea5 $FE95 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x1fea5 $FE95 9D 02 03                ;
     DEX                                ; 0x1fea8 $FE98 CA                      ;
     BPL      LFE92                     ; 0x1fea9 $FE99 10 F7                   ;
     PLA                                ; 0x1feab $FE9B 68                      ;

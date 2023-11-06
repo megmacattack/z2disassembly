@@ -18,8 +18,6 @@
 
 L0000 = $0000
 L000E = $000E
-L0302 = $0302
-L05C9 = $05C9
 L7000 = $7000
 L7002 = $7002
 L7006 = $7006
@@ -637,7 +635,7 @@ L83AA:                                                                          
     DEY                                ; 0x43c0 $83B0 88                       ;
     BPL      L83AA                     ; 0x43c1 $83B1 10 F7                    ;
     LDA      $79                       ; 0x43c3 $83B3 A5 79                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
-    STA      L0302                     ; 0x43c5 $83B5 8D 02 03                 ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x43c5 $83B5 8D 02 03                 ;; Used when writing text to screen
     STA      $0307                     ; 0x43c8 $83B8 8D 07 03                 ;; Text memory offset?
     LDA      $7A                       ; 0x43cb $83BB A5 7A                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      $0303                     ; 0x43cd $83BD 8D 03 03                 ;; Letter position when writing to screen
@@ -2442,7 +2440,7 @@ bank1_Table_for_Dumb_Moblin_X_Velocity:                                         
 .byt    $10,$F0                        ; 0x593d $992D 10 F0                    ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines1_Dumb_Moblin_Generator:                                    ;
-    LDA      L05C9                     ; 0x593f $992F AD C9 05                 ;
+    LDA      bss_05C9                     ; 0x593f $992F AD C9 05                 ;
     BNE      L994E                     ; 0x5942 $9932 D0 1A                    ;
     JSR      bank1_Enemy_Routines1_Generators; 0x5944 $9934 20 31 9B               ;
     BCS      L994E                     ; 0x5947 $9937 B0 15                    ;

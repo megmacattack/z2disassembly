@@ -19,8 +19,6 @@
 L0000 = $0000
 L0002 = $0002
 L000E = $000E
-L0302 = $0302
-L0363 = $0363
 L6060 = $6060
 L6261 = $6261
 L7000 = $7000
@@ -1769,7 +1767,7 @@ L9961:                                                                          
     ASL                                ; 0xd99f $998F 0A                       ;
     ASL                                ; 0xd9a0 $9990 0A                       ;
     ORA      #$22                      ; 0xd9a1 $9991 09 22                    ; set  bits ..x. ..x.
-    STA      L0302,y                   ; 0xd9a3 $9993 99 02 03                 ;
+    STA      bss_0302,y                   ; 0xd9a3 $9993 99 02 03                 ;
     STA      $030B,y                   ; 0xd9a6 $9996 99 0B 03                 ;
     LDA      #$86                      ; 0xd9a9 $9999 A9 86                    ; A = 86
     STA      $0304,y                   ; 0xd9ab $999B 99 04 03                 ;
@@ -3163,7 +3161,7 @@ LB146:                                                                          
 ;End PPU Macro                                                                 ;
 bank3_End_PPU_Macro:                                                            ;
     LDA      #$FF                      ; 0xf161 $B151 A9 FF                    ; A = FF
-    STA      L0363,y                   ; 0xf163 $B153 99 63 03                 ;
+    STA      bss_0363,y                   ; 0xf163 $B153 99 63 03                 ;
     STY      $0362                     ; 0xf166 $B156 8C 62 03                 ;; PPU Macro Offset
     LDA      #$01                      ; 0xf169 $B159 A9 01                    ; A = 01
     STA      $0725                     ; 0xf16b $B15B 8D 25 07                 ;; PPU Macro Selector
@@ -3188,7 +3186,7 @@ LB15F:                                                                          
     ASL                                ; 0xf183 $B173 0A                       ;
     ASL                                ; 0xf184 $B174 0A                       ;
     ADC      #$23                      ; 0xf185 $B175 69 23                    ;
-    STA      L0363,y                   ; 0xf187 $B177 99 63 03                 ;
+    STA      bss_0363,y                   ; 0xf187 $B177 99 63 03                 ;
     LDA      $0525                     ; 0xf18a $B17A AD 25 05                 ; Routine Delay
     CLC                                ; 0xf18d $B17D 18                       ;
     ADC      #$01                      ; 0xf18e $B17E 69 01                    ;
@@ -3385,7 +3383,7 @@ LB282:                                                                          
     ASL                                ; 0xf2bb $B2AB 0A                       ;
     ADC      #$20                      ; 0xf2bc $B2AC 69 20                    ;
     ADC      $04                       ; 0xf2be $B2AE 65 04                    ;
-    STA      L0363,y                   ; 0xf2c0 $B2B0 99 63 03                 ;
+    STA      bss_0363,y                   ; 0xf2c0 $B2B0 99 63 03                 ;
     LDA      $06                       ; 0xf2c3 $B2B3 A5 06                    ;
     ASL                                ; 0xf2c5 $B2B5 0A                       ;
     STA      $0365,y                   ; 0xf2c6 $B2B6 99 65 03                 ;
@@ -3394,7 +3392,7 @@ LB282:                                                                          
     INY                                ; 0xf2cb $B2BB C8                       ;
 LB2BC:                                                                          ;
     LDA      $053E,x                   ; 0xf2cc $B2BC BD 3E 05                 ;; Tiles for Dialog Box Rows
-    STA      L0363,y                   ; 0xf2cf $B2BF 99 63 03                 ;
+    STA      bss_0363,y                   ; 0xf2cf $B2BF 99 63 03                 ;
     INX                                ; 0xf2d2 $B2C2 E8                       ;
     LDA      $053E,x                   ; 0xf2d3 $B2C3 BD 3E 05                 ;; Tiles for Dialog Box Rows
     STA      $0364,y                   ; 0xf2d6 $B2C6 99 64 03                 ;
@@ -4088,7 +4086,7 @@ LB6F6:                                                                          
     STA      $0303                     ; 0xf739 $B729 8D 03 03                 ;; Letter position when writing to screen
     LDA       a:$03                     ; 0xf73c $B72C AD 03 00                 ;
     ADC      #$00                      ; 0xf73f $B72F 69 00                    ;
-    STA      L0302                     ; 0xf741 $B731 8D 02 03                 ;; Used when writing text to screen
+    STA      bss_0302                     ; 0xf741 $B731 8D 02 03                 ;; Used when writing text to screen
     LDA      #$82                      ; 0xf744 $B734 A9 82                    ; A = 82
     STA      $0304                     ; 0xf746 $B736 8D 04 03                 ;; Text memory offset?
     STX      $0305                     ; 0xf749 $B739 8E 05 03                 ; tile above current letter

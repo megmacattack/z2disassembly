@@ -18,7 +18,6 @@
 
 L0000 = $0000
 L000E = $000E
-L0302 = $0302
 L7000 = $7000
 L7002 = $7002
 L7020 = $7020
@@ -609,7 +608,7 @@ L83AA:                                                                          
     DEY                                ; 0x83c0 $83B0 88                       ;
     BPL      L83AA                     ; 0x83c1 $83B1 10 F7                    ;
     LDA      $79                       ; 0x83c3 $83B3 A5 79                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
-    STA      L0302                     ; 0x83c5 $83B5 8D 02 03                 ;; Used when writing text to screen
+    STA      bss_0302                     ; 0x83c5 $83B5 8D 02 03                 ;; Used when writing text to screen
     STA      $0307                     ; 0x83c8 $83B8 8D 07 03                 ;; Text memory offset?
     LDA      $7A                       ; 0x83cb $83BB A5 7A                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      $0303                     ; 0x83cd $83BD 8D 03 03                 ;; Letter position when writing to screen

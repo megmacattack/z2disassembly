@@ -18,8 +18,6 @@
 
 L0000 = $0000
 L000E = $000E
-L0302 = $0302
-L05C9 = $05C9
 L7000 = $7000
 L7001 = $7001
 L7006 = $7006
@@ -2186,7 +2184,7 @@ bank4_code8:                                                                    
     LDY      #$07                      ; 0x11bad $9B9D A0 07                   ; Y = 07
 L9B9F:                                                                          ;
     LDA      L9B8D,y                   ; 0x11baf $9B9F B9 8D 9B                ;
-    STA      L0302,y                   ; 0x11bb2 $9BA2 99 02 03                ;
+    STA      bss_0302,y                   ; 0x11bb2 $9BA2 99 02 03                ;
     DEY                                ; 0x11bb5 $9BA5 88                      ;
     BPL      L9B9F                     ; 0x11bb6 $9BA6 10 F7                   ;
     LDA      $0767                     ; 0x11bb8 $9BA8 AD 67 07                ;; Related to Crystal Placement
@@ -3404,7 +3402,7 @@ LAC1F:                                                                          
     ASL                                ; 0x12c6e $AC5E 0A                      ;
     ORA      L0000                     ; 0x12c6f $AC5F 05 00                   ;
     LDX      $0301                     ; 0x12c71 $AC61 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    STA      L0302,x                   ; 0x12c74 $AC64 9D 02 03                ;
+    STA      bss_0302,x                   ; 0x12c74 $AC64 9D 02 03                ;
     PHA                                ; 0x12c77 $AC67 48                      ;
     LDA      $01                       ; 0x12c78 $AC68 A5 01                   ;
     STA      $0303,x                   ; 0x12c7a $AC6A 9D 03 03                ;
@@ -3476,7 +3474,7 @@ LACDA:                                                                          
     LDA      $C9                       ; 0x12cea $ACDA A5 C9                   ;
     AND      #$0C                      ; 0x12cec $ACDC 29 0C                   ; keep bits .... xx..
     BEQ      LACE8                     ; 0x12cee $ACDE F0 08                   ;
-    LDA      L05C9                     ; 0x12cf0 $ACE0 AD C9 05                ;
+    LDA      bss_05C9                     ; 0x12cf0 $ACE0 AD C9 05                ;
     BNE      bank4_code13              ; 0x12cf3 $ACE3 D0 F4                   ;
     JSR      LACAD                     ; 0x12cf5 $ACE5 20 AD AC                ;
 LACE8:                                                                          ;
@@ -5212,7 +5210,7 @@ bank4_table13:                                                                  
 bank4_Enemy_Routines_Mau_Generator:                                             ;
     LDA      $12                       ; 0x13871 $B861 A5 12                   ;; Frame Counter (ascending)
     ASL                                ; 0x13873 $B863 0A                      ;
-    ORA      L05C9                     ; 0x13874 $B864 0D C9 05                ;
+    ORA      bss_05C9                     ; 0x13874 $B864 0D C9 05                ;
     BNE      LB872                     ; 0x13877 $B867 D0 09                   ;
 LB869:                                                                          ;
     LDX      #$05                      ; 0x13879 $B869 A2 05                   ; X = 05
@@ -5485,7 +5483,7 @@ bank4_Enemy_Routines_Ra_Unicorn_Head:                                           
     LDA      $C9                       ; 0x13a30 $BA20 A5 C9                   ;
     AND      #$0C                      ; 0x13a32 $BA22 29 0C                   ; keep bits .... xx..
     BEQ      LBA2E                     ; 0x13a34 $BA24 F0 08                   ;
-    LDA      L05C9                     ; 0x13a36 $BA26 AD C9 05                ;
+    LDA      bss_05C9                     ; 0x13a36 $BA26 AD C9 05                ;
     BNE      LBA53                     ; 0x13a39 $BA29 D0 28                   ;
     JSR      bank4_Enemy_Init_Routines_Ra_Unicorn_Head; 0x13a3b $BA2B 20 F4 B9     ;
 LBA2E:                                                                          ;

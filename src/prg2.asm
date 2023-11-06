@@ -989,9 +989,9 @@ L87A6:                                                                          
     CMP      #$FF                      ; 0x87b9 $87A9 C9 FF                    ;
     BEQ      L87CB                     ; 0x87bb $87AB F0 1E                    ;
     TAY                                ; 0x87bd $87AD A8                       ;
-    LDA      bss_0785,y                   ; 0x87be $87AE B9 85 07                 ; Item Collected?
+    LDA      player_items,y                   ; 0x87be $87AE B9 85 07                 ; Item Collected?
     BEQ      L87CB                     ; 0x87c1 $87B1 F0 18                    ;
-    LDA      bss_078D,y                   ; 0x87c3 $87B3 B9 8D 07                 ; Crystal Placed?
+    LDA      placed_gems_list,y                   ; 0x87c3 $87B3 B9 8D 07                 ; Crystal Placed?
     BEQ      L87CB                     ; 0x87c6 $87B6 F0 13                    ;
     TXA                                ; 0x87c8 $87B8 8A                       ;
     ASL                                ; 0x87c9 $87B9 0A                       ;

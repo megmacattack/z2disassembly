@@ -489,36 +489,39 @@ bss_076F: .res 1 ; unknown size
 bss_0770: .res 1 ; unknown size
 bss_0771: .res 1 ; unknown size
 bss_0772: .res 1 ; unknown size
-bss_0773: .res 1 ; unknown size
-bss_0774: .res 1 ; unknown size
-bss_0775: .res 1 ; unknown size
-bss_0776: .res 1 ; unknown size
-bss_0777: .res 1 ; unknown size
-bss_0778: .res 1 ; unknown size
-bss_0779: .res 1 ; unknown size
+player_magic: .res 1
+player_life: .res 1
+player_exp: .res 2
+player_levels: ; the player's levels when selected indirectly (ie. `lda player_life_lvl,x`)
+player_atk_lvl: .res 1
+player_magic_lvl: .res 1
+player_life_lvl: .res 1
 
 setpos $077B
-bss_077B: .res 1 ; unknown size
+player_spells: .res 8
 
 setpos $0783
-bss_0783: .res 1 ; unknown size
-bss_0784: .res 1 ; unknown size
-bss_0785: .res 1 ; unknown size
-bss_0786: .res 1 ; unknown size
-bss_0787: .res 1 ; unknown size
-bss_0788: .res 1 ; unknown size
-bss_0789: .res 1 ; unknown size
-bss_078A: .res 1 ; unknown size
-bss_078B: .res 1 ; unknown size
-bss_078C: .res 1 ; unknown size
-bss_078D: .res 1 ; unknown size
+player_jars: ; the player's jars when selected indirectly (ie. `lda player_jars,x`)
+player_magic_jars: .res 1
+player_life_jars: .res 1
+
+player_items: ; the player's items when selected indirectly (ie. `lda player_items,x`)
+player_has_candle: .res 1
+player_has_glove: .res 1
+player_has_raft: .res 1
+player_has_boots: .res 1
+player_has_flute: .res 1
+player_has_cross: .res 1
+player_has_hammer: .res 1
+player_has_anykey: .res 1
+placed_gems_list: .res 6
 
 setpos $0793
-bss_0793: .res 1 ; unknown size
-bss_0794: .res 1 ; unknown size
+player_keys: .res 1
+player_gems_remain: .res 1
 
 setpos $0796
-bss_0796: .res 1 ; unknown size
+player_skills: .res 1 ; bitmask: 0x2=talked-to-error, 0x4=upstab, 0x10=downstab
 bss_0797: .res 1 ; unknown size
 bss_0798: .res 1 ; unknown size
 

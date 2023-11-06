@@ -1934,14 +1934,14 @@ bank4_Enemy_Routines_Bubble__Slow_Fast:                                         
     LDA      $A8,x                     ; 0x119ed $99DD B5 A8                   ; Enemy State ?
     AND      #$10                      ; 0x119ef $99DF 29 10                   ; keep bits ...x ....
     BEQ      L99F0                     ; 0x119f1 $99E1 F0 0D                   ; if Not 0, skip magic stealing
-    LDA      bss_0773                     ; 0x119f3 $99E3 AD 73 07                ; Current Magic left in meter
+    LDA      player_magic                     ; 0x119f3 $99E3 AD 73 07                ; Current Magic left in meter
 L99E6:                                                                          ;
     SEC                                ; 0x119f6 $99E6 38                      ;
     SBC      #$01                      ; 0x119f7 $99E7 E9 01                   ; Steal 1 unit of magic...
     BCS      L99ED                     ; 0x119f9 $99E9 B0 02                   ;
     LDA      #$00                      ; 0x119fb $99EB A9 00                   ; A = 00
 L99ED:                                                                          ;
-    STA      bss_0773                     ; 0x119fd $99ED 8D 73 07                ; Current Magic left in meter
+    STA      player_magic                     ; 0x119fd $99ED 8D 73 07                ; Current Magic left in meter
 L99F0:                                                                          ;
     LDA      bss_074F                     ; 0x11a00 $99F0 AD 4F 07                ;; Related to Pause Pane
     ORA      #$80                      ; 0x11a03 $99F3 09 80                   ; set bits  x... ....
@@ -2082,7 +2082,7 @@ L9ADE:                                                                          
 bank4_Related_to_placing_crystal_onto_statue:                                   ;
     LDA      $C9                       ; 0x11afb $9AEB A5 C9                   ;
     BNE      L9B2A                     ; 0x11afd $9AED D0 3B                   ;
-    LDA      bss_0794                     ; 0x11aff $9AEF AD 94 07                ; Number of Crystals left
+    LDA      player_gems_remain                     ; 0x11aff $9AEF AD 94 07                ; Number of Crystals left
     BEQ      L9B2A                     ; 0x11b02 $9AF2 F0 36                   ;
     JSR      bank7_E4D9                     ; 0x11b04 $9AF4 20 D9 E4                ;
     LDA      $A8,x                     ; 0x11b07 $9AF7 B5 A8                   ; Enemy State ?
@@ -2097,7 +2097,7 @@ bank4_Related_to_placing_crystal_onto_statue:                                   
     STA      $80                       ; 0x11b19 $9B09 85 80                   ; Current Animation Frame for Link (OW and SS)
     LDA      #$A0                      ; 0x11b1b $9B0B A9 A0                   ; A = A0
     STA      $2A,x                     ; 0x11b1d $9B0D 95 2A                   ; Enemy Y Position
-    DEC      bss_0794                     ; 0x11b1f $9B0F CE 94 07                ; Number of Crystals left
+    DEC      player_gems_remain                     ; 0x11b1f $9B0F CE 94 07                ; Number of Crystals left
     LDA      #$08                      ; 0x11b22 $9B12 A9 08                   ; A = 08 (sound of crystal)
     STA      $EF                       ; 0x11b24 $9B14 85 EF                   ; Sound Effects Type 4
     LDA      #$80                      ; 0x11b26 $9B16 A9 80                   ; A = 80
@@ -2110,7 +2110,7 @@ L9B22:                                                                          
     SEC                                ; 0x11b32 $9B22 38                      ;
     ADC      palace_code                     ; 0x11b33 $9B23 6D 6C 05                ;; Palace Code
     TAY                                ; 0x11b36 $9B26 A8                      ;
-    STA      bss_078C,y                   ; 0x11b37 $9B27 99 8C 07                ; Crystals Placed (1 = crystal placed)
+    STA      player_has_anykey,y                   ; 0x11b37 $9B27 99 8C 07                ; Crystals Placed (1 = crystal placed)
 L9B2A:                                                                          ;
     RTS                                ; 0x11b3a $9B2A 60                      ;
                                                                                ;
@@ -2151,10 +2151,10 @@ L9B56:                                                                          
     STA      $DE                       ; 0x11b6e $9B5E 85 DE                   ; Spell Spell modifier (and more)
     LDA      bss_0771                     ; 0x11b70 $9B60 AD 71 07                ; Exp. needed for Next Level (low byte)
     SEC                                ; 0x11b73 $9B63 38                      ;
-    SBC      bss_0776                     ; 0x11b74 $9B64 ED 76 07                ; Current Experience (low byte)
+    SBC      player_exp+1                     ; 0x11b74 $9B64 ED 76 07                ; Current Experience (low byte)
     STA      bss_0756                     ; 0x11b77 $9B67 8D 56 07                ; Experience to be added (low byte)
     LDA      bss_0770                     ; 0x11b7a $9B6A AD 70 07                ; Exp. needed for Next Level (high byte)
-    SBC      bss_0775                     ; 0x11b7d $9B6D ED 75 07                ; Current Experience (high byte)
+    SBC      player_exp                     ; 0x11b7d $9B6D ED 75 07                ; Current Experience (high byte)
     STA      bss_0755                     ; 0x11b80 $9B70 8D 55 07                ; Experience to be added (high byte)
     LDY      $BC,x                     ; 0x11b83 $9B73 B4 BC                   ;; Generated Enemy Y Position ?
     INY                                ; 0x11b85 $9B75 C8                      ;

@@ -3703,9 +3703,9 @@ bank3_Dialog_Conditions_Blue_Old_Woman__Immobile___River_Man:                   
     LDA      bss_079A                     ; 0xf4b7 $B4A7 AD 9A 07                 ; Have Note from Bagu? (08 = YES)
     AND      #$08                      ; 0xf4ba $B4AA 29 08                    ; keep bits .... x...
     BEQ      LB4B8                     ; 0xf4bc $B4AC F0 0A                    ; if Not, goto F4B8
-    LDA      bss_0796                     ; 0xf4be $B4AE AD 96 07                 ; Down/Up Techs (and others)
+    LDA      player_skills                     ; 0xf4be $B4AE AD 96 07                 ; Down/Up Techs (and others)
     ORA      #$01                      ; 0xf4c1 $B4B1 09 01                    ; set bits  .... ...x
-    STA      bss_0796                     ; 0xf4c3 $B4B3 8D 96 07                 ;; Down/Up Techs (and other things)
+    STA      player_skills                     ; 0xf4c3 $B4B3 8D 96 07                 ;; Down/Up Techs (and other things)
     INC      $05                       ; 0xf4c6 $B4B6 E6 05                    ;
 LB4B8:                                                                          ;
     JMP      bank3_Dialog_Conditions_default; 0xf4c8 $B4B8 4C C7 B5                ;
@@ -3714,13 +3714,13 @@ LB4B8:                                                                          
 bank3_Knight_Type_A_Downward_Stab__03:                                          ;
     CPY      #$03                      ; 0xf4cb $B4BB C0 03                    ;
     BNE      bank3_Knight_Type_B_Up_Stab__03; 0xf4cd $B4BD D0 14                   ;
-    LDA      bss_0796                     ; 0xf4cf $B4BF AD 96 07                 ; Down/Up Techs
+    LDA      player_skills                     ; 0xf4cf $B4BF AD 96 07                 ; Down/Up Techs
     AND      #$10                      ; 0xf4d2 $B4C2 29 10                    ; keep bits ...x .... (Downward Stab)
     BEQ      LB4CB                     ; 0xf4d4 $B4C4 F0 05                    ;
     INC      $05                       ; 0xf4d6 $B4C6 E6 05                    ;
     INC      bss_048C                     ; 0xf4d8 $B4C8 EE 8C 04                 ;
 LB4CB:                                                                          ;
-    LDA      bss_0796                     ; 0xf4db $B4CB AD 96 07                 ; Down/Up Techs
+    LDA      player_skills                     ; 0xf4db $B4CB AD 96 07                 ; Down/Up Techs
     ORA      #$10                      ; 0xf4de $B4CE 09 10                    ; set  bits ...x .... (set Down Stab)
     JMP      LB4E8                     ; 0xf4e0 $B4D0 4C E8 B4                 ;
                                                                                ;
@@ -3728,16 +3728,16 @@ LB4CB:                                                                          
 bank3_Knight_Type_B_Up_Stab__03:                                                ;
     CPY      #$00                      ; 0xf4e3 $B4D3 C0 00                    ;
     BEQ      LB4EB                     ; 0xf4e5 $B4D5 F0 14                    ;
-    LDA      bss_0796                     ; 0xf4e7 $B4D7 AD 96 07                 ; Down/Up Techs
+    LDA      player_skills                     ; 0xf4e7 $B4D7 AD 96 07                 ; Down/Up Techs
     AND      #$04                      ; 0xf4ea $B4DA 29 04                    ; keep bits .... .x.. (Up Stab)
     BEQ      LB4E3                     ; 0xf4ec $B4DC F0 05                    ;
     INC      $05                       ; 0xf4ee $B4DE E6 05                    ;
     INC      bss_048C                     ; 0xf4f0 $B4E0 EE 8C 04                 ;
 LB4E3:                                                                          ;
-    LDA      bss_0796                     ; 0xf4f3 $B4E3 AD 96 07                 ; Down/Up Techs
+    LDA      player_skills                     ; 0xf4f3 $B4E3 AD 96 07                 ; Down/Up Techs
     ORA      #$04                      ; 0xf4f6 $B4E6 09 04                    ; set  bits .... .x.. (set Up Stab)
 LB4E8:                                                                          ;
-    STA      bss_0796                     ; 0xf4f8 $B4E8 8D 96 07                 ;; Down/Up Techs (and other things)
+    STA      player_skills                     ; 0xf4f8 $B4E8 8D 96 07                 ;; Down/Up Techs (and other things)
 LB4EB:                                                                          ;
     JMP      bank3_Dialog_Conditions_default; 0xf4fb $B4EB 4C C7 B5                ;
                                                                                ;
@@ -3745,16 +3745,16 @@ LB4EB:                                                                          
 bank3_Dialog_Conditions_Blue_Lumberjack__Immobile:                              ;
     CPY      #$03                      ; 0xf4fe $B4EE C0 03                    ;
     BNE      bank3_Error_of_Ruto__04   ; 0xf500 $B4F0 D0 0B                    ;
-    LDA      bss_0796                     ; 0xf502 $B4F2 AD 96 07                 ; Up/Down Techs (and other things)
+    LDA      player_skills                     ; 0xf502 $B4F2 AD 96 07                 ; Up/Down Techs (and other things)
     ORA      #$02                      ; 0xf505 $B4F5 09 02                    ; set bits  .... ..x.
-    STA      bss_0796                     ; 0xf507 $B4F7 8D 96 07                 ;; Down/Up Techs (and other things)
+    STA      player_skills                     ; 0xf507 $B4F7 8D 96 07                 ;; Down/Up Techs (and other things)
     JMP      bank3_Dialog_Conditions_default; 0xf50a $B4FA 4C C7 B5                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Error_of_Ruto__04:                                                        ;
     CPY      #$01                      ; 0xf50d $B4FD C0 01                    ;
     BNE      bank3_Unknown_Townfolk__04; 0xf50f $B4FF D0 0C                    ;
-    LDA      bss_0796                     ; 0xf511 $B501 AD 96 07                 ; Up/Down Techs
+    LDA      player_skills                     ; 0xf511 $B501 AD 96 07                 ; Up/Down Techs
     AND      #$02                      ; 0xf514 $B504 29 02                    ; keep bits .... ..x.
     BEQ      LB50A                     ; 0xf516 $B506 F0 02                    ;
 LB508:                                                                          ;
@@ -3766,31 +3766,31 @@ LB50A:                                                                          
 bank3_Unknown_Townfolk__04:                                                     ;
     CPY      #$00                      ; 0xf51d $B50D C0 00                    ;
     BEQ      LB50A                     ; 0xf51f $B50F F0 F9                    ;
-    LDA      bss_078A                     ; 0xf521 $B511 AD 8A 07                 ; Have Cross
+    LDA      player_has_cross                     ; 0xf521 $B511 AD 8A 07                 ; Have Cross
     BNE      LB508                     ; 0xf524 $B514 D0 F2                    ;
     BEQ      LB50A                     ; 0xf526 $B516 F0 F2                    ;
 bank3_Dialog_Conditions_Wise_Man:                                               ;
     STY      $01                       ; 0xf528 $B518 84 01                    ;
     INC      $01                       ; 0xf52a $B51A E6 01                    ;
-    LDA      bss_077B,y                   ; 0xf52c $B51C B9 7B 07                 ; Have Magic #Y
+    LDA      player_spells,y                   ; 0xf52c $B51C B9 7B 07                 ; Have Magic #Y
     BEQ      LB526                     ; 0xf52f $B51F F0 05                    ;
     INC      bss_048C                     ; 0xf531 $B521 EE 8C 04                 ;
     BNE      LB52D                     ; 0xf534 $B524 D0 07                    ;
 LB526:                                                                          ;
-    LDA      bss_0783                     ; 0xf536 $B526 AD 83 07                 ; Current number of Magic Containers
+    LDA      player_magic_jars                     ; 0xf536 $B526 AD 83 07                 ; Current number of Magic Containers
     CMP      $01                       ; 0xf539 $B529 C5 01                    ;
     BCC      LB54B                     ; 0xf53b $B52B 90 1E                    ;
 LB52D:                                                                          ;
     INC      $05                       ; 0xf53d $B52D E6 05                    ;
     LDA      #$01                      ; 0xf53f $B52F A9 01                    ; A = 01
-    STA      bss_077B,y                   ; 0xf541 $B531 99 7B 07                 ; Have Magic #Y
+    STA      player_spells,y                   ; 0xf541 $B531 99 7B 07                 ; Have Magic #Y
     STY      $01                       ; 0xf544 $B534 84 01                    ;
     LDX      #$07                      ; 0xf546 $B536 A2 07                    ; X = 07
     LDA      #$00                      ; 0xf548 $B538 A9 00                    ; A = 00
 LB53A:                                                                          ;
     CPX      $01                       ; 0xf54a $B53A E4 01                    ;
     BEQ      LB541                     ; 0xf54c $B53C F0 03                    ;
-    ORA      bss_077B,x                   ; 0xf54e $B53E 1D 7B 07                 ; Have Magic #X
+    ORA      player_spells,x                   ; 0xf54e $B53E 1D 7B 07                 ; Have Magic #X
 LB541:                                                                          ;
     DEX                                ; 0xf551 $B541 CA                       ;
     BPL      LB53A                     ; 0xf552 $B542 10 F6                    ;
@@ -3939,9 +3939,9 @@ bank3_Table_for_Bit_Masks:                                                      
 .byt    $01,$02,$04,$08,$10,$20,$40,$80; 0xf635 $B625 01 02 04 08 10 20 40 80  ;Table for Bit Masks (8 bytes)
 ; ---------------------------------------------------------------------------- ;
 bank3_code21:                                                                   ;
-    LDA      bss_0796                     ; 0xf63d $B62D AD 96 07                 ; Down/Up Techs
+    LDA      player_skills                     ; 0xf63d $B62D AD 96 07                 ; Down/Up Techs
     ORA      bank3_Table_for_Bit_Masks,y; 0xf640 $B630 19 25 B6                 ;
-    STA      bss_0796                     ; 0xf643 $B633 8D 96 07                 ;; Down/Up Techs (and other things)
+    STA      player_skills                     ; 0xf643 $B633 8D 96 07                 ;; Down/Up Techs (and other things)
     JMP      bank3_Dialog_Conditions_default; 0xf646 $B636 4C C7 B5                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3952,7 +3952,7 @@ LB639:                                                                          
     BCC      LB690                     ; 0xf650 $B640 90 4E                    ;
 LB642:                                                                          ;
     LDY      town_code                     ; 0xf652 $B642 AC 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
-    LDA      bss_077B,y                   ; 0xf655 $B645 B9 7B 07                 ; Have magic #Y ?
+    LDA      player_spells,y                   ; 0xf655 $B645 B9 7B 07                 ; Have magic #Y ?
     BEQ      LB690                     ; 0xf658 $B648 F0 46                    ;
 LB64A:                                                                          ;
     LDA      bss_048C                     ; 0xf65a $B64A AD 8C 04                 ;

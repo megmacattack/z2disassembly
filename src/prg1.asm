@@ -1082,9 +1082,9 @@ L879D:                                                                          
     CMP      #$FF                      ; 0x47b0 $87A0 C9 FF                    ; if FF, skip
     BEQ      L87C2                     ; 0x47b2 $87A2 F0 1E                    ;
     TAY                                ; 0x47b4 $87A4 A8                       ;
-    LDA      bss_0785,y                   ; 0x47b5 $87A5 B9 85 07                 ; Item Collected?
+    LDA      player_items,y                   ; 0x47b5 $87A5 B9 85 07                 ; Item Collected?
     BEQ      L87C2                     ; 0x47b8 $87A8 F0 18                    ; if not, skip
-    LDA      bss_078D,y                   ; 0x47ba $87AA B9 8D 07                 ; Crystal Placed?
+    LDA      placed_gems_list,y                   ; 0x47ba $87AA B9 8D 07                 ; Crystal Placed?
     BEQ      L87C2                     ; 0x47bd $87AD F0 13                    ; if not, skip
     TXA                                ; 0x47bf $87AF 8A                       ;
     ASL                                ; 0x47c0 $87B0 0A                       ;

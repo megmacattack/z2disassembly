@@ -814,7 +814,7 @@ bank0_A_Button_in_Overworld_Hammer:                                             
 L8501:                                                                          ;
     BNE      bank0_B_Button_in_Overworld_Flute; 0x511 $8501 D0 0F                  ;
 L8503:                                                                          ;
-    LDA      bss_078B                     ; 0x513 $8503 AD 8B 07                  ; Have Hammer ?
+    LDA      player_has_hammer                     ; 0x513 $8503 AD 8B 07                  ; Have Hammer ?
     BEQ      bank0_B_Button_in_Overworld_Flute; 0x516 $8506 F0 0A                  ;
 L8508:                                                                          ;
 
@@ -830,7 +830,7 @@ bank0_B_Button_in_Overworld_Flute:                                              
     AND      #$40                      ; 0x524 $8514 29 40                     ; keep bits .x.. .... (B Button pressed)
     BEQ      L8527                     ; 0x526 $8516 F0 0F                     ;
 
-    LDA      bss_0789                     ; 0x528 $8518 AD 89 07                  ; Have Flute?
+    LDA      player_has_flute                     ; 0x528 $8518 AD 89 07                  ; Have Flute?
 L851B:                                                                          ;
 
     BEQ      L8527                     ; 0x52b $851B F0 0A                     ; if Not, skip (return)
@@ -906,7 +906,7 @@ L8599:                                                                          
 
     CMP      #$01                      ; 0x5b0 $85A0 C9 01                     ; Check if in East Hyrule
     BEQ      L85A9                     ; 0x5b2 $85A2 F0 05                     ;
-    LDA      bss_0787                     ; 0x5b4 $85A4 AD 87 07                  ; Have Raft ?
+    LDA      player_has_raft                     ; 0x5b4 $85A4 AD 87 07                  ; Have Raft ?
     BEQ      L8601                     ; 0x5b7 $85A7 F0 58                     ;
 L85A9:                                                                          ;
     STX      bss_0748                     ; 0x5b9 $85A9 8E 48 07                  ; 8E -> 8D (danger area between raft travels)
@@ -1130,7 +1130,7 @@ Blocked_by_Tile_or_Not_Routine:                                                 
     JSR      L8A07                     ; 0x71f $870F 20 07 8A                  ;
     CMP      #$0D                      ; 0x722 $8712 C9 0D                     ; 0D = Walkable Water
     BNE      L871B                     ; 0x724 $8714 D0 05                     ; if Not, skip to $071B
-    LDY      bss_0788                     ; 0x726 $8716 AC 88 07                  ; check if Link has Boots
+    LDY      player_has_boots                     ; 0x726 $8716 AC 88 07                  ; check if Link has Boots
     BNE      L871F                     ; 0x729 $8719 D0 04                     ; if Not 0, skip to $071F (can move)
 L871B:                                                                          ;
     CMP      #$0B                      ; 0x72b $871B C9 0B                     ; 0B = Mountain
@@ -2121,20 +2121,20 @@ Spell_Casting_Routine:                                                          
     AND      #$20                      ; 0xde8 $8DD8 29 20                     ; check if Select is pressed
     BEQ      L8E1F                     ; 0xdea $8DDA F0 43                     ; if Select NOT pressed, skip to $0E1F
     LDY      bss_0749                     ; 0xdec $8DDC AC 49 07                  ; Current position of the Magic selector
-    LDA      bss_077B,y                   ; 0xdef $8DDF B9 7B 07                  ; Sanity Check...
+    LDA      player_spells,y                   ; 0xdef $8DDF B9 7B 07                  ; Sanity Check...
     BEQ      L8E1F                     ; 0xdf2 $8DE2 F0 3B                     ; if Magic is not learned, skip to $0E1F
     TYA                                ; 0xdf4 $8DE4 98                        ; Check if enough Magic left in meter...
     ASL                                ; 0xdf5 $8DE5 0A                        ; Multiply by 8
     ASL                                ; 0xdf6 $8DE6 0A                        ;
     ASL                                ; 0xdf7 $8DE7 0A                        ;
-    ADC      bss_0778                     ; 0xdf8 $8DE8 6D 78 07                  ; Add Magic Level to get magic usage (index)
+    ADC      player_magic_lvl                     ; 0xdf8 $8DE8 6D 78 07                  ; Add Magic Level to get magic usage (index)
     TAY                                ; 0xdfb $8DEB A8                        ;
-    LDA      bss_0773                     ; 0xdfc $8DEC AD 73 07                  ; Current Magic left in meter
+    LDA      player_magic                     ; 0xdfc $8DEC AD 73 07                  ; Current Magic left in meter
     SEC                                ; 0xdff $8DEF 38                        ;
     SBC      Table_for_Magic_Needed_for_Spells-1,y                   ; 0xe00 $8DF0 F9 7A 8D                  ; refer to table at $0D7A (+1 -- one based indexing?)
     BCC      L8E3B                     ; 0xe03 $8DF3 90 46                     ; if Carry Clear (not enough magic) goto $0E3B
 L8DF5:                                                                          ;
-    STA      bss_0773                     ; 0xe05 $8DF5 8D 73 07                  ; else store new amount in meter
+    STA      player_magic                     ; 0xe05 $8DF5 8D 73 07                  ; else store new amount in meter
     LDY      bss_0749                     ; 0xe08 $8DF8 AC 49 07                  ; Current position of the Magic selector
     LDA      Table_for_Spell_effects,y ; 0xe0b $8DFB B9 BB 8D                  ; refer to table at $0DBB (spell effect)
     ORA      bss_076F                     ; 0xe0e $8DFE 0D 6F 07                  ; Add effect to Magic State
@@ -2809,7 +2809,7 @@ L9245:                                                                          
     CMP      #$08                      ; 0x1275 $9265 C9 08                    ;
     BNE      L9272                     ; 0x1277 $9267 D0 09                    ;
     LDA      world_number                     ; 0x1279 $9269 AD 07 07                 ; Current World
-    ORA      bss_0785                     ; 0x127c $926C 0D 85 07                 ; Have Candle
+    ORA      player_has_candle                     ; 0x127c $926C 0D 85 07                 ; Have Candle
     BNE      L9272                     ; 0x127f $926F D0 01                    ;
     INY                                ; 0x1281 $9271 C8                       ;
 L9272:                                                                          ;
@@ -3302,7 +3302,7 @@ L956C:                                                                          
     DEY                                ; 0x157f $956F 88                       ;
     BEQ      L958C                     ; 0x1580 $9570 F0 1A                    ;
     LDY      #$06                      ; 0x1582 $9572 A0 06                    ; Y = 06
-    LDA      bss_0796                     ; 0x1584 $9574 AD 96 07                 ; Upward/Downward techs
+    LDA      player_skills                     ; 0x1584 $9574 AD 96 07                 ; Upward/Downward techs
     AND      #$04                      ; 0x1587 $9577 29 04                    ; check if Upward tech learned
     BEQ      L9582                     ; 0x1589 $9579 F0 07                    ; if Upward NOT learned, skip to $1582			;007 CHANGE THIS
     LDA      $F7                       ; 0x158b $957B A5 F7                    ; Controller 1 buttons held
@@ -3317,7 +3317,7 @@ L9582:                                                                          
 L958A:                                                                          ;
     STA      $80                       ; 0x159a $958A 85 80                    ; Link's Animation Frame
 L958C:                                                                          ;
-    LDA      bss_0796                     ; 0x159c $958C AD 96 07                 ; Upward/Downward techs
+    LDA      player_skills                     ; 0x159c $958C AD 96 07                 ; Upward/Downward techs
     AND      #$10                      ; 0x159f $958F 29 10                    ; check if Downward tech learned
     BEQ      L959B                     ; 0x15a1 $9591 F0 08                    ; if Downward NOT learned, skip to $159B (RTS)
     LDA      $17                       ; 0x15a3 $9593 A5 17                    ; Link's Shield Position
@@ -3476,10 +3476,10 @@ L968B:                                                                          
 .byt    $20,$68                        ; 0x169b $968B 20 68                    ;
 ; ---------------------------------------------------------------------------- ;
 Hub_Update_Routine:                                                             ;
-    LDA      bss_0776                     ; 0x169d $968D AD 76 07                 ; Current Experience (low byte)
+    LDA      player_exp+1                     ; 0x169d $968D AD 76 07                 ; Current Experience (low byte)
     SEC                                ; 0x16a0 $9690 38                       ;
     SBC      bss_0771                     ; 0x16a1 $9691 ED 71 07                 ; Exp. needed for Next Level (low byte)
-    LDA      bss_0775                     ; 0x16a4 $9694 AD 75 07                 ; Current Experience (high byte)
+    LDA      player_exp                     ; 0x16a4 $9694 AD 75 07                 ; Current Experience (high byte)
     SBC      bss_0770                     ; 0x16a7 $9697 ED 70 07                 ; Exp. needed for Next Level (high byte)
     BCC      L96A1                     ; 0x16aa $969A 90 05                    ;
     LDA      #$01                      ; 0x16ac $969C A9 01                    ; A = 01
@@ -3507,15 +3507,15 @@ L96B7:                                                                          
     TYA                                ; 0x16d9 $96C9 98                       ;
     PHA                                ; 0x16da $96CA 48                       ;
     LDY      bss_0301                     ; 0x16db $96CB AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    LDA      bss_0777                     ; 0x16de $96CE AD 77 07                 ; Attack Level
+    LDA      player_atk_lvl                     ; 0x16de $96CE AD 77 07                 ; Attack Level
     CLC                                ; 0x16e1 $96D1 18                       ;
     ADC      #$D0                      ; 0x16e2 $96D2 69 D0                    ; generate tile code for digit 0-9
     STA      bss_0309,y                   ; 0x16e4 $96D4 99 09 03                 ;
-    LDA      bss_0778                     ; 0x16e7 $96D7 AD 78 07                 ; Magic Level
+    LDA      player_magic_lvl                     ; 0x16e7 $96D7 AD 78 07                 ; Magic Level
     CLC                                ; 0x16ea $96DA 18                       ;
     ADC      #$D0                      ; 0x16eb $96DB 69 D0                    ; generate tile code for digit 0-9
     STA      bss_0305,y                   ; 0x16ed $96DD 99 05 03                 ;
-    LDA      bss_0783                     ; 0x16f0 $96E0 AD 83 07                 ; Current number of Magic Containers
+    LDA      player_magic_jars                     ; 0x16f0 $96E0 AD 83 07                 ; Current number of Magic Containers
     TAX                                ; 0x16f3 $96E3 AA                       ;
     CLC                                ; 0x16f4 $96E4 18                       ;
     ADC      bss_0301                     ; 0x16f5 $96E5 6D 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
@@ -3528,7 +3528,7 @@ L96EC:                                                                          
     DEX                                ; 0x1700 $96F0 CA                       ;
     BNE      L96EC                     ; 0x1701 $96F1 D0 F9                    ;
     INY                                ; 0x1703 $96F3 C8                       ;
-    LDA      bss_0773                     ; 0x1704 $96F4 AD 73 07                 ; Current Magic left in meter
+    LDA      player_magic                     ; 0x1704 $96F4 AD 73 07                 ; Current Magic left in meter
     STA      bss_0564                     ; 0x1707 $96F7 8D 64 05                 ;; Magic Points - Display
     LSR                                ; 0x170a $96FA 4A                       ;
     LSR                                ; 0x170b $96FB 4A                       ;
@@ -3575,13 +3575,13 @@ L972E:                                                                          
     TYA                                ; 0x174a $973A 98                       ;
     PHA                                ; 0x174b $973B 48                       ;
     LDY      bss_0301                     ; 0x174c $973C AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    LDA      bss_0779                     ; 0x174f $973F AD 79 07                 ; Life Level
+    LDA      player_life_lvl                     ; 0x174f $973F AD 79 07                 ; Life Level
     CLC                                ; 0x1752 $9742 18                       ;
     ADC      #$D0                      ; 0x1753 $9743 69 D0                    ;
     STA      bss_0305,y                   ; 0x1755 $9745 99 05 03                 ;
-    LDA      bss_0775                     ; 0x1758 $9748 AD 75 07                 ; Current Experience (high byte)
+    LDA      player_exp                     ; 0x1758 $9748 AD 75 07                 ; Current Experience (high byte)
     STA      $00                       ; 0x175b $974B 85 00                    ;
-    LDA      bss_0776                     ; 0x175d $974D AD 76 07                 ; Current Experience (low byte)
+    LDA      player_exp+1                     ; 0x175d $974D AD 76 07                 ; Current Experience (low byte)
     JSR      Experience_Convertion_and_Display_Routine; 0x1760 $9750 20 A4 A5      ;
     PHA                                ; 0x1763 $9753 48                       ;
     TYA                                ; 0x1764 $9754 98                       ;
@@ -3606,7 +3606,7 @@ L972E:                                                                          
     LDA      $01                       ; 0x1790 $9780 A5 01                    ;
     STA      bss_0316,y                   ; 0x1792 $9782 99 16 03                 ;
     LDY      bss_0301                     ; 0x1795 $9785 AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    LDA      bss_0784                     ; 0x1798 $9788 AD 84 07                 ;; Current number of Heart Containers
+    LDA      player_life_jars                     ; 0x1798 $9788 AD 84 07                 ;; Current number of Heart Containers
     TAX                                ; 0x179b $978B AA                       ;
     CLC                                ; 0x179c $978C 18                       ;
     ADC      bss_0301                     ; 0x179d $978D 6D 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
@@ -3619,7 +3619,7 @@ L9794:                                                                          
     DEX                                ; 0x17a8 $9798 CA                       ;
     BNE      L9794                     ; 0x17a9 $9799 D0 F9                    ;
     INY                                ; 0x17ab $979B C8                       ;
-    LDA      bss_0774                     ; 0x17ac $979C AD 74 07                 ; Current Life left in meter
+    LDA      player_life                     ; 0x17ac $979C AD 74 07                 ; Current Life left in meter
     STA      bss_0565                     ; 0x17af $979F 8D 65 05                 ;; Hit Points - Display
     LSR                                ; 0x17b2 $97A2 4A                       ;
     LSR                                ; 0x17b3 $97A3 4A                       ;
@@ -3688,7 +3688,7 @@ bank0_Fire_Spell:                                                               
 ;X = 1 -> Flame                                                                ;
 ;X = 0 -> Flying Blade                                                         ;
     LDX      #$01                      ; 0x1801 $97F1 A2 01                    ; X = 01
-    LDA      bss_0777                     ; 0x1803 $97F3 AD 77 07                 ; Attack Level
+    LDA      player_atk_lvl                     ; 0x1803 $97F3 AD 77 07                 ; Attack Level
     CMP      #$04                      ; 0x1806 $97F6 C9 04                    ; if (Attack Level >= 4)
     BCS      L97FC                     ; 0x1808 $97F8 B0 02                    ; skip to $17FC
 bank0_else_goto__17FA:                                                          ;
@@ -3756,7 +3756,7 @@ Check_for_Fire_Spell:                                                           
     AND      #$10                      ; 0x185a $984A 29 10                    ; check for Fire Spell (bit 4)
     BNE      L9878                     ; 0x185c $984C D0 2A                    ; if Fire, goto $1878
 Check_if_Life_is_Full:                                                          ;
-    LDA      bss_0784                     ; 0x185e $984E AD 84 07                 ; Current number of Heart Containers
+    LDA      player_life_jars                     ; 0x185e $984E AD 84 07                 ; Current number of Heart Containers
     ASL                                ; 0x1861 $9851 0A                       ;
     ASL                                ; 0x1862 $9852 0A                       ;
     ASL                                ; 0x1863 $9853 0A                       ;
@@ -3764,7 +3764,7 @@ Check_if_Life_is_Full:                                                          
     ASL                                ; 0x1865 $9855 0A                       ;
     SEC                                ; 0x1866 $9856 38                       ;
     SBC      #$01                      ; 0x1867 $9857 E9 01                    ;
-    CMP      bss_0774                     ; 0x1869 $9859 CD 74 07                 ; Current Life left in meter
+    CMP      player_life                     ; 0x1869 $9859 CD 74 07                 ; Current Life left in meter
     BNE      L9878                     ; 0x186c $985C D0 1A                    ; if Life not Full, goto $1878
     JSR      bank0_else_goto__17FA     ; 0x186e $985E 20 FA 97                 ; else goto $17FA
     BCC      L9878                     ; 0x1871 $9861 90 15                    ;
@@ -3779,7 +3779,7 @@ Check_if_Life_is_Full:                                                          
     STA      $EF                       ; 0x1886 $9876 85 EF                    ; Sound of Flying Blade (08)
 L9878:                                                                          ;
     LDX      #$00                      ; 0x1888 $9878 A2 00                    ; X = 00
-    LDA      bss_0777                     ; 0x188a $987A AD 77 07                 ; Attack Level
+    LDA      player_atk_lvl                     ; 0x188a $987A AD 77 07                 ; Attack Level
     CMP      #$04                      ; 0x188d $987D C9 04                    ; check if (Attack >= 4)
     BCC      L9882                     ; 0x188f $987F 90 01                    ; if Not, skip to $1882
     INX                                ; 0x1891 $9881 E8                       ;
@@ -4189,7 +4189,7 @@ L9B30:                                                                          
     STA      $01                       ; 0x1b40 $9B30 85 01                    ;
     LDY      #$07                      ; 0x1b42 $9B32 A0 07                    ; Y = 07
 L9B34:                                                                          ;
-    LDA      bss_0785,y                   ; 0x1b44 $9B34 B9 85 07                 ; Have Candle ?
+    LDA      player_items,y                   ; 0x1b44 $9B34 B9 85 07                 ; Have Candle ?
     BEQ      L9B56                     ; 0x1b47 $9B37 F0 1D                    ;
     TYA                                ; 0x1b49 $9B39 98                       ;
     ASL                                ; 0x1b4a $9B3A 0A                       ;
@@ -4517,12 +4517,12 @@ L9E98:                                                                          
     ASL                                ; 0x1eb0 $9EA0 0A                       ;
     ASL                                ; 0x1eb1 $9EA1 0A                       ;
     ASL                                ; 0x1eb2 $9EA2 0A                       ;
-    ADC      bss_0777,y                   ; 0x1eb3 $9EA3 79 77 07                 ; AML Power
+    ADC      player_levels,y                   ; 0x1eb3 $9EA3 79 77 07                 ; AML Power
     TAX                                ; 0x1eb6 $9EA6 AA                       ;
-    LDA      bss_0776                     ; 0x1eb7 $9EA7 AD 76 07                 ; Experience Low Byte
+    LDA      player_exp+1                     ; 0x1eb7 $9EA7 AD 76 07                 ; Experience Low Byte
     SEC                                ; 0x1eba $9EAA 38                       ;
     SBC      L9670,x                   ; 0x1ebb $9EAB FD 70 96                 ;
-    LDA      bss_0775                     ; 0x1ebe $9EAE AD 75 07                 ;; Experience x256; Current Experience (high byte)
+    LDA      player_exp                     ; 0x1ebe $9EAE AD 75 07                 ;; Experience x256; Current Experience (high byte)
     SBC      L9658,x                   ; 0x1ec1 $9EB1 FD 58 96                 ;
     LDA      $F7                       ; 0x1ec4 $9EB4 A5 F7                    ; Controller 1 buttons held
     BCC      bank0_Related_To_LevelUp  ; 0x1ec6 $9EB6 90 CA                    ;nop nop here to allow movement without exp required
@@ -4621,21 +4621,21 @@ L9F5B_SubtractExp_LevelUp:                                                      
     ASL                                ; 0x1f6d $9F5D 0A                       ;
     ASL                                ; 0x1f6e $9F5E 0A                       ;
     ASL                                ; 0x1f6f $9F5F 0A                       ;
-    ADC      bss_0777,x                   ; 0x1f70 $9F60 7D 77 07                 ; AML Power
+    ADC      player_levels,x                   ; 0x1f70 $9F60 7D 77 07                 ; AML Power
     TAY                                ; 0x1f73 $9F63 A8                       ;
-    LDA      bss_0776                     ; 0x1f74 $9F64 AD 76 07                 ; First Digit of Experience
+    LDA      player_exp+1                     ; 0x1f74 $9F64 AD 76 07                 ; First Digit of Experience
     SEC                                ; 0x1f77 $9F67 38                       ;
     SBC      L9670,y                   ; 0x1f78 $9F68 F9 70 96                 ;
-    STA      bss_0776                     ; 0x1f7b $9F6B 8D 76 07                 ;; Experience x1; Current Experience (low byte)
-    LDA      bss_0775                     ; 0x1f7e $9F6E AD 75 07                 ;; Experience x256; Current Experience (high byte)
+    STA      player_exp+1                     ; 0x1f7b $9F6B 8D 76 07                 ;; Experience x1; Current Experience (low byte)
+    LDA      player_exp                     ; 0x1f7e $9F6E AD 75 07                 ;; Experience x256; Current Experience (high byte)
     SBC      L9658,y                   ; 0x1f81 $9F71 F9 58 96                 ;
-    STA      bss_0775                     ; 0x1f84 $9F74 8D 75 07                 ;; Experience x256; Current Experience (high byte)
+    STA      player_exp                     ; 0x1f84 $9F74 8D 75 07                 ;; Experience x256; Current Experience (high byte)
     LDX      bss_074E                     ; 0x1f87 $9F77 AE 4E 07                 ;
-    LDA      bss_0777,x                   ; 0x1f8a $9F7A BD 77 07                 ; AML Power
+    LDA      player_levels,x                   ; 0x1f8a $9F7A BD 77 07                 ; AML Power
     CMP      #$08                      ; 0x1f8d $9F7D C9 08                    ;
     BCS      L9FC3                     ; 0x1f8f $9F7F B0 42                    ;branch to give 1-up
     LDX      bss_074E                     ; 0x1f91 $9F81 AE 4E 07                 ;
-    INC      bss_0777,x                   ; 0x1f94 $9F84 FE 77 07                 ; AML Power
+    INC      player_levels,x                   ; 0x1f94 $9F84 FE 77 07                 ; AML Power
 L9F87:                                                                          ;
     LDA      #$01                      ; 0x1f97 $9F87 A9 01                    ; A = 01
     STA      $02                       ; 0x1f99 $9F89 85 02                    ;
@@ -4651,7 +4651,7 @@ L9F94:                                                                          
     STA      $00                       ; 0x1faa $9F9A 85 00                    ;
     LDA      bank0_unknown_pointer_table30+$01,y; 0x1fac $9F9C B9 4F 9D            ;
     STA      $01                       ; 0x1faf $9F9F 85 01                    ;
-    LDA      bss_0777,x                   ; 0x1fb1 $9FA1 BD 77 07                 ; AML Power
+    LDA      player_levels,x                   ; 0x1fb1 $9FA1 BD 77 07                 ; AML Power
     STA      $02                       ; 0x1fb4 $9FA4 85 02                    ;
     LDY      #$07                      ; 0x1fb6 $9FA6 A0 07                    ; Y = 07
 L9FA8:                                                                          ;
@@ -4702,13 +4702,13 @@ L9FD0:                                                                          
     ASL                                ; 0x1ff9 $9FE9 0A                       ;
     ASL                                ; 0x1ffa $9FEA 0A                       ;
     ASL                                ; 0x1ffb $9FEB 0A                       ;
-    ADC      bss_0777,x                   ; 0x1ffc $9FEC 7D 77 07                 ; AML Power
+    ADC      player_levels,x                   ; 0x1ffc $9FEC 7D 77 07                 ; AML Power
     PHA                                ; 0x1fff $9FEF 48                       ;
     TAY                                ; 0x2000 $9FF0 A8                       ;
-    LDA      bss_0776                     ; 0x2001 $9FF1 AD 76 07                 ;; Experience x1; Current Experience (low byte)
+    LDA      player_exp+1                     ; 0x2001 $9FF1 AD 76 07                 ;; Experience x1; Current Experience (low byte)
     SEC                                ; 0x2004 $9FF4 38                       ;
     SBC      L9670,y                   ; 0x2005 $9FF5 F9 70 96                 ;
-    LDA      bss_0775                     ; 0x2008 $9FF8 AD 75 07                 ;; Experience x256; Current Experience (high byte)
+    LDA      player_exp                     ; 0x2008 $9FF8 AD 75 07                 ;; Experience x256; Current Experience (high byte)
     SBC      L9658,y                   ; 0x200b $9FFB F9 58 96                 ;
     BCC      LA012                     ; 0x200e $9FFE 90 12                    ;
 LA000:                                                                          ;
@@ -4748,7 +4748,7 @@ LA02E:                                                                          
     STA      $00                       ; 0x2044 $A034 85 00                    ;
     LDA      bank0_unknown_pointer_table30+$01,y; 0x2046 $A036 B9 4F 9D            ;
     STA      $01                       ; 0x2049 $A039 85 01                    ;
-    LDA      bss_0777,x                   ; 0x204b $A03B BD 77 07                 ; AML Power
+    LDA      player_levels,x                   ; 0x204b $A03B BD 77 07                 ; AML Power
     STA      $02                       ; 0x204e $A03E 85 02                    ;
     LDY      #$07                      ; 0x2050 $A040 A0 07                    ; Y = 07
 LA042:                                                                          ;
@@ -4776,7 +4776,7 @@ LA061:                                                                          
     ASL                                ; 0x2072 $A062 0A                       ;
     ASL                                ; 0x2073 $A063 0A                       ;
     ASL                                ; 0x2074 $A064 0A                       ;
-    ADC      bss_0777,x                   ; 0x2075 $A065 7D 77 07                 ; AML Power
+    ADC      player_levels,x                   ; 0x2075 $A065 7D 77 07                 ; AML Power
     TAY                                ; 0x2078 $A068 A8                       ;
     LDA      L9670,y                   ; 0x2079 $A069 B9 70 96                 ;
     SEC                                ; 0x207c $A06C 38                       ;
@@ -4817,7 +4817,7 @@ LA0A3:                                                                          
     ASL                                ; 0x20b8 $A0A8 0A                       ;
     ASL                                ; 0x20b9 $A0A9 0A                       ;
     ASL                                ; 0x20ba $A0AA 0A                       ;
-    ADC      bss_0777,x                   ; 0x20bb $A0AB 7D 77 07                 ; AML Power
+    ADC      player_levels,x                   ; 0x20bb $A0AB 7D 77 07                 ; AML Power
     TAY                                ; 0x20be $A0AE A8                       ;
     LDA      L9670,y                   ; 0x20bf $A0AF B9 70 96                 ;
     SEC                                ; 0x20c2 $A0B2 38                       ;
@@ -4844,7 +4844,7 @@ LA0D0:                                                                          
     ASL                                ; 0x20e5 $A0D5 0A                       ;
     ASL                                ; 0x20e6 $A0D6 0A                       ;
     ASL                                ; 0x20e7 $A0D7 0A                       ;
-    ADC      bss_0777,x                   ; 0x20e8 $A0D8 7D 77 07                 ;
+    ADC      player_levels,x                   ; 0x20e8 $A0D8 7D 77 07                 ;
     TAY                                ; 0x20eb $A0DB A8                       ;
     LDA      bss_0771                     ; 0x20ec $A0DC AD 71 07                 ;; Exp. needed for Next Level (low byte)
     SEC                                ; 0x20ef $A0DF 38                       ;
@@ -4916,11 +4916,11 @@ LA148:                                                                          
     LDA      #$00                      ; 0x2158 $A148 A9 00                    ; A = 00
     STA      bss_074A                     ; 0x215a $A14A 8D 4A 07                 ;
     STA      bss_0362                     ; 0x215d $A14D 8D 62 03                 ;; PPU Macro Offset
-    LDA      bss_0793                     ; 0x2160 $A150 AD 93 07                 ; Current number of keys
+    LDA      player_keys                     ; 0x2160 $A150 AD 93 07                 ; Current number of keys
     CLC                                ; 0x2163 $A153 18                       ;
     ADC      #$D0                      ; 0x2164 $A154 69 D0                    ;
     STA      $7881                     ; 0x2166 $A156 8D 81 78                 ;
-    LDA      bss_0794                     ; 0x2169 $A159 AD 94 07                 ; Number of Crystals left
+    LDA      player_gems_remain                     ; 0x2169 $A159 AD 94 07                 ; Number of Crystals left
     CLC                                ; 0x216c $A15C 18                       ;
     ADC      #$D0                      ; 0x216d $A15D 69 D0                    ;
     STA      $788F                     ; 0x216f $A15F 8D 8F 78                 ;
@@ -4928,7 +4928,7 @@ LA148:                                                                          
     CLC                                ; 0x2175 $A165 18                       ;
     ADC      #$CF                      ; 0x2176 $A166 69 CF                    ;
     STA      $7803                     ; 0x2178 $A168 8D 03 78                 ;
-    LDA      bss_0778                     ; 0x217b $A16B AD 78 07                 ; Magic Level
+    LDA      player_magic_lvl                     ; 0x217b $A16B AD 78 07                 ; Magic Level
     CLC                                ; 0x217e $A16E 18                       ;
     ADC      #$37                      ; 0x217f $A16F 69 37                    ;
     TAY                                ; 0x2181 $A171 A8                       ;
@@ -4978,8 +4978,8 @@ LA1A5:                                                                          
     STA      bss_0525                     ; 0x21d0 $A1C0 8D 25 05                 ;; Routine Delay
     STA      bss_0488                     ; 0x21d3 $A1C3 8D 88 04                 ;
     STA      bss_0759                     ; 0x21d6 $A1C6 8D 59 07                 ;; if not 0, cause fairy spawn at next encounter (??)
-    STA      bss_0775                     ; 0x21d9 $A1C9 8D 75 07                 ; Experience High Byte
-    STA      bss_0776                     ; 0x21dc $A1CC 8D 76 07                 ; Experience Low Byte
+    STA      player_exp                     ; 0x21d9 $A1C9 8D 75 07                 ; Experience High Byte
+    STA      player_exp+1                     ; 0x21dc $A1CC 8D 76 07                 ; Experience Low Byte
     LDA      #$06                      ; 0x21df $A1CF A9 06                    ; A = 06
     STA      bss_0768                     ; 0x21e1 $A1D1 8D 68 07                 ;;makes weird ppu effect
     LDX      #$01                      ; 0x21e4 $A1D4 A2 01                    ; X = 01
@@ -4998,7 +4998,7 @@ bank0_Pause_Pane_Pointer_5__Table_1DE4:                                         
     LDY      #$07                      ; 0x21f3 $A1E3 A0 07                    ; Y = 07
     LDA      #$00                      ; 0x21f5 $A1E5 A9 00                    ; A = 00
 LA1E7:                                                                          ;
-    ORA      bss_077B,y                   ; 0x21f7 $A1E7 19 7B 07                 ;
+    ORA      player_spells,y                   ; 0x21f7 $A1E7 19 7B 07                 ;
     DEY                                ; 0x21fa $A1EA 88                       ;
     BPL      LA1E7                     ; 0x21fb $A1EB 10 FA                    ;
     CMP      #$00                      ; 0x21fd $A1ED C9 00                    ;
@@ -5020,7 +5020,7 @@ LA206:                                                                          
     BCC      LA20C                     ; 0x2218 $A208 90 02                    ;
     LDY      #$00                      ; 0x221a $A20A A0 00                    ; Y = 00
 LA20C:                                                                          ;
-    LDX      bss_077B,y                   ; 0x221c $A20C BE 7B 07                 ; Magic Learned or not	;check if have magic
+    LDX      player_spells,y                   ; 0x221c $A20C BE 7B 07                 ; Magic Learned or not	;check if have magic
     BEQ      LA1FB                     ; 0x221f $A20F F0 EA                    ;
     STY      bss_0749                     ; 0x2221 $A211 8C 49 07                 ; Current position of Magic selector
     LDA      #$10                      ; 0x2224 $A214 A9 10                    ; A = 10 (sound for moving cursor in Pause Pane)
@@ -5683,7 +5683,7 @@ LA5FE:                                                                          
     CPX      #$08                      ; 0x2618 $A608 E0 08                    ;
     BCS      LA619                     ; 0x261a $A60A B0 0D                    ;
     PHA                                ; 0x261c $A60C 48                       ;
-    LDA      bss_077B,x                   ; 0x261d $A60D BD 7B 07                 ;check if have spell, if not, do not draw this line of text (which is the spell's name)	;if >0, then draw it
+    LDA      player_spells,x                   ; 0x261d $A60D BD 7B 07                 ;check if have spell, if not, do not draw this line of text (which is the spell's name)	;if >0, then draw it
 LA610:                                                                          ;
     TAX                                ; 0x2620 $A610 AA                       ;
     PLA                                ; 0x2621 $A611 68                       ;
@@ -5698,7 +5698,7 @@ LA619:                                                                          
     BNE      LA633                     ; 0x2632 $A622 D0 0F                    ;
 LA624:                                                                          ;
     STX      bss_0749                     ; 0x2634 $A624 8E 49 07                 ;; Current position of Magic selector
-    LDA      bss_077B,x                   ; 0x2637 $A627 BD 7B 07                 ;check if have spell
+    LDA      player_spells,x                   ; 0x2637 $A627 BD 7B 07                 ;check if have spell
     BNE      LA633                     ; 0x263a $A62A D0 07                    ;
     INX                                ; 0x263c $A62C E8                       ;increment cursor
     CPX      #$08                      ; 0x263d $A62D E0 08                    ;
@@ -5707,7 +5707,7 @@ LA624:                                                                          
 LA633:                                                                          ;
     CPX      bss_0525                     ; 0x2643 $A633 EC 25 05                 ;; Routine Delay
     BNE      LA642                     ; 0x2646 $A636 D0 0A                    ;
-    LDA      bss_077B,x                   ; 0x2648 $A638 BD 7B 07                 ;
+    LDA      player_spells,x                   ; 0x2648 $A638 BD 7B 07                 ;
     BEQ      LA642                     ; 0x264b $A63B F0 05                    ;
     LDA      #$FA                      ; 0x264d $A63D A9 FA                    ; A = FA
     STA      bss_054D                     ; 0x264f $A63F 8D 4D 05                 ;
@@ -5979,9 +5979,9 @@ LA809:                                                                          
     BNE      LA807                     ; 0x282a $A81A D0 EB                    ;
     LDA      #$00                      ; 0x282c $A81C A9 00                    ; A = 00
     STA      bss_0524                     ; 0x282e $A81E 8D 24 05                 ; Routine Index
-    LDA      bss_0796                     ; 0x2831 $A821 AD 96 07                 ;; Down/Up Techs (and other things)
+    LDA      player_skills                     ; 0x2831 $A821 AD 96 07                 ;; Down/Up Techs (and other things)
     AND      #$FE                      ; 0x2834 $A824 29 FE                    ; keep bits xxxx xxx.
-    STA      bss_0796                     ; 0x2836 $A826 8D 96 07                 ;; Down/Up Techs (and other things)
+    STA      player_skills                     ; 0x2836 $A826 8D 96 07                 ;; Down/Up Techs (and other things)
 LA829:                                                                          ;
     RTS                                ; 0x2839 $A829 60                       ;
                                                                                ;

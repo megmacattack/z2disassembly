@@ -1149,7 +1149,7 @@ L8CE3:                                                                          
     CMP      #$08                      ; 0x14d13 $8D03 C9 08                   ;
     BNE      L8D10                     ; 0x14d15 $8D05 D0 09                   ;
     LDA      world_number                     ; 0x14d17 $8D07 AD 07 07                ; Current World
-    ORA      bss_0785                     ; 0x14d1a $8D0A 0D 85 07                ; Have Candle
+    ORA      player_has_candle                     ; 0x14d1a $8D0A 0D 85 07                ; Have Candle
     BNE      L8D10                     ; 0x14d1d $8D0D D0 01                   ;
     INY                                ; 0x14d1f $8D0F C8                      ;
 L8D10:                                                                          ;
@@ -1827,8 +1827,8 @@ L921C:                                                                          
     LDA      #$01                      ; 0x1522c $921C A9 01                   ; A = 01
     STA      bss_07A0                     ; 0x1522e $921E 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     LDA      #$00                      ; 0x15231 $9221 A9 00                   ; A = 00
-    STA      bss_0775                     ; 0x15233 $9223 8D 75 07                ; Current Experience (high byte)
-    STA      bss_0776                     ; 0x15236 $9226 8D 76 07                ; Current Experience (low byte)
+    STA      player_exp                     ; 0x15233 $9223 8D 75 07                ; Current Experience (high byte)
+    STA      player_exp+1                     ; 0x15236 $9226 8D 76 07                ; Current Experience (low byte)
     LDY      #$69                      ; 0x15239 $9229 A0 69                   ; Y = 69
 L922B:                                                                          ;
     STA      lives_remaining,y                   ; 0x1523b $922B 99 00 07                ;
@@ -3742,13 +3742,13 @@ LA07E:                                                                          
     LDA      $A8,x                     ; 0x16091 $A081 B5 A8                   ;; Enemy State
     AND      #$10                      ; 0x16093 $A083 29 10                   ;;Keep Bits:0001_0000
     BEQ      LA094                     ; 0x16095 $A085 F0 0D                   ;
-    LDA      bss_0773                     ; 0x16097 $A087 AD 73 07                ;; Magic Points; Current Magic left in meter
+    LDA      player_magic                     ; 0x16097 $A087 AD 73 07                ;; Magic Points; Current Magic left in meter
     SEC                                ; 0x1609a $A08A 38                      ;
     SBC      #$01                      ; 0x1609b $A08B E9 01                   ;
     BCS      LA091                     ; 0x1609d $A08D B0 02                   ;
     LDA      #$00                      ; 0x1609f $A08F A9 00                   ;;A = #$00 0000_0000
 LA091:                                                                          ;
-    STA      bss_0773                     ; 0x160a1 $A091 8D 73 07                ;; Magic Points; Current Magic left in meter
+    STA      player_magic                     ; 0x160a1 $A091 8D 73 07                ;; Magic Points; Current Magic left in meter
 LA094:                                                                          ;
     LDA      bss_074F                     ; 0x160a4 $A094 AD 4F 07                ;; Related to Pause Pane
     ORA      #$80                      ; 0x160a7 $A097 09 80                   ;;Set Bits:1000_0000
@@ -3965,7 +3965,7 @@ bank5_table_A210:                                                               
 bank5_Enemy_Routines1_Electric_Barrier:                                         ;
     LDA      $AF,x                     ; 0x16244 $A234 B5 AF                   ;; Various enemy state variables
     BNE      LA2A7                     ; 0x16246 $A236 D0 6F                   ;
-    LDA      bss_0794                     ; 0x16248 $A238 AD 94 07                ;; Number of Crystals left
+    LDA      player_gems_remain                     ; 0x16248 $A238 AD 94 07                ;; Number of Crystals left
     ORA      $C9                       ; 0x1624b $A23B 05 C9                   ;
     BNE      LA25F                     ; 0x1624d $A23D D0 20                   ;
     LDA      $3B                       ; 0x1624f $A23F A5 3B                   ;;link Pagepos SideScroll		; Link's X Position (high byte)
@@ -5613,14 +5613,14 @@ LB2B4:                                                                          
     LDA      bss_07A0                     ; 0x172cc $B2BC AD A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     CMP      #$01                      ; 0x172cf $B2BF C9 01                   ;
     BNE      LB2EE                     ; 0x172d1 $B2C1 D0 2B                   ;
-    LDA      bss_0796                     ; 0x172d3 $B2C3 AD 96 07                ; Down/Up Techs
+    LDA      player_skills                     ; 0x172d3 $B2C3 AD 96 07                ; Down/Up Techs
     AND      #$14                      ; 0x172d6 $B2C6 29 14                   ; keep bits ...x .x..
     STA      L0000                     ; 0x172d8 $B2C8 85 00                   ;
 function_reset_link_stats_to_beginning_values:                                  ;
     LDY      #$29                      ; 0x172da $B2CA A0 29                   ; Y = 29
 LB2CC:                                                                          ;
     LDA      bank5_Beginning_Values,y  ; 0x172dc $B2CC B9 E3 BA                ; Load Initial Player Stats
-    STA      bss_0777,y                   ; 0x172df $B2CF 99 77 07                ; AML, Magic, Items, etc.
+    STA      player_levels,y                   ; 0x172df $B2CF 99 77 07                ; AML, Magic, Items, etc.
     DEY                                ; 0x172e2 $B2D2 88                      ;
     CPY      #$0C                      ; 0x172e3 $B2D3 C0 0C                   ;
     BCS      LB2CC                     ; 0x172e5 $B2D5 B0 F5                   ;
@@ -5633,7 +5633,7 @@ LB2D9:                                                                          
     CPY      #$FF                      ; 0x172f0 $B2E0 C0 FF                   ;
     BNE      LB2D9                     ; 0x172f2 $B2E2 D0 F5                   ;
     LDA      L0000                     ; 0x172f4 $B2E4 A5 00                   ;
-    STA      bss_0796                     ; 0x172f6 $B2E6 8D 96 07                ; Down/Up Techs
+    STA      player_skills                     ; 0x172f6 $B2E6 8D 96 07                ; Down/Up Techs
     LDA      #$02                      ; 0x172f9 $B2E9 A9 02                   ; A = 02
     STA      bss_07A0                     ; 0x172fb $B2EB 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
 LB2EE:                                                                          ;
@@ -6612,7 +6612,7 @@ LB911:                                                                          
     JSR      LBA6C                     ; 0x17921 $B911 20 6C BA                ;
 LB914:                                                                          ;
     LDA      (L0000),y                 ; 0x17924 $B914 B1 00                   ;
-    STA      bss_0777,y                   ; 0x17926 $B916 99 77 07                ; Attack Level (1-8)
+    STA      player_levels,y                   ; 0x17926 $B916 99 77 07                ; Attack Level (1-8)
     DEY                                ; 0x17929 $B919 88                      ;
     BPL      LB914                     ; 0x1792a $B91A 10 F8                   ;
     INY                                ; 0x1792c $B91C C8                      ;
@@ -6737,7 +6737,7 @@ bank5_B9CA:                                                                     
     STA      ($0C),y                   ; 0x179e1 $B9D1 91 0C                   ;
     LDY      #$31                      ; 0x179e3 $B9D3 A0 31                   ; Y = 31
 LB9D5:                                                                          ;
-    LDA      bss_0777,y                   ; 0x179e5 $B9D5 B9 77 07                ;
+    LDA      player_levels,y                   ; 0x179e5 $B9D5 B9 77 07                ;
     STA      ($08),y                   ; 0x179e8 $B9D8 91 08                   ;
     DEY                                ; 0x179ea $B9DA 88                      ;
     BPL      LB9D5                     ; 0x179eb $B9DB 10 F8                   ;

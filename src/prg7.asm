@@ -280,7 +280,7 @@ LC1DD:                                                                          
     LDA      $3B                       ; 0x1c202 $C1F2 A5 3B                   ; Link's X Position (high byte)
     CMP      #$02                      ; 0x1c204 $C1F4 C9 02                   ;
     BCC      LC206                     ; 0x1c206 $C1F6 90 0E                   ;
-    LDA      bss_0796                     ; 0x1c208 $C1F8 AD 96 07                ; Down/Up Techs (and other things)
+    LDA      player_skills                     ; 0x1c208 $C1F8 AD 96 07                ; Down/Up Techs (and other things)
     LSR                                ; 0x1c20b $C1FB 4A                      ;
     BCC      LC206                     ; 0x1c20c $C1FC 90 08                   ;
     LDA      #$01                      ; 0x1c20e $C1FE A9 01                   ; A = 01
@@ -1515,8 +1515,8 @@ LCA3E:                                                                          
     LDA      #$09                      ; 0x1ca68 $CA58 A9 09                   ; A = 09
     JSR      LCA17                     ; 0x1ca6a $CA5A 20 17 CA                ;
     LDA      #$00                      ; 0x1ca6d $CA5D A9 00                   ; A = 00
-    STA      bss_0775                     ; 0x1ca6f $CA5F 8D 75 07                ; Current Experience (high byte)
-    STA      bss_0776                     ; 0x1ca72 $CA62 8D 76 07                ; Current Experience (low byte)
+    STA      player_exp                     ; 0x1ca6f $CA5F 8D 75 07                ; Current Experience (high byte)
+    STA      player_exp+1                     ; 0x1ca72 $CA62 8D 76 07                ; Current Experience (low byte)
     STA      bss_0756                     ; 0x1ca75 $CA65 8D 56 07                ; Experience to be added (low byte)
     STA      bss_0755                     ; 0x1ca78 $CA68 8D 55 07                ; Experience to be added (high byte)
     RTS                                ; 0x1ca7b $CA6B 60                      ;
@@ -1581,8 +1581,8 @@ LCAB1:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCAC4:                                                                          ;
-    STA      bss_0775                     ; 0x1cad4 $CAC4 8D 75 07                ; Current Experience (high byte)
-    STA      bss_0776                     ; 0x1cad7 $CAC7 8D 76 07                ; Current Experience (low byte)
+    STA      player_exp                     ; 0x1cad4 $CAC4 8D 75 07                ; Current Experience (high byte)
+    STA      player_exp+1                     ; 0x1cad7 $CAC7 8D 76 07                ; Current Experience (low byte)
     STA      bss_0756                     ; 0x1cada $CACA 8D 56 07                ; Experience to be added (low byte)
     STA      bss_0755                     ; 0x1cadd $CACD 8D 55 07                ; Experience to be added (high byte)
     JSR      bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW; 0x1cae0 $CAD0 20 30 CF; Region Code * 5 + World Code
@@ -1636,7 +1636,7 @@ LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe:                         
 ;X = 1 -> Life                                                                 ;
 ;                                                                              ;
 ;Units Left = Number of Containers * 20 - 1                                    ;
-    LDA      bss_0783,x                   ; 0x1cb28 $CB18 BD 83 07                ; Current number of Magic/Heart Containers
+    LDA      player_jars,x                   ; 0x1cb28 $CB18 BD 83 07                ; Current number of Magic/Heart Containers
     ASL                                ; 0x1cb2b $CB1B 0A                      ;
     ASL                                ; 0x1cb2c $CB1C 0A                      ;
     ASL                                ; 0x1cb2d $CB1D 0A                      ;
@@ -1644,7 +1644,7 @@ LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe:                         
     ASL                                ; 0x1cb2f $CB1F 0A                      ;
     SEC                                ; 0x1cb30 $CB20 38                      ;
     SBC      #$01                      ; 0x1cb31 $CB21 E9 01                   ;
-    STA      bss_0773,x                   ; 0x1cb33 $CB23 9D 73 07                ; Current Magic/Life left in meter
+    STA      player_magic,x                   ; 0x1cb33 $CB23 9D 73 07                ; Current Magic/Life left in meter
     RTS                                ; 0x1cb36 $CB26 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2438,7 +2438,7 @@ bank7_Set_PPU_Macro_for_Palettes:                                               
     BNE      LD07D                     ; 0x1d07c $D06C D0 0F                   ;
     LDX      world_number                     ; 0x1d07e $D06E AE 07 07                ; Current World
     BNE      LD07D                     ; 0x1d081 $D071 D0 0A                   ;
-    LDX      bss_0785                     ; 0x1d083 $D073 AE 85 07                ; Have Candle
+    LDX      player_has_candle                     ; 0x1d083 $D073 AE 85 07                ; Have Candle
     BNE      LD07D                     ; 0x1d086 $D076 D0 05                   ;
     LDA      #$40                      ; 0x1d088 $D078 A9 40                   ; A = 40
     STA      $00                       ; 0x1d08a $D07A 85 00                   ;
@@ -2977,7 +2977,7 @@ LD3E9:                                                                          
     LDA      bss_070C,x                   ; 0x1d404 $D3F4 BD 0C 07                ; Magic/Life to be added to Magic Meter
     BEQ      LD433                     ; 0x1d407 $D3F7 F0 3A                   ;
     DEC      bss_070C,x                   ; 0x1d409 $D3F9 DE 0C 07                ; Magic/Life to be added to Magic Meter
-    LDA      bss_0783,x                   ; 0x1d40c $D3FC BD 83 07                ; Current number of Magic/Life Containers
+    LDA      player_jars,x                   ; 0x1d40c $D3FC BD 83 07                ; Current number of Magic/Life Containers
     ASL                                ; 0x1d40f $D3FF 0A                      ;
     ASL                                ; 0x1d410 $D400 0A                      ;
     ASL                                ; 0x1d411 $D401 0A                      ;
@@ -2986,7 +2986,7 @@ LD3E9:                                                                          
     SEC                                ; 0x1d414 $D404 38                      ;
     SBC      #$01                      ; 0x1d415 $D405 E9 01                   ;
     STA      $00                       ; 0x1d417 $D407 85 00                   ;
-    LDA      bss_0773,x                   ; 0x1d419 $D409 BD 73 07                ; Current Magic/Life left in meter
+    LDA      player_magic,x                   ; 0x1d419 $D409 BD 73 07                ; Current Magic/Life left in meter
     CLC                                ; 0x1d41c $D40C 18                      ;
     ADC      #$02                      ; 0x1d41d $D40D 69 02                   ;
     BCS      LD415                     ; 0x1d41f $D40F B0 04                   ;
@@ -2997,7 +2997,7 @@ LD415:                                                                          
     STA      bss_070C,x                   ; 0x1d427 $D417 9D 0C 07                ; Magic/Life to be added to Magic Meter
     LDA      $00                       ; 0x1d42a $D41A A5 00                   ;
 LD41C:                                                                          ;
-    STA      bss_0773,x                   ; 0x1d42c $D41C 9D 73 07                ; Current Magic/Life left in meter
+    STA      player_magic,x                   ; 0x1d42c $D41C 9D 73 07                ; Current Magic/Life left in meter
     LDA      bss_074F                     ; 0x1d42f $D41F AD 4F 07                ;; Related to Pause Pane
     ORA      bank7_table13,x           ; 0x1d432 $D422 1D CA D3                ;
     STA      bss_074F                     ; 0x1d435 $D425 8D 4F 07                ;; Related to Pause Pane
@@ -3025,13 +3025,13 @@ LD44B:                                                                          
     BCS      LD458                     ; 0x1d463 $D453 B0 03                   ;
     DEC      bss_0755                     ; 0x1d465 $D455 CE 55 07                ; Experience to be added (high byte)
 LD458:                                                                          ;
-    LDA      bss_0776                     ; 0x1d468 $D458 AD 76 07                ; Current Experience (low byte)
+    LDA      player_exp+1                     ; 0x1d468 $D458 AD 76 07                ; Current Experience (low byte)
     CLC                                ; 0x1d46b $D45B 18                      ;
     ADC      $00                       ; 0x1d46c $D45C 65 00                   ;
-    STA      bss_0776                     ; 0x1d46e $D45E 8D 76 07                ; Current Experience (low byte)
-    LDA      bss_0775                     ; 0x1d471 $D461 AD 75 07                ; Current Experience (high byte)
+    STA      player_exp+1                     ; 0x1d46e $D45E 8D 76 07                ; Current Experience (low byte)
+    LDA      player_exp                     ; 0x1d471 $D461 AD 75 07                ; Current Experience (high byte)
     ADC      #$00                      ; 0x1d474 $D464 69 00                   ;
-    STA      bss_0775                     ; 0x1d476 $D466 8D 75 07                ; Current Experience (high byte)
+    STA      player_exp                     ; 0x1d476 $D466 8D 75 07                ; Current Experience (high byte)
     LDA      bss_07FB                     ; 0x1d479 $D469 AD FB 07                ;
     CMP      #$10                      ; 0x1d47c $D46C C9 10                   ;
     BEQ      LD474                     ; 0x1d47e $D46E F0 04                   ;
@@ -3045,16 +3045,16 @@ LD477:                                                                          
     LDA      bss_05E8                     ; 0x1d487 $D477 AD E8 05                ;
     BEQ      LD4AB                     ; 0x1d48a $D47A F0 2F                   ;
     DEC      bss_05E8                     ; 0x1d48c $D47C CE E8 05                ;
-    LDA      bss_0776                     ; 0x1d48f $D47F AD 76 07                ; Current Experience (low byte)
-    ORA      bss_0775                     ; 0x1d492 $D482 0D 75 07                ; Current Experience (high byte)
+    LDA      player_exp+1                     ; 0x1d48f $D47F AD 76 07                ; Current Experience (low byte)
+    ORA      player_exp                     ; 0x1d492 $D482 0D 75 07                ; Current Experience (high byte)
     BEQ      LD4AB                     ; 0x1d495 $D485 F0 24                   ;
-    LDA      bss_0776                     ; 0x1d497 $D487 AD 76 07                ; Current Experience (low byte)
+    LDA      player_exp+1                     ; 0x1d497 $D487 AD 76 07                ; Current Experience (low byte)
     SEC                                ; 0x1d49a $D48A 38                      ;
     SBC      #$01                      ; 0x1d49b $D48B E9 01                   ;
-    STA      bss_0776                     ; 0x1d49d $D48D 8D 76 07                ; Current Experience (low byte)
-    LDA      bss_0775                     ; 0x1d4a0 $D490 AD 75 07                ; Current Experience (high byte)
+    STA      player_exp+1                     ; 0x1d49d $D48D 8D 76 07                ; Current Experience (low byte)
+    LDA      player_exp                     ; 0x1d4a0 $D490 AD 75 07                ; Current Experience (high byte)
     SBC      #$00                      ; 0x1d4a3 $D493 E9 00                   ;
-    STA      bss_0775                     ; 0x1d4a5 $D495 8D 75 07                ; Current Experience (high byte)
+    STA      player_exp                     ; 0x1d4a5 $D495 8D 75 07                ; Current Experience (high byte)
     LDA      bss_07FB                     ; 0x1d4a8 $D498 AD FB 07                ;
     CMP      #$10                      ; 0x1d4ab $D49B C9 10                   ;
     BEQ      LD4A3                     ; 0x1d4ad $D49D F0 04                   ;
@@ -3837,11 +3837,11 @@ LD9D0:                                                                          
     TYA                                ; 0x1d9e4 $D9D4 98                      ;
     EOR      #$03                      ; 0x1d9e5 $D9D5 49 03                   ; flip bits .... ..xx
     STA      bss_05E7                     ; 0x1d9e7 $D9D7 8D E7 05                ;
-    LDA      bss_078C                     ; 0x1d9ea $D9DA AD 8C 07                ; Have Magic Key
+    LDA      player_has_anykey                     ; 0x1d9ea $D9DA AD 8C 07                ; Have Magic Key
     BNE      LD9E7                     ; 0x1d9ed $D9DD D0 08                   ;
-    LDA      bss_0793                     ; 0x1d9ef $D9DF AD 93 07                ; Current number of keys
+    LDA      player_keys                     ; 0x1d9ef $D9DF AD 93 07                ; Current number of keys
     BEQ      LD9FD                     ; 0x1d9f2 $D9E2 F0 19                   ;
-    DEC      bss_0793                     ; 0x1d9f4 $D9E4 CE 93 07                ;; Keys (00-09); Current number of Keys
+    DEC      player_keys                     ; 0x1d9f4 $D9E4 CE 93 07                ;; Keys (00-09); Current number of Keys
 LD9E7:                                                                          ;
     LDA      $3C,x                     ; 0x1d9f7 $D9E7 B5 3C                   ;; Enemy X Position (high byte)
     TAX                                ; 0x1d9f9 $D9E9 AA                      ;
@@ -3993,7 +3993,7 @@ bank7_Enemy_Routines1_Moa:                                                      
     LDA      region_number                     ; 0x1dae5 $DAD5 AD 06 07                ; Current Region
     CMP      #$02                      ; 0x1dae8 $DAD8 C9 02                   ; check if Region is 02 (East Hyrule)
     BNE      LDAE1                     ; 0x1daea $DADA D0 05                   ;
-    LDA      bss_078A                     ; 0x1daec $DADC AD 8A 07                ; Have Cross ?
+    LDA      player_has_cross                     ; 0x1daec $DADC AD 8A 07                ; Have Cross ?
     BEQ      LDAE4                     ; 0x1daef $DADF F0 03                   ; if NOT, skip display routine
 LDAE1:                                                                          ;
     JSR      bank7_Display             ; 0x1daf1 $DAE1 20 11 EF                ; Display
@@ -5137,7 +5137,7 @@ LE234:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LE235:                                                                          ;
-    LDA      bss_0786                     ; 0x1e245 $E235 AD 86 07                ; Have Glove
+    LDA      player_has_glove                     ; 0x1e245 $E235 AD 86 07                ; Have Glove
     BEQ      LE26A                     ; 0x1e248 $E238 F0 30                   ;
 bank7_stab_brick_at_0E_with_A_and_does_draw:                                    ;
     LDA      #$42                      ; 0x1e24a $E23A A9 42                   ; A = 42						;FUNCTION: stab brick at E with A and does draw
@@ -5250,7 +5250,7 @@ LE30D:                                                                          
     ASL                                ; 0x1e32f $E31F 0A                      ;
     ASL                                ; 0x1e330 $E320 0A                      ;
     ASL                                ; 0x1e331 $E321 0A                      ;
-    ADC      bss_0779                     ; 0x1e332 $E322 6D 79 07                ; Add Life Power (1-8)
+    ADC      player_life_lvl                     ; 0x1e332 $E322 6D 79 07                ; Add Life Power (1-8)
     TAY                                ; 0x1e335 $E325 A8                      ;
     LDA      LE2AE,y                   ; 0x1e336 $E326 B9 AE E2                ; refer to table at 1E2AF (Enemy Damage)
     LDY      bss_070F                     ; 0x1e339 $E329 AC 0F 07                ; Color of Link after Shield Spell
@@ -5258,16 +5258,16 @@ LE30D:                                                                          
     LSR                                ; 0x1e33e $E32E 4A                      ; Divide by 2 (if Shield is cast)
 LE32F:                                                                          ;
     STA      $0C                       ; 0x1e33f $E32F 85 0C                   ;
-    LDA      bss_0774                     ; 0x1e341 $E331 AD 74 07                ; Current Life left in meter
+    LDA      player_life                     ; 0x1e341 $E331 AD 74 07                ; Current Life left in meter
     SEC                                ; 0x1e344 $E334 38                      ;
     SBC      $0C                       ; 0x1e345 $E335 E5 0C                   ;
-    STA      bss_0774                     ; 0x1e347 $E337 8D 74 07                ;; Hit Points; Current Life left in meter
+    STA      player_life                     ; 0x1e347 $E337 8D 74 07                ;; Hit Points; Current Life left in meter
     LDA      bss_074F                     ; 0x1e34a $E33A AD 4F 07                ;; Related to Pause Pane
     ORA      #$40                      ; 0x1e34d $E33D 09 40                   ; set bits  .x.. ....
     STA      bss_074F                     ; 0x1e34f $E33F 8D 4F 07                ;; Related to Pause Pane
     BCS      LE34C                     ; 0x1e352 $E342 B0 08                   ;
     LDA      #$00                      ; 0x1e354 $E344 A9 00                   ; A = 00
-    STA      bss_0774                     ; 0x1e356 $E346 8D 74 07                ; Current Life left in meter
+    STA      player_life                     ; 0x1e356 $E346 8D 74 07                ; Current Life left in meter
     INC      bss_0494                     ; 0x1e359 $E349 EE 94 04                ;kill link
 LE34C:                                                                          ;
     LDA      #$20                      ; 0x1e35c $E34C A9 20                   ; A = 20
@@ -5875,7 +5875,7 @@ LE708:                                                                          
     LDA      #$FE                      ; 0x1e72e $E71E A9 FE                   ; A = FE
     STA      bss_057D                     ; 0x1e730 $E720 8D 7D 05                ; Link's Y Velocity
 LE723:                                                                          ;
-    LDY      bss_0777                     ; 0x1e733 $E723 AC 77 07                ; Attack Power
+    LDY      player_atk_lvl                     ; 0x1e733 $E723 AC 77 07                ; Attack Power
 bank7_E726:                                                                          ;
     LDA      #$30                      ; 0x1e736 $E726 A9 30                   ; A = 30
     STA      bss_040E,x                   ; 0x1e738 $E728 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
@@ -5942,9 +5942,9 @@ LE77D:                                                                          
     STA      bss_074B                     ; 0x1e798 $E788 8D 4B 07                ; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$10                      ; 0x1e79b $E78B A9 10                   ; A = 10
     STA      $EB                       ; 0x1e79d $E78D 85 EB                   ; Music
-    LDA      bss_0785,y                   ; 0x1e79f $E78F B9 85 07                ; Have Item Y
+    LDA      player_items,y                   ; 0x1e79f $E78F B9 85 07                ; Have Item Y
     ORA      #$01                      ; 0x1e7a2 $E792 09 01                   ; set  bits .... ...x
-    STA      bss_0785,y                   ; 0x1e7a4 $E794 99 85 07                ;
+    STA      player_items,y                   ; 0x1e7a4 $E794 99 85 07                ;
 LE797:                                                                          ;
     JMP      bank7_remove_enemy_or_item; 0x1e7a7 $E797 4C 47 DD                ; Remove Enemy/Item
                                                                                ;
@@ -5964,7 +5964,7 @@ LE79A:                                                                          
     LDA      #$02                      ; 0x1e7c1 $E7B1 A9 02                   ; A = 02 (04 = quiet version of Palace theme)
     STA      $EB                       ; 0x1e7c3 $E7B3 85 EB                   ; Music
 LE7B5:                                                                          ;
-    INC      bss_0793                     ; 0x1e7c5 $E7B5 EE 93 07                ; Number of Keys
+    INC      player_keys                     ; 0x1e7c5 $E7B5 EE 93 07                ; Number of Keys
     JMP      LE797                     ; 0x1e7c8 $E7B8 4C 97 E7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5980,10 +5980,10 @@ LE7BB:                                                                          
     STA      $EF                       ; 0x1e7d9 $E7C9 85 EF                   ; Sound Effects Type 4
     TYA                                ; 0x1e7db $E7CB 98                      ;
     TAX                                ; 0x1e7dc $E7CC AA                      ;
-    INC      bss_0775,x                   ; 0x1e7dd $E7CD FE 75 07                ; 0E = Magic Containers, 0F = Heart Containers
+    INC      player_exp,x                   ; 0x1e7dd $E7CD FE 75 07                ; 0E = Magic Containers, 0F = Heart Containers
     CPX      #$0E                      ; 0x1e7e0 $E7D0 E0 0E                   ;
     BNE      LE7E3                     ; 0x1e7e2 $E7D2 D0 0F                   ;
-    LDY      bss_0775,x                   ; 0x1e7e4 $E7D4 BC 75 07                ;
+    LDY      player_exp,x                   ; 0x1e7e4 $E7D4 BC 75 07                ;
     CPY      #$07                      ; 0x1e7e7 $E7D7 C0 07                   ; check if Link has 7 Magic Containers
     BCC      LE7E3                     ; 0x1e7e9 $E7D9 90 08                   ;
     LDA      bss_079D                     ; 0x1e7eb $E7DB AD 9D 07                ;; Have 7 Magic Containers (08)
@@ -6055,7 +6055,7 @@ LE847:                                                                          
     STA      $EB                       ; 0x1e85d $E84D 85 EB                   ; Music
     LDA      #$10                      ; 0x1e85f $E84F A9 10                   ; A = 10
     STA      bss_05E2                     ; 0x1e861 $E851 8D E2 05                ; Amount of Magic to restore for Blue Jar
-    LDA      bss_0783                     ; 0x1e864 $E854 AD 83 07                ; Number of Magic Containers
+    LDA      player_magic_jars                     ; 0x1e864 $E854 AD 83 07                ; Number of Magic Containers
     ASL                                ; 0x1e867 $E857 0A                      ;
     ASL                                ; 0x1e868 $E858 0A                      ;
     ASL                                ; 0x1e869 $E859 0A                      ;

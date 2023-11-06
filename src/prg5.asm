@@ -141,7 +141,7 @@ bank5_Object_Construction_Routine:                                              
     LSR                                ; 0x14102 $80F2 4A                      ;
     TAX                                ; 0x14103 $80F3 AA                      ;
     DEX                                ; 0x14104 $80F4 CA                      ;
-    LDA      $0730                     ; 0x14105 $80F5 AD 30 07                ;; Position of Object Placement
+    LDA      bss_0730                     ; 0x14105 $80F5 AD 30 07                ;; Position of Object Placement
     AND      #$F0                      ; 0x14108 $80F8 29 F0                   ; keep bits xxxx ....
     CMP      #$F0                      ; 0x1410a $80FA C9 F0                   ;
     BNE      L8103                     ; 0x1410c $80FC D0 05                   ;
@@ -266,7 +266,7 @@ bank5_Objects_Construction_Routines_2_high__X_wide:                             
     STA      $0112                     ; 0x141c8 $81B8 8D 12 01                ;; Tile Code 0 for Object
     JSR      bank7_DF4C                     ; 0x141cb $81BB 20 4C DF                ;
 L81BE:                                                                          ;
-    LDA      $0731                     ; 0x141ce $81BE AD 31 07                ;; Level Object Type and Size
+    LDA      bss_0731                     ; 0x141ce $81BE AD 31 07                ;; Level Object Type and Size
     AND      #$0F                      ; 0x141d1 $81C1 29 0F                   ; keep bits .... xxxx
     TAX                                ; 0x141d3 $81C3 AA                      ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x141d4 $81C4 20 44 C9          ;
@@ -288,12 +288,12 @@ bank5_Objects_Construction_Routines_Object_X_high__1_wide:                      
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x141ea $81DA 20 44 C9          ;
     LDA      $0112                     ; 0x141ed $81DD AD 12 01                ;; Tile Code 0 for Object
     JSR      bank7_DF56                     ; 0x141f0 $81E0 20 56 DF                ;
-    STA      $0730                     ; 0x141f3 $81E3 8D 30 07                ;; Position of Object Placement
-    DEC      $0731                     ; 0x141f6 $81E6 CE 31 07                ;; Level Object Type and Size
+    STA      bss_0730                     ; 0x141f3 $81E3 8D 30 07                ;; Position of Object Placement
+    DEC      bss_0731                     ; 0x141f6 $81E6 CE 31 07                ;; Level Object Type and Size
     LDA      L0000                     ; 0x141f9 $81E9 A5 00                   ;
     STA      $0112                     ; 0x141fb $81EB 8D 12 01                ;; Tile Code 0 for Object
 L81EE:                                                                          ;
-    LDA      $0731                     ; 0x141fe $81EE AD 31 07                ;; Level Object Type and Size
+    LDA      bss_0731                     ; 0x141fe $81EE AD 31 07                ;; Level Object Type and Size
     AND      #$0F                      ; 0x14201 $81F1 29 0F                   ; keep bits .... xxxx
     TAX                                ; 0x14203 $81F3 AA                      ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x14204 $81F4 20 44 C9          ;
@@ -327,14 +327,14 @@ L821C:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_Objects_Construction_Routines_Object_Lava_Pit__3_high_bottom_of_screen:   ;
-    LDA      $0730                     ; 0x1422f $821F AD 30 07                ;; Position of Object Placement
+    LDA      bss_0730                     ; 0x1422f $821F AD 30 07                ;; Position of Object Placement
     AND      #$0F                      ; 0x14232 $8222 29 0F                   ; keep bits .... xxxx
     ORA      #$A0                      ; 0x14234 $8224 09 A0                   ; set  bits x.x. ....
-    STA      $0730                     ; 0x14236 $8226 8D 30 07                ;; Position of Object Placement
+    STA      bss_0730                     ; 0x14236 $8226 8D 30 07                ;; Position of Object Placement
     LDA      #$83                      ; 0x14239 $8229 A9 83                   ; A = 83
     STA      $0112                     ; 0x1423b $822B 8D 12 01                ;; Tile Code 0 for Object
 L822E:                                                                          ;
-    LDA      $0731                     ; 0x1423e $822E AD 31 07                ;; Level Object Type and Size
+    LDA      bss_0731                     ; 0x1423e $822E AD 31 07                ;; Level Object Type and Size
     AND      #$0F                      ; 0x14241 $8231 29 0F                   ; keep bits .... xxxx
     TAX                                ; 0x14243 $8233 AA                      ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x14244 $8234 20 44 C9          ;
@@ -354,13 +354,13 @@ L8237:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank5_Objects_Construction_Routines_Object_Elevator:                            ;
     LDA      $010A                     ; 0x1425f $824F AD 0A 01                ;
-    STA      $0757                     ; 0x14262 $8252 8D 57 07                ;; Position of Elevator in Map
+    STA      bss_0757                     ; 0x14262 $8252 8D 57 07                ;; Position of Elevator in Map
     RTS                                ; 0x14265 $8255 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_Small_Objects_Construction_Routines_Locked_Door:                          ;
     LDA      $010A                     ; 0x14266 $8256 AD 0A 01                ;
-    STA      $0758                     ; 0x14269 $8259 8D 58 07                ;; Position of Locked Door in Map
+    STA      bss_0758                     ; 0x14269 $8259 8D 58 07                ;; Position of Locked Door in Map
     RTS                                ; 0x1426c $825C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -910,7 +910,7 @@ bank5_routines_related_to_Ending_sequence:                                      
     LDA      #$05                      ; 0x14b65 $8B55 A9 05                   ; A = 05
     STA      world_number                     ; 0x14b67 $8B57 8D 07 07                ; Current World
     LDA      #$3E                      ; 0x14b6a $8B5A A9 3E                   ; A = 3E
-    LDY      $0761                     ; 0x14b6c $8B5C AC 61 07                ;
+    LDY      bss_0761                     ; 0x14b6c $8B5C AC 61 07                ;
     BNE      L8B63                     ; 0x14b6f $8B5F D0 02                   ;
     LDA      #$3D                      ; 0x14b71 $8B61 A9 3D                   ; A = 3D
 L8B63:                                                                          ;
@@ -919,7 +919,7 @@ L8B63:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_8B69:                                                                          ;
-    LDY      $0761                     ; 0x14b79 $8B69 AC 61 07                ;
+    LDY      bss_0761                     ; 0x14b79 $8B69 AC 61 07                ;
     BNE      L8B77                     ; 0x14b7c $8B6C D0 09                   ;
     LDX      #$04                      ; 0x14b7e $8B6E A2 04                   ; X = 04
     STX      $EB                       ; 0x14b80 $8B70 86 EB                   ; Music
@@ -965,7 +965,7 @@ bank5_table2:                                                                   
 .byt    $17,$27,$37,$37                ; 0x14bcb $8BBB 17 27 37 37             ;
 ; ---------------------------------------------------------------------------- ;
 bank5_code4:                                                                    ;
-    LDX      $0301                     ; 0x14bcf $8BBF AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDX      bss_0301                     ; 0x14bcf $8BBF AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDY      #$00                      ; 0x14bd2 $8BC2 A0 00                   ; Y = 00
 L8BC4:                                                                          ;
     LDA      bank5_ppu_command,y       ; 0x14bd4 $8BC4 B9 B3 8B                ;
@@ -982,8 +982,8 @@ L8BC4:                                                                          
     LDA      bank5_table2,y            ; 0x14be7 $8BD7 B9 BB 8B                ;
     STA      $02FF,x                   ; 0x14bea $8BDA 9D FF 02                ;
     DEX                                ; 0x14bed $8BDD CA                      ;
-    STX      $0301                     ; 0x14bee $8BDE 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    LDA      $0761                     ; 0x14bf1 $8BE1 AD 61 07                ;
+    STX      bss_0301                     ; 0x14bee $8BDE 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDA      bss_0761                     ; 0x14bf1 $8BE1 AD 61 07                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x14bf4 $8BE4 20 85 D3;
 bank5_pointer_table_Related_to_Ending:                                          ;
 .word    bank5_code5                   ; 0x14bf7 $8BE7 1D 8C                   ;
@@ -1041,8 +1041,8 @@ L8C44:                                                                          
 L8C4C:                                                                          ;
     DEC      $37                       ; 0x14c5c $8C4C C6 37                   ;
     BNE      L8C5E                     ; 0x14c5e $8C4E D0 0E                   ;
-    INC      $0761                     ; 0x14c60 $8C50 EE 61 07                ;
-    LDA      $0761                     ; 0x14c63 $8C53 AD 61 07                ;
+    INC      bss_0761                     ; 0x14c60 $8C50 EE 61 07                ;
+    LDA      bss_0761                     ; 0x14c63 $8C53 AD 61 07                ;
     CMP      #$0A                      ; 0x14c66 $8C56 C9 0A                   ;
     BNE      L8C5E                     ; 0x14c68 $8C58 D0 04                   ;
     LDA      #$08                      ; 0x14c6a $8C5A A9 08                   ; A = 08
@@ -1114,15 +1114,15 @@ L8CBB:                                                                          
     LDA      #$04                      ; 0x14cd5 $8CC5 A9 04                   ; A = 04
     STA      $EC                       ; 0x14cd7 $8CC7 85 EC                   ; Sound Effects Type 1
     LDA      #$E0                      ; 0x14cd9 $8CC9 A9 E0                   ; A = E0
-    STA      $074B                     ; 0x14cdb $8CCB 8D 4B 07                ; Spell Flash Counter
+    STA      bss_074B                     ; 0x14cdb $8CCB 8D 4B 07                ; Spell Flash Counter
     INC      $33                       ; 0x14cde $8CCE E6 33                   ;
 L8CD0:                                                                          ;
-    LDA      $0751                     ; 0x14ce0 $8CD0 AD 51 07                ;
+    LDA      bss_0751                     ; 0x14ce0 $8CD0 AD 51 07                ;
     STA      $69CC                     ; 0x14ce3 $8CD3 8D CC 69                ;
-    LDA      $074B                     ; 0x14ce6 $8CD6 AD 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
+    LDA      bss_074B                     ; 0x14ce6 $8CD6 AD 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     ASL                                ; 0x14ce9 $8CD9 0A                      ;
     BNE      L8CE3                     ; 0x14cea $8CDA D0 07                   ;
-    STA      $074B                     ; 0x14cec $8CDC 8D 4B 07                ; Spell Flash Counter
+    STA      bss_074B                     ; 0x14cec $8CDC 8D 4B 07                ; Spell Flash Counter
 L8CE1     = * + $0002                                                          ;
     JMP      L8C44                     ; 0x14cef $8CDF 4C 44 8C                ;
                                                                                ;
@@ -1132,16 +1132,16 @@ L8CE2:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8CE3:                                                                          ;
-    LDX      $0301                     ; 0x14cf3 $8CE3 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDX      bss_0301                     ; 0x14cf3 $8CE3 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     CPX      #$19                      ; 0x14cf6 $8CE6 E0 19                   ;
     BCS      L8CE2                     ; 0x14cf8 $8CE8 B0 F8                   ;
-    DEC      $074B                     ; 0x14cfa $8CEA CE 4B 07                ; Spell Flash Counter
+    DEC      bss_074B                     ; 0x14cfa $8CEA CE 4B 07                ; Spell Flash Counter
     LDA      #$3F                      ; 0x14cfd $8CED A9 3F                   ; A = 3F
     STA      bss_0302,x                   ; 0x14cff $8CEF 9D 02 03                ;
     LDA      #$10                      ; 0x14d02 $8CF2 A9 10                   ; A = 10
-    STA      $0303,x                   ; 0x14d04 $8CF4 9D 03 03                ;
+    STA      bss_0303,x                   ; 0x14d04 $8CF4 9D 03 03                ;
     LDA      #$04                      ; 0x14d07 $8CF7 A9 04                   ; A = 04
-    STA      $0304,x                   ; 0x14d09 $8CF9 9D 04 03                ;
+    STA      bss_0304,x                   ; 0x14d09 $8CF9 9D 04 03                ;
     LDY      #$03                      ; 0x14d0c $8CFC A0 03                   ; Y = 03
     LDA      ($D4),y                   ; 0x14d0e $8CFE B1 D4                   ;
     INY                                ; 0x14d10 $8D00 C8                      ;
@@ -1149,36 +1149,36 @@ L8CE3:                                                                          
     CMP      #$08                      ; 0x14d13 $8D03 C9 08                   ;
     BNE      L8D10                     ; 0x14d15 $8D05 D0 09                   ;
     LDA      world_number                     ; 0x14d17 $8D07 AD 07 07                ; Current World
-    ORA      $0785                     ; 0x14d1a $8D0A 0D 85 07                ; Have Candle
+    ORA      bss_0785                     ; 0x14d1a $8D0A 0D 85 07                ; Have Candle
     BNE      L8D10                     ; 0x14d1d $8D0D D0 01                   ;
     INY                                ; 0x14d1f $8D0F C8                      ;
 L8D10:                                                                          ;
-    LDA      $074B                     ; 0x14d20 $8D10 AD 4B 07                ; Spell Flash Counter
+    LDA      bss_074B                     ; 0x14d20 $8D10 AD 4B 07                ; Spell Flash Counter
     AND      #$7F                      ; 0x14d23 $8D13 29 7F                   ; keep bits .xxx xxxx
     BEQ      L8D1A                     ; 0x14d25 $8D15 F0 03                   ;
     AND      #$03                      ; 0x14d27 $8D17 29 03                   ; keep bits .... ..xx
     TAY                                ; 0x14d29 $8D19 A8                      ;
 L8D1A:                                                                          ;
     LDA      $69CE,y                   ; 0x14d2a $8D1A B9 CE 69                ;
-    STA      $0306,x                   ; 0x14d2d $8D1D 9D 06 03                ;
+    STA      bss_0306,x                   ; 0x14d2d $8D1D 9D 06 03                ;
     LDA      $69D4,y                   ; 0x14d30 $8D20 B9 D4 69                ;
-    STA      $0307,x                   ; 0x14d33 $8D23 9D 07 03                ;
+    STA      bss_0307,x                   ; 0x14d33 $8D23 9D 07 03                ;
     LDA      $69DA,y                   ; 0x14d36 $8D26 B9 DA 69                ;
-    STA      $0308,x                   ; 0x14d39 $8D29 9D 08 03                ;
-    LDA      $074B                     ; 0x14d3c $8D2C AD 4B 07                ; Spell Flash Counter
+    STA      bss_0308,x                   ; 0x14d39 $8D29 9D 08 03                ;
+    LDA      bss_074B                     ; 0x14d3c $8D2C AD 4B 07                ; Spell Flash Counter
     ASL                                ; 0x14d3f $8D2F 0A                      ;
     BCS      L8D34                     ; 0x14d40 $8D30 B0 02                   ;
     LDY      #$04                      ; 0x14d42 $8D32 A0 04                   ; Y = 04
 L8D34:                                                                          ;
     LDA      $69C8,y                   ; 0x14d44 $8D34 B9 C8 69                ;
-    STA      $0305,x                   ; 0x14d47 $8D37 9D 05 03                ;
+    STA      bss_0305,x                   ; 0x14d47 $8D37 9D 05 03                ;
     LDA      #$FF                      ; 0x14d4a $8D3A A9 FF                   ; A = FF
-    STA      $0309,x                   ; 0x14d4c $8D3C 9D 09 03                ;
+    STA      bss_0309,x                   ; 0x14d4c $8D3C 9D 09 03                ;
     TXA                                ; 0x14d4f $8D3F 8A                      ;
     CLC                                ; 0x14d50 $8D40 18                      ;
     ADC      #$07                      ; 0x14d51 $8D41 69 07                   ;
-    STA      $0301                     ; 0x14d53 $8D43 8D 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    LDA      $074B                     ; 0x14d56 $8D46 AD 4B 07                ; Spell Flash Counter
+    STA      bss_0301                     ; 0x14d53 $8D43 8D 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDA      bss_074B                     ; 0x14d56 $8D46 AD 4B 07                ; Spell Flash Counter
     BNE      L8D8C                     ; 0x14d59 $8D49 D0 41                   ;
     JMP      L8C44                     ; 0x14d5b $8D4B 4C 44 8C                ;
                                                                                ;
@@ -1190,7 +1190,7 @@ bank5_ppu_macro0:                                                               
 ; ---------------------------------------------------------------------------- ;
 bank5_change_tile_of_zelda_to_wake_her_up:                                      ;
     LDY      #$00                      ; 0x14d74 $8D64 A0 00                   ; Y = 00
-    LDX      $0301                     ; 0x14d76 $8D66 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDX      bss_0301                     ; 0x14d76 $8D66 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
 L8D69:                                                                          ;
     LDA      bank5_ppu_macro0,y        ; 0x14d79 $8D69 B9 4E 8D                ;
     STA      bss_0302,x                   ; 0x14d7c $8D6C 9D 02 03                ;
@@ -1199,7 +1199,7 @@ L8D69:                                                                          
     CPY      #$16                      ; 0x14d81 $8D71 C0 16                   ;
     BNE      L8D69                     ; 0x14d83 $8D73 D0 F4                   ;
     DEX                                ; 0x14d85 $8D75 CA                      ;
-    STX      $0301                     ; 0x14d86 $8D76 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    STX      bss_0301                     ; 0x14d86 $8D76 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     JSR      L8C8B                     ; 0x14d89 $8D79 20 8B 8C                ;
     JSR      L8C38                     ; 0x14d8c $8D7C 20 38 8C                ;
     JSR      L8C44                     ; 0x14d8f $8D7F 20 44 8C                ;
@@ -1221,7 +1221,7 @@ bank5_ppu_macro1:                                                               
 .byt    $23,$F0,$48,$F0,$FF            ; 0x14dc5 $8DB5 23 F0 48 F0 FF          ;
 ; ---------------------------------------------------------------------------- ;
 bank5_code7:                                                                    ;
-    LDX      $0301                     ; 0x14dca $8DBA AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDX      bss_0301                     ; 0x14dca $8DBA AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDY      #$00                      ; 0x14dcd $8DBD A0 00                   ; Y = 00
 L8DBF:                                                                          ;
     LDA      bank5_ppu_macro1,y        ; 0x14dcf $8DBF B9 AD 8D                ;
@@ -1232,7 +1232,7 @@ L8DC3     = * + $0001                                                          ;
     CPY      #$0D                      ; 0x14dd7 $8DC7 C0 0D                   ;
     BNE      L8DBF                     ; 0x14dd9 $8DC9 D0 F4                   ;
     DEX                                ; 0x14ddb $8DCB CA                      ;
-    STX      $0301                     ; 0x14ddc $8DCC 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    STX      bss_0301                     ; 0x14ddc $8DCC 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     JSR      L8DD5                     ; 0x14ddf $8DCF 20 D5 8D                ;
     JMP      L8C44                     ; 0x14de2 $8DD2 4C 44 8C                ;
                                                                                ;
@@ -1303,15 +1303,15 @@ L8E4D:                                                                          
     INC      $3E                       ; 0x14e5d $8E4D E6 3E                   ;
     CLC                                ; 0x14e5f $8E4F 18                      ;
     ADC      $01                       ; 0x14e60 $8E50 65 01                   ;
-    STA      $0303                     ; 0x14e62 $8E52 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x14e62 $8E52 8D 03 03                ;; Letter position when writing to screen
     LDA      L0000                     ; 0x14e65 $8E55 A5 00                   ;
     STA      bss_0302                     ; 0x14e67 $8E57 8D 02 03                ;; Used when writing text to screen
     LDA      #$01                      ; 0x14e6a $8E5A A9 01                   ; A = 01
-    STA      $0304                     ; 0x14e6c $8E5C 8D 04 03                ;; Text memory offset?
+    STA      bss_0304                     ; 0x14e6c $8E5C 8D 04 03                ;; Text memory offset?
     LDA      bank5_Ending_Text_Zelda_,x; 0x14e6f $8E5F BD E1 8D                ;
-    STA      $0305                     ; 0x14e72 $8E62 8D 05 03                ;; Empty Row Space Character
+    STA      bss_0305                     ; 0x14e72 $8E62 8D 05 03                ;; Empty Row Space Character
     LDA      #$FF                      ; 0x14e75 $8E65 A9 FF                   ; A = FF
-    STA      $0306                     ; 0x14e77 $8E67 8D 06 03                ;; Letter Written to Screen
+    STA      bss_0306                     ; 0x14e77 $8E67 8D 06 03                ;; Letter Written to Screen
     LDA      #$02                      ; 0x14e7a $8E6A A9 02                   ; A = 02
     STA      $EF                       ; 0x14e7c $8E6C 85 EF                   ; Sound Effects Type 4
 L8E6E:                                                                          ;
@@ -1319,7 +1319,7 @@ L8E6E:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8E6F:                                                                          ;
-    LDA      $0761                     ; 0x14e7f $8E6F AD 61 07                ;
+    LDA      bss_0761                     ; 0x14e7f $8E6F AD 61 07                ;
     CMP      #$0D                      ; 0x14e82 $8E72 C9 0D                   ;
     BEQ      L8E83                     ; 0x14e84 $8E74 F0 0D                   ;
     CMP      #$09                      ; 0x14e86 $8E76 C9 09                   ;
@@ -1365,14 +1365,14 @@ bank5_code10:                                                                   
     LDA      $28                       ; 0x14ec8 $8EB8 A5 28                   ;
     CLC                                ; 0x14eca $8EBA 18                      ;
     ADC      #$20                      ; 0x14ecb $8EBB 69 20                   ;
-    STA      $0303                     ; 0x14ecd $8EBD 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x14ecd $8EBD 8D 03 03                ;; Letter position when writing to screen
     LDA      $27                       ; 0x14ed0 $8EC0 A5 27                   ;
     ADC      #$00                      ; 0x14ed2 $8EC2 69 00                   ;
     STA      bss_0302                     ; 0x14ed4 $8EC4 8D 02 03                ;; Used when writing text to screen
     LDX      #$06                      ; 0x14ed7 $8EC7 A2 06                   ; X = 06
 L8EC9:                                                                          ;
     LDA      bank5_table5,x            ; 0x14ed9 $8EC9 BD A1 8E                ;
-    STA      $0304,x                   ; 0x14edc $8ECC 9D 04 03                ;
+    STA      bss_0304,x                   ; 0x14edc $8ECC 9D 04 03                ;
     DEX                                ; 0x14edf $8ECF CA                      ;
     BPL      L8EC9                     ; 0x14ee0 $8ED0 10 F7                   ;
     LDA      $32                       ; 0x14ee2 $8ED2 A5 32                   ;
@@ -1380,13 +1380,13 @@ L8EC9:                                                                          
     LSR                                ; 0x14ee6 $8ED6 4A                      ;
     TAX                                ; 0x14ee7 $8ED7 AA                      ;
     LDA      $2E                       ; 0x14ee8 $8ED8 A5 2E                   ;
-    STA      $0307                     ; 0x14eea $8EDA 8D 07 03                ;; Text memory offset?
+    STA      bss_0307                     ; 0x14eea $8EDA 8D 07 03                ;; Text memory offset?
     CMP      #$F0                      ; 0x14eed $8EDD C9 F0                   ;
     BNE      L8EE3                     ; 0x14eef $8EDF D0 02                   ;
     LDX      #$01                      ; 0x14ef1 $8EE1 A2 01                   ; X = 01
 L8EE3:                                                                          ;
     LDA      L8EA8,x                   ; 0x14ef3 $8EE3 BD A8 8E                ;
-    STA      $0309                     ; 0x14ef6 $8EE6 8D 09 03                ;
+    STA      bss_0309                     ; 0x14ef6 $8EE6 8D 09 03                ;
     INC      $32                       ; 0x14ef9 $8EE9 E6 32                   ;
     LDA      $32                       ; 0x14efb $8EEB A5 32                   ;
     AND      #$03                      ; 0x14efd $8EED 29 03                   ; keep bits .... ..xx
@@ -1432,7 +1432,7 @@ bank5_code11:                                                                   
     LDA      $27                       ; 0x14f49 $8F39 A5 27                   ;
     ADC      #$00                      ; 0x14f4b $8F3B 69 00                   ;
     STA      $27                       ; 0x14f4d $8F3D 85 27                   ;
-    LDA      $0761                     ; 0x14f4f $8F3F AD 61 07                ;
+    LDA      bss_0761                     ; 0x14f4f $8F3F AD 61 07                ;
     CMP      #$0D                      ; 0x14f52 $8F42 C9 0D                   ;
     BEQ      L8F52                     ; 0x14f54 $8F44 F0 0C                   ;
     LDA      $27                       ; 0x14f56 $8F46 A5 27                   ;
@@ -1549,38 +1549,38 @@ L9000     = * + $0001                                                          ;
     LDA      $27                       ; 0x1500f $8FFF A5 27                   ;
     STA      bss_0302                     ; 0x15011 $9001 8D 02 03                ;; Used when writing text to screen
     LDA      $28                       ; 0x15014 $9004 A5 28                   ;
-    STA      $0303                     ; 0x15016 $9006 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x15016 $9006 8D 03 03                ;; Letter position when writing to screen
     CLC                                ; 0x15019 $9009 18                      ;
     ADC      #$20                      ; 0x1501a $900A 69 20                   ;
-    STA      $0326                     ; 0x1501c $900C 8D 26 03                ;
+    STA      bss_0326                     ; 0x1501c $900C 8D 26 03                ;
     LDA      $27                       ; 0x1501f $900F A5 27                   ;
     ADC      #$00                      ; 0x15021 $9011 69 00                   ;
-    STA      $0325                     ; 0x15023 $9013 8D 25 03                ;
+    STA      bss_0325                     ; 0x15023 $9013 8D 25 03                ;
     LDA      #$20                      ; 0x15026 $9016 A9 20                   ; A = 20
-    STA      $0304                     ; 0x15028 $9018 8D 04 03                ;; Text memory offset?
-    STA      $0327                     ; 0x1502b $901B 8D 27 03                ;
+    STA      bss_0304                     ; 0x15028 $9018 8D 04 03                ;; Text memory offset?
+    STA      bss_0327                     ; 0x1502b $901B 8D 27 03                ;
 L901E:                                                                          ;
     LDA      bank5_table6,y            ; 0x1502e $901E B9 FB 8E                ;
-    STA      $0305,x                   ; 0x15031 $9021 9D 05 03                ;
+    STA      bss_0305,x                   ; 0x15031 $9021 9D 05 03                ;
     LDA      L8EFC,y                   ; 0x15034 $9024 B9 FC 8E                ;
-    STA      $0306,x                   ; 0x15037 $9027 9D 06 03                ;
+    STA      bss_0306,x                   ; 0x15037 $9027 9D 06 03                ;
     LDA      L8EFD,y                   ; 0x1503a $902A B9 FD 8E                ;
-    STA      $0328,x                   ; 0x1503d $902D 9D 28 03                ;
+    STA      bss_0328,x                   ; 0x1503d $902D 9D 28 03                ;
     LDA      L8EFE,y                   ; 0x15040 $9030 B9 FE 8E                ;
-    STA      $0329,x                   ; 0x15043 $9033 9D 29 03                ;
+    STA      bss_0329,x                   ; 0x15043 $9033 9D 29 03                ;
     INX                                ; 0x15046 $9036 E8                      ;
     INX                                ; 0x15047 $9037 E8                      ;
     CPX      #$20                      ; 0x15048 $9038 E0 20                   ;
 L903A:                                                                          ;
     BNE      L901E                     ; 0x1504a $903A D0 E2                   ;
     LDA      #$FF                      ; 0x1504c $903C A9 FF                   ; A = FF
-    STA      $0348                     ; 0x1504e $903E 8D 48 03                ;
+    STA      bss_0348                     ; 0x1504e $903E 8D 48 03                ;
     RTS                                ; 0x15051 $9041 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9042:                                                                          ;
     LDA      #$00                      ; 0x15052 $9042 A9 00                   ; A = 00
-    STA      $0765                     ; 0x15054 $9044 8D 65 07                ;
+    STA      bss_0765                     ; 0x15054 $9044 8D 65 07                ;
     LDA      $33                       ; 0x15057 $9047 A5 33                   ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x15059 $9049 20 85 D3;
 bank5_pointer_table_Probably_related_to_End_Credits:                            ;
@@ -1682,9 +1682,9 @@ L9109:                                                                          
     AND      #$01                      ; 0x15134 $9124 29 01                   ; keep bits .... ...x
     TAX                                ; 0x15136 $9126 AA                      ;
     LDA      L90FA,x                   ; 0x15137 $9127 BD FA 90                ;
-    STA      $0303                     ; 0x1513a $912A 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x1513a $912A 8D 03 03                ;; Letter position when writing to screen
     LDA      #$04                      ; 0x1513d $912D A9 04                   ; A = 04
-    STA      $0304                     ; 0x1513f $912F 8D 04 03                ;; Text memory offset?
+    STA      bss_0304                     ; 0x1513f $912F 8D 04 03                ;; Text memory offset?
     LDA      $55                       ; 0x15142 $9132 A5 55                   ;
     ASL                                ; 0x15144 $9134 0A                      ;
     ASL                                ; 0x15145 $9135 0A                      ;
@@ -1692,13 +1692,13 @@ L9109:                                                                          
     LDX      #$00                      ; 0x15147 $9137 A2 00                   ; X = 00
 L9139:                                                                          ;
     LDA      (L0000),y                 ; 0x15149 $9139 B1 00                   ;
-    STA      $0305,x                   ; 0x1514b $913B 9D 05 03                ;
+    STA      bss_0305,x                   ; 0x1514b $913B 9D 05 03                ;
     INY                                ; 0x1514e $913E C8                      ;
     INX                                ; 0x1514f $913F E8                      ;
     CPX      #$04                      ; 0x15150 $9140 E0 04                   ;
     BNE      L9139                     ; 0x15152 $9142 D0 F5                   ;
     LDA      #$FF                      ; 0x15154 $9144 A9 FF                   ; A = FF
-    STA      $0309                     ; 0x15156 $9146 8D 09 03                ;
+    STA      bss_0309                     ; 0x15156 $9146 8D 09 03                ;
     INC      $55                       ; 0x15159 $9149 E6 55                   ;
     LDY      $55                       ; 0x1515b $914B A4 55                   ;
     LDA      bank5_table8,y            ; 0x1515d $914D B9 AE 90                ;
@@ -1740,7 +1740,7 @@ L9183:                                                                          
     STA      $3B,x                     ; 0x1519b $918B 95 3B                   ;
     DEX                                ; 0x1519d $918D CA                      ;
     BPL      L9183                     ; 0x1519e $918E 10 F3                   ;
-    INC      $0761                     ; 0x151a0 $9190 EE 61 07                ;
+    INC      bss_0761                     ; 0x151a0 $9190 EE 61 07                ;
     RTS                                ; 0x151a3 $9193 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1775,9 +1775,9 @@ L91B3:                                                                          
     LDA      #$3F                      ; 0x151d1 $91C1 A9 3F                   ; A = 3F
     STA      bss_0302                     ; 0x151d3 $91C3 8D 02 03                ;; Used when writing text to screen
     LDA      #$00                      ; 0x151d6 $91C6 A9 00                   ; A = 00
-    STA      $0303                     ; 0x151d8 $91C8 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x151d8 $91C8 8D 03 03                ;; Letter position when writing to screen
     LDA      #$04                      ; 0x151db $91CB A9 04                   ; A = 04
-    STA      $0304                     ; 0x151dd $91CD 8D 04 03                ;; Text memory offset?
+    STA      bss_0304                     ; 0x151dd $91CD 8D 04 03                ;; Text memory offset?
     LDA      $55                       ; 0x151e0 $91D0 A5 55                   ;
     ASL                                ; 0x151e2 $91D2 0A                      ;
     ASL                                ; 0x151e3 $91D3 0A                      ;
@@ -1785,17 +1785,17 @@ L91B3:                                                                          
     LDX      #$00                      ; 0x151e5 $91D5 A2 00                   ; X = 00
 L91D7:                                                                          ;
     LDA      (L0000),y                 ; 0x151e7 $91D7 B1 00                   ;
-    STA      $0305,x                   ; 0x151e9 $91D9 9D 05 03                ;
+    STA      bss_0305,x                   ; 0x151e9 $91D9 9D 05 03                ;
     INY                                ; 0x151ec $91DC C8                      ;
     INX                                ; 0x151ed $91DD E8                      ;
     CPX      #$04                      ; 0x151ee $91DE E0 04                   ;
     BNE      L91D7                     ; 0x151f0 $91E0 D0 F5                   ;
     LDA      #$3F                      ; 0x151f2 $91E2 A9 3F                   ; A = 3F
-    STA      $0309                     ; 0x151f4 $91E4 8D 09 03                ;
+    STA      bss_0309                     ; 0x151f4 $91E4 8D 09 03                ;
     LDA      #$08                      ; 0x151f7 $91E7 A9 08                   ; A = 08
-    STA      $030A                     ; 0x151f9 $91E9 8D 0A 03                ;
+    STA      bss_030A                     ; 0x151f9 $91E9 8D 0A 03                ;
     LDA      #$04                      ; 0x151fc $91EC A9 04                   ; A = 04
-    STA      $030B                     ; 0x151fe $91EE 8D 0B 03                ;
+    STA      bss_030B                     ; 0x151fe $91EE 8D 0B 03                ;
     LDX      #$00                      ; 0x15201 $91F1 A2 00                   ; X = 00
     LDA      $55                       ; 0x15203 $91F3 A5 55                   ;
     ASL                                ; 0x15205 $91F5 0A                      ;
@@ -1804,13 +1804,13 @@ L91D7:                                                                          
     TAY                                ; 0x15209 $91F9 A8                      ;
 L91FA:                                                                          ;
     LDA      (L0000),y                 ; 0x1520a $91FA B1 00                   ;
-    STA      $030C,x                   ; 0x1520c $91FC 9D 0C 03                ;
+    STA      bss_030C,x                   ; 0x1520c $91FC 9D 0C 03                ;
     INY                                ; 0x1520f $91FF C8                      ;
     INX                                ; 0x15210 $9200 E8                      ;
     CPX      #$04                      ; 0x15211 $9201 E0 04                   ;
     BNE      L91FA                     ; 0x15213 $9203 D0 F5                   ;
     LDA      #$FF                      ; 0x15215 $9205 A9 FF                   ; A = FF
-    STA      $030C,x                   ; 0x15217 $9207 9D 0C 03                ;
+    STA      bss_030C,x                   ; 0x15217 $9207 9D 0C 03                ;
     INC      $55                       ; 0x1521a $920A E6 55                   ;
     LDA      $55                       ; 0x1521c $920C A5 55                   ;
     CMP      #$08                      ; 0x1521e $920E C9 08                   ;
@@ -1825,18 +1825,18 @@ L921B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L921C:                                                                          ;
     LDA      #$01                      ; 0x1522c $921C A9 01                   ; A = 01
-    STA      $07A0                     ; 0x1522e $921E 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
+    STA      bss_07A0                     ; 0x1522e $921E 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     LDA      #$00                      ; 0x15231 $9221 A9 00                   ; A = 00
-    STA      $0775                     ; 0x15233 $9223 8D 75 07                ; Current Experience (high byte)
-    STA      $0776                     ; 0x15236 $9226 8D 76 07                ; Current Experience (low byte)
+    STA      bss_0775                     ; 0x15233 $9223 8D 75 07                ; Current Experience (high byte)
+    STA      bss_0776                     ; 0x15236 $9226 8D 76 07                ; Current Experience (low byte)
     LDY      #$69                      ; 0x15239 $9229 A0 69                   ; Y = 69
 L922B:                                                                          ;
-    STA      $0700,y                   ; 0x1523b $922B 99 00 07                ;
+    STA      lives_remaining,y                   ; 0x1523b $922B 99 00 07                ;
     DEY                                ; 0x1523e $922E 88                      ;
     BNE      L922B                     ; 0x1523f $922F D0 FA                   ;
     LDY      #$C0                      ; 0x15241 $9231 A0 C0                   ; Y = C0
 L9233:                                                                          ;
-    STA      $0700,y                   ; 0x15243 $9233 99 00 07                ;
+    STA      lives_remaining,y                   ; 0x15243 $9233 99 00 07                ;
     INY                                ; 0x15246 $9236 C8                      ;
     BNE      L9233                     ; 0x15247 $9237 D0 FA                   ;
     LDY      #$0F                      ; 0x15249 $9239 A0 0F                   ; Y = 0F
@@ -1845,7 +1845,7 @@ L923B:                                                                          
     DEY                                ; 0x1524e $923E 88                      ;
     BPL      L923B                     ; 0x1524f $923F 10 FA                   ;
     JSR      bank7_D293                     ; 0x15251 $9241 20 93 D2                ;
-    INC      $076C                     ; 0x15254 $9244 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      bss_076C                     ; 0x15254 $9244 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x15257 $9247 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1854,7 +1854,7 @@ L9248:                                                                          
     LDA      $F7                       ; 0x1525b $924B A5 F7                   ; Controller 1 Buttons Held
     AND      #$10                      ; 0x1525d $924D 29 10                   ; keep bits ...x .... (Start Button)
     BEQ      L9254                     ; 0x1525f $924F F0 03                   ;
-    INC      $0761                     ; 0x15261 $9251 EE 61 07                ;
+    INC      bss_0761                     ; 0x15261 $9251 EE 61 07                ;
 L9254:                                                                          ;
     RTS                                ; 0x15264 $9254 60                      ;
                                                                                ;
@@ -2167,10 +2167,10 @@ bank5_Enemy_Init_Routines_Ra:                                                   
     SBC      #$30                      ; 0x1564d $963D E9 30                   ;
     STA      $2A,x                     ; 0x1564f $963F 95 2A                   ;; Enemy Y Position
     LDY      $5F                       ; 0x15651 $9641 A4 5F                   ;; Link's facing direction
-    LDA      $072C                     ; 0x15653 $9643 AD 2C 07                ;; Scrolling Offset Low Byte
+    LDA      bss_072C                     ; 0x15653 $9643 AD 2C 07                ;; Scrolling Offset Low Byte
     ADC      L965E,y                   ; 0x15656 $9646 79 5E 96                ;
     STA      $4E,x                     ; 0x15659 $9649 95 4E                   ;; Enemy X Position (low byte)
-    LDA      $072A                     ; 0x1565b $964B AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
+    LDA      bss_072A                     ; 0x1565b $964B AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     ADC      #$00                      ; 0x1565e $964E 69 00                   ;
     STA      $3C,x                     ; 0x15660 $9650 95 3C                   ;; Enemy X Position (high byte)
     LDA      L9660,y                   ; 0x15662 $9652 B9 60 96                ;
@@ -2200,10 +2200,10 @@ L9670:                                                                          
     LDA      $AF,x                     ; 0x15683 $9673 B5 AF                   ;; Various enemy state variables
     AND      #$01                      ; 0x15685 $9675 29 01                   ; keep bits .... ...x
     TAY                                ; 0x15687 $9677 A8                      ;
-    LDA      $057E,x                   ; 0x15688 $9678 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    LDA      bss_057E,x                   ; 0x15688 $9678 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     CLC                                ; 0x1568b $967B 18                      ;
     ADC      L9663,y                   ; 0x1568c $967C 79 63 96                ;
-    STA      $057E,x                   ; 0x1568f $967F 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x1568f $967F 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     CMP      L9665,y                   ; 0x15692 $9682 D9 65 96                ;
     BNE      L9689                     ; 0x15695 $9685 D0 02                   ;
     INC      $AF,x                     ; 0x15697 $9687 F6 AF                   ;; Various enemy state variables
@@ -2366,7 +2366,7 @@ bank5_Enemy_Init_Routines_Dark_Link_Battle_Trigger:                             
     LDA      $3C,x                     ; 0x157b6 $97A6 B5 3C                   ;; Enemy X Position (high byte)
     STA      $3C                       ; 0x157b8 $97A8 85 3C                   ;;monster x*255	3c,3d,3e,3f,40,41
     LDA      #$02                      ; 0x157ba $97AA A9 02                   ;;A = #$02 0000_0010
-    STA      $0753                     ; 0x157bc $97AC 8D 53 07                ;
+    STA      bss_0753                     ; 0x157bc $97AC 8D 53 07                ;
     LSR                                ; 0x157bf $97AF 4A                      ;
     STA      $1A                       ; 0x157c0 $97B0 85 1A                   ;;draw sprite ?	1a,1b,1c,1d,1e,1f; Saved Game Presence in Slot (1 bit per slot) ?
     STA      $B6                       ; 0x157c2 $97B2 85 B6                   ;;monster exists		b6,b7,b8,b9,ba,bb	exists:0=no,1=yes,2=kill/give exp;set to 10 will make link fall down
@@ -2400,9 +2400,9 @@ bank5_pointer_table_dark_link:                                                  
 L97DE:                                                                          ;
     INC      $AF                       ; 0x157ee $97DE E6 AF                   ;;monster itemID/ai?	af,b0,b1,b2,b3,b4
     JSR      bank7_Display             ; 0x157f0 $97E0 20 11 EF                ;
-    LDA      $072A                     ; 0x157f3 $97E3 AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
+    LDA      bss_072A                     ; 0x157f3 $97E3 AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     BEQ      L980C                     ; 0x157f6 $97E6 F0 24                   ;
-    INC      $0728                     ; 0x157f8 $97E8 EE 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
+    INC      bss_0728                     ; 0x157f8 $97E8 EE 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
     LDA      #$00                      ; 0x157fb $97EB A9 00                   ;;A = #$00 0000_0000
     STA      $70                       ; 0x157fd $97ED 85 70                   ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
     LDA      $A7                       ; 0x157ff $97EF A5 A7                   ;;collision bits for Link - 0000ABLR (above,below,left,right)
@@ -2420,7 +2420,7 @@ L97DE:                                                                          
 L9805:                                                                          ;
     INC      $DE                       ; 0x15815 $9805 E6 DE                   ;;prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
 L9807:                                                                          ;
-    STA      $0504                     ; 0x15817 $9807 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    STA      bss_0504                     ; 0x15817 $9807 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
 L980A:                                                                          ;
     INC      $63                       ; 0x1581a $980A E6 63                   ;
 L980C:                                                                          ;
@@ -2428,14 +2428,14 @@ L980C:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L980D:                                                                          ;
-    LDA      $0504                     ; 0x1581d $980D AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDA      bss_0504                     ; 0x1581d $980D AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     BNE      L982C                     ; 0x15820 $9810 D0 1A                   ;
     LDA      #$C0                      ; 0x15822 $9812 A9 C0                   ;;A = #$c0 1100_0000
-    STA      $074B                     ; 0x15824 $9814 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
+    STA      bss_074B                     ; 0x15824 $9814 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$04                      ; 0x15827 $9817 A9 04                   ;;A = #$04 0000_0100
     STA      $EC                       ; 0x15829 $9819 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     LDA      #$14                      ; 0x1582b $981B A9 14                   ;;A = #$14 0001_0100
-    STA      $0751                     ; 0x1582d $981D 8D 51 07                ;
+    STA      bss_0751                     ; 0x1582d $981D 8D 51 07                ;
     LDA      $4D                       ; 0x15830 $9820 A5 4D                   ;;link X pos SideScroll		; Link's X Position (low byte)
     STA      $4E                       ; 0x15832 $9822 85 4E                   ;;monster x	4e,4f,50,51,52,53
     LDA      $29                       ; 0x15834 $9824 A5 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
@@ -2457,23 +2457,23 @@ L983B:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L983E:                                                                          ;
-    LDA      $074B                     ; 0x1584e $983E AD 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
+    LDA      bss_074B                     ; 0x1584e $983E AD 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     CMP      #$81                      ; 0x15851 $9841 C9 81                   ;
     BNE      L9852                     ; 0x15853 $9843 D0 0D                   ;
     LDA      #$0D                      ; 0x15855 $9845 A9 0D                   ;;A = #$0d 0000_1101
 L9847:                                                                          ;
-    STA      $0725                     ; 0x15857 $9847 8D 25 07                ;; PPU Macro Selector
+    STA      bss_0725                     ; 0x15857 $9847 8D 25 07                ;; PPU Macro Selector
     LDA      #$80                      ; 0x1585a $984A A9 80                   ;;A = #$80 1000_0000
     STA      $EB                       ; 0x1585c $984C 85 EB                   ;; Music; Music
     LDA      #$04                      ; 0x1585e $984E A9 04                   ;;A = #$04 0000_0100
     STA      $EC                       ; 0x15860 $9850 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
 L9852:                                                                          ;
-    LDA      $0504                     ; 0x15862 $9852 AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDA      bss_0504                     ; 0x15862 $9852 AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     CMP      #$80                      ; 0x15865 $9855 C9 80                   ;
     BCC      L9864                     ; 0x15867 $9857 90 0B                   ;
     BNE      L980C                     ; 0x15869 $9859 D0 B1                   ;
     LDA      #$FC                      ; 0x1586b $985B A9 FC                   ;;A = #$fc 1111_1100
-    STA      $057E                     ; 0x1586d $985D 8D 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
+    STA      bss_057E                     ; 0x1586d $985D 8D 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
     LDA      #$13                      ; 0x15870 $9860 A9 13                   ;;A = #$13 0001_0011
     STA      $71                       ; 0x15872 $9862 85 71                   ;;mon x velocity	71,72,73,74,75,76
 L9864:                                                                          ;
@@ -2483,7 +2483,7 @@ L9864:                                                                          
     BCC      L9874                     ; 0x1587b $986B 90 07                   ;
     INC      $63                       ; 0x1587d $986D E6 63                   ;
     LDA      #$70                      ; 0x1587f $986F A9 70                   ;;A = #$70 0111_0000
-    STA      $0505                     ; 0x15881 $9871 8D 05 05                ;
+    STA      bss_0505                     ; 0x15881 $9871 8D 05 05                ;
 L9874:                                                                          ;
     LDA      #$0A                      ; 0x15884 $9874 A9 0A                   ;;A = #$0a 0000_1010
     STA      $81                       ; 0x15886 $9876 85 81                   ;
@@ -2491,7 +2491,7 @@ L9874:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L987B:                                                                          ;
-    LDY      $0505                     ; 0x1588b $987B AC 05 05                ;
+    LDY      bss_0505                     ; 0x1588b $987B AC 05 05                ;
     BEQ      L988E                     ; 0x1588e $987E F0 0E                   ;
     DEY                                ; 0x15890 $9880 88                      ;
     BNE      L9887                     ; 0x15891 $9881 D0 04                   ;
@@ -2504,7 +2504,7 @@ L9887:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L988E:                                                                          ;
-    LDA      $07FB                     ; 0x1589e $988E AD FB 07                ;
+    LDA      bss_07FB                     ; 0x1589e $988E AD FB 07                ;
     BNE      L9897                     ; 0x158a1 $9891 D0 04                   ;
     LDA      #$40                      ; 0x158a3 $9893 A9 40                   ;;A = #$40 0100_0000
     STA      $EB                       ; 0x158a5 $9895 85 EB                   ;; Music; Music
@@ -2512,7 +2512,7 @@ L9897:                                                                          
     STY      $DE                       ; 0x158a7 $9897 84 DE                   ;;prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
     LDA      #$01                      ; 0x158a9 $9899 A9 01                   ;;A = #$01 0000_0001
     JSR      LA4E9                     ; 0x158ab $989B 20 E9 A4                ;
-    LDA      $050D                     ; 0x158ae $989E AD 0D 05                ;
+    LDA      bss_050D                     ; 0x158ae $989E AD 0D 05                ;
     BEQ      L98D3                     ; 0x158b1 $98A1 F0 30                   ;
     BPL      L98AD                     ; 0x158b3 $98A3 10 08                   ;
     AND      #$0F                      ; 0x158b5 $98A5 29 0F                   ;;Keep Bits:0000_1111
@@ -2527,11 +2527,11 @@ L98AD:                                                                          
     CMP      #$F0                      ; 0x158c6 $98B6 C9 F0                   ;
     BCC      L98D0                     ; 0x158c8 $98B8 90 16                   ;
     LDA      #$B0                      ; 0x158ca $98BA A9 B0                   ;;A = #$b0 1011_0000
-    STA      $074B                     ; 0x158cc $98BC 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
+    STA      bss_074B                     ; 0x158cc $98BC 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$04                      ; 0x158cf $98BF A9 04                   ;;A = #$04 0000_0100
     STA      $EC                       ; 0x158d1 $98C1 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     LDA      #$0F                      ; 0x158d3 $98C3 A9 0F                   ;;A = #$0f 0000_1111
-    STA      $0751                     ; 0x158d5 $98C5 8D 51 07                ;
+    STA      bss_0751                     ; 0x158d5 $98C5 8D 51 07                ;
     LDA      #$80                      ; 0x158d8 $98C8 A9 80                   ;;A = #$80 1000_0000
     STA      $EB                       ; 0x158da $98CA 85 EB                   ;; Music; Music
     LSR                                ; 0x158dc $98CC 4A                      ;
@@ -2594,7 +2594,7 @@ L9925:                                                                          
     AND      #$8D                      ; 0x15935 $9925 29 8D                   ;;Keep Bits:1000_1101
 .byt    $E7                            ; 0x15937 $9927 E7                      ;
 .byt    $03                            ; 0x15938 $9928 03                      ;
-    STA      $0401                     ; 0x15939 $9929 8D 01 04                ;
+    STA      bss_0401                     ; 0x15939 $9929 8D 01 04                ;
 L992C:                                                                          ;
     LDY      #$00                      ; 0x1593c $992C A0 00                   ;;Y = #$00 0000_0000
     LDA      $CD                       ; 0x1593e $992E A5 CD                   ;
@@ -2611,7 +2611,7 @@ L993E:                                                                          
     LDA      L999E,y                   ; 0x1594e $993E B9 9E 99                ;
     STA      $71                       ; 0x15951 $9941 85 71                   ;;mon x velocity	71,72,73,74,75,76
     LDA      #$FC                      ; 0x15953 $9943 A9 FC                   ;;A = #$fc 1111_1100
-    STA      $057E                     ; 0x15955 $9945 8D 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
+    STA      bss_057E                     ; 0x15955 $9945 8D 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
     LDA      #$01                      ; 0x15958 $9948 A9 01                   ;;A = #$01 0000_0001
     STA      $62                       ; 0x1595a $994A 85 62                   ;
     STA      $18                       ; 0x1595c $994C 85 18                   ;;dark link:	$18	0=duck,1=stand
@@ -2628,12 +2628,12 @@ L994F:                                                                          
     EOR      #$01                      ; 0x1596a $995A 49 01                   ;;Flip Bits:0000_0001
     STA      $61                       ; 0x1596c $995C 85 61                   ;
     LDA      #$10                      ; 0x1596e $995E A9 10                   ;;A = #$10 0001_0000
-    STA      $0506                     ; 0x15970 $9960 8D 06 05                ;
+    STA      bss_0506                     ; 0x15970 $9960 8D 06 05                ;
     RTS                                ; 0x15973 $9963 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9964:                                                                          ;
-    LDY      $0401                     ; 0x15974 $9964 AC 01 04                ;
+    LDY      bss_0401                     ; 0x15974 $9964 AC 01 04                ;
     DEY                                ; 0x15977 $9967 88                      ;
     CPY      #$02                      ; 0x15978 $9968 C0 02                   ;
     BCC      L9988                     ; 0x1597a $996A 90 1C                   ;
@@ -2644,13 +2644,13 @@ L9964:                                                                          
     EOR      #$01                      ; 0x15984 $9974 49 01                   ;;Flip Bits:0000_0001
     STA      $18                       ; 0x15986 $9976 85 18                   ;;dark link:	$18	0=duck,1=stand
     LDA      #$01                      ; 0x15988 $9978 A9 01                   ;;A = #$01 0000_0001
-    STA      $0401                     ; 0x1598a $997A 8D 01 04                ;
+    STA      bss_0401                     ; 0x1598a $997A 8D 01 04                ;
     LSR                                ; 0x1598d $997D 4A                      ;
     STA      $71                       ; 0x1598e $997E 85 71                   ;;mon x velocity	71,72,73,74,75,76
     LDA      #$20                      ; 0x15990 $9980 A9 20                   ;;A = #$20 0010_0000
     STA      $ED                       ; 0x15992 $9982 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     LSR                                ; 0x15994 $9984 4A                      ;
-    STA      $0504                     ; 0x15995 $9985 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    STA      bss_0504                     ; 0x15995 $9985 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
 L9988:                                                                          ;
     RTS                                ; 0x15998 $9988 60                      ;
                                                                                ;
@@ -2664,7 +2664,7 @@ L9989:                                                                          
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x159a3 $9993 20 91 DC;
     STY      $61                       ; 0x159a6 $9996 84 61                   ;
     LDA      #$02                      ; 0x159a8 $9998 A9 02                   ;;A = #$02 0000_0010
-    STA      $0506                     ; 0x159aa $999A 8D 06 05                ;
+    STA      bss_0506                     ; 0x159aa $999A 8D 06 05                ;
 L999D:                                                                          ;
     RTS                                ; 0x159ad $999D 60                      ;
                                                                                ;
@@ -2678,7 +2678,7 @@ L99A2:                                                                          
 .byt    $14                            ; 0x159b2 $99A2 14                      ;
 .byt    $EC                            ; 0x159b3 $99A3 EC                      ;
 L99A4:                                                                          ;
-    LDA      $0506                     ; 0x159b4 $99A4 AD 06 05                ;
+    LDA      bss_0506                     ; 0x159b4 $99A4 AD 06 05                ;
     BEQ      L99B1                     ; 0x159b7 $99A7 F0 08                   ;
     LDY      $61                       ; 0x159b9 $99A9 A4 61                   ;
     LDA      L99A2,y                   ; 0x159bb $99AB B9 A2 99                ;
@@ -2708,7 +2708,7 @@ L99CC:                                                                          
     LDA      $17                       ; 0x159dc $99CC A5 17                   ;; Link's Shield Position; Link's Shield Position (0 = Link ducked)
     STA      $18                       ; 0x159de $99CE 85 18                   ;;dark link:	$18	0=duck,1=stand
     LDA      #$06                      ; 0x159e0 $99D0 A9 06                   ;;A = #$06 0000_0110
-    LDY      $057E                     ; 0x159e2 $99D2 AC 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
+    LDY      bss_057E                     ; 0x159e2 $99D2 AC 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
     BMI      L99D9                     ; 0x159e5 $99D5 30 02                   ;
     LDA      #$02                      ; 0x159e7 $99D7 A9 02                   ;;A = #$02 0000_0010
 L99D9:                                                                          ;
@@ -2796,20 +2796,20 @@ L9A49:                                                                          
 .byt    $DE,$04,$05,$04,$06,$07,$06    ; 0x15a59 $9A49 DE 04 05 04 06 07 06    ;
 ; ---------------------------------------------------------------------------- ;
 L9A50:                                                                          ;
-    LDY      $0401                     ; 0x15a60 $9A50 AC 01 04                ;
+    LDY      bss_0401                     ; 0x15a60 $9A50 AC 01 04                ;
     BEQ      L9A76                     ; 0x15a63 $9A53 F0 21                   ;
-    LDA      $0504                     ; 0x15a65 $9A55 AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDA      bss_0504                     ; 0x15a65 $9A55 AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     BNE      L9A6A                     ; 0x15a68 $9A58 D0 10                   ;
-    INC      $0401                     ; 0x15a6a $9A5A EE 01 04                ;
+    INC      bss_0401                     ; 0x15a6a $9A5A EE 01 04                ;
     CPY      #$03                      ; 0x15a6d $9A5D C0 03                   ;
     BNE      L9A65                     ; 0x15a6f $9A5F D0 04                   ;
-    STA      $0401                     ; 0x15a71 $9A61 8D 01 04                ;
+    STA      bss_0401                     ; 0x15a71 $9A61 8D 01 04                ;
     RTS                                ; 0x15a74 $9A64 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9A65:                                                                          ;
     LDA      #$08                      ; 0x15a75 $9A65 A9 08                   ;;A = #$08 0000_1000
-    STA      $0504                     ; 0x15a77 $9A67 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    STA      bss_0504                     ; 0x15a77 $9A67 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
 L9A6A:                                                                          ;
     LDA      $18                       ; 0x15a7a $9A6A A5 18                   ;;dark link:	$18	0=duck,1=stand
     BNE      L9A71                     ; 0x15a7c $9A6C D0 03                   ;
@@ -2845,8 +2845,8 @@ L9A8B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9A8D:                                                                          ;
     LDA      $62                       ; 0x15a9d $9A8D A5 62                   ;
-    ORA      $0479                     ; 0x15a9f $9A8F 0D 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
-    ORA      $0509                     ; 0x15aa2 $9A92 0D 09 05                ;
+    ORA      bss_0479                     ; 0x15a9f $9A8F 0D 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
+    ORA      bss_0509                     ; 0x15aa2 $9A92 0D 09 05                ;
     BNE      L9AF4                     ; 0x15aa5 $9A95 D0 5D                   ;
     JSR      bank7_code44              ; 0x15aa7 $9A97 20 A2 E9                ;
     LDY      $A0                       ; 0x15aaa $9A9A A4 A0                   ;
@@ -2873,20 +2873,20 @@ L9A8D:                                                                          
     JSR      bank7_idem__maybe         ; 0x15ad8 $9AC8 20 F9 E9                ;
     BCC      L9B07                     ; 0x15adb $9ACB 90 3A                   ;
     LDY      #$00                      ; 0x15add $9ACD A0 00                   ;;Y = #$00 0000_0000
-    STY      $0401                     ; 0x15adf $9ACF 8C 01 04                ;
+    STY      bss_0401                     ; 0x15adf $9ACF 8C 01 04                ;
     DEY                                ; 0x15ae2 $9AD2 88                      ;
     DEC      $C2                       ; 0x15ae3 $9AD3 C6 C2                   ;;monster monHP		c2,c3,c4,c5,c6,c7
     BEQ      L9ADE                     ; 0x15ae5 $9AD5 F0 07                   ;if dead, fall off screen from the hurt animation timer being set to #$FF
     LDA      #$38                      ; 0x15ae7 $9AD7 A9 38                   ;otherwise, hurt?
-    STA      $0509                     ; 0x15ae9 $9AD9 8D 09 05                ;
+    STA      bss_0509                     ; 0x15ae9 $9AD9 8D 09 05                ;
     LDY      #$18                      ; 0x15aec $9ADC A0 18                   ;;Y = #$18 0001_1000
 L9ADE:                                                                          ;
-    STY      $050D                     ; 0x15aee $9ADE 8C 0D 05                ;
+    STY      bss_050D                     ; 0x15aee $9ADE 8C 0D 05                ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x15af1 $9AE1 20 91 DC;
     LDA      L9A8B,y                   ; 0x15af4 $9AE4 B9 8B 9A                ;
     STA      $71                       ; 0x15af7 $9AE7 85 71                   ;;mon x velocity	71,72,73,74,75,76
     LDA      #$FD                      ; 0x15af9 $9AE9 A9 FD                   ;;A = #$fd 1111_1101
-    STA      $057E                     ; 0x15afb $9AEB 8D 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
+    STA      bss_057E                     ; 0x15afb $9AEB 8D 7E 05                ;;y velocity	57e,57f,580,581,582,583		57d=link
     LDA      #$01                      ; 0x15afe $9AEE A9 01                   ;;A = #$01 0000_0001
     STA      $E9                       ; 0x15b00 $9AF0 85 E9                   ;
     STA      $62                       ; 0x15b02 $9AF2 85 62                   ;
@@ -2910,7 +2910,7 @@ L9B06:                                                                          
 L9B07:                                                                          ;
     JSR      bank7_code45              ; 0x15b17 $9B07 20 D8 E9                ;
     LDY      #$00                      ; 0x15b1a $9B0A A0 00                   ;;Y = #$00 0000_0000
-    LDA      $047F                     ; 0x15b1c $9B0C AD 7F 04                ;
+    LDA      bss_047F                     ; 0x15b1c $9B0C AD 7F 04                ;
     PHA                                ; 0x15b1f $9B0F 48                      ;
     CMP      $CD                       ; 0x15b20 $9B10 C5 CD                   ;
     BCS      L9B15                     ; 0x15b22 $9B12 B0 01                   ;
@@ -2921,7 +2921,7 @@ L9B15:                                                                          
     STA      $04                       ; 0x15b29 $9B19 85 04                   ;
     LDA      #$0E                      ; 0x15b2b $9B1B A9 0E                   ;;A = #$0e 0000_1110
     STA      $06                       ; 0x15b2d $9B1D 85 06                   ;
-    LDA      $0481                     ; 0x15b2f $9B1F AD 81 04                ;
+    LDA      bss_0481                     ; 0x15b2f $9B1F AD 81 04                ;
     ADC      #$03                      ; 0x15b32 $9B22 69 03                   ;
     STA      $05                       ; 0x15b34 $9B24 85 05                   ;
     LDA      #$02                      ; 0x15b36 $9B26 A9 02                   ;;A = #$02 0000_0010
@@ -2935,14 +2935,14 @@ L9B15:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9B3A:                                                                          ;
-    LDA      $074B                     ; 0x15b4a $9B3A AD 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
+    LDA      bss_074B                     ; 0x15b4a $9B3A AD 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     CMP      #$81                      ; 0x15b4d $9B3D C9 81                   ;
     BNE      L9B46                     ; 0x15b4f $9B3F D0 05                   ;
     LDA      #$0E                      ; 0x15b51 $9B41 A9 0E                   ;;A = #$0e 0000_1110
-    STA      $0725                     ; 0x15b53 $9B43 8D 25 07                ;; PPU Macro Selector
+    STA      bss_0725                     ; 0x15b53 $9B43 8D 25 07                ;; PPU Macro Selector
 L9B46:                                                                          ;
-    LDA      $0479                     ; 0x15b56 $9B46 AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
-    ORA      $0504                     ; 0x15b59 $9B49 0D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDA      bss_0479                     ; 0x15b56 $9B46 AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
+    ORA      bss_0504                     ; 0x15b59 $9B49 0D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     BNE      L9B73                     ; 0x15b5c $9B4C D0 25                   ;
     LDA      #$80                      ; 0x15b5e $9B4E A9 80                   ;;A = #$80 1000_0000
     JMP      L9805                     ; 0x15b60 $9B50 4C 05 98                ;
@@ -2951,7 +2951,7 @@ L9B46:                                                                          
 L9B53:                                                                          ;
     LDA      #$03                      ; 0x15b63 $9B53 A9 03                   ;;A = #$03 0000_0011
     STA      $80                       ; 0x15b65 $9B55 85 80                   ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
-    LDY      $0504                     ; 0x15b67 $9B57 AC 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDY      bss_0504                     ; 0x15b67 $9B57 AC 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     BNE      L9B73                     ; 0x15b6a $9B5A D0 17                   ;
     LSR                                ; 0x15b6c $9B5C 4A                      ;
     STA      $9F                       ; 0x15b6d $9B5D 85 9F                   ;;link facedir SideScroll		; Direction arrow pressed (1 = right, 2 = left)
@@ -2971,7 +2971,7 @@ L9B73:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9B74:                                                                          ;
     LDA      #$C0                      ; 0x15b84 $9B74 A9 C0                   ;;A = #$c0 1100_0000
-    STA      $074B                     ; 0x15b86 $9B76 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
+    STA      bss_074B                     ; 0x15b86 $9B76 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$20                      ; 0x15b89 $9B79 A9 20                   ;;A = #$20 0010_0000
     STA      $EB                       ; 0x15b8b $9B7B 85 EB                   ;; Music; Music
     LDA      #$15                      ; 0x15b8d $9B7D A9 15                   ;;A = #$15 0001_0101
@@ -2979,7 +2979,7 @@ L9B74:                                                                          
 L9B81:                                                                          ;
     LDA      #$0D                      ; 0x15b91 $9B81 A9 0D                   ;;A = #$0d 0000_1101
 L9B83:                                                                          ;
-    STA      $0512                     ; 0x15b93 $9B83 8D 12 05                ;
+    STA      bss_0512                     ; 0x15b93 $9B83 8D 12 05                ;
 L9B86:                                                                          ;
     LDA      #$7C                      ; 0x15b96 $9B86 A9 7C                   ;;A = #$7c 0111_1100
     STA      $4E                       ; 0x15b98 $9B88 85 4E                   ;;monster x	4e,4f,50,51,52,53
@@ -2989,7 +2989,7 @@ L9B86:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9B91:                                                                          ;
-    LDA      $0512                     ; 0x15ba1 $9B91 AD 12 05                ;
+    LDA      bss_0512                     ; 0x15ba1 $9B91 AD 12 05                ;
     CMP      #$02                      ; 0x15ba4 $9B94 C9 02                   ;
     BEQ      L9B74                     ; 0x15ba6 $9B96 F0 DC                   ;
     CMP      #$09                      ; 0x15ba8 $9B98 C9 09                   ;
@@ -3006,7 +3006,7 @@ L9BA5:                                                                          
 L9BA8:                                                                          ;
     LDA      #$02                      ; 0x15bb8 $9BA8 A9 02                   ;;A = #$02 0000_0010
     STA      $9F                       ; 0x15bba $9BAA 85 9F                   ;;link facedir SideScroll		; Direction arrow pressed (1 = right, 2 = left)
-    LDY      $0512                     ; 0x15bbc $9BAC AC 12 05                ;
+    LDY      bss_0512                     ; 0x15bbc $9BAC AC 12 05                ;
     BEQ      L9BBA                     ; 0x15bbf $9BAF F0 09                   ;
     LDA      #$0B                      ; 0x15bc1 $9BB1 A9 0B                   ;;A = #$0b 0000_1011
     STA      $80                       ; 0x15bc3 $9BB3 85 80                   ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
@@ -3016,10 +3016,10 @@ L9BA8:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9BBA:                                                                          ;
     LDA      #$03                      ; 0x15bca $9BBA A9 03                   ;;A = #$03 0000_0011
-    STA      $076C                     ; 0x15bcc $9BBC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      bss_076C                     ; 0x15bcc $9BBC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     LDA      #$00                      ; 0x15bcf $9BBF A9 00                   ;;A = #$00 0000_0000
     STA      $2001                     ; 0x15bd1 $9BC1 8D 01 20                ;
-    INC      $0726                     ; 0x15bd4 $9BC4 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    INC      bss_0726                     ; 0x15bd4 $9BC4 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     RTS                                ; 0x15bd7 $9BC7 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3053,7 +3053,7 @@ L9BE1:                                                                          
     LDA      $30,x                     ; 0x15bfc $9BEC B5 30                   ;; Projectile Y Position
     AND      #$F0                      ; 0x15bfe $9BEE 29 F0                   ;;Keep Bits:1111_0000
     STA      $30,x                     ; 0x15c00 $9BF0 95 30                   ;; Projectile Y Position
-    LDA      $045E,x                   ; 0x15c02 $9BF2 BD 5E 04                ;
+    LDA      bss_045E,x                   ; 0x15c02 $9BF2 BD 5E 04                ;
     BNE      L9C23                     ; 0x15c05 $9BF5 D0 2C                   ;
     STA      $77,x                     ; 0x15c07 $9BF7 95 77                   ;; Projectile X Velocity
     LDY      #$30                      ; 0x15c09 $9BF9 A0 30                   ;;Y = #$30 0011_0000
@@ -3073,15 +3073,15 @@ L9C0F:                                                                          
     LDY      #$FF                      ; 0x15c23 $9C13 A0 FF                   ;;Y = #$ff 1111_1111
 L9C15:                                                                          ;
     TYA                                ; 0x15c25 $9C15 98                      ;
-    STA      $044C,x                   ; 0x15c26 $9C16 9D 4C 04                ;
-    INC      $045E,x                   ; 0x15c29 $9C19 FE 5E 04                ;
+    STA      bss_044C,x                   ; 0x15c26 $9C16 9D 4C 04                ;
+    INC      bss_045E,x                   ; 0x15c29 $9C19 FE 5E 04                ;
     LDA      #$F0                      ; 0x15c2c $9C1C A9 F0                   ;;A = #$f0 1111_0000
-    STA      $0584,x                   ; 0x15c2e $9C1E 9D 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
+    STA      bss_0584,x                   ; 0x15c2e $9C1E 9D 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
     BNE      L9C45                     ; 0x15c31 $9C21 D0 22                   ;
 L9C23:                                                                          ;
-    LDA      $044C,x                   ; 0x15c33 $9C23 BD 4C 04                ;
+    LDA      bss_044C,x                   ; 0x15c33 $9C23 BD 4C 04                ;
     BEQ      L9C5B                     ; 0x15c36 $9C26 F0 33                   ;
-    DEC      $044C,x                   ; 0x15c38 $9C28 DE 4C 04                ;
+    DEC      bss_044C,x                   ; 0x15c38 $9C28 DE 4C 04                ;
     BEQ      L9C5B                     ; 0x15c3b $9C2B F0 2E                   ;
     AND      #$07                      ; 0x15c3d $9C2D 29 07                   ;;Keep Bits:0000_0111
     BNE      L9C3D                     ; 0x15c3f $9C2F D0 0C                   ;
@@ -3094,11 +3094,11 @@ L9C3B:                                                                          
     DEC      $77,x                     ; 0x15c4b $9C3B D6 77                   ;; Projectile X Velocity
 L9C3D:                                                                          ;
     LDA      #$FE                      ; 0x15c4d $9C3D A9 FE                   ;;A = #$fe 1111_1110
-    STA      $0584,x                   ; 0x15c4f $9C3F 9D 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
+    STA      bss_0584,x                   ; 0x15c4f $9C3F 9D 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
 L9C42:                                                                          ;
-    INC      $0584,x                   ; 0x15c52 $9C42 FE 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
+    INC      bss_0584,x                   ; 0x15c52 $9C42 FE 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
 L9C45:                                                                          ;
-    INC      $0584,x                   ; 0x15c55 $9C45 FE 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
+    INC      bss_0584,x                   ; 0x15c55 $9C45 FE 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
 L9C48:                                                                          ;
     JSR      bank7_DED4                     ; 0x15c58 $9C48 20 D4 DE                ;
     LDA      $CA                       ; 0x15c5b $9C4B A5 CA                   ;
@@ -3135,7 +3135,7 @@ L9C69:                                                                          
     LSR                                ; 0x15c8a $9C7A 4A                      ;
     STA      $C9                       ; 0x15c8b $9C7B 85 C9                   ;
     LDA      $54,x                     ; 0x15c8d $9C7D B5 54                   ;; Projectile X Position (low byte)
-    SBC      $072C                     ; 0x15c8f $9C7F ED 2C 07                ;; Scrolling Offset Low Byte
+    SBC      bss_072C                     ; 0x15c8f $9C7F ED 2C 07                ;; Scrolling Offset Low Byte
     STA      $01                       ; 0x15c92 $9C82 85 01                   ;
     LDA      $77,x                     ; 0x15c94 $9C84 B5 77                   ;; Projectile X Velocity
     LDX      #$00                      ; 0x15c96 $9C86 A2 00                   ;;X = #$00 0000_0000
@@ -3183,9 +3183,9 @@ L9C99:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     JSR      L9D18                     ; 0x15cde $9CCE 20 18 9D                ;
-    LDA      $045E,x                   ; 0x15ce1 $9CD1 BD 5E 04                ;
+    LDA      bss_045E,x                   ; 0x15ce1 $9CD1 BD 5E 04                ;
     BEQ      L9CFA                     ; 0x15ce4 $9CD4 F0 24                   ;
-    LDY      $044C,x                   ; 0x15ce6 $9CD6 BC 4C 04                ;
+    LDY      bss_044C,x                   ; 0x15ce6 $9CD6 BC 4C 04                ;
     CPY      #$20                      ; 0x15ce9 $9CD9 C0 20                   ;
     BCS      L9CEB                     ; 0x15ceb $9CDB B0 0E                   ;
     LDA      $12                       ; 0x15ced $9CDD A5 12                   ;; Frame Counter (ascending)
@@ -3278,7 +3278,7 @@ L9D54:                                                                          
 L9D57:                                                                          ;
     JSR      bank7_E563                     ; 0x15d67 $9D57 20 63 E5                ;
 L9D5A:                                                                          ;
-    LDA      $0504,x                   ; 0x15d6a $9D5A BD 04 05                ;; Timer for Enemy
+    LDA      bss_0504,x                   ; 0x15d6a $9D5A BD 04 05                ;; Timer for Enemy
     BNE      L9D70                     ; 0x15d6d $9D5D D0 11                   ;
     INC      $81,x                     ; 0x15d6f $9D5F F6 81                   ;; Current Animation Frame for Enemys
     LDA      $81,x                     ; 0x15d71 $9D61 B5 81                   ;; Current Animation Frame for Enemys
@@ -3287,7 +3287,7 @@ L9D5A:                                                                          
     CMP      #$05                      ; 0x15d77 $9D67 C9 05                   ;
     BCS      L9D73                     ; 0x15d79 $9D69 B0 08                   ;
     LDA      #$10                      ; 0x15d7b $9D6B A9 10                   ;;A = #$10 0001_0000
-    STA      $0504,x                   ; 0x15d7d $9D6D 9D 04 05                ;; Timer for Enemy
+    STA      bss_0504,x                   ; 0x15d7d $9D6D 9D 04 05                ;; Timer for Enemy
 L9D70:                                                                          ;
     JMP      L9D77                     ; 0x15d80 $9D70 4C 77 9D                ;
                                                                                ;
@@ -3332,7 +3332,7 @@ L9DA9:                                                                          
     AND      #$08                      ; 0x15dc1 $9DB1 29 08                   ;;Keep Bits:0000_1000
     BEQ      L9DBA                     ; 0x15dc3 $9DB3 F0 05                   ;
     LDA      #$10                      ; 0x15dc5 $9DB5 A9 10                   ;;A = #$10 0001_0000
-    STA      $057E,x                   ; 0x15dc7 $9DB7 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x15dc7 $9DB7 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 L9DBA:                                                                          ;
     LDA      $A8,x                     ; 0x15dca $9DBA B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x15dcc $9DBC 29 04                   ;;Keep Bits:0000_0100
@@ -3344,9 +3344,9 @@ L9DC3:                                                                          
     AND      #$40                      ; 0x15dd9 $9DC9 29 40                   ;;Keep Bits:0100_0000
     BEQ      L9DD2                     ; 0x15ddb $9DCB F0 05                   ;
     LDA      $17                       ; 0x15ddd $9DCD A5 17                   ;; Link's Shield Position; Link's Shield Position (0 = Link ducked)
-    STA      $0444,x                   ; 0x15ddf $9DCF 9D 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
+    STA      bss_0444,x                   ; 0x15ddf $9DCF 9D 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
 L9DD2:                                                                          ;
-    LDA      $0479                     ; 0x15de2 $9DD2 AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
+    LDA      bss_0479                     ; 0x15de2 $9DD2 AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
     BEQ      L9DE6                     ; 0x15de5 $9DD5 F0 0F                   ;
     LDY      #$01                      ; 0x15de7 $9DD7 A0 01                   ;;Y = #$01 0000_0001
     LDA      $29                       ; 0x15de9 $9DD9 A5 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
@@ -3356,7 +3356,7 @@ L9DD2:                                                                          
     DEY                                ; 0x15df1 $9DE1 88                      ;
 L9DE2:                                                                          ;
     TYA                                ; 0x15df2 $9DE2 98                      ;
-    STA      $0444,x                   ; 0x15df3 $9DE3 9D 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
+    STA      bss_0444,x                   ; 0x15df3 $9DE3 9D 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
 L9DE6:                                                                          ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x15df6 $9DE6 20 91 DC;
     LDA      $A8,x                     ; 0x15df9 $9DE9 B5 A8                   ;; Enemy State
@@ -3368,7 +3368,7 @@ L9DF1:                                                                          
     AND      #$1F                      ; 0x15e04 $9DF4 29 1F                   ;;Keep Bits:0001_1111
     BNE      L9E06                     ; 0x15e06 $9DF6 D0 0E                   ;
     LDA      #$C8                      ; 0x15e08 $9DF8 A9 C8                   ;;A = #$c8 1100_1000
-    STA      $057E,x                   ; 0x15e0a $9DFA 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x15e0a $9DFA 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     DEC      $2A,x                     ; 0x15e0d $9DFD D6 2A                   ;; Enemy Y Position
     LDA      L9D26,y                   ; 0x15e0f $9DFF B9 26 9D                ;
     ASL                                ; 0x15e12 $9E02 0A                      ;
@@ -3404,7 +3404,7 @@ L9E1E:                                                                          
     INY                                ; 0x15e3f $9E2F C8                      ;
     STY      $81,x                     ; 0x15e40 $9E30 94 81                   ;; Current Animation Frame for Enemys
     LDA      #$18                      ; 0x15e42 $9E32 A9 18                   ;;A = #$18 0001_1000
-    STA      $0504,x                   ; 0x15e44 $9E34 9D 04 05                ;; Timer for Enemy
+    STA      bss_0504,x                   ; 0x15e44 $9E34 9D 04 05                ;; Timer for Enemy
 L9E37:                                                                          ;
     RTS                                ; 0x15e47 $9E37 60                      ;
                                                                                ;
@@ -3421,7 +3421,7 @@ L9E41:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9E42:                                                                          ;
-    LDY      $043E,x                   ; 0x15e52 $9E42 BC 3E 04                ;
+    LDY      bss_043E,x                   ; 0x15e52 $9E42 BC 3E 04                ;
     BEQ      L9E63                     ; 0x15e55 $9E45 F0 1C                   ;
     LDA      $A1,x                     ; 0x15e57 $9E47 B5 A1                   ;; Enemy Code
     CMP      #$1D                      ; 0x15e59 $9E49 C9 1D                   ;
@@ -3430,10 +3430,10 @@ L9E42:                                                                          
     AND      #$04                      ; 0x15e5f $9E4F 29 04                   ;;Keep Bits:0000_0100
     BEQ      L9E5E                     ; 0x15e61 $9E51 F0 0B                   ;
 L9E53:                                                                          ;
-    DEC      $043E,x                   ; 0x15e63 $9E53 DE 3E 04                ;
+    DEC      bss_043E,x                   ; 0x15e63 $9E53 DE 3E 04                ;
     BPL      L9E5E                     ; 0x15e66 $9E56 10 06                   ;
-    INC      $043E,x                   ; 0x15e68 $9E58 FE 3E 04                ;
-    INC      $043E,x                   ; 0x15e6b $9E5B FE 3E 04                ;
+    INC      bss_043E,x                   ; 0x15e68 $9E58 FE 3E 04                ;
+    INC      bss_043E,x                   ; 0x15e6b $9E5B FE 3E 04                ;
 L9E5E:                                                                          ;
     STY      $71,x                     ; 0x15e6e $9E5E 94 71                   ;; Enemy X Velocity
     JSR      bank7_EA32                     ; 0x15e70 $9E60 20 32 EA                ;
@@ -3463,13 +3463,13 @@ bank5_Enemy_Routines1_Fokkeru:                                                  
     LDA      #$07                      ; 0x15e8e $9E7E A9 07                   ;;A = #$07 0000_0111
     STA      $87,y                     ; 0x15e90 $9E80 99 87 00                ;
     LDA      #$E0                      ; 0x15e93 $9E83 A9 E0                   ;;A = #$e0 1110_0000
-    STA      $0584,y                   ; 0x15e95 $9E85 99 84 05                ;
+    STA      bss_0584,y                   ; 0x15e95 $9E85 99 84 05                ;
     LDX      $66,y                     ; 0x15e98 $9E88 B6 66                   ;
     LDA      L9E68,x                   ; 0x15e9a $9E8A BD 68 9E                ;
     ASL                                ; 0x15e9d $9E8D 0A                      ;
     STA      $77,y                     ; 0x15e9e $9E8E 99 77 00                ;
     LDA      #$00                      ; 0x15ea1 $9E91 A9 00                   ;;A = #$00 0000_0000
-    STA      $045E,y                   ; 0x15ea3 $9E93 99 5E 04                ;
+    STA      bss_045E,y                   ; 0x15ea3 $9E93 99 5E 04                ;
     LDX      $10                       ; 0x15ea6 $9E96 A6 10                   ;; used as monster x register ;draw boss hp bar
 L9E98:                                                                          ;
     JSR      bank7_Gravity             ; 0x15ea8 $9E98 20 BE DE                ;
@@ -3489,7 +3489,7 @@ L9E98:                                                                          
     BCC      L9EBB                     ; 0x15ec8 $9EB8 90 01                   ;
     ASL                                ; 0x15eca $9EBA 0A                      ;
 L9EBB:                                                                          ;
-    STA      $057E,x                   ; 0x15ecb $9EBB 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x15ecb $9EBB 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 L9EBE:                                                                          ;
     RTS                                ; 0x15ece $9EBE 60                      ;
                                                                                ;
@@ -3628,7 +3628,7 @@ L9FCF:                                                                          
 .byt    $08,$E0,$E0,$F0,$F0            ; 0x15fdf $9FCF 08 E0 E0 F0 F0          ;
 ; ---------------------------------------------------------------------------- ;
 bank5_Enemy_Routines2_Fokka:                                                    ;
-    LDA      $0444,x                   ; 0x15fe4 $9FD4 BD 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
+    LDA      bss_0444,x                   ; 0x15fe4 $9FD4 BD 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
     LDY      #$00                      ; 0x15fe7 $9FD7 A0 00                   ;;Y = #$00 0000_0000
     CMP      #$00                      ; 0x15fe9 $9FD9 C9 00                   ;
     BNE      L9FDF                     ; 0x15feb $9FDB D0 02                   ;
@@ -3637,7 +3637,7 @@ L9FDF:                                                                          
     LDA      $A8,x                     ; 0x15fef $9FDF B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x15ff1 $9FE1 29 04                   ;;Keep Bits:0000_0100
     BNE      L9FEE                     ; 0x15ff3 $9FE3 D0 09                   ;
-    LDA      $057E,x                   ; 0x15ff5 $9FE5 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    LDA      bss_057E,x                   ; 0x15ff5 $9FE5 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     BPL      LA008                     ; 0x15ff8 $9FE8 10 1E                   ;
     LDY      #$10                      ; 0x15ffa $9FEA A0 10                   ;;Y = #$10 0001_0000
     BNE      LA008                     ; 0x15ffc $9FEC D0 1A                   ;
@@ -3685,7 +3685,7 @@ LA02B:                                                                          
     LDA      L9FC7,x                   ; 0x1603b $A02B BD C7 9F                ;
     LDX      $10                       ; 0x1603e $A02E A6 10                   ;; used as monster x register ;draw boss hp bar
     STY      $07                       ; 0x16040 $A030 84 07                   ;
-    LDY      $0504,x                   ; 0x16042 $A032 BC 04 05                ;; Timer for Enemy
+    LDY      bss_0504,x                   ; 0x16042 $A032 BC 04 05                ;; Timer for Enemy
     CPY      #$03                      ; 0x16045 $A035 C0 03                   ;
     BCC      LA03E                     ; 0x16047 $A037 90 05                   ;
     CPY      #$0D                      ; 0x16049 $A039 C0 0D                   ;
@@ -3742,17 +3742,17 @@ LA07E:                                                                          
     LDA      $A8,x                     ; 0x16091 $A081 B5 A8                   ;; Enemy State
     AND      #$10                      ; 0x16093 $A083 29 10                   ;;Keep Bits:0001_0000
     BEQ      LA094                     ; 0x16095 $A085 F0 0D                   ;
-    LDA      $0773                     ; 0x16097 $A087 AD 73 07                ;; Magic Points; Current Magic left in meter
+    LDA      bss_0773                     ; 0x16097 $A087 AD 73 07                ;; Magic Points; Current Magic left in meter
     SEC                                ; 0x1609a $A08A 38                      ;
     SBC      #$01                      ; 0x1609b $A08B E9 01                   ;
     BCS      LA091                     ; 0x1609d $A08D B0 02                   ;
     LDA      #$00                      ; 0x1609f $A08F A9 00                   ;;A = #$00 0000_0000
 LA091:                                                                          ;
-    STA      $0773                     ; 0x160a1 $A091 8D 73 07                ;; Magic Points; Current Magic left in meter
+    STA      bss_0773                     ; 0x160a1 $A091 8D 73 07                ;; Magic Points; Current Magic left in meter
 LA094:                                                                          ;
-    LDA      $074F                     ; 0x160a4 $A094 AD 4F 07                ;; Related to Pause Pane
+    LDA      bss_074F                     ; 0x160a4 $A094 AD 4F 07                ;; Related to Pause Pane
     ORA      #$80                      ; 0x160a7 $A097 09 80                   ;;Set Bits:1000_0000
-    STA      $074F                     ; 0x160a9 $A099 8D 4F 07                ;; Related to Pause Pane
+    STA      bss_074F                     ; 0x160a9 $A099 8D 4F 07                ;; Related to Pause Pane
     JSR      bank7_Link_Collision_Detection; 0x160ac $A09C 20 C1 D6                ;
     LDA      $A1,x                     ; 0x160af $A09F B5 A1                   ;; Enemy Code
     CMP      #$17                      ; 0x160b1 $A0A1 C9 17                   ;
@@ -3761,7 +3761,7 @@ LA094:                                                                          
     CMP      #$C0                      ; 0x160b7 $A0A7 C9 C0                   ;
     BCS      LA0FB                     ; 0x160b9 $A0A9 B0 50                   ;
     ASL      $71,x                     ; 0x160bb $A0AB 16 71                   ;; Enemy X Velocity
-    ASL      $057E,x                   ; 0x160bd $A0AD 1E 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    ASL      bss_057E,x                   ; 0x160bd $A0AD 1E 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     LDA      #$15                      ; 0x160c0 $A0B0 A9 15                   ;;A = #$15 0001_0101
     STA      $A1,x                     ; 0x160c2 $A0B2 95 A1                   ;; Enemy Code
     LDY      #$05                      ; 0x160c4 $A0B4 A0 05                   ;;Y = #$05 0000_0101
@@ -3781,9 +3781,9 @@ LA0C0:                                                                          
     STA      $A1,y                     ; 0x160df $A0CF 99 A1 00                ;
     LDA      $71,x                     ; 0x160e2 $A0D2 B5 71                   ;; Enemy X Velocity
     STA      $71,y                     ; 0x160e4 $A0D4 99 71 00                ;
-    LDA      $057E,x                   ; 0x160e7 $A0D7 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    LDA      bss_057E,x                   ; 0x160e7 $A0D7 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     EOR      #$FF                      ; 0x160ea $A0DA 49 FF                   ;;Flip Bits:1111_1111
-    STA      $057E,y                   ; 0x160ec $A0DC 99 7E 05                ;
+    STA      bss_057E,y                   ; 0x160ec $A0DC 99 7E 05                ;
     LDA      $2A,x                     ; 0x160ef $A0DF B5 2A                   ;; Enemy Y Position
     ADC      #$10                      ; 0x160f1 $A0E1 69 10                   ;
     STA      $2A,y                     ; 0x160f3 $A0E3 99 2A 00                ;
@@ -3816,11 +3816,11 @@ LA10D:                                                                          
     AND      #$0C                      ; 0x16125 $A115 29 0C                   ;;Keep Bits:0000_1100
     BEQ      LA132                     ; 0x16127 $A117 F0 19                   ;
 LA119:                                                                          ;
-    LDA      $057E,x                   ; 0x16129 $A119 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    LDA      bss_057E,x                   ; 0x16129 $A119 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     EOR      #$FF                      ; 0x1612c $A11C 49 FF                   ;;Flip Bits:1111_1111
     CLC                                ; 0x1612e $A11E 18                      ;
     ADC      #$01                      ; 0x1612f $A11F 69 01                   ;
-    STA      $057E,x                   ; 0x16131 $A121 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x16131 $A121 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     JMP      bank7_Simple_Vertical_Movement; 0x16134 $A124 4C C8 DE                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3831,7 +3831,7 @@ bank5_Enemy_Init_Routines_Bubble__Fast:                                         
     LDA      #$E0                      ; 0x1613b $A12B A9 E0                   ; A = E0
 LA12D:                                                                          ;
     STA      $71,x                     ; 0x1613d $A12D 95 71                   ;; Enemy X Velocity
-    STA      $057E,x                   ; 0x1613f $A12F 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x1613f $A12F 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 LA132:                                                                          ;
     RTS                                ; 0x16142 $A132 60                      ;
                                                                                ;
@@ -3889,7 +3889,7 @@ LA188:                                                                          
     STA      $A1,y                     ; 0x1619a $A18A 99 A1 00                ;
     LDA      #$01                      ; 0x1619d $A18D A9 01                   ;;A = #$01 0000_0001
     STA      $B6,y                     ; 0x1619f $A18F 99 B6 00                ;
-    STA      $040E,y                   ; 0x161a2 $A192 99 0E 04                ;
+    STA      bss_040E,y                   ; 0x161a2 $A192 99 0E 04                ;
     STA      $1A,y                     ; 0x161a5 $A195 99 1A 00                ;
     LSR                                ; 0x161a8 $A198 4A                      ;
 LA199:                                                                          ;
@@ -3905,7 +3905,7 @@ LA19C:                                                                          
     ADC      LA17A,y                   ; 0x161be $A1AE 79 7A A1                ;
     STA      $2A,y                     ; 0x161c1 $A1B1 99 2A 00                ;
     LDA      #$D0                      ; 0x161c4 $A1B4 A9 D0                   ;;A = #$d0 1101_0000
-    STA      $057E,y                   ; 0x161c6 $A1B6 99 7E 05                ;
+    STA      bss_057E,y                   ; 0x161c6 $A1B6 99 7E 05                ;
     STA      $C2,y                     ; 0x161c9 $A1B9 99 C2 00                ;
     LDA      rng_alt,y                   ; 0x161cc $A1BC B9 1C 05                ;
     AND      #$1F                      ; 0x161cf $A1BF 29 1F                   ;;Keep Bits:0001_1111
@@ -3934,7 +3934,7 @@ LA1DF:                                                                          
     BEQ      LA1EB                     ; 0x161f3 $A1E3 F0 06                   ;
     JSR      bank7_Floor_Y_Position    ; 0x161f5 $A1E5 20 C1 DA                ;
 LA1E8:                                                                          ;
-    STA      $057E,x                   ; 0x161f8 $A1E8 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x161f8 $A1E8 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 LA1EB:                                                                          ;
     JSR      bank7_Gravity             ; 0x161fb $A1EB 20 BE DE                ;
     JSR      bank7_DE3D                     ; 0x161fe $A1EE 20 3D DE                ;
@@ -3965,7 +3965,7 @@ bank5_table_A210:                                                               
 bank5_Enemy_Routines1_Electric_Barrier:                                         ;
     LDA      $AF,x                     ; 0x16244 $A234 B5 AF                   ;; Various enemy state variables
     BNE      LA2A7                     ; 0x16246 $A236 D0 6F                   ;
-    LDA      $0794                     ; 0x16248 $A238 AD 94 07                ;; Number of Crystals left
+    LDA      bss_0794                     ; 0x16248 $A238 AD 94 07                ;; Number of Crystals left
     ORA      $C9                       ; 0x1624b $A23B 05 C9                   ;
     BNE      LA25F                     ; 0x1624d $A23D D0 20                   ;
     LDA      $3B                       ; 0x1624f $A23F A5 3B                   ;;link Pagepos SideScroll		; Link's X Position (high byte)
@@ -3990,9 +3990,9 @@ LA256:                                                                          
     STA      $80                       ; 0x1626d $A25D 85 80                   ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
 LA25F:                                                                          ;
     LDA      $C9                       ; 0x1626f $A25F A5 C9                   ;
-    ORA      $0494                     ; 0x16271 $A261 0D 94 04                ;; INC $0494 TO KILL LINK
+    ORA      bss_0494                     ; 0x16271 $A261 0D 94 04                ;; INC $0494 TO KILL LINK
     BNE      LA27C                     ; 0x16274 $A264 D0 16                   ;
-    STA      $0518                     ; 0x16276 $A266 8D 18 05                ;; Invulnerable Timeout (01-02 - Blinking, 03+ - Not Blinking); Timer for Link being immune from attacks
+    STA      bss_0518                     ; 0x16276 $A266 8D 18 05                ;; Invulnerable Timeout (01-02 - Blinking, 03+ - Not Blinking); Timer for Link being immune from attacks
     JSR      bank7_E4D9                     ; 0x16279 $A269 20 D9 E4                ;
     JSR      bank7_Link_Collision_Detection; 0x1627c $A26C 20 C1 D6                ;
     LDA      $A8,x                     ; 0x1627f $A26F B5 A8                   ;; Enemy State
@@ -4000,7 +4000,7 @@ LA25F:                                                                          
     BEQ      LA27C                     ; 0x16283 $A273 F0 07                   ;
     LDA      $13                       ; 0x16285 $A275 A5 13                   ;; Fairy state (0 = Not in Fairy state)	faery, flip from 8=faery,0=link (set $076F to 0, then set $13 to 0)	setting 76F to ff, changes 76F to 3B which prevents changing $13 from 8 to 0
     BEQ      LA27C                     ; 0x16287 $A277 F0 03                   ;
-    INC      $0494                     ; 0x16289 $A279 EE 94 04                ;; INC $0494 TO KILL LINK
+    INC      bss_0494                     ; 0x16289 $A279 EE 94 04                ;; INC $0494 TO KILL LINK
 LA27C:                                                                          ;
     LDA      #$00                      ; 0x1628c $A27C A9 00                   ;;A = #$00 0000_0000
     LDY      $AF,x                     ; 0x1628e $A27E B4 AF                   ;; Various enemy state variables
@@ -4022,9 +4022,9 @@ LA290:                                                                          
     CPY      #$08                      ; 0x162a8 $A298 C0 08                   ;
     BNE      LA290                     ; 0x162aa $A29A D0 F4                   ;
     LDA      #$07                      ; 0x162ac $A29C A9 07                   ;;A = #$07 0000_0111
-    STA      $0362                     ; 0x162ae $A29E 8D 62 03                ;; PPU Macro Offset
+    STA      bss_0362                     ; 0x162ae $A29E 8D 62 03                ;; PPU Macro Offset
     LDA      #$01                      ; 0x162b1 $A2A1 A9 01                   ;;A = #$01 0000_0001
-    STA      $0725                     ; 0x162b3 $A2A3 8D 25 07                ;; PPU Macro Selector
+    STA      bss_0725                     ; 0x162b3 $A2A3 8D 25 07                ;; PPU Macro Selector
 LA2A6:                                                                          ;
     RTS                                ; 0x162b6 $A2A6 60                      ;
                                                                                ;
@@ -4073,15 +4073,15 @@ LA2E6:                                                                          
     LDA      $3F                       ; 0x162f6 $A2E6 A5 3F                   ;
     STA      bss_0363                     ; 0x162f8 $A2E8 8D 63 03                ;
     LDA      $51                       ; 0x162fb $A2EB A5 51                   ;
-    STA      $0364                     ; 0x162fd $A2ED 8D 64 03                ;
+    STA      bss_0364                     ; 0x162fd $A2ED 8D 64 03                ;
     LDX      #$0C                      ; 0x16300 $A2F0 A2 0C                   ;;X = #$0c 0000_1100
-    STX      $0365                     ; 0x16302 $A2F2 8E 65 03                ;
+    STX      bss_0365                     ; 0x16302 $A2F2 8E 65 03                ;
     LDA      #$FF                      ; 0x16305 $A2F5 A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0372                     ; 0x16307 $A2F7 8D 72 03                ;
+    STA      bss_0372                     ; 0x16307 $A2F7 8D 72 03                ;
     DEX                                ; 0x1630a $A2FA CA                      ;
 LA2FB:                                                                          ;
     LDA      #$F4                      ; 0x1630b $A2FB A9 F4                   ;;A = #$f4 1111_0100
-    STA      $0366,x                   ; 0x1630d $A2FD 9D 66 03                ;
+    STA      bss_0366,x                   ; 0x1630d $A2FD 9D 66 03                ;
     DEX                                ; 0x16310 $A300 CA                      ;
     BPL      LA2FB                     ; 0x16311 $A301 10 F8                   ;
     LDA      $51                       ; 0x16313 $A303 A5 51                   ;
@@ -4094,10 +4094,10 @@ LA2FB:                                                                          
 LA30F:                                                                          ;
 .byt    $3F                            ; 0x1631f $A30F 3F                      ;
     LDA      #$0F                      ; 0x16320 $A310 A9 0F                   ;;A = #$0f 0000_1111
-    STA      $0362                     ; 0x16322 $A312 8D 62 03                ;; PPU Macro Offset
+    STA      bss_0362                     ; 0x16322 $A312 8D 62 03                ;; PPU Macro Offset
 LA315:                                                                          ;
     LDA      #$01                      ; 0x16325 $A315 A9 01                   ;;A = #$01 0000_0001
-    STA      $0725                     ; 0x16327 $A317 8D 25 07                ;; PPU Macro Selector
+    STA      bss_0725                     ; 0x16327 $A317 8D 25 07                ;; PPU Macro Selector
     LDX      $10                       ; 0x1632a $A31A A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x1632c $A31C 60                      ;
                                                                                ;
@@ -4141,7 +4141,7 @@ bank5_Enemy_Init_Routines_Thunderbird:                                          
 ; ---------------------------------------------------------------------------- ;
 LA349:                                                                          ;
     LDA      #$08                      ; 0x16359 $A349 A9 08                   ; A = 08
-    STA      $057E,x                   ; 0x1635b $A34B 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    STA      bss_057E,x                   ; 0x1635b $A34B 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     RTS                                ; 0x1635e $A34E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4151,17 +4151,17 @@ LA351:                                                                          
 .byt    $02,$04,$08,$10,$FE,$FC,$F8,$F0; 0x16361 $A351 02 04 08 10 FE FC F8 F0 ;
 ; ---------------------------------------------------------------------------- ;
 bank5_Enemy_Routines1_Thunderbird:                                              ;
-    LDA      $0728                     ; 0x16369 $A359 AD 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
+    LDA      bss_0728                     ; 0x16369 $A359 AD 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
     BNE      LA36B                     ; 0x1636c $A35C D0 0D                   ;
-    LDA      $072A                     ; 0x1636e $A35E AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
+    LDA      bss_072A                     ; 0x1636e $A35E AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     BEQ      LA3BD                     ; 0x16371 $A361 F0 5A                   ;
-    INC      $0728                     ; 0x16373 $A363 EE 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
+    INC      bss_0728                     ; 0x16373 $A363 EE 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
     LDA      #$90                      ; 0x16376 $A366 A9 90                   ;;A = #$90 1001_0000
-    STA      $0504,x                   ; 0x16378 $A368 9D 04 05                ;; Timer for Enemy
+    STA      bss_0504,x                   ; 0x16378 $A368 9D 04 05                ;; Timer for Enemy
 LA36B:                                                                          ;
     LDA      $6E3F                     ; 0x1637b $A36B AD 3F 6E                ;
     BPL      LA3C2                     ; 0x1637e $A36E 10 52                   ;
-    LDY      $040E,x                   ; 0x16380 $A370 BC 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
+    LDY      bss_040E,x                   ; 0x16380 $A370 BC 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     BNE      LA3BD                     ; 0x16383 $A373 D0 48                   ;
     INC      $B6,x                     ; 0x16385 $A375 F6 B6                   ;; Generated Enemy Slot
     LDA      #$0A                      ; 0x16387 $A377 A9 0A                   ;;A = #$0a 0000_1010
@@ -4210,10 +4210,10 @@ LA3BD:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LA3C2:                                                                          ;
-    LDA      $0400                     ; 0x163d2 $A3C2 AD 00 04                ;;sword_slash_frame (animation frame); Sword slash frame code
+    LDA      bss_0400                     ; 0x163d2 $A3C2 AD 00 04                ;;sword_slash_frame (animation frame); Sword slash frame code
     BNE      LA3CC                     ; 0x163d5 $A3C5 D0 05                   ;
     LDA      #$F8                      ; 0x163d7 $A3C7 A9 F8                   ;;A = #$f8 1111_1000
-    STA      $0480                     ; 0x163d9 $A3C9 8D 80 04                ;
+    STA      bss_0480                     ; 0x163d9 $A3C9 8D 80 04                ;
 LA3CC:                                                                          ;
     LDA      $C2,x                     ; 0x163dc $A3CC B5 C2                   ;; Enemy Current HP
     CMP      #$C0                      ; 0x163de $A3CE C9 C0                   ;
@@ -4231,11 +4231,11 @@ LA3DB:                                                                          
     STA      $B6,x                     ; 0x163f1 $A3E1 95 B6                   ;; Generated Enemy Slot
     LDA      #$FF                      ; 0x163f3 $A3E3 A9 FF                   ;;A = #$ff 1111_1111
     STA      $6E3F                     ; 0x163f5 $A3E5 8D 3F 6E                ;
-    STA      $0504,x                   ; 0x163f8 $A3E8 9D 04 05                ;; Timer for Enemy
+    STA      bss_0504,x                   ; 0x163f8 $A3E8 9D 04 05                ;; Timer for Enemy
     LSR                                ; 0x163fb $A3EB 4A                      ;
-    STA      $040E,x                   ; 0x163fc $A3EC 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
+    STA      bss_040E,x                   ; 0x163fc $A3EC 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
 LA3EF:                                                                          ;
-    LDA      $0504,x                   ; 0x163ff $A3EF BD 04 05                ;; Timer for Enemy
+    LDA      bss_0504,x                   ; 0x163ff $A3EF BD 04 05                ;; Timer for Enemy
     BEQ      LA3F5                     ; 0x16402 $A3F2 F0 01                   ;
     RTS                                ; 0x16404 $A3F4 60                      ;
                                                                                ;
@@ -4270,7 +4270,7 @@ LA407:                                                                          
     LDA      LA351,x                   ; 0x16439 $A429 BD 51 A3                ;
     STA      $77,y                     ; 0x1643c $A42C 99 77 00                ;
     LDA      #$F0                      ; 0x1643f $A42F A9 F0                   ;;A = #$f0 1111_0000
-    STA      $0584,y                   ; 0x16441 $A431 99 84 05                ;
+    STA      bss_0584,y                   ; 0x16441 $A431 99 84 05                ;
     LDX      $10                       ; 0x16444 $A434 A6 10                   ;; used as monster x register ;draw boss hp bar
 LA436:                                                                          ;
     JSR      bank7_Simple_Horizontal_Movement; 0x16446 $A436 20 B8 DE              ;
@@ -4278,7 +4278,7 @@ LA436:                                                                          
     LDA      $12                       ; 0x1644c $A43C A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x1644e $A43E 29 03                   ;;Keep Bits:0000_0011
     BNE      LA45D                     ; 0x16450 $A440 D0 1B                   ;
-    LDA      $057E,x                   ; 0x16452 $A442 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    LDA      bss_057E,x                   ; 0x16452 $A442 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     CMP      #$10                      ; 0x16455 $A445 C9 10                   ;
     BEQ      LA44D                     ; 0x16457 $A447 F0 04                   ;
     CMP      #$F0                      ; 0x16459 $A449 C9 F0                   ;
@@ -4289,10 +4289,10 @@ LA44F:                                                                          
     LDA      $AF,x                     ; 0x1645f $A44F B5 AF                   ;; Various enemy state variables
     LSR                                ; 0x16461 $A451 4A                      ;
 LA452:
-    INC      $057E,x                   ; 0x16462 $A452 FE 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    INC      bss_057E,x                   ; 0x16462 $A452 FE 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     BCS      LA45D                     ; 0x16465 $A455 B0 06                   ;
-    DEC      $057E,x                   ; 0x16467 $A457 DE 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
-    DEC      $057E,x                   ; 0x1646a $A45A DE 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    DEC      bss_057E,x                   ; 0x16467 $A457 DE 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
+    DEC      bss_057E,x                   ; 0x1646a $A45A DE 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 LA45D:                                                                          ;
     LDA      $12                       ; 0x1646d $A45D A5 12                   ;; Frame Counter (ascending)
     AND      #$1F                      ; 0x1646f $A45F 29 1F                   ;;Keep Bits:0001_1111
@@ -4368,7 +4368,7 @@ LA4C0:                                                                          
 .byt    $37                            ; 0x164d2 $A4C2 37                      ;
 .byt    $37                            ; 0x164d3 $A4C3 37                      ;
 LA4C4:                                                                          ;
-    LDX      $0301                     ; 0x164d4 $A4C4 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    LDX      bss_0301                     ; 0x164d4 $A4C4 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDY      #$00                      ; 0x164d7 $A4C7 A0 00                   ;;Y = #$00 0000_0000
 LA4C9:                                                                          ;
     LDA      LA4B8,y                   ; 0x164d9 $A4C9 B9 B8 A4                ;
@@ -4385,7 +4385,7 @@ LA4C9:                                                                          
     LDA      LA4C0,y                   ; 0x164ec $A4DC B9 C0 A4                ;
     STA      $02FF,x                   ; 0x164ef $A4DF 9D FF 02                ;
     DEX                                ; 0x164f2 $A4E2 CA                      ;
-    STX      $0301                     ; 0x164f3 $A4E3 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    STX      bss_0301                     ; 0x164f3 $A4E3 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDX      $10                       ; 0x164f6 $A4E6 A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x164f8 $A4E8 60                      ;
                                                                                ;
@@ -4447,7 +4447,7 @@ bank5_Enemy_Routines1_HiddenRedJar:                                             
 LA541:                                                                          ;
     STY      $A1,x                     ; 0x16551 $A541 94 A1                   ;; Enemy Code
     LDA      #$08                      ; 0x16553 $A543 A9 08                   ;;A = #$08 0000_1000
-    STA      $040E,x                   ; 0x16555 $A545 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
+    STA      bss_040E,x                   ; 0x16555 $A545 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     LDA      $4E,x                     ; 0x16558 $A548 B5 4E                   ;; Enemy X Position (low byte)
     ADC      #$03                      ; 0x1655a $A54A 69 03                   ;
     STA      $4E,x                     ; 0x1655c $A54C 95 4E                   ;; Enemy X Position (low byte)
@@ -4475,13 +4475,13 @@ bank5_table_A600:                                                              ;
 bank5_A610:                                                                    ;
     LDA      $FF                       ; 0x16620 $A610 A5 FF                   ; Sprite Bank ?
     AND      #$7C                      ; 0x16622 $A612 29 7C                   ; Keep Bits:0111_1100
-    ORA      $0747                     ; 0x16624 $A614 0D 47 07                ;
+    ORA      bss_0747                     ; 0x16624 $A614 0D 47 07                ;
     STA      $FF                       ; 0x16627 $A617 85 FF                   ; Sprite Bank ?
     STA      PPU_CTRL                  ; 0x16629 $A619 8D 00 20                ;
     LDA      $FE                       ; 0x1662c $A61C A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     AND      #$E0                      ; 0x1662e $A61E 29 E0                   ; Keep Bits:1110_0000
     STA      PPU_MASK                  ; 0x16630 $A620 8D 01 20                ;
-    LDY      $0726                     ; 0x16633 $A623 AC 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    LDY      bss_0726                     ; 0x16633 $A623 AC 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     BNE      :+                        ; 0x16636 $A626 D0 04                   ;
     LDA      $FE                       ; 0x16638 $A628 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     ORA      #$1E                      ; 0x1663a $A62A 09 1E                   ; Set Bits:0001_1110
@@ -4494,7 +4494,7 @@ bank5_A610:                                                                    ;
     STA      OAM_ADDR                  ; 0x16649 $A639 8D 03 20                ;
     LDA      #$02                      ; 0x1664c $A63C A9 02                   ; A = #$02 0000_0010
     STA      OAM_DMA                   ; 0x1664e $A63E 8D 14 40                ;
-    LDA      $0725                     ; 0x16651 $A641 AD 25 07                ; PPU Macro Selector
+    LDA      bss_0725                     ; 0x16651 $A641 AD 25 07                ; PPU Macro Selector
     ASL                                ; 0x16654 $A644 0A                      ;
     TAX                                ; 0x16655 $A645 AA                      ;
     LDA      bank5_table_A600,x        ; 0x16656 $A646 BD 00 A6                ;
@@ -4516,14 +4516,14 @@ bank5_A610:                                                                    ;
     STA      PPU_SCROLL                ; 0x16680 $A670 8D 05 20                ;
     LDA      $FE                       ; 0x16683 $A673 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     STA      PPU_MASK                  ; 0x16685 $A675 8D 01 20                ;
-    STY      $0301                     ; 0x16688 $A678 8C 01 03                ; ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    STY      $0725                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector
+    STY      bss_0301                     ; 0x16688 $A678 8C 01 03                ; ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
+    STY      bss_0725                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector
     DEY                                ; 0x1668e $A67E 88                      ;
     STY      bss_0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
     JSR      bank7_Title_Music_Tick              ; 0x16692 $A682 20 32 C0                ;
     LDA      $F7                       ; 0x16695 $A685 A5 F7                   ; Controller 1 Buttons Held
 LA687:                                                                         ;
-    STA      $0744                     ; 0x16697 $A687 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
+    STA      bss_0744                     ; 0x16697 $A687 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
     JSR      bank7_Controllers_Input   ; 0x1669a $A68A 20 46 D3                ;
     INC      a:$12                     ; 0x1669d $A68D EE 12 00                ;
     JSR      LA6D9                     ; 0x166a0 $A690 20 D9 A6                ;
@@ -4546,14 +4546,14 @@ bank5_PowerON__Reset_Memory:                                                   ;
     STA      DMC_RAW                   ; 0x166be $A6AE 8D 11 40                ;
     LDA      #$0F                      ; 0x166c1 $A6B1 A9 0F                   ; A = #$0f 0000_1111
     STA      SND_CHN                   ; 0x166c3 $A6B3 8D 15 40                ; Sound Channel Switch
-    STA      $076B                     ; 0x166c6 $A6B6 8D 6B 07                ;
+    STA      bss_076B                     ; 0x166c6 $A6B6 8D 6B 07                ;
     LDA      #$00                      ; 0x166c9 $A6B9 A9 00                   ; A = #$00 0000_0000
     STA      PPU_MASK                  ; 0x166cb $A6BB 8D 01 20                ;
     JSR      bank7_Remove_All_Sprites  ; 0x166ce $A6BE 20 4C D2                ;
     JSR      bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0; 0x166d1 $A6C1 20 66 D2;
-    INC      $0726                     ; 0x166d4 $A6C4 EE 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    INC      bss_0726                     ; 0x166d4 $A6C4 EE 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      #$06                      ; 0x166d7 $A6C7 A9 06                   ; A = #$06 0000_0110
-    STA      $0768                     ; 0x166d9 $A6C9 8D 68 07                ; makes weird ppu effect
+    STA      bss_0768                     ; 0x166d9 $A6C9 8D 68 07                ; makes weird ppu effect
     LDA      #$80                      ; 0x166dc $A6CC A9 80                   ; A = #$80 1000_0000
     STA      $0100                     ; 0x166de $A6CE 8D 00 01                ;
 	LDA      #$B0                      ; 0x166e1 $A6D1 A9 B0                   ; PPU_CTRL will be $B0 1011_0000
@@ -4572,7 +4572,7 @@ LA6D9:                                                                          
     BRK                                ; 0x166f8 $A6E8 00                      ;
     ORA      ($A9,x)                   ; 0x166f9 $A6E9 01 A9                   ;
     BRK                                ; 0x166fb $A6EB 00                      ;
-    STA      $076C                     ; 0x166fc $A6EC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      bss_076C                     ; 0x166fc $A6EC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x166ff $A6EF 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4597,11 +4597,11 @@ bank5_code20:                                                                   
     JSR      bank7_Set_Memory_300_4FF_and_00_DF_to_Zero; 0x1671f $A70F 20 9C D2    ;
     LDA      #$0F                      ; 0x16722 $A712 A9 0F                   ; A = 0F
     JSR      ConfigureMMC1             ; 0x16724 $A714 20 9D BF                ;
-    LDA      $0568                     ; 0x16727 $A717 AD 68 05                ;; Related to Flute in Overworld
+    LDA      bss_0568                     ; 0x16727 $A717 AD 68 05                ;; Related to Flute in Overworld
     BNE      LA723                     ; 0x1672a $A71A D0 07                   ;
     LDA      #$01                      ; 0x1672c $A71C A9 01                   ; A = 01
     STA      $EA                       ; 0x1672e $A71E 85 EA                   ;;Global Sound Switch (0 = Sound On)
-    INC      $0568                     ; 0x16730 $A720 EE 68 05                ;; Related to Flute in Overworld
+    INC      bss_0568                     ; 0x16730 $A720 EE 68 05                ;; Related to Flute in Overworld
 LA723:                                                                          ;
     JSR      bank5_code_ADE0           ; 0x16733 $A723 20 E0 AD                ;
     LDA      #$00                      ; 0x16736 $A726 A9 00                   ; A = 00
@@ -4611,7 +4611,7 @@ LA723:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LA72E:                                                                          ;
     JSR      bank5_code21              ; 0x1673e $A72E 20 C1 A8                ;
-    INC      $0727                     ; 0x16741 $A731 EE 27 07                ;
+    INC      bss_0727                     ; 0x16741 $A731 EE 27 07                ;
     JMP      bank7_C72D                     ; 0x16744 $A734 4C 2D C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4648,7 +4648,7 @@ LA749:                                                                          
     CMP      #$60                      ; 0x1677c $A76C C9 60                   ;
     BNE      LA787                     ; 0x1677e $A76E D0 17                   ;
     LDA      #$80                      ; 0x16780 $A770 A9 80                   ;;A = #$80 1000_0000
-    STA      $0504                     ; 0x16782 $A772 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    STA      bss_0504                     ; 0x16782 $A772 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     JSR      LA795                     ; 0x16785 $A775 20 95 A7                ;
     LDA      $E8                       ; 0x16788 $A778 A5 E8                   ;; Music Note Pitch
     CMP      #$08                      ; 0x1678a $A77A C9 08                   ;
@@ -4671,23 +4671,23 @@ LA787:                                                                          
     INC      $FC                       ; 0x167a3 $A793 E6 FC                   ;
 LA795:                                                                          ;
     LDA      $F7                       ; 0x167a5 $A795 A5 F7                   ;; Controller 1 Buttons Held
-    CMP      $0744                     ; 0x167a7 $A797 CD 44 07                ;; Controller 1 Input; Controller 1 Buttons Held
+    CMP      bss_0744                     ; 0x167a7 $A797 CD 44 07                ;; Controller 1 Input; Controller 1 Buttons Held
     BEQ      LA7C0                     ; 0x167aa $A79A F0 24                   ;
     AND      #$10                      ; 0x167ac $A79C 29 10                   ;;Keep Bits:0001_0000
     BEQ      LA7C0                     ; 0x167ae $A79E F0 20                   ;
     LDA      #$00                      ; 0x167b0 $A7A0 A9 00                   ;;A = #$00 0000_0000
-    STA      $0727                     ; 0x167b2 $A7A2 8D 27 07                ;
-    STA      $0761                     ; 0x167b5 $A7A5 8D 61 07                ;
+    STA      bss_0727                     ; 0x167b2 $A7A2 8D 27 07                ;
+    STA      bss_0761                     ; 0x167b5 $A7A5 8D 61 07                ;
     JSR      bank7_Remove_All_Sprites_except_Sprite0; 0x167b8 $A7A8 20 50 D2       ;
 LA7AB:                                                                          ;
     LDA      #$80                      ; 0x167bb $A7AB A9 80                   ;;A = #$80 1000_0000
     STA      $EA                       ; 0x167bd $A7AD 85 EA                   ;;Global Sound Switch (0 = Sound On)
     LDA      #$00                      ; 0x167bf $A7AF A9 00                   ;;A = #$00 0000_0000
-    STA      $0747                     ; 0x167c1 $A7B1 8D 47 07                ;
-    STA      $0568                     ; 0x167c4 $A7B4 8D 68 05                ;; Related to Flute in Overworld
-    STA      $073E                     ; 0x167c7 $A7B7 8D 3E 07                ;
-    INC      $0726                     ; 0x167ca $A7BA EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    INC      $076C                     ; 0x167cd $A7BD EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      bss_0747                     ; 0x167c1 $A7B1 8D 47 07                ;
+    STA      bss_0568                     ; 0x167c4 $A7B4 8D 68 05                ;; Related to Flute in Overworld
+    STA      bss_073E                     ; 0x167c7 $A7B7 8D 3E 07                ;
+    INC      bss_0726                     ; 0x167ca $A7BA EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    INC      bss_076C                     ; 0x167cd $A7BD EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
 LA7C0:                                                                          ;
     RTS                                ; 0x167d0 $A7C0 60                      ;
                                                                                ;
@@ -4936,9 +4936,9 @@ LAB98:                                                                          
     JSR      L02AD                     ; 0x16bac $AB9C 20 AD 02                ;
     JSR      L9520                     ; 0x16baf $AB9F 20 20 95                ;
 .byt    $A7                            ; 0x16bb2 $ABA2 A7                      ;
-    LDA      $0726                     ; 0x16bb3 $ABA3 AD 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    LDA      bss_0726                     ; 0x16bb3 $ABA3 AD 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     BNE      LAC06                     ; 0x16bb6 $ABA6 D0 5E                   ;
-    LDA      $0504                     ; 0x16bb8 $ABA8 AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDA      bss_0504                     ; 0x16bb8 $ABA8 AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     BNE      bank5_code_ABF7           ; 0x16bbb $ABAB D0 4A                   ;
     LDA      $3F                       ; 0x16bbd $ABAD A5 3F                   ;
     BNE      LABE5                     ; 0x16bbf $ABAF D0 34                   ;
@@ -4951,11 +4951,11 @@ LAB98:                                                                          
     BNE      LABCB                     ; 0x16bcd $ABBD D0 0C                   ;
     LDA      #$00                      ; 0x16bcf $ABBF A9 00                   ;;A = #$00 0000_0000
     STA      $FC                       ; 0x16bd1 $ABC1 85 FC                   ;
-    LDA      $0747                     ; 0x16bd3 $ABC3 AD 47 07                ;
+    LDA      bss_0747                     ; 0x16bd3 $ABC3 AD 47 07                ;
     EOR      #$02                      ; 0x16bd6 $ABC6 49 02                   ;;Flip Bits:0000_0010
-    STA      $0747                     ; 0x16bd8 $ABC8 8D 47 07                ;
+    STA      bss_0747                     ; 0x16bd8 $ABC8 8D 47 07                ;
 LABCB:                                                                          ;
-    LDA      $0761                     ; 0x16bdb $ABCB AD 61 07                ;
+    LDA      bss_0761                     ; 0x16bdb $ABCB AD 61 07                ;
     BNE      LABE5                     ; 0x16bde $ABCE D0 15                   ;
     LDA      $31                       ; 0x16be0 $ABD0 A5 31                   ;
     BNE      LABDF                     ; 0x16be2 $ABD2 D0 0B                   ;
@@ -4963,13 +4963,13 @@ LABCB:                                                                          
     CMP      #$60                      ; 0x16be6 $ABD6 C9 60                   ;
     BNE      LABDF                     ; 0x16be8 $ABD8 D0 05                   ;
     LDA      #$05                      ; 0x16bea $ABDA A9 05                   ;;A = #$05 0000_0101
-    STA      $0761                     ; 0x16bec $ABDC 8D 61 07                ;
+    STA      bss_0761                     ; 0x16bec $ABDC 8D 61 07                ;
 LABDF:                                                                          ;
     LDA      $FC                       ; 0x16bef $ABDF A5 FC                   ;
     AND      #$07                      ; 0x16bf1 $ABE1 29 07                   ;;Keep Bits:0000_0111
     BNE      LAC06                     ; 0x16bf3 $ABE3 D0 21                   ;
 LABE5:                                                                          ;
-    LDA      $0761                     ; 0x16bf5 $ABE5 AD 61 07                ;
+    LDA      bss_0761                     ; 0x16bf5 $ABE5 AD 61 07                ;
 .byt    $20                            ; 0x16bf8 $ABE8 20                      ;
 LABE9:                                                                          ;
     STA      $D3                       ; 0x16bf9 $ABE9 85 D3                   ;
@@ -4983,7 +4983,7 @@ bank5_code_ABF7:                                                                
     JSR      LAC07                     ; 0x16c07 $ABF7 20 07 AC                ;
     LDA      $33                       ; 0x16c0a $ABFA A5 33                   ;
     BEQ      LABE5                     ; 0x16c0c $ABFC F0 E7                   ;
-    LDA      $0761                     ; 0x16c0e $ABFE AD 61 07                ;
+    LDA      bss_0761                     ; 0x16c0e $ABFE AD 61 07                ;
     BEQ      LAC06                     ; 0x16c11 $AC01 F0 03                   ;
     JMP      LABE5                     ; 0x16c13 $AC03 4C E5 AB                ;
                                                                                ;
@@ -4996,7 +4996,7 @@ LAC07:                                                                          
     LDA      $12                       ; 0x16c17 $AC07 A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x16c19 $AC09 29 03                   ;;Keep Bits:0000_0011
     BNE      LAC10                     ; 0x16c1b $AC0B D0 03                   ;
-    DEC      $0504                     ; 0x16c1d $AC0D CE 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    DEC      bss_0504                     ; 0x16c1d $AC0D CE 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
 LAC10:                                                                          ;
     RTS                                ; 0x16c20 $AC10 60                      ;
                                                                                ;
@@ -5012,7 +5012,7 @@ bank5_code_AC30:                                                                
     AND      #$0F                      ; 0x16c43 $AC33 29 0F                   ;;Keep Bits:0000_1111
     BEQ      LAC3D                     ; 0x16c45 $AC35 F0 06                   ;
     LDA      #$03                      ; 0x16c47 $AC37 A9 03                   ;;A = #$03 0000_0011
-    STA      $0761                     ; 0x16c49 $AC39 8D 61 07                ;
+    STA      bss_0761                     ; 0x16c49 $AC39 8D 61 07                ;
     RTS                                ; 0x16c4c $AC3C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5020,25 +5020,25 @@ LAC3D:                                                                          
     LDA      $2B                       ; 0x16c4d $AC3D A5 2B                   ;
     STA      bss_0302                     ; 0x16c4f $AC3F 8D 02 03                ;; Used when writing text to screen
     LDA      $2C                       ; 0x16c52 $AC42 A5 2C                   ;
-    STA      $0303                     ; 0x16c54 $AC44 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x16c54 $AC44 8D 03 03                ;; Letter position when writing to screen
     JSR      LAEC1                     ; 0x16c57 $AC47 20 C1 AE                ;
     LDA      $2B                       ; 0x16c5a $AC4A A5 2B                   ;
-    STA      $0325                     ; 0x16c5c $AC4C 8D 25 03                ;
+    STA      bss_0325                     ; 0x16c5c $AC4C 8D 25 03                ;
     LDA      $2C                       ; 0x16c5f $AC4F A5 2C                   ;
-    STA      $0326                     ; 0x16c61 $AC51 8D 26 03                ;
+    STA      bss_0326                     ; 0x16c61 $AC51 8D 26 03                ;
     LDA      #$20                      ; 0x16c64 $AC54 A9 20                   ;;A = #$20 0010_0000
-    STA      $0304                     ; 0x16c66 $AC56 8D 04 03                ;; Text memory offset?
-    STA      $0327                     ; 0x16c69 $AC59 8D 27 03                ;
+    STA      bss_0304                     ; 0x16c66 $AC56 8D 04 03                ;; Text memory offset?
+    STA      bss_0327                     ; 0x16c69 $AC59 8D 27 03                ;
     LDY      #$1F                      ; 0x16c6c $AC5C A0 1F                   ;;Y = #$1f 0001_1111
 LAC5E:                                                                          ;
     LDA      bank5_table_AC11,y        ; 0x16c6e $AC5E B9 11 AC                ;
-    STA      $0305,y                   ; 0x16c71 $AC61 99 05 03                ;
-    STA      $0328,y                   ; 0x16c74 $AC64 99 28 03                ;
+    STA      bss_0305,y                   ; 0x16c71 $AC61 99 05 03                ;
+    STA      bss_0328,y                   ; 0x16c74 $AC64 99 28 03                ;
     DEY                                ; 0x16c77 $AC67 88                      ;
     BPL      LAC5E                     ; 0x16c78 $AC68 10 F4                   ;
     LDA      #$FF                      ; 0x16c7a $AC6A A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0348                     ; 0x16c7c $AC6C 8D 48 03                ;
-    INC      $0761                     ; 0x16c7f $AC6F EE 61 07                ;
+    STA      bss_0348                     ; 0x16c7c $AC6C 8D 48 03                ;
+    INC      bss_0761                     ; 0x16c7f $AC6F EE 61 07                ;
     RTS                                ; 0x16c82 $AC72 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5053,19 +5053,19 @@ LAC5E:                                                                          
     LDA      $2C                       ; 0x16c96 $AC86 A5 2C                   ;
     CLC                                ; 0x16c98 $AC88 18                      ;
     ADC      #$03                      ; 0x16c99 $AC89 69 03                   ;
-    STA      $0303                     ; 0x16c9b $AC8B 8D 03 03                ;; Letter position when writing to screen
-    STY      $0304                     ; 0x16c9e $AC8E 8C 04 03                ;; Text memory offset?
+    STA      bss_0303                     ; 0x16c9b $AC8B 8D 03 03                ;; Letter position when writing to screen
+    STY      bss_0304                     ; 0x16c9e $AC8E 8C 04 03                ;; Text memory offset?
     LDA      #$FF                      ; 0x16ca1 $AC91 A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0305,y                   ; 0x16ca3 $AC93 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16ca3 $AC93 99 05 03                ;
     DEY                                ; 0x16ca6 $AC96 88                      ;
 LAC97:                                                                          ;
     LDA      (L0000),y                 ; 0x16ca7 $AC97 B1 00                   ;
-    STA      $0305,y                   ; 0x16ca9 $AC99 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16ca9 $AC99 99 05 03                ;
     DEY                                ; 0x16cac $AC9C 88                      ;
     BPL      LAC97                     ; 0x16cad $AC9D 10 F8                   ;
     JSR      LAEC1                     ; 0x16caf $AC9F 20 C1 AE                ;
     INC      $33                       ; 0x16cb2 $ACA2 E6 33                   ;
-    INC      $0761                     ; 0x16cb4 $ACA4 EE 61 07                ;
+    INC      bss_0761                     ; 0x16cb4 $ACA4 EE 61 07                ;
     RTS                                ; 0x16cb7 $ACA7 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5088,14 +5088,14 @@ LACB8:                                                                          
     LDA      $2D                       ; 0x16cd6 $ACC6 A5 2D                   ;
     STA      bss_0302                     ; 0x16cd8 $ACC8 8D 02 03                ;; Used when writing text to screen
     LDA      $2E                       ; 0x16cdb $ACCB A5 2E                   ;
-    STA      $0303                     ; 0x16cdd $ACCD 8D 03 03                ;; Letter position when writing to screen
-    STY      $0304                     ; 0x16ce0 $ACD0 8C 04 03                ;; Text memory offset?
+    STA      bss_0303                     ; 0x16cdd $ACCD 8D 03 03                ;; Letter position when writing to screen
+    STY      bss_0304                     ; 0x16ce0 $ACD0 8C 04 03                ;; Text memory offset?
     LDA      #$FF                      ; 0x16ce3 $ACD3 A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0305,y                   ; 0x16ce5 $ACD5 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16ce5 $ACD5 99 05 03                ;
     DEY                                ; 0x16ce8 $ACD8 88                      ;
 LACD9:                                                                          ;
     LDA      ($02),y                   ; 0x16ce9 $ACD9 B1 02                   ;
-    STA      $0305,y                   ; 0x16ceb $ACDB 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16ceb $ACDB 99 05 03                ;
     DEY                                ; 0x16cee $ACDE 88                      ;
     BPL      LACD9                     ; 0x16cef $ACDF 10 F8                   ;
     LDA      $2E                       ; 0x16cf1 $ACE1 A5 2E                   ;
@@ -5111,7 +5111,7 @@ LACEE:                                                                          
     AND      #$07                      ; 0x16d02 $ACF2 29 07                   ;;Keep Bits:0000_0111
     STA      $32                       ; 0x16d04 $ACF4 85 32                   ;
 LACF6:                                                                          ;
-    INC      $0761                     ; 0x16d06 $ACF6 EE 61 07                ;
+    INC      bss_0761                     ; 0x16d06 $ACF6 EE 61 07                ;
     RTS                                ; 0x16d09 $ACF9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5125,14 +5125,14 @@ LACFA:                                                                          
     LDA      $29                       ; 0x16d18 $AD08 A5 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
     STA      bss_0302                     ; 0x16d1a $AD0A 8D 02 03                ;; Used when writing text to screen
     LDA      $2A                       ; 0x16d1d $AD0D A5 2A                   ;;monster y	2a,2b,2c,2d,2e,2f
-    STA      $0303                     ; 0x16d1f $AD0F 8D 03 03                ;; Letter position when writing to screen
-    STY      $0304                     ; 0x16d22 $AD12 8C 04 03                ;; Text memory offset?
+    STA      bss_0303                     ; 0x16d1f $AD0F 8D 03 03                ;; Letter position when writing to screen
+    STY      bss_0304                     ; 0x16d22 $AD12 8C 04 03                ;; Text memory offset?
     LDA      #$FF                      ; 0x16d25 $AD15 A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0305,y                   ; 0x16d27 $AD17 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16d27 $AD17 99 05 03                ;
     DEY                                ; 0x16d2a $AD1A 88                      ;
 LAD1B:                                                                          ;
     LDA      (L0000),y                 ; 0x16d2b $AD1B B1 00                   ;
-    STA      $0305,y                   ; 0x16d2d $AD1D 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16d2d $AD1D 99 05 03                ;
     DEY                                ; 0x16d30 $AD20 88                      ;
     BPL      LAD1B                     ; 0x16d31 $AD21 10 F8                   ;
     LDA      $2A                       ; 0x16d33 $AD23 A5 2A                   ;;monster y	2a,2b,2c,2d,2e,2f
@@ -5165,13 +5165,13 @@ LAD40:                                                                          
     EOR      #$08                      ; 0x16d66 $AD56 49 08                   ;;Flip Bits:0000_1000
     STA      $29                       ; 0x16d68 $AD58 85 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
 LAD5A:                                                                          ;
-    INC      $0761                     ; 0x16d6a $AD5A EE 61 07                ;
+    INC      bss_0761                     ; 0x16d6a $AD5A EE 61 07                ;
     RTS                                ; 0x16d6d $AD5D 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAD5E:                                                                          ;
     LDA      #$00                      ; 0x16d6e $AD5E A9 00                   ;;A = #$00 0000_0000
-    STA      $0761                     ; 0x16d70 $AD60 8D 61 07                ;
+    STA      bss_0761                     ; 0x16d70 $AD60 8D 61 07                ;
     RTS                                ; 0x16d73 $AD63 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5188,21 +5188,21 @@ bank5_code_AD7C:                                                                
     LDY      #$18                      ; 0x16d94 $AD84 A0 18                   ;;Y = #$18 0001_1000
     LDA      $2F                       ; 0x16d96 $AD86 A5 2F                   ;
     STA      bss_0302                     ; 0x16d98 $AD88 8D 02 03                ;; Used when writing text to screen
-    STA      $031D                     ; 0x16d9b $AD8B 8D 1D 03                ;
+    STA      bss_031D                     ; 0x16d9b $AD8B 8D 1D 03                ;
     LDA      $30                       ; 0x16d9e $AD8E A5 30                   ;;projectile y		30,31,32,33,34,35	30,y
-    STA      $0303                     ; 0x16da0 $AD90 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x16da0 $AD90 8D 03 03                ;; Letter position when writing to screen
     EOR      #$20                      ; 0x16da3 $AD93 49 20                   ;;Flip Bits:0010_0000
-    STA      $031E                     ; 0x16da5 $AD95 8D 1E 03                ;
-    STY      $0304                     ; 0x16da8 $AD98 8C 04 03                ;; Text memory offset?
-    STY      $031F                     ; 0x16dab $AD9B 8C 1F 03                ;
+    STA      bss_031E                     ; 0x16da5 $AD95 8D 1E 03                ;
+    STY      bss_0304                     ; 0x16da8 $AD98 8C 04 03                ;; Text memory offset?
+    STY      bss_031F                     ; 0x16dab $AD9B 8C 1F 03                ;
     LDA      #$FF                      ; 0x16dae $AD9E A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0320,y                   ; 0x16db0 $ADA0 99 20 03                ;
+    STA      bss_0320,y                   ; 0x16db0 $ADA0 99 20 03                ;
     DEY                                ; 0x16db3 $ADA3 88                      ;
 LADA4:                                                                          ;
     LDA      ($02),y                   ; 0x16db4 $ADA4 B1 02                   ;
-    STA      $0305,y                   ; 0x16db6 $ADA6 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16db6 $ADA6 99 05 03                ;
     LDA      bank5_table_AD64,y        ; 0x16db9 $ADA9 B9 64 AD                ;
-    STA      $0320,y                   ; 0x16dbc $ADAC 99 20 03                ;
+    STA      bss_0320,y                   ; 0x16dbc $ADAC 99 20 03                ;
     DEY                                ; 0x16dbf $ADAF 88                      ;
     BPL      LADA4                     ; 0x16dc0 $ADB0 10 F2                   ;
     LDA      $30                       ; 0x16dc2 $ADB2 A5 30                   ;;projectile y		30,31,32,33,34,35	30,y
@@ -5250,8 +5250,8 @@ bank5_code_ADE0:                                                                
     STA      $31                       ; 0x16e0c $ADFC 85 31                   ;
     STA      $32                       ; 0x16e0e $ADFE 85 32                   ;
     STA      $33                       ; 0x16e10 $AE00 85 33                   ;
-    STA      $0761                     ; 0x16e12 $AE02 8D 61 07                ;
-    STA      $0747                     ; 0x16e15 $AE05 8D 47 07                ;
+    STA      bss_0761                     ; 0x16e12 $AE02 8D 61 07                ;
+    STA      bss_0747                     ; 0x16e15 $AE05 8D 47 07                ;
     STA      $FC                       ; 0x16e18 $AE08 85 FC                   ;
     LDA      #$C0                      ; 0x16e1a $AE0A A9 C0                   ;;A = #$c0 1100_0000
     STA      $2E                       ; 0x16e1c $AE0C 85 2E                   ;
@@ -5262,9 +5262,9 @@ LAE14:                                                                          
     RTS                                ; 0x16e24 $AE14 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-    LDA      $0747                     ; 0x16e25 $AE15 AD 47 07                ;
+    LDA      bss_0747                     ; 0x16e25 $AE15 AD 47 07                ;
     BNE      LAE4A                     ; 0x16e28 $AE18 D0 30                   ;
-    LDA      $0504                     ; 0x16e2a $AE1A AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    LDA      bss_0504                     ; 0x16e2a $AE1A AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
     BEQ      LAE30                     ; 0x16e2d $AE1D F0 11                   ;
     JSR      LAC07                     ; 0x16e2f $AE1F 20 07 AC                ;
     LDA      #$01                      ; 0x16e32 $AE22 A9 01                   ;;A = #$01 0000_0001
@@ -5280,7 +5280,7 @@ LAE30:                                                                          
     LDA      $35                       ; 0x16e44 $AE34 A5 35                   ;
     BNE      LAE4A                     ; 0x16e46 $AE36 D0 12                   ;
     LDA      #$00                      ; 0x16e48 $AE38 A9 00                   ;;A = #$00 0000_0000
-    STA      $0761                     ; 0x16e4a $AE3A 8D 61 07                ;
+    STA      bss_0761                     ; 0x16e4a $AE3A 8D 61 07                ;
     STA      $35                       ; 0x16e4d $AE3D 85 35                   ;
     STA      $34                       ; 0x16e4f $AE3F 85 34                   ;
     JSR      bank5_code21              ; 0x16e51 $AE41 20 C1 A8                ;
@@ -5305,11 +5305,11 @@ LAE4A:                                                                          
     BNE      LAE72                     ; 0x16e6f $AE5F D0 11                   ;
     LDA      #$00                      ; 0x16e71 $AE61 A9 00                   ;;A = #$00 0000_0000
     STA      $FC                       ; 0x16e73 $AE63 85 FC                   ;
-    LDA      $0747                     ; 0x16e75 $AE65 AD 47 07                ;
+    LDA      bss_0747                     ; 0x16e75 $AE65 AD 47 07                ;
     EOR      #$02                      ; 0x16e78 $AE68 49 02                   ;;Flip Bits:0000_0010
-    STA      $0747                     ; 0x16e7a $AE6A 8D 47 07                ;
+    STA      bss_0747                     ; 0x16e7a $AE6A 8D 47 07                ;
     LDA      #$90                      ; 0x16e7d $AE6D A9 90                   ;;A = #$90 1001_0000
-    STA      $0504                     ; 0x16e7f $AE6F 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+    STA      bss_0504                     ; 0x16e7f $AE6F 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
 LAE72:                                                                          ;
     LDA      $34                       ; 0x16e82 $AE72 A5 34                   ;
     ASL                                ; 0x16e84 $AE74 0A                      ;
@@ -5321,15 +5321,15 @@ LAE72:                                                                          
     LDA      $2B                       ; 0x16e90 $AE80 A5 2B                   ;
     STA      bss_0302                     ; 0x16e92 $AE82 8D 02 03                ;; Used when writing text to screen
     LDA      $2C                       ; 0x16e95 $AE85 A5 2C                   ;
-    STA      $0303                     ; 0x16e97 $AE87 8D 03 03                ;; Letter position when writing to screen
+    STA      bss_0303                     ; 0x16e97 $AE87 8D 03 03                ;; Letter position when writing to screen
     LDA      #$20                      ; 0x16e9a $AE8A A9 20                   ;;A = #$20 0010_0000
-    STA      $0304                     ; 0x16e9c $AE8C 8D 04 03                ;; Text memory offset?
+    STA      bss_0304                     ; 0x16e9c $AE8C 8D 04 03                ;; Text memory offset?
     LDA      #$FF                      ; 0x16e9f $AE8F A9 FF                   ;;A = #$ff 1111_1111
     LDY      #$1F                      ; 0x16ea1 $AE91 A0 1F                   ;;Y = #$1f 0001_1111
-    STA      $0306,y                   ; 0x16ea3 $AE93 99 06 03                ;
+    STA      bss_0306,y                   ; 0x16ea3 $AE93 99 06 03                ;
 LAE96:                                                                          ;
     LDA      bank5_table_AC11,y        ; 0x16ea6 $AE96 B9 11 AC                ;
-    STA      $0305,y                   ; 0x16ea9 $AE99 99 05 03                ;
+    STA      bss_0305,y                   ; 0x16ea9 $AE99 99 05 03                ;
     DEY                                ; 0x16eac $AE9C 88                      ;
     BPL      LAE96                     ; 0x16ead $AE9D 10 F7                   ;
     LDA      $34                       ; 0x16eaf $AE9F A5 34                   ;
@@ -5385,18 +5385,18 @@ LAEEE:                                                                          
     LDX      $34                       ; 0x16efe $AEEE A6 34                   ;
     LDY      LAEE7,x                   ; 0x16f00 $AEF0 BC E7 AE                ;
     LDA      #$FF                      ; 0x16f03 $AEF3 A9 FF                   ;;A = #$ff 1111_1111
-    STA      $0325,y                   ; 0x16f05 $AEF5 99 25 03                ;
+    STA      bss_0325,y                   ; 0x16f05 $AEF5 99 25 03                ;
     DEY                                ; 0x16f08 $AEF8 88                      ;
 LAEF9:                                                                          ;
     LDA      (L0000),y                 ; 0x16f09 $AEF9 B1 00                   ;
-    STA      $0325,y                   ; 0x16f0b $AEFB 99 25 03                ;
+    STA      bss_0325,y                   ; 0x16f0b $AEFB 99 25 03                ;
     DEY                                ; 0x16f0e $AEFE 88                      ;
     BPL      LAEF9                     ; 0x16f0f $AEFF 10 F8                   ;
     RTS                                ; 0x16f11 $AF01 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     JSR      LACFA                     ; 0x16f12 $AF02 20 FA AC                ;
-    LDA      $0761                     ; 0x16f15 $AF05 AD 61 07                ;
+    LDA      bss_0761                     ; 0x16f15 $AF05 AD 61 07                ;
     BEQ      LAF0F                     ; 0x16f18 $AF08 F0 05                   ;
     INC      $35                       ; 0x16f1a $AF0A E6 35                   ;
     JMP      LAF13                     ; 0x16f1c $AF0C 4C 13 AF                ;
@@ -5407,7 +5407,7 @@ LAF0F:                                                                          
     STA      $35                       ; 0x16f21 $AF11 85 35                   ;
 LAF13:                                                                          ;
     LDA      #$05                      ; 0x16f23 $AF13 A9 05                   ;;A = #$05 0000_0101
-    STA      $0761                     ; 0x16f25 $AF15 8D 61 07                ;
+    STA      bss_0761                     ; 0x16f25 $AF15 8D 61 07                ;
     RTS                                ; 0x16f28 $AF18 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5416,7 +5416,7 @@ LAF13:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAF1F:                                                                          ;
-    LDA      $073D                     ; 0x16f2f $AF1F AD 3D 07                ;; Routine Index
+    LDA      bss_073D                     ; 0x16f2f $AF1F AD 3D 07                ;; Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x16f32 $AF22 20 85 D3;
     ROR      $D2                       ; 0x16f35 $AF25 66 D2                   ;
 .byt    $2B                            ; 0x16f37 $AF27 2B                      ;
@@ -5424,13 +5424,13 @@ LAF1F:                                                                          
 .byt    $34                            ; 0x16f39 $AF29 34                      ;
 .byt    $AF                            ; 0x16f3a $AF2A AF                      ;
     LDA      #$01                      ; 0x16f3b $AF2B A9 01                   ;;A = #$01 0000_0001
-    STA      $0725                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
-    INC      $073D                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
+    STA      bss_0725                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
+    INC      bss_073D                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
     RTS                                ; 0x16f43 $AF33 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     LDA      #$04                      ; 0x16f44 $AF34 A9 04                   ;;A = #$04 0000_0100
-    STA      $0725                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
+    STA      bss_0725                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
     INC      game_mode                     ; 0x16f49 $AF39 EE 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x16f4c $AF3C 60                      ;
                                                                                ;
@@ -5562,20 +5562,20 @@ bank5_Load_Saved_Games_Data:                                                    
     JSR      bank5_Load_Number_of_Saves; 0x17274 $B264 20 03 B6                ; Load Number of Saves
     JSR      LB63C                     ; 0x17277 $B267 20 3C B6                ;
     JSR      LB5B5                     ; 0x1727a $B26A 20 B5 B5                ;
-    LDY      $073E                     ; 0x1727d $B26D AC 3E 07                ;
+    LDY      bss_073E                     ; 0x1727d $B26D AC 3E 07                ;
     BNE      LB27B                     ; 0x17280 $B270 D0 09                   ;
     LDA      #$02                      ; 0x17282 $B272 A9 02                   ; A = 02
-    STA      $0725                     ; 0x17284 $B274 8D 25 07                ;; PPU Macro Selector
-    INC      $073E                     ; 0x17287 $B277 EE 3E 07                ;
+    STA      bss_0725                     ; 0x17284 $B274 8D 25 07                ;; PPU Macro Selector
+    INC      bss_073E                     ; 0x17287 $B277 EE 3E 07                ;
     RTS                                ; 0x1728a $B27A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB27B:                                                                          ;
     DEY                                ; 0x1728b $B27B 88                      ;
     BNE      LB28B                     ; 0x1728c $B27C D0 0D                   ;
-    INC      $073E                     ; 0x1728e $B27E EE 3E 07                ;
+    INC      bss_073E                     ; 0x1728e $B27E EE 3E 07                ;
     LDA      #$05                      ; 0x17291 $B281 A9 05                   ; A = 05
-    STA      $0725                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector
+    STA      bss_0725                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector
     LDA      #$00                      ; 0x17296 $B286 A9 00                   ; A = 00
     STA      $19                       ; 0x17298 $B288 85 19                   ; Position Code for Fairy Cursor
     RTS                                ; 0x1729a $B28A 60                      ;
@@ -5583,13 +5583,13 @@ LB27B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB28B:                                                                          ;
     LDA      #$00                      ; 0x1729b $B28B A9 00                   ; A = 00
-    STA      $0726                     ; 0x1729d $B28D 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    STA      bss_0726                     ; 0x1729d $B28D 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      $F5                       ; 0x172a0 $B290 A5 F5                   ; Controller 1 buttons pressed
     AND      #$10                      ; 0x172a2 $B292 29 10                   ; keep bits ...x .... (Start button)
     BEQ      LB303                     ; 0x172a4 $B294 F0 6D                   ;
     LDA      #$00                      ; 0x172a6 $B296 A9 00                   ; A = 00
-    STA      $073E                     ; 0x172a8 $B298 8D 3E 07                ;
-    STA      $073B                     ; 0x172ab $B29B 8D 3B 07                ;
+    STA      bss_073E                     ; 0x172a8 $B298 8D 3E 07                ;
+    STA      bss_073B                     ; 0x172ab $B29B 8D 3B 07                ;
     LDA      $19                       ; 0x172ae $B29E A5 19                   ; Position Code for Fairy Cursor
     CMP      #$03                      ; 0x172b0 $B2A0 C9 03                   ;
     BNE      LB2AA                     ; 0x172b2 $B2A2 D0 06                   ;
@@ -5608,19 +5608,19 @@ LB2AA:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB2B4:                                                                          ;
     LDA      $19                       ; 0x172c4 $B2B4 A5 19                   ; Position Code for Fairy Cursor
-    STA      $0772                     ; 0x172c6 $B2B6 8D 72 07                ; Current Game Slot
+    STA      bss_0772                     ; 0x172c6 $B2B6 8D 72 07                ; Current Game Slot
     JSR      LB911                     ; 0x172c9 $B2B9 20 11 B9                ;
-    LDA      $07A0                     ; 0x172cc $B2BC AD A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
+    LDA      bss_07A0                     ; 0x172cc $B2BC AD A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     CMP      #$01                      ; 0x172cf $B2BF C9 01                   ;
     BNE      LB2EE                     ; 0x172d1 $B2C1 D0 2B                   ;
-    LDA      $0796                     ; 0x172d3 $B2C3 AD 96 07                ; Down/Up Techs
+    LDA      bss_0796                     ; 0x172d3 $B2C3 AD 96 07                ; Down/Up Techs
     AND      #$14                      ; 0x172d6 $B2C6 29 14                   ; keep bits ...x .x..
     STA      L0000                     ; 0x172d8 $B2C8 85 00                   ;
 function_reset_link_stats_to_beginning_values:                                  ;
     LDY      #$29                      ; 0x172da $B2CA A0 29                   ; Y = 29
 LB2CC:                                                                          ;
     LDA      bank5_Beginning_Values,y  ; 0x172dc $B2CC B9 E3 BA                ; Load Initial Player Stats
-    STA      $0777,y                   ; 0x172df $B2CF 99 77 07                ; AML, Magic, Items, etc.
+    STA      bss_0777,y                   ; 0x172df $B2CF 99 77 07                ; AML, Magic, Items, etc.
     DEY                                ; 0x172e2 $B2D2 88                      ;
     CPY      #$0C                      ; 0x172e3 $B2D3 C0 0C                   ;
     BCS      LB2CC                     ; 0x172e5 $B2D5 B0 F5                   ;
@@ -5633,9 +5633,9 @@ LB2D9:                                                                          
     CPY      #$FF                      ; 0x172f0 $B2E0 C0 FF                   ;
     BNE      LB2D9                     ; 0x172f2 $B2E2 D0 F5                   ;
     LDA      L0000                     ; 0x172f4 $B2E4 A5 00                   ;
-    STA      $0796                     ; 0x172f6 $B2E6 8D 96 07                ; Down/Up Techs
+    STA      bss_0796                     ; 0x172f6 $B2E6 8D 96 07                ; Down/Up Techs
     LDA      #$02                      ; 0x172f9 $B2E9 A9 02                   ; A = 02
-    STA      $07A0                     ; 0x172fb $B2EB 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
+    STA      bss_07A0                     ; 0x172fb $B2EB 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
 LB2EE:                                                                          ;
     LDX      #$0F                      ; 0x172fe $B2EE A2 0F                   ; X = 0F
     LDA      #$00                      ; 0x17300 $B2F0 A9 00                   ; A = 00
@@ -5645,10 +5645,10 @@ LB2F2:                                                                          
     BPL      LB2F2                     ; 0x17305 $B2F5 10 FB                   ;
     LDY      #$DA                      ; 0x17307 $B2F7 A0 DA                   ; Y = DA
 LB2F9:                                                                          ;
-    STA      $0700,y                   ; 0x17309 $B2F9 99 00 07                ;
+    STA      lives_remaining,y                   ; 0x17309 $B2F9 99 00 07                ;
     INY                                ; 0x1730c $B2FC C8                      ;
     BNE      LB2F9                     ; 0x1730d $B2FD D0 FA                   ;
-    INC      $076C                     ; 0x1730f $B2FF EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      bss_076C                     ; 0x1730f $B2FF EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x17312 $B302 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5785,7 +5785,7 @@ LB3B6:                                                                          
     RTS                                ; 0x173de $B3CE 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-    LDA      $073B                     ; 0x173df $B3CF AD 3B 07                ;
+    LDA      bss_073B                     ; 0x173df $B3CF AD 3B 07                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x173e2 $B3D2 20 85 D3;
 bank5_pointer_table4:                                                           ;
 .word    LB412                         ; 0x173e5 $B3D5 12 B4                   ;
@@ -5806,7 +5806,7 @@ LB3E1:                                                                          
     BPL      LB3E1                     ; 0x173f9 $B3E9 10 F6                   ;
     LDA      #$00                      ; 0x173fb $B3EB A9 00                   ; A = 00
     STA      $4015                     ; 0x173fd $B3ED 8D 15 40                ;; Sound Channel Switch
-    INC      $073B                     ; 0x17400 $B3F0 EE 3B 07                ;
+    INC      bss_073B                     ; 0x17400 $B3F0 EE 3B 07                ;
     RTS                                ; 0x17403 $B3F3 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5816,7 +5816,7 @@ LB3F4:                                                                          
     RTS                                ; 0x17409 $B3F9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-    LDA      $073B                     ; 0x1740a $B3FA AD 3B 07                ;
+    LDA      bss_073B                     ; 0x1740a $B3FA AD 3B 07                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1740d $B3FD 20 85 D3;
 bank5_pointer_table5:                                                           ;
 .word    LB412                         ; 0x17410 $B400 12 B4                   ;
@@ -5832,14 +5832,14 @@ LB40C:                                                                          
     DEX                                ; 0x1741f $B40F CA                      ;
     BPL      LB40C                     ; 0x17420 $B410 10 FA                   ;
 LB412:                                                                          ;
-    INC      $0726                     ; 0x17422 $B412 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    INC      bss_0726                     ; 0x17422 $B412 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     JMP      bank5__073B__plus__equal__1__and_RTS; 0x17425 $B415 4C 1D B4          ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     LDA      #$00                      ; 0x17428 $B418 A9 00                   ; A = 00
-    STA      $0726                     ; 0x1742a $B41A 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    STA      bss_0726                     ; 0x1742a $B41A 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
 bank5__073B__plus__equal__1__and_RTS:                                           ;
-    INC      $073B                     ; 0x1742d $B41D EE 3B 07                ;
+    INC      bss_073B                     ; 0x1742d $B41D EE 3B 07                ;
     RTS                                ; 0x17430 $B420 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5847,11 +5847,11 @@ bank5_table12:                                                                  
 .byt    $30,$48,$60,$78                ; 0x17431 $B421 30 48 60 78             ;
 ; ---------------------------------------------------------------------------- ;
 bank5_code25:                                                                   ;
-    LDY      $073E                     ; 0x17435 $B425 AC 3E 07                ;
+    LDY      bss_073E                     ; 0x17435 $B425 AC 3E 07                ;
     BNE      LB433                     ; 0x17438 $B428 D0 09                   ;
     LDA      #$06                      ; 0x1743a $B42A A9 06                   ; A = 06
-    STA      $0725                     ; 0x1743c $B42C 8D 25 07                ;; PPU Macro Selector
-    INC      $073E                     ; 0x1743f $B42F EE 3E 07                ;
+    STA      bss_0725                     ; 0x1743c $B42C 8D 25 07                ;; PPU Macro Selector
+    INC      bss_073E                     ; 0x1743f $B42F EE 3E 07                ;
     RTS                                ; 0x17442 $B432 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5859,8 +5859,8 @@ LB433:                                                                          
     DEY                                ; 0x17443 $B433 88                      ;
     BNE      LB443                     ; 0x17444 $B434 D0 0D                   ;
     LDA      #$07                      ; 0x17446 $B436 A9 07                   ; A = 07
-    STA      $0725                     ; 0x17448 $B438 8D 25 07                ;; PPU Macro Selector
-    INC      $073E                     ; 0x1744b $B43B EE 3E 07                ;
+    STA      bss_0725                     ; 0x17448 $B438 8D 25 07                ;; PPU Macro Selector
+    INC      bss_073E                     ; 0x1744b $B43B EE 3E 07                ;
     LDA      #$00                      ; 0x1744e $B43E A9 00                   ; A = 00
     STA      $19                       ; 0x17450 $B440 85 19                   ; Position Code for Fairy Cursor
     RTS                                ; 0x17452 $B442 60                      ;
@@ -5868,7 +5868,7 @@ LB433:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB443:                                                                          ;
     LDA      #$00                      ; 0x17453 $B443 A9 00                   ; A = 00
-    STA      $0726                     ; 0x17455 $B445 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    STA      bss_0726                     ; 0x17455 $B445 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      $F5                       ; 0x17458 $B448 A5 F5                   ; Controller 1 buttons pressed
     AND      #$10                      ; 0x1745a $B44A 29 10                   ; keep bits ...x .... (Start button)
     BEQ      LB4A6                     ; 0x1745c $B44C F0 58                   ;
@@ -5876,8 +5876,8 @@ LB443:                                                                          
     CMP      #$03                      ; 0x17460 $B450 C9 03                   ;
     BNE      bank5_elimination_mode    ; 0x17462 $B452 D0 0E                   ;
     LDA      #$00                      ; 0x17464 $B454 A9 00                   ; A = 00
-    STA      $073E                     ; 0x17466 $B456 8D 3E 07                ;
-    STA      $073B                     ; 0x17469 $B459 8D 3B 07                ;
+    STA      bss_073E                     ; 0x17466 $B456 8D 3E 07                ;
+    STA      bss_073B                     ; 0x17469 $B459 8D 3B 07                ;
     LDA      #$01                      ; 0x1746c $B45C A9 01                   ; A = 01
     STA      game_mode                     ; 0x1746e $B45E 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x17471 $B461 60                      ;
@@ -6013,13 +6013,13 @@ LB52D:                                                                          
     LDA      L0000                     ; 0x1754a $B53A A5 00                   ;
     STA      bss_0302,x                   ; 0x1754c $B53C 9D 02 03                ;
     LDA      $01                       ; 0x1754f $B53F A5 01                   ;
-    STA      $0303,x                   ; 0x17551 $B541 9D 03 03                ;
+    STA      bss_0303,x                   ; 0x17551 $B541 9D 03 03                ;
     LDA      #$08                      ; 0x17554 $B544 A9 08                   ; A = 08
-    STA      $0304,x                   ; 0x17556 $B546 9D 04 03                ;
+    STA      bss_0304,x                   ; 0x17556 $B546 9D 04 03                ;
     LDY      #$00                      ; 0x17559 $B549 A0 00                   ; Y = 00
 LB54B:                                                                          ;
     LDA      ($02),y                   ; 0x1755b $B54B B1 02                   ;
-    STA      $0305,x                   ; 0x1755d $B54D 9D 05 03                ;
+    STA      bss_0305,x                   ; 0x1755d $B54D 9D 05 03                ;
     INX                                ; 0x17560 $B550 E8                      ;
     INY                                ; 0x17561 $B551 C8                      ;
     CPY      #$08                      ; 0x17562 $B552 C0 08                   ;
@@ -6197,11 +6197,11 @@ LB677:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB678:                                                                          ;
-    LDY      $073E                     ; 0x17688 $B678 AC 3E 07                ;
+    LDY      bss_073E                     ; 0x17688 $B678 AC 3E 07                ;
     BNE      LB692                     ; 0x1768b $B67B D0 15                   ;
     LDA      #$06                      ; 0x1768d $B67D A9 06                   ; A = 06
-    STA      $0725                     ; 0x1768f $B67F 8D 25 07                ;; PPU Macro Selector
-    INC      $073E                     ; 0x17692 $B682 EE 3E 07                ;
+    STA      bss_0725                     ; 0x1768f $B67F 8D 25 07                ;; PPU Macro Selector
+    INC      bss_073E                     ; 0x17692 $B682 EE 3E 07                ;
     LDA      #$00                      ; 0x17695 $B685 A9 00                   ; A = 00
     STA      $19                       ; 0x17697 $B687 85 19                   ;;fall_or_invisible (0=invisible, 1=normal, 2~FF=fall in hole); Position Code for Fairy Cursor (Selection Screen)	(and) ;draw link's sprite =yes/no
     STA      $1E                       ; 0x17699 $B689 85 1E                   ;; Cursor position in Name Input Screen
@@ -6212,7 +6212,7 @@ LB678:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB692:                                                                          ;
     LDA      #$00                      ; 0x176a2 $B692 A9 00                   ; A = 00
-    STA      $0726                     ; 0x176a4 $B694 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+    STA      bss_0726                     ; 0x176a4 $B694 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      $F5                       ; 0x176a7 $B697 A5 F5                   ; Controller 1 buttons pressed
     AND      #$10                      ; 0x176a9 $B699 29 10                   ; keep bits ...x .... (Start button)
     BEQ      LB6AC                     ; 0x176ab $B69B F0 0F                   ;
@@ -6220,8 +6220,8 @@ LB692:                                                                          
     CMP      #$03                      ; 0x176af $B69F C9 03                   ;
     BNE      LB6AC                     ; 0x176b1 $B6A1 D0 09                   ;
     LDA      #$00                      ; 0x176b3 $B6A3 A9 00                   ; A = 00
-    STA      $073E                     ; 0x176b5 $B6A5 8D 3E 07                ;
-    INC      $073B                     ; 0x176b8 $B6A8 EE 3B 07                ;
+    STA      bss_073E                     ; 0x176b5 $B6A5 8D 3E 07                ;
+    INC      bss_073B                     ; 0x176b8 $B6A8 EE 3B 07                ;
     RTS                                ; 0x176bb $B6AB 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -6311,7 +6311,7 @@ LB72B:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB734:                                                                          ;
-    STA      $03D6                     ; 0x17744 $B734 8D D6 03                ;
+    STA      bss_03D6                     ; 0x17744 $B734 8D D6 03                ;
     LDA      $1B                       ; 0x17747 $B737 A5 1B                   ;
     CMP      #$78                      ; 0x17749 $B739 C9 78                   ;
     BNE      LB73F                     ; 0x1774b $B73B D0 02                   ;
@@ -6327,7 +6327,7 @@ LB74B:                                                                          
     LDA      $24                       ; 0x1775b $B74B A5 24                   ;
     STA      $0204                     ; 0x1775d $B74D 8D 04 02                ;
     DEC      $0204                     ; 0x17760 $B750 CE 04 02                ;
-    LDA      $03D6                     ; 0x17763 $B753 AD D6 03                ;
+    LDA      bss_03D6                     ; 0x17763 $B753 AD D6 03                ;
     STA      $0207                     ; 0x17766 $B756 8D 07 02                ;
     LDA      #$FF                      ; 0x17769 $B759 A9 FF                   ; A = FF
     STA      $0205                     ; 0x1776b $B75B 8D 05 02                ;
@@ -6612,7 +6612,7 @@ LB911:                                                                          
     JSR      LBA6C                     ; 0x17921 $B911 20 6C BA                ;
 LB914:                                                                          ;
     LDA      (L0000),y                 ; 0x17924 $B914 B1 00                   ;
-    STA      $0777,y                   ; 0x17926 $B916 99 77 07                ; Attack Level (1-8)
+    STA      bss_0777,y                   ; 0x17926 $B916 99 77 07                ; Attack Level (1-8)
     DEY                                ; 0x17929 $B919 88                      ;
     BPL      LB914                     ; 0x1792a $B91A 10 F8                   ;
     INY                                ; 0x1792c $B91C C8                      ;
@@ -6737,7 +6737,7 @@ bank5_B9CA:                                                                     
     STA      ($0C),y                   ; 0x179e1 $B9D1 91 0C                   ;
     LDY      #$31                      ; 0x179e3 $B9D3 A0 31                   ; Y = 31
 LB9D5:                                                                          ;
-    LDA      $0777,y                   ; 0x179e5 $B9D5 B9 77 07                ;
+    LDA      bss_0777,y                   ; 0x179e5 $B9D5 B9 77 07                ;
     STA      ($08),y                   ; 0x179e8 $B9D8 91 08                   ;
     DEY                                ; 0x179ea $B9DA 88                      ;
     BPL      LB9D5                     ; 0x179eb $B9DB 10 F8                   ;
@@ -6831,7 +6831,7 @@ LBA54:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LBA6C:                                                                          ;
-    LDA      $0772                     ; 0x17a7c $BA6C AD 72 07                ; Current Game Slot
+    LDA      bss_0772                     ; 0x17a7c $BA6C AD 72 07                ; Current Game Slot
 LBA6F:                                                                          ;
     ASL                                ; 0x17a7f $BA6F 0A                      ;
     TAY                                ; 0x17a80 $BA70 A8                      ;

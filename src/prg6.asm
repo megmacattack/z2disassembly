@@ -105,12 +105,12 @@ L8122:                                                                          
     STA      $4002,x                   ; 0x18138 $8128 9D 02 40                ;
     CPX      #$00                      ; 0x1813b $812B E0 00                   ;
     BNE      L8134                     ; 0x1813d $812D D0 05                   ;
-    STA      $07F4                     ; 0x1813f $812F 8D F4 07                ;
+    STA      bss_07F4                     ; 0x1813f $812F 8D F4 07                ;
     BNE      L813B                     ; 0x18142 $8132 D0 07                   ;
 L8134:                                                                          ;
     CPX      #$04                      ; 0x18144 $8134 E0 04                   ;
     BNE      L813B                     ; 0x18146 $8136 D0 03                   ;
-    STA      $07F3                     ; 0x18148 $8138 8D F3 07                ;
+    STA      bss_07F3                     ; 0x18148 $8138 8D F3 07                ;
 L813B:                                                                          ;
     LDA      L808F,y                   ; 0x1814b $813B B9 8F 80                ;
     ORA      #$08                      ; 0x1814e $813E 09 08                   ;;Set Bits:0000_1000
@@ -129,7 +129,7 @@ L814B:                                                                          
 L814F:                                                                          ;
     AND      #$0F                      ; 0x1815f $814F 29 0F                   ;;Keep Bits:0000_1111
     CLC                                ; 0x18161 $8151 18                      ;
-    ADC      $07F5                     ; 0x18162 $8152 6D F5 07                ;
+    ADC      bss_07F5                     ; 0x18162 $8152 6D F5 07                ;
     TAY                                ; 0x18165 $8155 A8                      ;
     LDA      L8084,y                   ; 0x18166 $8156 B9 84 80                ;
     RTS                                ; 0x18169 $8159 60                      ;
@@ -142,7 +142,7 @@ L815E:                                                                          
     LDA      $ED                       ; 0x1816e $815E A5 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
 L8160:                                                                          ;
     LDX      #$00                      ; 0x18170 $8160 A2 00                   ;;X = #$00 0000_0000
-    LDY      $07F4                     ; 0x18172 $8162 AC F4 07                ;
+    LDY      bss_07F4                     ; 0x18172 $8162 AC F4 07                ;
     BNE      L8172                     ; 0x18175 $8165 D0 0B                   ;
 L8167:                                                                          ;
     LDA      $E6                       ; 0x18177 $8167 A5 E6                   ;; Music Note Pitch
@@ -151,21 +151,21 @@ L816B:                                                                          
     LDA      $EC                       ; 0x1817b $816B A5 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
 L816D:                                                                          ;
     LDX      #$04                      ; 0x1817d $816D A2 04                   ;;X = #$04 0000_0100
-    LDY      $07F3                     ; 0x1817f $816F AC F3 07                ;
+    LDY      bss_07F3                     ; 0x1817f $816F AC F3 07                ;
 L8172:                                                                          ;
-    STY      $07F2                     ; 0x18182 $8172 8C F2 07                ;
+    STY      bss_07F2                     ; 0x18182 $8172 8C F2 07                ;
     LSR                                ; 0x18185 $8175 4A                      ;
     LSR                                ; 0x18186 $8176 4A                      ;
     LSR                                ; 0x18187 $8177 4A                      ;
     BCS      L8182                     ; 0x18188 $8178 B0 08                   ;
     LDA      #$FE                      ; 0x1818a $817A A9 FE                   ;;A = #$fe 1111_1110
     CLC                                ; 0x1818c $817C 18                      ;
-    ADC      $07F2                     ; 0x1818d $817D 6D F2 07                ;
+    ADC      bss_07F2                     ; 0x1818d $817D 6D F2 07                ;
     BNE      L8188                     ; 0x18190 $8180 D0 06                   ;
 L8182:                                                                          ;
     LDA      #$02                      ; 0x18192 $8182 A9 02                   ;;A = #$02 0000_0010
     CLC                                ; 0x18194 $8184 18                      ;
-    ADC      $07F2                     ; 0x18195 $8185 6D F2 07                ;
+    ADC      bss_07F2                     ; 0x18195 $8185 6D F2 07                ;
 L8188:                                                                          ;
     STA      $4002,x                   ; 0x18198 $8188 9D 02 40                ;
     RTS                                ; 0x1819b $818B 60                      ;
@@ -175,9 +175,9 @@ L818C:                                                                          
     STY      $E9                       ; 0x1819c $818C 84 E9                   ;
     STA      $E6                       ; 0x1819e $818E 85 E6                   ;; Music Note Pitch
     LDA      #$00                      ; 0x181a0 $8190 A9 00                   ;;A = #$00 0000_0000
-    STA      $07FB                     ; 0x181a2 $8192 8D FB 07                ;
-    STA      $07FA                     ; 0x181a5 $8195 8D FA 07                ;
-    STA      $07F9                     ; 0x181a8 $8198 8D F9 07                ;
+    STA      bss_07FB                     ; 0x181a2 $8192 8D FB 07                ;
+    STA      bss_07FA                     ; 0x181a5 $8195 8D FA 07                ;
+    STA      bss_07F9                     ; 0x181a8 $8198 8D F9 07                ;
     RTS                                ; 0x181ab $819B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -225,11 +225,11 @@ L81E1:                                                                          
     JSR      Bank6__Code_1             ; 0x181f1 $81E1 20 0F 81                ;
     JSR      L8116                     ; 0x181f4 $81E4 20 16 81                ;
     STA      $4002                     ; 0x181f7 $81E7 8D 02 40                ;
-    STA      $07F4                     ; 0x181fa $81EA 8D F4 07                ;
+    STA      bss_07F4                     ; 0x181fa $81EA 8D F4 07                ;
     SEC                                ; 0x181fd $81ED 38                      ;
     SBC      #$02                      ; 0x181fe $81EE E9 02                   ;
     STA      $4006                     ; 0x18200 $81F0 8D 06 40                ;
-    STA      $07F3                     ; 0x18203 $81F3 8D F3 07                ;
+    STA      bss_07F3                     ; 0x18203 $81F3 8D F3 07                ;
     LDA      #$08                      ; 0x18206 $81F6 A9 08                   ;;A = #$08 0000_1000
     STA      $4003                     ; 0x18208 $81F8 8D 03 40                ;
     STA      $4007                     ; 0x1820b $81FB 8D 07 40                ;
@@ -312,8 +312,8 @@ L826A:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L8277:                                                                          ;
     LDX      #$20                      ; 0x18287 $8277 A2 20                   ; related to intro crescendo
-    STX      $07EA                     ; 0x18289 $8279 8E EA 07                ;; Pulse 2
-    STX      $07E9                     ; 0x1828c $827C 8E E9 07                ;; Triangle
+    STX      bss_07EA                     ; 0x18289 $8279 8E EA 07                ;; Pulse 2
+    STX      bss_07E9                     ; 0x1828c $827C 8E E9 07                ;; Triangle
     JMP      L82CF                     ; 0x1828f $827F 4C CF 82                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -331,9 +331,9 @@ L8289:                                                                          
     STX      $E8                       ; 0x182a1 $8291 86 E8                   ;; Music Note Pitch
 L8293:                                                                          ;
     LDX      #$00                      ; 0x182a3 $8293 A2 00                   ;;X = #$00 0000_0000
-    STX      $07FB                     ; 0x182a5 $8295 8E FB 07                ;
-    STX      $07FA                     ; 0x182a8 $8298 8E FA 07                ;
-    STX      $07F9                     ; 0x182ab $829B 8E F9 07                ;
+    STX      bss_07FB                     ; 0x182a5 $8295 8E FB 07                ;
+    STX      bss_07FA                     ; 0x182a8 $8298 8E FA 07                ;
+    STX      bss_07F9                     ; 0x182ab $829B 8E F9 07                ;
     STX      $4008                     ; 0x182ae $829E 8E 08 40                ;
     LDX      #$10                      ; 0x182b1 $82A1 A2 10                   ;;X = #$10 0001_0000
     STX      $400C                     ; 0x182b3 $82A3 8E 0C 40                ;
@@ -376,27 +376,27 @@ L82CF:                                                                          
 L82DD:                                                                          ;
     LDY      #$00                      ; 0x182ed $82DD A0 00                   ;;Y = #$00 0000_0000
 L82DF:                                                                          ;
-    STY      $07EE                     ; 0x182ef $82DF 8C EE 07                ;
+    STY      bss_07EE                     ; 0x182ef $82DF 8C EE 07                ;
     LDY      #$00                      ; 0x182f2 $82E2 A0 00                   ;;Y = #$00 0000_0000
-    STY      $07F7                     ; 0x182f4 $82E4 8C F7 07                ;
+    STY      bss_07F7                     ; 0x182f4 $82E4 8C F7 07                ;
     TXA                                ; 0x182f7 $82E7 8A                      ;
 L82E8:                                                                          ;
     INY                                ; 0x182f8 $82E8 C8                      ;
     LSR                                ; 0x182f9 $82E9 4A                      ;
     BCC      L82E8                     ; 0x182fa $82EA 90 FC                   ;
-    STY      $07F8                     ; 0x182fc $82EC 8C F8 07                ;
+    STY      bss_07F8                     ; 0x182fc $82EC 8C F8 07                ;
 L82EF:                                                                          ;
-    LDY      $07F8                     ; 0x182ff $82EF AC F8 07                ;
+    LDY      bss_07F8                     ; 0x182ff $82EF AC F8 07                ;
     LDA      L84D9,y                   ; 0x18302 $82F2 B9 D9 84                ;
     CLC                                ; 0x18305 $82F5 18                      ;
-    ADC      $07F7                     ; 0x18306 $82F6 6D F7 07                ;
-    INC      $07F7                     ; 0x18309 $82F9 EE F7 07                ;
+    ADC      bss_07F7                     ; 0x18306 $82F6 6D F7 07                ;
+    INC      bss_07F7                     ; 0x18309 $82F9 EE F7 07                ;
     TAY                                ; 0x1830c $82FC A8                      ;
     LDA      Index_Table_0,y           ; 0x1830d $82FD B9 DA 84                ;
     TAY                                ; 0x18310 $8300 A8                      ;
     BEQ      L8289                     ; 0x18311 $8301 F0 86                   ;
     LDA      Index_Table_0,y           ; 0x18313 $8303 B9 DA 84                ;
-    STA      $07F5                     ; 0x18316 $8306 8D F5 07                ;
+    STA      bss_07F5                     ; 0x18316 $8306 8D F5 07                ;
     LDA      L84DB,y                   ; 0x18319 $8309 B9 DB 84                ;
     STA      $E0                       ; 0x1831c $830C 85 E0                   ;; Music Part Offset
     LDA      L84DC,y                   ; 0x1831e $830E B9 DC 84                ;
@@ -407,14 +407,14 @@ L82EF:                                                                          
     STA      $E3                       ; 0x1832b $831B 85 E3                   ;
     LDA      L84DF,y                   ; 0x1832d $831D B9 DF 84                ;
     STA      $E5                       ; 0x18330 $8320 85 E5                   ;
-    STA      $07F6                     ; 0x18332 $8322 8D F6 07                ;
+    STA      bss_07F6                     ; 0x18332 $8322 8D F6 07                ;
     LDA      L84E0,y                   ; 0x18335 $8325 B9 E0 84                ;
-    STA      $07F1                     ; 0x18338 $8328 8D F1 07                ;
+    STA      bss_07F1                     ; 0x18338 $8328 8D F1 07                ;
     LDA      L84E1,y                   ; 0x1833b $832B B9 E1 84                ;
-    STA      $07F0                     ; 0x1833e $832E 8D F0 07                ;
+    STA      bss_07F0                     ; 0x1833e $832E 8D F0 07                ;
     LDA      #$00                      ; 0x18341 $8331 A9 00                   ;;A = #$00 0000_0000
     STA      $E2                       ; 0x18343 $8333 85 E2                   ;
-    STA      $07FA                     ; 0x18345 $8335 8D FA 07                ;
+    STA      bss_07FA                     ; 0x18345 $8335 8D FA 07                ;
     LDA      #$01                      ; 0x18348 $8338 A9 01                   ;;A = #$01 0000_0001
     STA      $EC                       ; 0x1834a $833A 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     STA      $ED                       ; 0x1834c $833C 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
@@ -426,40 +426,40 @@ L8344:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8347:                                                                          ;
-    LDA      $07EE                     ; 0x18357 $8347 AD EE 07                ;
+    LDA      bss_07EE                     ; 0x18357 $8347 AD EE 07                ;
     BEQ      L837F                     ; 0x1835a $834A F0 33                   ;
     LDA      $E9                       ; 0x1835c $834C A5 E9                   ;
     BNE      L837F                     ; 0x1835e $834E D0 2F                   ;
-    INC      $07ED                     ; 0x18360 $8350 EE ED 07                ;
-    LDA      $07ED                     ; 0x18363 $8353 AD ED 07                ;
+    INC      bss_07ED                     ; 0x18360 $8350 EE ED 07                ;
+    LDA      bss_07ED                     ; 0x18363 $8353 AD ED 07                ;
     CMP      #$08                      ; 0x18366 $8356 C9 08                   ;
     BNE      L837F                     ; 0x18368 $8358 D0 25                   ;
-    LDA      $07EC                     ; 0x1836a $835A AD EC 07                ;
+    LDA      bss_07EC                     ; 0x1836a $835A AD EC 07                ;
     JSR      L8120                     ; 0x1836d $835D 20 20 81                ;
     BEQ      L837F                     ; 0x18370 $8360 F0 1D                   ;
     LDA      $E8                       ; 0x18372 $8362 A5 E8                   ;; Music Note Pitch
     AND      #$01                      ; 0x18374 $8364 29 01                   ;;Keep Bits:0000_0001
     BEQ      L837A                     ; 0x18376 $8366 F0 12                   ;
-    LDA      $07EA                     ; 0x18378 $8368 AD EA 07                ;; Pulse 2
+    LDA      bss_07EA                     ; 0x18378 $8368 AD EA 07                ;; Pulse 2
     CMP      #$5F                      ; 0x1837b $836B C9 5F                   ;
     BCS      L837A                     ; 0x1837d $836D B0 0B                   ;
-    INC      $07E9                     ; 0x1837f $836F EE E9 07                ;; Triangle
-    INC      $07E9                     ; 0x18382 $8372 EE E9 07                ;; Triangle
-    LDA      $07E9                     ; 0x18385 $8375 AD E9 07                ;; Triangle
+    INC      bss_07E9                     ; 0x1837f $836F EE E9 07                ;; Triangle
+    INC      bss_07E9                     ; 0x18382 $8372 EE E9 07                ;; Triangle
+    LDA      bss_07E9                     ; 0x18385 $8375 AD E9 07                ;; Triangle
     BNE      L837C                     ; 0x18388 $8378 D0 02                   ;
 L837A:                                                                          ;
     LDA      #$5F                      ; 0x1838a $837A A9 5F                   ;;A = #$5f 0101_1111
 L837C:                                                                          ;
-    STA      $07FA                     ; 0x1838c $837C 8D FA 07                ;
+    STA      bss_07FA                     ; 0x1838c $837C 8D FA 07                ;
 L837F:                                                                          ;
     DEC      $EC                       ; 0x1838f $837F C6 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BNE      L83CF                     ; 0x18391 $8381 D0 4C                   ;
     LDA      #$00                      ; 0x18393 $8383 A9 00                   ;;A = #$00 0000_0000
-    STA      $07ED                     ; 0x18395 $8385 8D ED 07                ;
+    STA      bss_07ED                     ; 0x18395 $8385 8D ED 07                ;
     BEQ      L8390                     ; 0x18398 $8388 F0 06                   ;
 L838A:                                                                          ;
     JSR      L814F                     ; 0x1839a $838A 20 4F 81                ;
-    STA      $07FF                     ; 0x1839d $838D 8D FF 07                ;
+    STA      bss_07FF                     ; 0x1839d $838D 8D FF 07                ;
 L8390:                                                                          ;
     LDY      $E2                       ; 0x183a0 $8390 A4 E2                   ;
     INC      $E2                       ; 0x183a2 $8392 E6 E2                   ;
@@ -471,7 +471,7 @@ L8390:                                                                          
     CLC                                ; 0x183ae $839E 18                      ;
     ADC      #$04                      ; 0x183af $839F 69 04                   ;
 L83A1:                                                                          ;
-    STA      $07EC                     ; 0x183b1 $83A1 8D EC 07                ;
+    STA      bss_07EC                     ; 0x183b1 $83A1 8D EC 07                ;
     LDY      $E9                       ; 0x183b4 $83A4 A4 E9                   ;
     BNE      L83CA                     ; 0x183b6 $83A6 D0 22                   ;
     JSR      L8147                     ; 0x183b8 $83A8 20 47 81                ;
@@ -479,19 +479,19 @@ L83A1:                                                                          
     LDA      $E8                       ; 0x183bd $83AD A5 E8                   ;; Music Note Pitch
     AND      #$01                      ; 0x183bf $83AF 29 01                   ;;Keep Bits:0000_0001
     BEQ      L83C5                     ; 0x183c1 $83B1 F0 12                   ;
-    LDA      $07EA                     ; 0x183c3 $83B3 AD EA 07                ;; Pulse 2
+    LDA      bss_07EA                     ; 0x183c3 $83B3 AD EA 07                ;; Pulse 2
     CMP      #$5F                      ; 0x183c6 $83B6 C9 5F                   ;
     BCS      L83C5                     ; 0x183c8 $83B8 B0 0B                   ;
-    INC      $07EA                     ; 0x183ca $83BA EE EA 07                ;; Pulse 2
-    INC      $07EA                     ; 0x183cd $83BD EE EA 07                ;; Pulse 2
-    LDA      $07EA                     ; 0x183d0 $83C0 AD EA 07                ;; Pulse 2
+    INC      bss_07EA                     ; 0x183ca $83BA EE EA 07                ;; Pulse 2
+    INC      bss_07EA                     ; 0x183cd $83BD EE EA 07                ;; Pulse 2
+    LDA      bss_07EA                     ; 0x183d0 $83C0 AD EA 07                ;; Pulse 2
     BNE      L83C7                     ; 0x183d3 $83C3 D0 02                   ;
 L83C5:                                                                          ;
     LDA      #$5F                      ; 0x183d5 $83C5 A9 5F                   ;;A = #$5f 0101_1111
 L83C7:                                                                          ;
-    STA      $07FB                     ; 0x183d7 $83C7 8D FB 07                ;
+    STA      bss_07FB                     ; 0x183d7 $83C7 8D FB 07                ;
 L83CA:                                                                          ;
-    LDA      $07FF                     ; 0x183da $83CA AD FF 07                ;
+    LDA      bss_07FF                     ; 0x183da $83CA AD FF 07                ;
     STA      $EC                       ; 0x183dd $83CD 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
 L83CF:                                                                          ;
     LDA      $E9                       ; 0x183df $83CF A5 E9                   ;
@@ -501,28 +501,28 @@ L83CF:                                                                          
     BNE      L83DC                     ; 0x183e7 $83D7 D0 03                   ;
     JSR      L816B                     ; 0x183e9 $83D9 20 6B 81                ;
 L83DC:                                                                          ;
-    LDA      $07FB                     ; 0x183ec $83DC AD FB 07                ;
+    LDA      bss_07FB                     ; 0x183ec $83DC AD FB 07                ;
     BEQ      L83E6                     ; 0x183ef $83DF F0 05                   ;
     LSR                                ; 0x183f1 $83E1 4A                      ;
     LSR                                ; 0x183f2 $83E2 4A                      ;
-    DEC      $07FB                     ; 0x183f3 $83E3 CE FB 07                ;
+    DEC      bss_07FB                     ; 0x183f3 $83E3 CE FB 07                ;
 L83E6:                                                                          ;
     CLC                                ; 0x183f6 $83E6 18                      ;
-    ADC      $07F1                     ; 0x183f7 $83E7 6D F1 07                ;
+    ADC      bss_07F1                     ; 0x183f7 $83E7 6D F1 07                ;
     TAY                                ; 0x183fa $83EA A8                      ;
     LDA      Bank6__UNKNOWN_0,y        ; 0x183fb $83EB B9 17 80                ;
     TAX                                ; 0x183fe $83EE AA                      ;
     LDY      #$7F                      ; 0x183ff $83EF A0 7F                   ;;Y = #$7f 0111_1111
     JSR      L8116                     ; 0x18401 $83F1 20 16 81                ;
-    LDA      $07EE                     ; 0x18404 $83F4 AD EE 07                ;
+    LDA      bss_07EE                     ; 0x18404 $83F4 AD EE 07                ;
     BEQ      L840A                     ; 0x18407 $83F7 F0 11                   ;
     LDA      $E9                       ; 0x18409 $83F9 A5 E9                   ;
     BNE      L840A                     ; 0x1840b $83FB D0 0D                   ;
-    LDA      $07FA                     ; 0x1840d $83FD AD FA 07                ;
+    LDA      bss_07FA                     ; 0x1840d $83FD AD FA 07                ;
     BEQ      L8407                     ; 0x18410 $8400 F0 05                   ;
     LSR                                ; 0x18412 $8402 4A                      ;
     LSR                                ; 0x18413 $8403 4A                      ;
-    DEC      $07FA                     ; 0x18414 $8404 CE FA 07                ;
+    DEC      bss_07FA                     ; 0x18414 $8404 CE FA 07                ;
 L8407:                                                                          ;
     JMP      L844D                     ; 0x18417 $8407 4C 4D 84                ;
                                                                                ;
@@ -535,7 +535,7 @@ L840A:                                                                          
     BEQ      L841A                     ; 0x18422 $8412 F0 06                   ;
 L8414:                                                                          ;
     JSR      L814F                     ; 0x18424 $8414 20 4F 81                ;
-    STA      $07FE                     ; 0x18427 $8417 8D FE 07                ;
+    STA      bss_07FE                     ; 0x18427 $8417 8D FE 07                ;
 L841A:                                                                          ;
     LDY      $E3                       ; 0x1842a $841A A4 E3                   ;
     INC      $E3                       ; 0x1842c $841C E6 E3                   ;
@@ -551,22 +551,22 @@ L8429:                                                                          
     JSR      L8120                     ; 0x1843d $842D 20 20 81                ;
     BEQ      L8437                     ; 0x18440 $8430 F0 05                   ;
     LDA      #$5F                      ; 0x18442 $8432 A9 5F                   ;;A = #$5f 0101_1111
-    STA      $07F9                     ; 0x18444 $8434 8D F9 07                ;
+    STA      bss_07F9                     ; 0x18444 $8434 8D F9 07                ;
 L8437:                                                                          ;
-    LDA      $07FE                     ; 0x18447 $8437 AD FE 07                ;
+    LDA      bss_07FE                     ; 0x18447 $8437 AD FE 07                ;
     STA      $ED                       ; 0x1844a $843A 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
 L843C:                                                                          ;
     LDA      $E9                       ; 0x1844c $843C A5 E9                   ;
     BNE      L845B                     ; 0x1844e $843E D0 1B                   ;
     JSR      L815E                     ; 0x18450 $8440 20 5E 81                ;
-    LDA      $07F9                     ; 0x18453 $8443 AD F9 07                ;
+    LDA      bss_07F9                     ; 0x18453 $8443 AD F9 07                ;
     BEQ      L844D                     ; 0x18456 $8446 F0 05                   ;
     LSR                                ; 0x18458 $8448 4A                      ;
     LSR                                ; 0x18459 $8449 4A                      ;
-    DEC      $07F9                     ; 0x1845a $844A CE F9 07                ;
+    DEC      bss_07F9                     ; 0x1845a $844A CE F9 07                ;
 L844D:                                                                          ;
     CLC                                ; 0x1845d $844D 18                      ;
-    ADC      $07F0                     ; 0x1845e $844E 6D F0 07                ;
+    ADC      bss_07F0                     ; 0x1845e $844E 6D F0 07                ;
     TAY                                ; 0x18461 $8451 A8                      ;
     LDA      Bank6__UNKNOWN_0,y        ; 0x18462 $8452 B9 17 80                ;
     TAX                                ; 0x18465 $8455 AA                      ;
@@ -580,7 +580,7 @@ L845B:                                                                          
     BNE      L8490                     ; 0x18473 $8463 D0 2B                   ;
 L8465:                                                                          ;
     JSR      L814F                     ; 0x18475 $8465 20 4F 81                ;
-    STA      $07FD                     ; 0x18478 $8468 8D FD 07                ;
+    STA      bss_07FD                     ; 0x18478 $8468 8D FD 07                ;
 L846B:                                                                          ;
     LDY      $E4                       ; 0x1847b $846B A4 E4                   ;
     INC      $E4                       ; 0x1847d $846D E6 E4                   ;
@@ -600,7 +600,7 @@ L8486:                                                                          
     LDA      #$81                      ; 0x18496 $8486 A9 81                   ;;A = #$81 1000_0001
     STA      $4008                     ; 0x18498 $8488 8D 08 40                ;
 L848B:                                                                          ;
-    LDA      $07FD                     ; 0x1849b $848B AD FD 07                ;
+    LDA      bss_07FD                     ; 0x1849b $848B AD FD 07                ;
     STA      $EE                       ; 0x1849e $848E 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
 L8490:                                                                          ;
     LDA      $EE                       ; 0x184a0 $8490 A5 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
@@ -617,18 +617,18 @@ L849B:                                                                          
     BNE      L84D9                     ; 0x184b3 $84A3 D0 34                   ;
 L84A5:                                                                          ;
     JSR      L814F                     ; 0x184b5 $84A5 20 4F 81                ;
-    STA      $07FC                     ; 0x184b8 $84A8 8D FC 07                ;
+    STA      bss_07FC                     ; 0x184b8 $84A8 8D FC 07                ;
 L84AB:                                                                          ;
     LDY      $E5                       ; 0x184bb $84AB A4 E5                   ;
     INC      $E5                       ; 0x184bd $84AD E6 E5                   ;
     LDA      ($E0),y                   ; 0x184bf $84AF B1 E0                   ;
     BMI      L84A5                     ; 0x184c1 $84B1 30 F2                   ;
     BNE      L84BC                     ; 0x184c3 $84B3 D0 07                   ;
-    LDA      $07F6                     ; 0x184c5 $84B5 AD F6 07                ;
+    LDA      bss_07F6                     ; 0x184c5 $84B5 AD F6 07                ;
     STA      $E5                       ; 0x184c8 $84B8 85 E5                   ;
     BNE      L84AB                     ; 0x184ca $84BA D0 EF                   ;
 L84BC:                                                                          ;
-    LDY      $07EB                     ; 0x184cc $84BC AC EB 07                ;; Pulse 1
+    LDY      bss_07EB                     ; 0x184cc $84BC AC EB 07                ;; Pulse 1
     BNE      L84D4                     ; 0x184cf $84BF D0 13                   ;
     TAY                                ; 0x184d1 $84C1 A8                      ;
     LDA      L805D,y                   ; 0x184d2 $84C2 B9 5D 80                ;
@@ -638,7 +638,7 @@ L84BC:                                                                          
     LDA      L805F,y                   ; 0x184de $84CE B9 5F 80                ;
     STA      $400F                     ; 0x184e1 $84D1 8D 0F 40                ;
 L84D4:                                                                          ;
-    LDA      $07FC                     ; 0x184e4 $84D4 AD FC 07                ;
+    LDA      bss_07FC                     ; 0x184e4 $84D4 AD FC 07                ;
     STA      $EF                       ; 0x184e7 $84D7 85 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
 L84D9:                                                                          ;
     RTS                                ; 0x184e9 $84D9 60                      ;
@@ -866,20 +866,20 @@ Get_Note_Duration:                                                              
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L907F:                                                                          ;
-    LDA      $07F3                     ; 0x1908f $907F AD F3 07                ;
+    LDA      bss_07F3                     ; 0x1908f $907F AD F3 07                ;
     BNE      L908C                     ; 0x19092 $9082 D0 08                   ;
-    LDA      $07F9                     ; 0x19094 $9084 AD F9 07                ;
+    LDA      bss_07F9                     ; 0x19094 $9084 AD F9 07                ;
     BNE      L908C                     ; 0x19097 $9087 D0 03                   ;
 Vibrato_On_Pulse1:                                                                          ;
-    LDA      $07E6                     ; 0x19099 $9089 AD E6 07                ;
+    LDA      bss_07E6                     ; 0x19099 $9089 AD E6 07                ;
 L908C:                                                                          ;
     LDX      #$00                      ; 0x1909c $908C A2 00                   ;;X = #$00 0000_0000
     LDY      $E6                       ; 0x1909e $908E A4 E6                   ;; Music Note Pitch
     BNE      Vibrato                     ; 0x190a0 $9090 D0 0C                   ;
-    LDA      $07F7                     ; 0x190a2 $9092 AD F7 07                ;
+    LDA      bss_07F7                     ; 0x190a2 $9092 AD F7 07                ;
     BNE      L909A                     ; 0x190a5 $9095 D0 03                   ;
 Vibrato_On_Pulse2:                                                                          ;
-    LDA      $07E7                     ; 0x190a7 $9097 AD E7 07                ;
+    LDA      bss_07E7                     ; 0x190a7 $9097 AD E7 07                ;
 L909A:                                                                          ;
     LDX      #$04                      ; 0x190aa $909A A2 04                   ;;X = #$04 0000_0100
     LDY      $E7                       ; 0x190ac $909C A4 E7                   ;; Music Note Pitch
@@ -904,11 +904,11 @@ L90B1:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L90B5:                                                                          ;
     LDA      #$00                      ; 0x190c5 $90B5 A9 00                   ;;A = #$00 0000_0000
-    STA      $07FF                     ; 0x190c7 $90B7 8D FF 07                ;
-    STA      $07FD                     ; 0x190ca $90BA 8D FD 07                ;
-    STA      $07E1                     ; 0x190cd $90BD 8D E1 07                ;
-    STA      $07E0                     ; 0x190d0 $90C0 8D E0 07                ;
-    STA      $07DF                     ; 0x190d3 $90C3 8D DF 07                ;
+    STA      bss_07FF                     ; 0x190c7 $90B7 8D FF 07                ;
+    STA      bss_07FD                     ; 0x190ca $90BA 8D FD 07                ;
+    STA      bss_07E1                     ; 0x190cd $90BD 8D E1 07                ;
+    STA      bss_07E0                     ; 0x190d0 $90C0 8D E0 07                ;
+    STA      bss_07DF                     ; 0x190d3 $90C3 8D DF 07                ;
     JSR      Stop_And_Mute_All_Channels                     ; 0x190d6 $90C6 20 3B 9B                ;
     RTS                                ; 0x190d9 $90C9 60                      ;
                                                                                ;
@@ -922,22 +922,22 @@ L90CD:                                                                          
     LSR                                ; 0x190dd $90CD 4A                      ;
     LSR                                ; 0x190de $90CE 4A                      ;
     LSR                                ; 0x190df $90CF 4A                      ;
-    STA      $07DE                     ; 0x190e0 $90D0 8D DE 07                ;
+    STA      bss_07DE                     ; 0x190e0 $90D0 8D DE 07                ;
     BNE      L90D8                     ; 0x190e3 $90D3 D0 03                   ;
-    INC      $07DE                     ; 0x190e5 $90D5 EE DE 07                ;
+    INC      bss_07DE                     ; 0x190e5 $90D5 EE DE 07                ;
 L90D8:                                                                          ;
-    LDA      $07DC                     ; 0x190e8 $90D8 AD DC 07                ;
+    LDA      bss_07DC                     ; 0x190e8 $90D8 AD DC 07                ;
     BEQ      L90E3                     ; 0x190eb $90DB F0 06                   ;
     TYA                                ; 0x190ed $90DD 98                      ;
     CLC                                ; 0x190ee $90DE 18                      ;
-    ADC      $07DE                     ; 0x190ef $90DF 6D DE 07                ;
+    ADC      bss_07DE                     ; 0x190ef $90DF 6D DE 07                ;
     RTS                                ; 0x190f2 $90E2 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L90E3:                                                                          ;
     TYA                                ; 0x190f3 $90E3 98                      ;
     SEC                                ; 0x190f4 $90E4 38                      ;
-    SBC      $07DE                     ; 0x190f5 $90E5 ED DE 07                ;
+    SBC      bss_07DE                     ; 0x190f5 $90E5 ED DE 07                ;
 L90E8:                                                                          ;
     RTS                                ; 0x190f8 $90E8 60                      ;
                                                                                ;
@@ -999,7 +999,7 @@ L9190:                                                                          
 ; ---------------------------------------------------------------------------- ;
 Bank6__Code_3:                                                                  ;
     LDY      $E9                       ; 0x1921b $920B A4 E9                   ;
-    LDA      $07FA                     ; 0x1921d $920D AD FA 07                ;
+    LDA      bss_07FA                     ; 0x1921d $920D AD FA 07                ;
     LSR      $E9                       ; 0x19220 $9210 46 E9                   ;
     BCS      L9221                     ; 0x19222 $9212 B0 0D                   ;
     LSR      $E9                       ; 0x19224 $9214 46 E9                   ;
@@ -1014,24 +1014,24 @@ Bank6__Code_3:                                                                  
 L9221:                                                                          ;
     LDX      #$C0                      ; 0x19231 $9221 A2 C0                   ;;X = #$c0 1100_0000
     LDA      #$04                      ; 0x19233 $9223 A9 04                   ;;A = #$04 0000_0100
-    STY      $07FA                     ; 0x19235 $9225 8C FA 07                ;
-    STX      $07EE                     ; 0x19238 $9228 8E EE 07                ;
-    STA      $07ED                     ; 0x1923b $922B 8D ED 07                ;
+    STY      bss_07FA                     ; 0x19235 $9225 8C FA 07                ;
+    STX      bss_07EE                     ; 0x19238 $9228 8E EE 07                ;
+    STA      bss_07ED                     ; 0x1923b $922B 8D ED 07                ;
     BNE      L924B                     ; 0x1923e $922E D0 1B                   ;
 L9230:                                                                          ;
-    STY      $07FA                     ; 0x19240 $9230 8C FA 07                ;
+    STY      bss_07FA                     ; 0x19240 $9230 8C FA 07                ;
     LDX      #$C0                      ; 0x19243 $9233 A2 C0                   ;;X = #$c0 1100_0000
-    STX      $07EE                     ; 0x19245 $9235 8E EE 07                ;
+    STX      bss_07EE                     ; 0x19245 $9235 8E EE 07                ;
     LDX      #$03                      ; 0x19248 $9238 A2 03                   ;;X = #$03 0000_0011
-    STX      $07DA                     ; 0x1924a $923A 8E DA 07                ;
+    STX      bss_07DA                     ; 0x1924a $923A 8E DA 07                ;
     LDA      #$08                      ; 0x1924d $923D A9 08                   ;;A = #$08 0000_1000
     BNE      L9243                     ; 0x1924f $923F D0 02                   ;
 L9241:                                                                          ;
     LDA      #$05                      ; 0x19251 $9241 A9 05                   ;;A = #$05 0000_0101
 L9243:                                                                          ;
-    STA      $07ED                     ; 0x19253 $9243 8D ED 07                ;
+    STA      bss_07ED                     ; 0x19253 $9243 8D ED 07                ;
     LDA      #$18                      ; 0x19256 $9246 A9 18                   ;;A = #$18 0001_1000
-    STA      $07EC                     ; 0x19258 $9248 8D EC 07                ;
+    STA      bss_07EC                     ; 0x19258 $9248 8D EC 07                ;
 L924B:                                                                          ;
     TYA                                ; 0x1925b $924B 98                      ;
     ASL                                ; 0x1925c $924C 0A                      ;
@@ -1045,26 +1045,26 @@ L924B:                                                                          
     LDA      #$0F                      ; 0x1926f $925F A9 0F                   ;;A = #$0f 0000_1111
     STA      $4015                     ; 0x19271 $9261 8D 15 40                ;; Sound Channel Switch
 L9264:                                                                          ;
-    DEC      $07EE                     ; 0x19274 $9264 CE EE 07                ;
+    DEC      bss_07EE                     ; 0x19274 $9264 CE EE 07                ;
     BEQ      L928B                     ; 0x19277 $9267 F0 22                   ;
-    LDA      $07FA                     ; 0x19279 $9269 AD FA 07                ;
+    LDA      bss_07FA                     ; 0x19279 $9269 AD FA 07                ;
     CMP      #$01                      ; 0x1927c $926C C9 01                   ;
     BEQ      L927F                     ; 0x1927e $926E F0 0F                   ;
-    DEC      $07EC                     ; 0x19280 $9270 CE EC 07                ;
+    DEC      bss_07EC                     ; 0x19280 $9270 CE EC 07                ;
     BNE      L927F                     ; 0x19283 $9273 D0 0A                   ;
-    INC      $07DA                     ; 0x19285 $9275 EE DA 07                ;
-    LDY      $07DA                     ; 0x19288 $9278 AC DA 07                ;
+    INC      bss_07DA                     ; 0x19285 $9275 EE DA 07                ;
+    LDY      bss_07DA                     ; 0x19288 $9278 AC DA 07                ;
     CPY      #$08                      ; 0x1928b $927B C0 08                   ;
     BCC      L9241                     ; 0x1928d $927D 90 C2                   ;
 L927F:                                                                          ;
-    LDA      $07ED                     ; 0x1928f $927F AD ED 07                ;
+    LDA      bss_07ED                     ; 0x1928f $927F AD ED 07                ;
     BEQ      L9290                     ; 0x19292 $9282 F0 0C                   ;
-    DEC      $07ED                     ; 0x19294 $9284 CE ED 07                ;
+    DEC      bss_07ED                     ; 0x19294 $9284 CE ED 07                ;
     BEQ      L9290                     ; 0x19297 $9287 F0 07                   ;
     BNE      L9296                     ; 0x19299 $9289 D0 0B                   ;
 L928B:                                                                          ;
     LDA      #$00                      ; 0x1929b $928B A9 00                   ;;A = #$00 0000_0000
-    STA      $07FA                     ; 0x1929d $928D 8D FA 07                ;
+    STA      bss_07FA                     ; 0x1929d $928D 8D FA 07                ;
 L9290:                                                                          ;
     LDA      #$0F                      ; 0x192a0 $9290 A9 0F                   ;;A = #$0f 0000_1111
     STA      $4015                     ; 0x192a2 $9292 8D 15 40                ;; Sound Channel Switch
@@ -1080,11 +1080,11 @@ L9296:                                                                          
 L929C:                                                                          ;
     LDX      #$00                      ; 0x192ac $929C A2 00                   ;;X = #$00 0000_0000
     STX      $EC                       ; 0x192ae $929E 86 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
-    STX      $07FC                     ; 0x192b0 $92A0 8E FC 07                ;
-    STX      $07E1                     ; 0x192b3 $92A3 8E E1 07                ;
-    STX      $07FA                     ; 0x192b6 $92A6 8E FA 07                ;
-    STX      $07E0                     ; 0x192b9 $92A9 8E E0 07                ;
-    STX      $07DF                     ; 0x192bc $92AC 8E DF 07                ;
+    STX      bss_07FC                     ; 0x192b0 $92A0 8E FC 07                ;
+    STX      bss_07E1                     ; 0x192b3 $92A3 8E E1 07                ;
+    STX      bss_07FA                     ; 0x192b6 $92A6 8E FA 07                ;
+    STX      bss_07E0                     ; 0x192b9 $92A9 8E E0 07                ;
+    STX      bss_07DF                     ; 0x192bc $92AC 8E DF 07                ;
     LDX      #$10                      ; 0x192bf $92AF A2 10                   ;;X = #$10 0001_0000
     STX      $4000                     ; 0x192c1 $92B1 8E 00 40                ;
     STX      $400C                     ; 0x192c4 $92B4 8E 0C 40                ;
@@ -1093,14 +1093,14 @@ L929C:                                                                          
     BNE      L92FD                     ; 0x192cc $92BC D0 3F                   ;
 L92BE:                                                                          ;
     LDA      #$18                      ; 0x192ce $92BE A9 18                   ;;A = #$18 0001_1000
-    STA      $07F9                     ; 0x192d0 $92C0 8D F9 07                ;
-    STY      $07FF                     ; 0x192d3 $92C3 8C FF 07                ;
+    STA      bss_07F9                     ; 0x192d0 $92C0 8D F9 07                ;
+    STY      bss_07FF                     ; 0x192d3 $92C3 8C FF 07                ;
     LDX      #$95                      ; 0x192d6 $92C6 A2 95                   ;;X = #$95 1001_0101
     LDY      #$E3                      ; 0x192d8 $92C8 A0 E3                   ;;Y = #$e3 1110_0011
     LDA      #$52                      ; 0x192da $92CA A9 52                   ;;A = #$52 0101_0010
     JSR      Configure_And_Play_Note_On_Pulse1                     ; 0x192dc $92CC 20 3F 90                ;
 L92CF:                                                                          ;
-    LDA      $07F9                     ; 0x192df $92CF AD F9 07                ;
+    LDA      bss_07F9                     ; 0x192df $92CF AD F9 07                ;
     CMP      #$0C                      ; 0x192e2 $92D2 C9 0C                   ;
     BNE      L92DB                     ; 0x192e4 $92D4 D0 05                   ;
     LDA      #$4E                      ; 0x192e6 $92D6 A9 4E                   ;;A = #$4e 0100_1110
@@ -1110,9 +1110,9 @@ L92DB:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L92DE:                                                                          ;
-    STY      $07FF                     ; 0x192ee $92DE 8C FF 07                ;
+    STY      bss_07FF                     ; 0x192ee $92DE 8C FF 07                ;
     LDA      #$02                      ; 0x192f1 $92E1 A9 02                   ;;A = #$02 0000_0010
-    STA      $07F9                     ; 0x192f3 $92E3 8D F9 07                ;
+    STA      bss_07F9                     ; 0x192f3 $92E3 8D F9 07                ;
 L92E6:                                                                          ;
     LDX      #$9C                      ; 0x192f6 $92E6 A2 9C                   ;;X = #$9c 1001_1100
     LDY      #$82                      ; 0x192f8 $92E8 A0 82                   ;;Y = #$82 1000_0010
@@ -1124,14 +1124,14 @@ L92E6:                                                                          
 ; ---------------------------------------------------------------------------- ;
 Play_SFX_In_EF:                                                                          ;
     LDY      $EF                       ; 0x19304 $92F4 A4 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
-    LDA      $07FF                     ; 0x19306 $92F6 AD FF 07                ;
+    LDA      bss_07FF                     ; 0x19306 $92F6 AD FF 07                ;
     LSR      $EF                       ; 0x19309 $92F9 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L929C                     ; 0x1930b $92FB B0 9F                   ;
 L92FD:                                                                          ;
-    LDX      $07DF                     ; 0x1930d $92FD AE DF 07                ;
+    LDX      bss_07DF                     ; 0x1930d $92FD AE DF 07                ;
     BEQ      L9308                     ; 0x19310 $9300 F0 06                   ;
     LDX      #$00                      ; 0x19312 $9302 A2 00                   ;;X = #$00 0000_0000
-    STX      $07FF                     ; 0x19314 $9304 8E FF 07                ;
+    STX      bss_07FF                     ; 0x19314 $9304 8E FF 07                ;
     RTS                                ; 0x19317 $9307 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1165,8 +1165,8 @@ L9308:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9334:                                                                          ;
-    STY      $07FF                     ; 0x19344 $9334 8C FF 07                ;
-    LDA      $07FF                     ; 0x19347 $9337 AD FF 07                ;
+    STY      bss_07FF                     ; 0x19344 $9334 8C FF 07                ;
+    LDA      bss_07FF                     ; 0x19347 $9337 AD FF 07                ;
     AND      #$08                      ; 0x1934a $933A 29 08                   ;;Keep Bits:0000_1000
     BNE      L9342                     ; 0x1934c $933C D0 04                   ;
     LDA      #$14                      ; 0x1934e $933E A9 14                   ;;A = #$14 0001_0100
@@ -1174,15 +1174,15 @@ L9334:                                                                          
 L9342:                                                                          ;
     LDA      #$3B                      ; 0x19352 $9342 A9 3B                   ;;A = #$3b 0011_1011
 L9344:                                                                          ;
-    STA      $07F9                     ; 0x19354 $9344 8D F9 07                ;
+    STA      bss_07F9                     ; 0x19354 $9344 8D F9 07                ;
     LDA      #$8A                      ; 0x19357 $9347 A9 8A                   ;;A = #$8a 1000_1010
     STA      $4001                     ; 0x19359 $9349 8D 01 40                ;
 L934C:                                                                          ;
-    LDA      $07F9                     ; 0x1935c $934C AD F9 07                ;
+    LDA      bss_07F9                     ; 0x1935c $934C AD F9 07                ;
     LSR                                ; 0x1935f $934F 4A                      ;
     LSR                                ; 0x19360 $9350 4A                      ;
     TAY                                ; 0x19361 $9351 A8                      ;
-    LDA      $07FF                     ; 0x19362 $9352 AD FF 07                ;
+    LDA      bss_07FF                     ; 0x19362 $9352 AD FF 07                ;
     AND      #$08                      ; 0x19365 $9355 29 08                   ;;Keep Bits:0000_1000
     BNE      L9364                     ; 0x19367 $9357 D0 0B                   ;
     LDA      L90F8,y                   ; 0x19369 $9359 B9 F8 90                ;
@@ -1206,13 +1206,13 @@ L9374:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L937A:                                                                          ;
     LDA      #$0C                      ; 0x1938a $937A A9 0C                   ;;A = #$0c 0000_1100
-    STA      $07F9                     ; 0x1938c $937C 8D F9 07                ;
-    STY      $07FF                     ; 0x1938f $937F 8C FF 07                ;
+    STA      bss_07F9                     ; 0x1938c $937C 8D F9 07                ;
+    STY      bss_07FF                     ; 0x1938f $937F 8C FF 07                ;
     LDX      #$1A                      ; 0x19392 $9382 A2 1A                   ;;X = #$1a 0001_1010
     LDY      #$7F                      ; 0x19394 $9384 A0 7F                   ;;Y = #$7f 0111_1111
     JSR      Configure_Pulse1_Channel                     ; 0x19396 $9386 20 31 90                ;
 L9389:                                                                          ;
-    LDA      $07F9                     ; 0x19399 $9389 AD F9 07                ;
+    LDA      bss_07F9                     ; 0x19399 $9389 AD F9 07                ;
     CMP      #$06                      ; 0x1939c $938C C9 06                   ;
     BCC      L9394                     ; 0x1939e $938E 90 04                   ;
     LDX      #$FF                      ; 0x193a0 $9390 A2 FF                   ;;X = #$ff 1111_1111
@@ -1225,10 +1225,10 @@ L9398:                                                                          
     STX      $4002                     ; 0x193a8 $9398 8E 02 40                ;
     STA      $4003                     ; 0x193ab $939B 8D 03 40                ;
 L939E:                                                                          ;
-    DEC      $07F9                     ; 0x193ae $939E CE F9 07                ;
+    DEC      bss_07F9                     ; 0x193ae $939E CE F9 07                ;
     BNE      L93AD                     ; 0x193b1 $93A1 D0 0A                   ;
     LDA      #$00                      ; 0x193b3 $93A3 A9 00                   ;;A = #$00 0000_0000
-    STA      $07FF                     ; 0x193b5 $93A5 8D FF 07                ;
+    STA      bss_07FF                     ; 0x193b5 $93A5 8D FF 07                ;
     LDA      #$90                      ; 0x193b8 $93A8 A9 90                   ;;A = #$90 1001_0000
     STA      $4000                     ; 0x193ba $93AA 8D 00 40                ;
 L93AD:                                                                          ;
@@ -1236,9 +1236,9 @@ L93AD:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L93AE:                                                                          ;
-    STY      $07FF                     ; 0x193be $93AE 8C FF 07                ;
+    STY      bss_07FF                     ; 0x193be $93AE 8C FF 07                ;
     LDA      #$30                      ; 0x193c1 $93B1 A9 30                   ;;A = #$30 0011_0000
-    STA      $07F9                     ; 0x193c3 $93B3 8D F9 07                ;
+    STA      bss_07F9                     ; 0x193c3 $93B3 8D F9 07                ;
     LDX      #$96                      ; 0x193c6 $93B6 A2 96                   ;;X = #$96 1001_0110
     LDY      #$7F                      ; 0x193c8 $93B8 A0 7F                   ;;Y = #$7f 0111_1111
     JSR      Configure_Pulse1_Channel                     ; 0x193ca $93BA 20 31 90                ;
@@ -1246,14 +1246,14 @@ L93AE:                                                                          
     LDA      #$70                      ; 0x193cf $93BF A9 70                   ;;A = #$70 0111_0000
     BNE      L9398                     ; 0x193d1 $93C1 D0 D5                   ;
 L93C3:                                                                          ;
-    STY      $07FE                     ; 0x193d3 $93C3 8C FE 07                ;
+    STY      bss_07FE                     ; 0x193d3 $93C3 8C FE 07                ;
     LDA      #$00                      ; 0x193d6 $93C6 A9 00                   ;;A = #$00 0000_0000
-    STA      $07FF                     ; 0x193d8 $93C8 8D FF 07                ;
-    STA      $07FD                     ; 0x193db $93CB 8D FD 07                ;
-    STA      $07E1                     ; 0x193de $93CE 8D E1 07                ;
-    STA      $07E0                     ; 0x193e1 $93D1 8D E0 07                ;
-    STA      $07DF                     ; 0x193e4 $93D4 8D DF 07                ;
-    STA      $07FB                     ; 0x193e7 $93D7 8D FB 07                ;
+    STA      bss_07FF                     ; 0x193d8 $93C8 8D FF 07                ;
+    STA      bss_07FD                     ; 0x193db $93CB 8D FD 07                ;
+    STA      bss_07E1                     ; 0x193de $93CE 8D E1 07                ;
+    STA      bss_07E0                     ; 0x193e1 $93D1 8D E0 07                ;
+    STA      bss_07DF                     ; 0x193e4 $93D4 8D DF 07                ;
+    STA      bss_07FB                     ; 0x193e7 $93D7 8D FB 07                ;
     LDA      #$10                      ; 0x193ea $93DA A9 10                   ;;A = #$10 0001_0000
     STA      $400C                     ; 0x193ec $93DC 8D 0C 40                ;
     LDA      #$00                      ; 0x193ef $93DF A9 00                   ;;A = #$00 0000_0000
@@ -1262,16 +1262,16 @@ L93C3:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L93E5:                                                                          ;
-    STY      $07FE                     ; 0x193f5 $93E5 8C FE 07                ;
+    STY      bss_07FE                     ; 0x193f5 $93E5 8C FE 07                ;
     JSR      L90B5                     ; 0x193f8 $93E8 20 B5 90                ;
     LDA      #$79                      ; 0x193fb $93EB A9 79                   ;;A = #$79 0111_1001
-    STA      $07F7                     ; 0x193fd $93ED 8D F7 07                ;
+    STA      bss_07F7                     ; 0x193fd $93ED 8D F7 07                ;
     LDX      #$9F                      ; 0x19400 $93F0 A2 9F                   ;;X = #$9f 1001_1111
     LDY      #$C5                      ; 0x19402 $93F2 A0 C5                   ;;Y = #$c5 1100_0101
     LDA      #$58                      ; 0x19404 $93F4 A9 58                   ;;A = #$58 0101_1000
     JSR      Configure_And_Play_Note_On_Pulse2                     ; 0x19406 $93F6 20 64 90                ;
 L93F9:                                                                          ;
-    LDA      $07F7                     ; 0x19409 $93F9 AD F7 07                ;
+    LDA      bss_07F7                     ; 0x19409 $93F9 AD F7 07                ;
     CMP      #$01                      ; 0x1940c $93FC C9 01                   ;
     BNE      L9405                     ; 0x1940e $93FE D0 05                   ;
     LDA      #$22                      ; 0x19410 $9400 A9 22                   ;;A = #$22 0010_0010
@@ -1282,7 +1282,7 @@ L9405:                                                                          
 ; ---------------------------------------------------------------------------- ;
 Play_SFX_In_EE:                                                                          ;
     LDY      $EE                       ; 0x19418 $9408 A4 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
-    LDA      $07FE                     ; 0x1941a $940A AD FE 07                ;
+    LDA      bss_07FE                     ; 0x1941a $940A AD FE 07                ;
     LSR      $EE                       ; 0x1941d $940D 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L93E5                     ; 0x1941f $940F B0 D4                   ;
     LSR                                ; 0x19421 $9411 4A                      ;
@@ -1310,25 +1310,25 @@ L942B:                                                                          
     JSR      L93C3                     ; 0x1943b $942B 20 C3 93                ;
     LDA      #$50                      ; 0x1943e $942E A9 50                   ;;A = #$50 0101_0000
     LDX      #$8F                      ; 0x19440 $9430 A2 8F                   ;;X = #$8f 1000_1111
-    STA      $07F7                     ; 0x19442 $9432 8D F7 07                ;
-    STX      $07F6                     ; 0x19445 $9435 8E F6 07                ;
+    STA      bss_07F7                     ; 0x19442 $9432 8D F7 07                ;
+    STX      bss_07F6                     ; 0x19445 $9435 8E F6 07                ;
     LDX      #$5E                      ; 0x19448 $9438 A2 5E                   ;;X = #$5e 0101_1110
     LDY      #$81                      ; 0x1944a $943A A0 81                   ;;Y = #$81 1000_0001
     JSR      Configure_Pulse1_Channel                     ; 0x1944c $943C 20 31 90                ;
     JSR      Configure_Pulse2_Channel                     ; 0x1944f $943F 20 38 90                ;
     LDA      #$00                      ; 0x19452 $9442 A9 00                   ;;A = #$00 0000_0000
-    STA      $07DC                     ; 0x19454 $9444 8D DC 07                ;
+    STA      bss_07DC                     ; 0x19454 $9444 8D DC 07                ;
 L9447:                                                                          ;
-    LDA      $07F7                     ; 0x19457 $9447 AD F7 07                ;
+    LDA      bss_07F7                     ; 0x19457 $9447 AD F7 07                ;
     CMP      #$28                      ; 0x1945a $944A C9 28                   ;
     BNE      L9453                     ; 0x1945c $944C D0 05                   ;
     LDA      #$01                      ; 0x1945e $944E A9 01                   ;;A = #$01 0000_0001
-    STA      $07DC                     ; 0x19460 $9450 8D DC 07                ;
+    STA      bss_07DC                     ; 0x19460 $9450 8D DC 07                ;
 L9453:                                                                          ;
-    LDA      $07F6                     ; 0x19463 $9453 AD F6 07                ;
+    LDA      bss_07F6                     ; 0x19463 $9453 AD F6 07                ;
     TAY                                ; 0x19466 $9456 A8                      ;
     JSR      L90CC                     ; 0x19467 $9457 20 CC 90                ;
-    STA      $07F6                     ; 0x1946a $945A 8D F6 07                ;
+    STA      bss_07F6                     ; 0x1946a $945A 8D F6 07                ;
     ROL                                ; 0x1946d $945D 2A                      ;
     ROL                                ; 0x1946e $945E 2A                      ;
     STA      $4002                     ; 0x1946f $945F 8D 02 40                ;
@@ -1338,13 +1338,13 @@ L9453:                                                                          
     ORA      #$08                      ; 0x19478 $9468 09 08                   ;;Set Bits:0000_1000
     STA      $4003                     ; 0x1947a $946A 8D 03 40                ;
     STA      $4007                     ; 0x1947d $946D 8D 07 40                ;
-    LDA      $07F7                     ; 0x19480 $9470 AD F7 07                ;
+    LDA      bss_07F7                     ; 0x19480 $9470 AD F7 07                ;
     CMP      #$0F                      ; 0x19483 $9473 C9 0F                   ;
     BCS      L948D                     ; 0x19485 $9475 B0 16                   ;
     ORA      #$90                      ; 0x19487 $9477 09 90                   ;;Set Bits:1001_0000
     STA      $4000                     ; 0x19489 $9479 8D 00 40                ;
     STA      $4004                     ; 0x1948c $947C 8D 04 40                ;
-    LDA      $07F7                     ; 0x1948f $947F AD F7 07                ;
+    LDA      bss_07F7                     ; 0x1948f $947F AD F7 07                ;
     CMP      #$01                      ; 0x19492 $9482 C9 01                   ;
     BNE      L948D                     ; 0x19494 $9484 D0 07                   ;
     JSR      L9B43                     ; 0x19496 $9486 20 43 9B                ;
@@ -1360,24 +1360,24 @@ L9490:                                                                          
     STA      $4000                     ; 0x194a5 $9495 8D 00 40                ;
     LDA      #$24                      ; 0x194a8 $9498 A9 24                   ;;A = #$24 0010_0100
     LDX      #$A0                      ; 0x194aa $949A A2 A0                   ;;X = #$a0 1010_0000
-    STA      $07F7                     ; 0x194ac $949C 8D F7 07                ;
-    STX      $07F6                     ; 0x194af $949F 8E F6 07                ;
+    STA      bss_07F7                     ; 0x194ac $949C 8D F7 07                ;
+    STX      bss_07F6                     ; 0x194af $949F 8E F6 07                ;
     LDX      #$9E                      ; 0x194b2 $94A2 A2 9E                   ;;X = #$9e 1001_1110
     LDY      #$82                      ; 0x194b4 $94A4 A0 82                   ;;Y = #$82 1000_0010
     JSR      Configure_Pulse2_Channel                     ; 0x194b6 $94A6 20 38 90                ;
     LDA      #$00                      ; 0x194b9 $94A9 A9 00                   ;;A = #$00 0000_0000
-    STA      $07DC                     ; 0x194bb $94AB 8D DC 07                ;
+    STA      bss_07DC                     ; 0x194bb $94AB 8D DC 07                ;
 L94AE:                                                                          ;
-    LDA      $07F7                     ; 0x194be $94AE AD F7 07                ;
+    LDA      bss_07F7                     ; 0x194be $94AE AD F7 07                ;
     CMP      #$10                      ; 0x194c1 $94B1 C9 10                   ;
     BNE      L94BA                     ; 0x194c3 $94B3 D0 05                   ;
     LDA      #$00                      ; 0x194c5 $94B5 A9 00                   ;;A = #$00 0000_0000
-    STA      $07DC                     ; 0x194c7 $94B7 8D DC 07                ;
+    STA      bss_07DC                     ; 0x194c7 $94B7 8D DC 07                ;
 L94BA:                                                                          ;
-    LDA      $07F6                     ; 0x194ca $94BA AD F6 07                ;
+    LDA      bss_07F6                     ; 0x194ca $94BA AD F6 07                ;
     TAY                                ; 0x194cd $94BD A8                      ;
     JSR      L90CD                     ; 0x194ce $94BE 20 CD 90                ;
-    STA      $07F6                     ; 0x194d1 $94C1 8D F6 07                ;
+    STA      bss_07F6                     ; 0x194d1 $94C1 8D F6 07                ;
     ROL                                ; 0x194d4 $94C4 2A                      ;
     ROL                                ; 0x194d5 $94C5 2A                      ;
     STA      $4006                     ; 0x194d6 $94C6 8D 06 40                ;
@@ -1385,16 +1385,16 @@ L94BA:                                                                          
     AND      #$03                      ; 0x194da $94CA 29 03                   ;;Keep Bits:0000_0011
     ORA      #$08                      ; 0x194dc $94CC 09 08                   ;;Set Bits:0000_1000
     STA      $4007                     ; 0x194de $94CE 8D 07 40                ;
-    LDA      $07F7                     ; 0x194e1 $94D1 AD F7 07                ;
+    LDA      bss_07F7                     ; 0x194e1 $94D1 AD F7 07                ;
     CMP      #$0F                      ; 0x194e4 $94D4 C9 0F                   ;
     BCS      L94DD                     ; 0x194e6 $94D6 B0 05                   ;
     ORA      #$10                      ; 0x194e8 $94D8 09 10                   ;;Set Bits:0001_0000
     STA      $4004                     ; 0x194ea $94DA 8D 04 40                ;
 L94DD:                                                                          ;
-    DEC      $07F7                     ; 0x194ed $94DD CE F7 07                ;
+    DEC      bss_07F7                     ; 0x194ed $94DD CE F7 07                ;
     BNE      L94EC                     ; 0x194f0 $94E0 D0 0A                   ;
     LDA      #$00                      ; 0x194f2 $94E2 A9 00                   ;;A = #$00 0000_0000
-    STA      $07FE                     ; 0x194f4 $94E4 8D FE 07                ;
+    STA      bss_07FE                     ; 0x194f4 $94E4 8D FE 07                ;
     LDA      #$10                      ; 0x194f7 $94E7 A9 10                   ;;A = #$10 0001_0000
     STA      $4004                     ; 0x194f9 $94E9 8D 04 40                ;
 L94EC:                                                                          ;
@@ -1402,15 +1402,15 @@ L94EC:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L94ED:                                                                          ;
-    STY      $07FE                     ; 0x194fd $94ED 8C FE 07                ;
+    STY      bss_07FE                     ; 0x194fd $94ED 8C FE 07                ;
     LDA      #$0C                      ; 0x19500 $94F0 A9 0C                   ;;A = #$0c 0000_1100
-    STA      $07F7                     ; 0x19502 $94F2 8D F7 07                ;
+    STA      bss_07F7                     ; 0x19502 $94F2 8D F7 07                ;
     LDX      #$9F                      ; 0x19505 $94F5 A2 9F                   ;;X = #$9f 1001_1111
     LDY      #$7F                      ; 0x19507 $94F7 A0 7F                   ;;Y = #$7f 0111_1111
     LDA      #$22                      ; 0x19509 $94F9 A9 22                   ;;A = #$22 0010_0010
     JSR      Configure_And_Play_Note_On_Pulse2                     ; 0x1950b $94FB 20 64 90                ;
 L94FE:                                                                          ;
-    LDA      $07F7                     ; 0x1950e $94FE AD F7 07                ;
+    LDA      bss_07F7                     ; 0x1950e $94FE AD F7 07                ;
     CMP      #$08                      ; 0x19511 $9501 C9 08                   ;
     BNE      L9509                     ; 0x19513 $9503 D0 04                   ;
     LDA      #$28                      ; 0x19515 $9505 A9 28                   ;;A = #$28 0010_1000
@@ -1442,18 +1442,18 @@ L9515:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L952B:                                                                          ;
-    STY      $07FE                     ; 0x1953b $952B 8C FE 07                ;
+    STY      bss_07FE                     ; 0x1953b $952B 8C FE 07                ;
     LDA      #$10                      ; 0x1953e $952E A9 10                   ;;A = #$10 0001_0000
-    STA      $07F7                     ; 0x19540 $9530 8D F7 07                ;
+    STA      bss_07F7                     ; 0x19540 $9530 8D F7 07                ;
     LDX      #$82                      ; 0x19543 $9533 A2 82                   ;;X = #$82 1000_0010
     LDY      #$CF                      ; 0x19545 $9535 A0 CF                   ;;Y = #$cf 1100_1111
     LDA      #$3C                      ; 0x19547 $9537 A9 3C                   ;;A = #$3c 0011_1100
     JSR      Configure_And_Play_Note_On_Pulse2                     ; 0x19549 $9539 20 64 90                ;
 L953C:                                                                          ;
-    DEC      $07F7                     ; 0x1954c $953C CE F7 07                ;
+    DEC      bss_07F7                     ; 0x1954c $953C CE F7 07                ;
     BNE      L954B                     ; 0x1954f $953F D0 0A                   ;
     LDA      #$00                      ; 0x19551 $9541 A9 00                   ;;A = #$00 0000_0000
-    STA      $07FE                     ; 0x19553 $9543 8D FE 07                ;
+    STA      bss_07FE                     ; 0x19553 $9543 8D FE 07                ;
     LDA      #$90                      ; 0x19556 $9546 A9 90                   ;;A = #$90 1001_0000
     STA      $4004                     ; 0x19558 $9548 8D 04 40                ;
 L954B:                                                                          ;
@@ -1462,10 +1462,10 @@ L954B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L954C:                                                                          ;
     LDA      #$03                      ; 0x1955c $954C A9 03                   ;;A = #$03 0000_0011
-    STY      $07FE                     ; 0x1955e $954E 8C FE 07                ;
-    STA      $07F7                     ; 0x19561 $9551 8D F7 07                ;
-    INC      $07F6                     ; 0x19564 $9554 EE F6 07                ;
-    LDA      $07F6                     ; 0x19567 $9557 AD F6 07                ;
+    STY      bss_07FE                     ; 0x1955e $954E 8C FE 07                ;
+    STA      bss_07F7                     ; 0x19561 $9551 8D F7 07                ;
+    INC      bss_07F6                     ; 0x19564 $9554 EE F6 07                ;
+    LDA      bss_07F6                     ; 0x19567 $9557 AD F6 07                ;
     LSR                                ; 0x1956a $955A 4A                      ;
     BCS      L9561                     ; 0x1956b $955B B0 04                   ;
     LDA      #$04                      ; 0x1956d $955D A9 04                   ;;A = #$04 0000_0100
@@ -1480,8 +1480,8 @@ L9563:                                                                          
 Play_Crumble_Bridge_Sound:                                                                          ;
     LDA      #$06                      ; 0x1957c $956C A9 06                   ;;A = #$06 0000_0110
     LDX      #$18                      ; 0x1957e $956E A2 18                   ;;X = #$18 0001_1000
-    STY      $07FD                     ; 0x19580 $9570 8C FD 07                ;
-    STA      $07F5                     ; 0x19583 $9573 8D F5 07                ;
+    STY      bss_07FD                     ; 0x19580 $9570 8C FD 07                ;
+    STA      bss_07F5                     ; 0x19583 $9573 8D F5 07                ;
     STX      $4008                     ; 0x19586 $9576 8E 08 40                ;
     LDA      #$0A                      ; 0x19589 $9579 A9 0A                   ;;A = #$0a 0000_1010
     JSR      Play_Note_On_Triangle                     ; 0x1958b $957B 20 6B 90                ;
@@ -1490,10 +1490,10 @@ Play_Crumble_Bridge_Sound:                                                      
     LDY      #$08                      ; 0x19592 $9582 A0 08                   ;;Y = #$08 0000_1000
     JSR      Play_Noise                     ; 0x19594 $9584 20 9D 95                ;
 Count_Down_Noise:                                                                          ;
-    DEC      $07F5                     ; 0x19597 $9587 CE F5 07                ;
+    DEC      bss_07F5                     ; 0x19597 $9587 CE F5 07                ;
     BNE      L9596                     ; 0x1959a $958A D0 0A                   ;
     LDA      #$00                      ; 0x1959c $958C A9 00                   ;;A = #$00 0000_0000
-    STA      $07FD                     ; 0x1959e $958E 8D FD 07                ;
+    STA      bss_07FD                     ; 0x1959e $958E 8D FD 07                ;
     LDA      #$10                      ; 0x195a1 $9591 A9 10                   ;;A = #$10 0001_0000
     STA      $400C                     ; 0x195a3 $9593 8D 0C 40                ;
 L9596:                                                                          ;
@@ -1512,16 +1512,16 @@ Play_Noise:                                                                     
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Play_SFX_In_ED:                                                                          ;
-    LDA      $07E0                     ; 0x195b7 $95A7 AD E0 07                ;
+    LDA      bss_07E0                     ; 0x195b7 $95A7 AD E0 07                ;
     BEQ      L95B2                     ; 0x195ba $95AA F0 06                   ;
     LDA      #$00                      ; 0x195bc $95AC A9 00                   ;;A = #$00 0000_0000
-    STA      $07FD                     ; 0x195be $95AE 8D FD 07                ;
+    STA      bss_07FD                     ; 0x195be $95AE 8D FD 07                ;
     RTS                                ; 0x195c1 $95B1 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L95B2:                                                                          ;
     LDY      $ED                       ; 0x195c2 $95B2 A4 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
-    LDA      $07FD                     ; 0x195c4 $95B4 AD FD 07                ;
+    LDA      bss_07FD                     ; 0x195c4 $95B4 AD FD 07                ;
     LSR      $ED                       ; 0x195c7 $95B7 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     LSR                                ; 0x195c9 $95B9 4A                      ;
     LSR      $ED                       ; 0x195ca $95BA 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
@@ -1554,13 +1554,13 @@ L95B2:                                                                          
 ; ---------------------------------------------------------------------------- ;
 Play_Crumble_Bridge_Or_Enemy_Hurt:                                                                          ;
     LDA      #$10                      ; 0x195f6 $95E6 A9 10                   ;;A = #$10 0001_0000
-    STA      $07F5                     ; 0x195f8 $95E8 8D F5 07                ;
-    STY      $07FD                     ; 0x195fb $95EB 8C FD 07                ;
+    STA      bss_07F5                     ; 0x195f8 $95E8 8D F5 07                ;
+    STY      bss_07FD                     ; 0x195fb $95EB 8C FD 07                ;
 L95EE:                                                                          ;
-    LDA      $07F5                     ; 0x195fe $95EE AD F5 07                ;
+    LDA      bss_07F5                     ; 0x195fe $95EE AD F5 07                ;
     LSR                                ; 0x19601 $95F1 4A                      ;
     TAY                                ; 0x19602 $95F2 A8                      ;
-    LDA      $07FD                     ; 0x19603 $95F3 AD FD 07                ;
+    LDA      bss_07FD                     ; 0x19603 $95F3 AD FD 07                ;
     AND      #$10                      ; 0x19606 $95F6 29 10                   ;;Keep Bits:0001_0000
     BNE      L95FF                     ; 0x19608 $95F8 D0 05                   ;
     LDA      L912C,y                   ; 0x1960a $95FA B9 2C 91                ;
@@ -1569,15 +1569,15 @@ L95FF:                                                                          
     LDA      L9123,y                   ; 0x1960f $95FF B9 23 91                ;
     BNE      Play_Noise_Samples                     ; 0x19612 $9602 D0 0E                   ;
 Play_Sword_Strike:                                                                          ;
-    STY      $07FD                     ; 0x19614 $9604 8C FD 07                ;
+    STY      bss_07FD                     ; 0x19614 $9604 8C FD 07                ;
     LDA      #$0F                      ; 0x19617 $9607 A9 0F                   ;;A = #$0f 0000_1111
-    STA      $07F5                     ; 0x19619 $9609 8D F5 07                ;
+    STA      bss_07F5                     ; 0x19619 $9609 8D F5 07                ;
 L960C:                                                                          ;
-    LDY      $07F5                     ; 0x1961c $960C AC F5 07                ;
+    LDY      bss_07F5                     ; 0x1961c $960C AC F5 07                ;
     LDA      L90E8,y                   ; 0x1961f $960F B9 E8 90                ;
 Play_Noise_Samples:                                                                          ;
     TAX                                ; 0x19622 $9612 AA                      ;
-    LDA      $07FD                     ; 0x19623 $9613 AD FD 07                ;
+    LDA      bss_07FD                     ; 0x19623 $9613 AD FD 07                ;
     AND      #$20                      ; 0x19626 $9616 29 20                   ;;Keep Bits:0010_0000
     BEQ      L9622                     ; 0x19628 $9618 F0 08                   ;
     TXA                                ; 0x1962a $961A 8A                      ;
@@ -1683,40 +1683,40 @@ L978E:                                                                          
 .byt    $1B,$2B,$3B,$4B,$5B,$6B        ; 0x1979e $978E 1B 2B 3B 4B 5B 6B       ;
 ; ---------------------------------------------------------------------------- ;
 Bank6__Code_4:                                                                  ;
-    STY      $07FC                     ; 0x197a4 $9794 8C FC 07                ;
-    STY      $07E1                     ; 0x197a7 $9797 8C E1 07                ;
-    STA      $07F3                     ; 0x197aa $979A 8D F3 07                ;
-    STX      $07F2                     ; 0x197ad $979D 8E F2 07                ;
+    STY      bss_07FC                     ; 0x197a4 $9794 8C FC 07                ;
+    STY      bss_07E1                     ; 0x197a7 $9797 8C E1 07                ;
+    STA      bss_07F3                     ; 0x197aa $979A 8D F3 07                ;
+    STX      bss_07F2                     ; 0x197ad $979D 8E F2 07                ;
     LDA      #$C0                      ; 0x197b0 $97A0 A9 C0                   ;;A = #$c0 1100_0000
-    STA      $07DD                     ; 0x197b2 $97A2 8D DD 07                ;; Dialog Counter
-    LDA      $07DF                     ; 0x197b5 $97A5 AD DF 07                ;
+    STA      bss_07DD                     ; 0x197b2 $97A2 8D DD 07                ;; Dialog Counter
+    LDA      bss_07DF                     ; 0x197b5 $97A5 AD DF 07                ;
     BEQ      L97AF                     ; 0x197b8 $97A8 F0 05                   ;
     LDA      #$10                      ; 0x197ba $97AA A9 10                   ;;A = #$10 0001_0000
     STA      $4000                     ; 0x197bc $97AC 8D 00 40                ;
 L97AF:                                                                          ;
     LDA      #$01                      ; 0x197bf $97AF A9 01                   ;;A = #$01 0000_0001
-    STA      $07E0                     ; 0x197c1 $97B1 8D E0 07                ;
+    STA      bss_07E0                     ; 0x197c1 $97B1 8D E0 07                ;
     LDA      #$00                      ; 0x197c4 $97B4 A9 00                   ;;A = #$00 0000_0000
-    STA      $07DF                     ; 0x197c6 $97B6 8D DF 07                ;
+    STA      bss_07DF                     ; 0x197c6 $97B6 8D DF 07                ;
     RTS                                ; 0x197c9 $97B9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L97BA:                                                                          ;
-    STY      $07FC                     ; 0x197ca $97BA 8C FC 07                ;
-    STY      $07E1                     ; 0x197cd $97BD 8C E1 07                ;
-    STA      $07F3                     ; 0x197d0 $97C0 8D F3 07                ;
-    STX      $07F2                     ; 0x197d3 $97C3 8E F2 07                ;
+    STY      bss_07FC                     ; 0x197ca $97BA 8C FC 07                ;
+    STY      bss_07E1                     ; 0x197cd $97BD 8C E1 07                ;
+    STA      bss_07F3                     ; 0x197d0 $97C0 8D F3 07                ;
+    STX      bss_07F2                     ; 0x197d3 $97C3 8E F2 07                ;
     LDA      #$C0                      ; 0x197d6 $97C6 A9 C0                   ;;A = #$c0 1100_0000
-    STA      $07DD                     ; 0x197d8 $97C8 8D DD 07                ;; Dialog Counter
-    LDA      $07E0                     ; 0x197db $97CB AD E0 07                ;
+    STA      bss_07DD                     ; 0x197d8 $97C8 8D DD 07                ;; Dialog Counter
+    LDA      bss_07E0                     ; 0x197db $97CB AD E0 07                ;
     BEQ      L97D5                     ; 0x197de $97CE F0 05                   ;
     LDA      #$10                      ; 0x197e0 $97D0 A9 10                   ;;A = #$10 0001_0000
     STA      $400C                     ; 0x197e2 $97D2 8D 0C 40                ;
 L97D5:                                                                          ;
     LDA      #$01                      ; 0x197e5 $97D5 A9 01                   ;;A = #$01 0000_0001
-    STA      $07DF                     ; 0x197e7 $97D7 8D DF 07                ;
+    STA      bss_07DF                     ; 0x197e7 $97D7 8D DF 07                ;
     LDA      #$00                      ; 0x197ea $97DA A9 00                   ;;A = #$00 0000_0000
-    STA      $07E0                     ; 0x197ec $97DC 8D E0 07                ;
+    STA      bss_07E0                     ; 0x197ec $97DC 8D E0 07                ;
     RTS                                ; 0x197ef $97DF 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1727,17 +1727,17 @@ L97E0:                                                                          
     LDA      #$7F                      ; 0x197f7 $97E7 A9 7F                   ;;A = #$7f 0111_1111
     STA      $4001                     ; 0x197f9 $97E9 8D 01 40                ;
 L97EC:                                                                          ;
-    LDA      $07F3                     ; 0x197fc $97EC AD F3 07                ;
-    LDY      $07F2                     ; 0x197ff $97EF AC F2 07                ;
+    LDA      bss_07F3                     ; 0x197fc $97EC AD F3 07                ;
+    LDY      bss_07F2                     ; 0x197ff $97EF AC F2 07                ;
     CMP      Bank6__UNKNOWN_3,y        ; 0x19802 $97F2 D9 3A 96                ;
     BNE      L9805                     ; 0x19805 $97F5 D0 0E                   ;
     LDA      L963F,y                   ; 0x19807 $97F7 B9 3F 96                ;
     JSR      Play_Note_On_Pulse1                     ; 0x1980a $97FA 20 42 90                ;
-    LDA      $07F2                     ; 0x1980d $97FD AD F2 07                ;
+    LDA      bss_07F2                     ; 0x1980d $97FD AD F2 07                ;
     BEQ      L9805                     ; 0x19810 $9800 F0 03                   ;
-    DEC      $07F2                     ; 0x19812 $9802 CE F2 07                ;
+    DEC      bss_07F2                     ; 0x19812 $9802 CE F2 07                ;
 L9805:                                                                          ;
-    LDA      $07F3                     ; 0x19815 $9805 AD F3 07                ;
+    LDA      bss_07F3                     ; 0x19815 $9805 AD F3 07                ;
     LSR                                ; 0x19818 $9808 4A                      ;
     LSR                                ; 0x19819 $9809 4A                      ;
     TAY                                ; 0x1981a $980A A8                      ;
@@ -1756,7 +1756,7 @@ L9817:                                                                          
     LDA      #$08                      ; 0x19833 $9823 A9 08                   ;;A = #$08 0000_1000
     STA      $400F                     ; 0x19835 $9825 8D 0F 40                ;
 L9828:                                                                          ;
-    LDY      $07F3                     ; 0x19838 $9828 AC F3 07                ;
+    LDY      bss_07F3                     ; 0x19838 $9828 AC F3 07                ;
     LDA      L969F,y                   ; 0x1983b $982B B9 9F 96                ;
     STA      $400C                     ; 0x1983e $982E 8D 0C 40                ;
     JMP      L98E9                     ; 0x19841 $9831 4C E9 98                ;
@@ -1767,22 +1767,22 @@ L9834:                                                                          
     LDX      #$30                      ; 0x19846 $9836 A2 30                   ;;X = #$30 0011_0000
     JSR      L97BA                     ; 0x19848 $9838 20 BA 97                ;
     LDA      #$0F                      ; 0x1984b $983B A9 0F                   ;;A = #$0f 0000_1111
-    STA      $07F1                     ; 0x1984d $983D 8D F1 07                ;
+    STA      bss_07F1                     ; 0x1984d $983D 8D F1 07                ;
     LDA      #$00                      ; 0x19850 $9840 A9 00                   ;;A = #$00 0000_0000
-    STA      $07F0                     ; 0x19852 $9842 8D F0 07                ;
+    STA      bss_07F0                     ; 0x19852 $9842 8D F0 07                ;
     LDA      #$04                      ; 0x19855 $9845 A9 04                   ;;A = #$04 0000_0100
-    STA      $07EF                     ; 0x19857 $9847 8D EF 07                ;
+    STA      bss_07EF                     ; 0x19857 $9847 8D EF 07                ;
     LDA      #$00                      ; 0x1985a $984A A9 00                   ;;A = #$00 0000_0000
-    STA      $07FF                     ; 0x1985c $984C 8D FF 07                ;
-    STA      $07FE                     ; 0x1985f $984F 8D FE 07                ;
-    STA      $07FD                     ; 0x19862 $9852 8D FD 07                ;
-    STA      $07FA                     ; 0x19865 $9855 8D FA 07                ;
+    STA      bss_07FF                     ; 0x1985c $984C 8D FF 07                ;
+    STA      bss_07FE                     ; 0x1985f $984F 8D FE 07                ;
+    STA      bss_07FD                     ; 0x19862 $9852 8D FD 07                ;
+    STA      bss_07FA                     ; 0x19865 $9855 8D FA 07                ;
     LDA      #$0F                      ; 0x19868 $9858 A9 0F                   ;;A = #$0f 0000_1111
     STA      $4015                     ; 0x1986a $985A 8D 15 40                ;; Sound Channel Switch
     JSR      Stop_And_Mute_All_Channels                     ; 0x1986d $985D 20 3B 9B                ;
 L9860:                                                                          ;
-    LDY      $07F1                     ; 0x19870 $9860 AC F1 07                ;
-    LDA      $07F0                     ; 0x19873 $9863 AD F0 07                ;
+    LDY      bss_07F1                     ; 0x19870 $9860 AC F1 07                ;
+    LDA      bss_07F0                     ; 0x19873 $9863 AD F0 07                ;
     BEQ      L986D                     ; 0x19876 $9866 F0 05                   ;
     LDA      L9726,y                   ; 0x19878 $9868 B9 26 97                ;
     BNE      L9870                     ; 0x1987b $986B D0 03                   ;
@@ -1790,8 +1790,8 @@ L986D:                                                                          
     LDA      L9736,y                   ; 0x1987d $986D B9 36 97                ;
 L9870:                                                                          ;
     STA      $4000                     ; 0x19880 $9870 8D 00 40                ;
-    LDA      $07F3                     ; 0x19883 $9873 AD F3 07                ;
-    LDY      $07F2                     ; 0x19886 $9876 AC F2 07                ;
+    LDA      bss_07F3                     ; 0x19883 $9873 AD F3 07                ;
+    LDY      bss_07F2                     ; 0x19886 $9876 AC F2 07                ;
     CMP      L96DD,y                   ; 0x19889 $9879 D9 DD 96                ;
     BNE      L98BD                     ; 0x1988c $987C D0 3F                   ;
     INY                                ; 0x1988e $987E C8                      ;
@@ -1799,8 +1799,8 @@ L9870:                                                                          
     LSR                                ; 0x19890 $9880 4A                      ;
     TAY                                ; 0x19891 $9881 A8                      ;
     LDA      L970D,y                   ; 0x19892 $9882 B9 0D 97                ;
-    STA      $07F1                     ; 0x19895 $9885 8D F1 07                ;
-    LDA      $07F2                     ; 0x19898 $9888 AD F2 07                ;
+    STA      bss_07F1                     ; 0x19895 $9885 8D F1 07                ;
+    LDA      bss_07F2                     ; 0x19898 $9888 AD F2 07                ;
     LSR                                ; 0x1989b $988B 4A                      ;
     BCS      L9894                     ; 0x1989c $988C B0 06                   ;
     LDA      #$CA                      ; 0x1989e $988E A9 CA                   ;;A = #$ca 1100_1010
@@ -1810,13 +1810,13 @@ L9894:                                                                          
     LDA      #$CA                      ; 0x198a4 $9894 A9 CA                   ;;A = #$ca 1100_1010
     LDX      #$01                      ; 0x198a6 $9896 A2 01                   ;;X = #$01 0000_0001
 L9898:                                                                          ;
-    STX      $07F0                     ; 0x198a8 $9898 8E F0 07                ;
+    STX      bss_07F0                     ; 0x198a8 $9898 8E F0 07                ;
     STA      $4001                     ; 0x198ab $989B 8D 01 40                ;
-    LDA      $07F2                     ; 0x198ae $989E AD F2 07                ;
+    LDA      bss_07F2                     ; 0x198ae $989E AD F2 07                ;
     BEQ      L98A6                     ; 0x198b1 $98A1 F0 03                   ;
-    DEC      $07F2                     ; 0x198b3 $98A3 CE F2 07                ;
+    DEC      bss_07F2                     ; 0x198b3 $98A3 CE F2 07                ;
 L98A6:                                                                          ;
-    LDY      $07EF                     ; 0x198b6 $98A6 AC EF 07                ;
+    LDY      bss_07EF                     ; 0x198b6 $98A6 AC EF 07                ;
     LDA      L96D5,y                   ; 0x198b9 $98A9 B9 D5 96                ;
     STA      $4002                     ; 0x198bc $98AC 8D 02 40                ;
     LDA      L96D9,y                   ; 0x198bf $98AF B9 D9 96                ;
@@ -1825,11 +1825,11 @@ L98A6:                                                                          
     BNE      L98BA                     ; 0x198c6 $98B6 D0 02                   ;
     LDY      #$04                      ; 0x198c8 $98B8 A0 04                   ;;Y = #$04 0000_0100
 L98BA:                                                                          ;
-    STY      $07EF                     ; 0x198ca $98BA 8C EF 07                ;
+    STY      bss_07EF                     ; 0x198ca $98BA 8C EF 07                ;
 L98BD:                                                                          ;
-    LDA      $07F1                     ; 0x198cd $98BD AD F1 07                ;
+    LDA      bss_07F1                     ; 0x198cd $98BD AD F1 07                ;
     BEQ      L98C5                     ; 0x198d0 $98C0 F0 03                   ;
-    DEC      $07F1                     ; 0x198d2 $98C2 CE F1 07                ;
+    DEC      bss_07F1                     ; 0x198d2 $98C2 CE F1 07                ;
 L98C5:                                                                          ;
     JMP      L98E9                     ; 0x198d5 $98C5 4C E9 98                ;
                                                                                ;
@@ -1841,19 +1841,19 @@ L98C8:                                                                          
     LDA      #$8A                      ; 0x198df $98CF A9 8A                   ;;A = #$8a 1000_1010
     STA      $4001                     ; 0x198e1 $98D1 8D 01 40                ;
 L98D4:                                                                          ;
-    LDA      $07F3                     ; 0x198e4 $98D4 AD F3 07                ;
+    LDA      bss_07F3                     ; 0x198e4 $98D4 AD F3 07                ;
     LSR                                ; 0x198e7 $98D7 4A                      ;
     TAY                                ; 0x198e8 $98D8 A8                      ;
     LDA      L96A6,y                   ; 0x198e9 $98D9 B9 A6 96                ;
     STA      $4000                     ; 0x198ec $98DC 8D 00 40                ;
-    LDA      $07F3                     ; 0x198ef $98DF AD F3 07                ;
+    LDA      bss_07F3                     ; 0x198ef $98DF AD F3 07                ;
     TAY                                ; 0x198f2 $98E2 A8                      ;
     LDA      L96B6,y                   ; 0x198f3 $98E3 B9 B6 96                ;
     JSR      Play_Note_On_Pulse1                     ; 0x198f6 $98E6 20 42 90                ;
 L98E9:                                                                          ;
-    DEC      $07F3                     ; 0x198f9 $98E9 CE F3 07                ;
+    DEC      bss_07F3                     ; 0x198f9 $98E9 CE F3 07                ;
     BNE      L990A                     ; 0x198fc $98EC D0 1C                   ;
-    LDA      $07DF                     ; 0x198fe $98EE AD DF 07                ;
+    LDA      bss_07DF                     ; 0x198fe $98EE AD DF 07                ;
     BEQ      L98FA                     ; 0x19901 $98F1 F0 07                   ;
     LDA      #$10                      ; 0x19903 $98F3 A9 10                   ;;A = #$10 0001_0000
     STA      $4000                     ; 0x19905 $98F5 8D 00 40                ;
@@ -1863,23 +1863,23 @@ L98FA:                                                                          
     STA      $400C                     ; 0x1990c $98FC 8D 0C 40                ;
 L98FF:                                                                          ;
     LDA      #$00                      ; 0x1990f $98FF A9 00                   ;;A = #$00 0000_0000
-    STA      $07E1                     ; 0x19911 $9901 8D E1 07                ;
-    STA      $07DF                     ; 0x19914 $9904 8D DF 07                ;
-    STA      $07E0                     ; 0x19917 $9907 8D E0 07                ;
+    STA      bss_07E1                     ; 0x19911 $9901 8D E1 07                ;
+    STA      bss_07DF                     ; 0x19914 $9904 8D DF 07                ;
+    STA      bss_07E0                     ; 0x19917 $9907 8D E0 07                ;
 L990A:                                                                          ;
     RTS                                ; 0x1991a $990A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Play_SFX_In_EC:                                                                          ;
-    LDA      $07DD                     ; 0x1991b $990B AD DD 07                ;; Dialog Counter
+    LDA      bss_07DD                     ; 0x1991b $990B AD DD 07                ;; Dialog Counter
     BNE      L9915                     ; 0x1991e $990E D0 05                   ;
-    STA      $07FC                     ; 0x19920 $9910 8D FC 07                ;
+    STA      bss_07FC                     ; 0x19920 $9910 8D FC 07                ;
     BEQ      L9918                     ; 0x19923 $9913 F0 03                   ;
 L9915:                                                                          ;
-    DEC      $07DD                     ; 0x19925 $9915 CE DD 07                ;; Dialog Counter
+    DEC      bss_07DD                     ; 0x19925 $9915 CE DD 07                ;; Dialog Counter
 L9918:                                                                          ;
     LDY      $EC                       ; 0x19928 $9918 A4 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
-    LDA      $07E1                     ; 0x1992a $991A AD E1 07                ;
+    LDA      bss_07E1                     ; 0x1992a $991A AD E1 07                ;
     CPY      #$C0                      ; 0x1992d $991D C0 C0                   ;
     BEQ      L997E                     ; 0x1992f $991F F0 5D                   ;
     CPY      #$60                      ; 0x19931 $9921 C0 60                   ;
@@ -2008,14 +2008,14 @@ L99A2:                                                                          
     LDX      #$0C                      ; 0x199b4 $99A4 A2 0C                   ;;X = #$0c 0000_1100
     JSR      L97BA                     ; 0x199b6 $99A6 20 BA 97                ;
     LDA      #$0F                      ; 0x199b9 $99A9 A9 0F                   ;;A = #$0f 0000_1111
-    STA      $07F1                     ; 0x199bb $99AB 8D F1 07                ;
+    STA      bss_07F1                     ; 0x199bb $99AB 8D F1 07                ;
     LDA      #$00                      ; 0x199be $99AE A9 00                   ;;A = #$00 0000_0000
-    STA      $07F0                     ; 0x199c0 $99B0 8D F0 07                ;
+    STA      bss_07F0                     ; 0x199c0 $99B0 8D F0 07                ;
     LDA      #$04                      ; 0x199c3 $99B3 A9 04                   ;;A = #$04 0000_0100
-    STA      $07EF                     ; 0x199c5 $99B5 8D EF 07                ;
+    STA      bss_07EF                     ; 0x199c5 $99B5 8D EF 07                ;
 L99B8:                                                                          ;
-    LDY      $07F1                     ; 0x199c8 $99B8 AC F1 07                ;
-    LDA      $07F0                     ; 0x199cb $99BB AD F0 07                ;
+    LDY      bss_07F1                     ; 0x199c8 $99B8 AC F1 07                ;
+    LDA      bss_07F0                     ; 0x199cb $99BB AD F0 07                ;
     BEQ      L99C5                     ; 0x199ce $99BE F0 05                   ;
     LDA      L976C,y                   ; 0x199d0 $99C0 B9 6C 97                ;
     BNE      L99C8                     ; 0x199d3 $99C3 D0 03                   ;
@@ -2023,8 +2023,8 @@ L99C5:                                                                          
     LDA      L975C,y                   ; 0x199d5 $99C5 B9 5C 97                ;
 L99C8:                                                                          ;
     STA      $4000                     ; 0x199d8 $99C8 8D 00 40                ;
-    LDA      $07F3                     ; 0x199db $99CB AD F3 07                ;
-    LDY      $07F2                     ; 0x199de $99CE AC F2 07                ;
+    LDA      bss_07F3                     ; 0x199db $99CB AD F3 07                ;
+    LDY      bss_07F2                     ; 0x199de $99CE AC F2 07                ;
     CMP      L9749,y                   ; 0x199e1 $99D1 D9 49 97                ;
     BNE      L9A15                     ; 0x199e4 $99D4 D0 3F                   ;
     INY                                ; 0x199e6 $99D6 C8                      ;
@@ -2032,8 +2032,8 @@ L99C8:                                                                          
     LSR                                ; 0x199e8 $99D8 4A                      ;
     TAY                                ; 0x199e9 $99D9 A8                      ;
     LDA      L9755,y                   ; 0x199ea $99DA B9 55 97                ;
-    STA      $07F1                     ; 0x199ed $99DD 8D F1 07                ;
-    LDA      $07F2                     ; 0x199f0 $99E0 AD F2 07                ;
+    STA      bss_07F1                     ; 0x199ed $99DD 8D F1 07                ;
+    LDA      bss_07F2                     ; 0x199f0 $99E0 AD F2 07                ;
     LSR                                ; 0x199f3 $99E3 4A                      ;
     BCS      L99EC                     ; 0x199f4 $99E4 B0 06                   ;
     LDA      #$CA                      ; 0x199f6 $99E6 A9 CA                   ;;A = #$ca 1100_1010
@@ -2043,13 +2043,13 @@ L99EC:                                                                          
     LDA      #$BB                      ; 0x199fc $99EC A9 BB                   ;;A = #$bb 1011_1011
     LDX      #$01                      ; 0x199fe $99EE A2 01                   ;;X = #$01 0000_0001
 L99F0:                                                                          ;
-    STX      $07F0                     ; 0x19a00 $99F0 8E F0 07                ;
+    STX      bss_07F0                     ; 0x19a00 $99F0 8E F0 07                ;
     STA      $4001                     ; 0x19a03 $99F3 8D 01 40                ;
-    LDA      $07F2                     ; 0x19a06 $99F6 AD F2 07                ;
+    LDA      bss_07F2                     ; 0x19a06 $99F6 AD F2 07                ;
     BEQ      L99FE                     ; 0x19a09 $99F9 F0 03                   ;
-    DEC      $07F2                     ; 0x19a0b $99FB CE F2 07                ;
+    DEC      bss_07F2                     ; 0x19a0b $99FB CE F2 07                ;
 L99FE:                                                                          ;
-    LDY      $07EF                     ; 0x19a0e $99FE AC EF 07                ;
+    LDY      bss_07EF                     ; 0x19a0e $99FE AC EF 07                ;
     LDA      L9745,y                   ; 0x19a11 $9A01 B9 45 97                ;
     STA      $4002                     ; 0x19a14 $9A04 8D 02 40                ;
     LDA      L977B,y                   ; 0x19a17 $9A07 B9 7B 97                ;
@@ -2058,11 +2058,11 @@ L99FE:                                                                          
     BNE      L9A12                     ; 0x19a1e $9A0E D0 02                   ;
     LDY      #$04                      ; 0x19a20 $9A10 A0 04                   ;;Y = #$04 0000_0100
 L9A12:                                                                          ;
-    STY      $07EF                     ; 0x19a22 $9A12 8C EF 07                ;
+    STY      bss_07EF                     ; 0x19a22 $9A12 8C EF 07                ;
 L9A15:                                                                          ;
-    LDA      $07F1                     ; 0x19a25 $9A15 AD F1 07                ;
+    LDA      bss_07F1                     ; 0x19a25 $9A15 AD F1 07                ;
     BEQ      L9A1D                     ; 0x19a28 $9A18 F0 03                   ;
-    DEC      $07F1                     ; 0x19a2a $9A1A CE F1 07                ;
+    DEC      bss_07F1                     ; 0x19a2a $9A1A CE F1 07                ;
 L9A1D:                                                                          ;
     JMP      L98E9                     ; 0x19a2d $9A1D 4C E9 98                ;
                                                                                ;
@@ -2074,15 +2074,15 @@ L9A20:                                                                          
     LDA      #$7F                      ; 0x19a37 $9A27 A9 7F                   ;;A = #$7f 0111_1111
     STA      $4001                     ; 0x19a39 $9A29 8D 01 40                ;
 L9A2C:                                                                          ;
-    LDA      $07F3                     ; 0x19a3c $9A2C AD F3 07                ;
-    LDY      $07F2                     ; 0x19a3f $9A2F AC F2 07                ;
+    LDA      bss_07F3                     ; 0x19a3c $9A2C AD F3 07                ;
+    LDY      bss_07F2                     ; 0x19a3f $9A2F AC F2 07                ;
     CMP      L9644,y                   ; 0x19a42 $9A32 D9 44 96                ;
     BNE      L9A45                     ; 0x19a45 $9A35 D0 0E                   ;
     LDA      L964B,y                   ; 0x19a47 $9A37 B9 4B 96                ;
     JSR      Play_Note_On_Pulse1                     ; 0x19a4a $9A3A 20 42 90                ;
-    LDA      $07F2                     ; 0x19a4d $9A3D AD F2 07                ;
+    LDA      bss_07F2                     ; 0x19a4d $9A3D AD F2 07                ;
     BEQ      L9A45                     ; 0x19a50 $9A40 F0 03                   ;
-    DEC      $07F2                     ; 0x19a52 $9A42 CE F2 07                ;
+    DEC      bss_07F2                     ; 0x19a52 $9A42 CE F2 07                ;
 L9A45:                                                                          ;
     JMP      L9805                     ; 0x19a55 $9A45 4C 05 98                ;
                                                                                ;
@@ -2094,15 +2094,15 @@ L9A48:                                                                          
     LDA      #$7F                      ; 0x19a5f $9A4F A9 7F                   ;;A = #$7f 0111_1111
     STA      $4001                     ; 0x19a61 $9A51 8D 01 40                ;
 L9A54:                                                                          ;
-    LDA      $07F3                     ; 0x19a64 $9A54 AD F3 07                ;
-    LDY      $07F2                     ; 0x19a67 $9A57 AC F2 07                ;
+    LDA      bss_07F3                     ; 0x19a64 $9A54 AD F3 07                ;
+    LDY      bss_07F2                     ; 0x19a67 $9A57 AC F2 07                ;
     CMP      L9652,y                   ; 0x19a6a $9A5A D9 52 96                ;
     BNE      L9A6D                     ; 0x19a6d $9A5D D0 0E                   ;
     LDA      L9658,y                   ; 0x19a6f $9A5F B9 58 96                ;
     JSR      Play_Note_On_Pulse1                     ; 0x19a72 $9A62 20 42 90                ;
-    LDA      $07F2                     ; 0x19a75 $9A65 AD F2 07                ;
+    LDA      bss_07F2                     ; 0x19a75 $9A65 AD F2 07                ;
     BEQ      L9A6D                     ; 0x19a78 $9A68 F0 03                   ;
-    DEC      $07F2                     ; 0x19a7a $9A6A CE F2 07                ;
+    DEC      bss_07F2                     ; 0x19a7a $9A6A CE F2 07                ;
 L9A6D:                                                                          ;
     JMP      L9805                     ; 0x19a7d $9A6D 4C 05 98                ;
                                                                                ;
@@ -2114,15 +2114,15 @@ L9A70:                                                                          
     LDA      #$7F                      ; 0x19a87 $9A77 A9 7F                   ;;A = #$7f 0111_1111
     STA      $4001                     ; 0x19a89 $9A79 8D 01 40                ;
 L9A7C:                                                                          ;
-    LDA      $07F3                     ; 0x19a8c $9A7C AD F3 07                ;
-    LDY      $07F2                     ; 0x19a8f $9A7F AC F2 07                ;
+    LDA      bss_07F3                     ; 0x19a8c $9A7C AD F3 07                ;
+    LDY      bss_07F2                     ; 0x19a8f $9A7F AC F2 07                ;
     CMP      L965E,y                   ; 0x19a92 $9A82 D9 5E 96                ;
     BNE      L9A95                     ; 0x19a95 $9A85 D0 0E                   ;
     LDA      L9667,y                   ; 0x19a97 $9A87 B9 67 96                ;
     JSR      Play_Note_On_Pulse1                     ; 0x19a9a $9A8A 20 42 90                ;
-    LDA      $07F2                     ; 0x19a9d $9A8D AD F2 07                ;
+    LDA      bss_07F2                     ; 0x19a9d $9A8D AD F2 07                ;
     BEQ      L9A95                     ; 0x19aa0 $9A90 F0 03                   ;
-    DEC      $07F2                     ; 0x19aa2 $9A92 CE F2 07                ;
+    DEC      bss_07F2                     ; 0x19aa2 $9A92 CE F2 07                ;
 L9A95:                                                                          ;
     JMP      L9805                     ; 0x19aa5 $9A95 4C 05 98                ;
                                                                                ;
@@ -2132,15 +2132,15 @@ L9A98:                                                                          
     LDX      #$8F                      ; 0x19aaa $9A9A A2 8F                   ;;X = #$8f 1000_1111
     JSR      L97BA                     ; 0x19aac $9A9C 20 BA 97                ;
     LDA      #$00                      ; 0x19aaf $9A9F A9 00                   ;;A = #$00 0000_0000
-    STA      $07DC                     ; 0x19ab1 $9AA1 8D DC 07                ;
+    STA      bss_07DC                     ; 0x19ab1 $9AA1 8D DC 07                ;
     LDX      #$5D                      ; 0x19ab4 $9AA4 A2 5D                   ;;X = #$5d 0101_1101
     LDY      #$81                      ; 0x19ab6 $9AA6 A0 81                   ;;Y = #$81 1000_0001
     JSR      Configure_Pulse1_Channel                     ; 0x19ab8 $9AA8 20 31 90                ;
 L9AAB:                                                                          ;
-    LDA      $07F2                     ; 0x19abb $9AAB AD F2 07                ;
+    LDA      bss_07F2                     ; 0x19abb $9AAB AD F2 07                ;
     TAY                                ; 0x19abe $9AAE A8                      ;
     JSR      L90CB                     ; 0x19abf $9AAF 20 CB 90                ;
-    STA      $07F2                     ; 0x19ac2 $9AB2 8D F2 07                ;
+    STA      bss_07F2                     ; 0x19ac2 $9AB2 8D F2 07                ;
     ROL                                ; 0x19ac5 $9AB5 2A                      ;
     ROL                                ; 0x19ac6 $9AB6 2A                      ;
     STA      $4002                     ; 0x19ac7 $9AB7 8D 02 40                ;
@@ -2148,7 +2148,7 @@ L9AAB:                                                                          
     AND      #$03                      ; 0x19acb $9ABB 29 03                   ;;Keep Bits:0000_0011
     ORA      #$08                      ; 0x19acd $9ABD 09 08                   ;;Set Bits:0000_1000
     STA      $4003                     ; 0x19acf $9ABF 8D 03 40                ;
-    LDA      $07F3                     ; 0x19ad2 $9AC2 AD F3 07                ;
+    LDA      bss_07F3                     ; 0x19ad2 $9AC2 AD F3 07                ;
     CMP      #$0D                      ; 0x19ad5 $9AC5 C9 0D                   ;
     BCS      L9ACE                     ; 0x19ad7 $9AC7 B0 05                   ;
     ORA      #$90                      ; 0x19ad9 $9AC9 09 90                   ;;Set Bits:1001_0000
@@ -2162,20 +2162,20 @@ L9AD1:                                                                          
     LDX      #$1B                      ; 0x19ae3 $9AD3 A2 1B                   ;;X = #$1b 0001_1011
     JSR      Bank6__Code_4             ; 0x19ae5 $9AD5 20 94 97                ;
     LDA      #$05                      ; 0x19ae8 $9AD8 A9 05                   ;;A = #$05 0000_0101
-    STA      $07F1                     ; 0x19aea $9ADA 8D F1 07                ;
+    STA      bss_07F1                     ; 0x19aea $9ADA 8D F1 07                ;
 L9ADD:                                                                          ;
-    LDA      $07F3                     ; 0x19aed $9ADD AD F3 07                ;
-    LDY      $07F1                     ; 0x19af0 $9AE0 AC F1 07                ;
+    LDA      bss_07F3                     ; 0x19aed $9ADD AD F3 07                ;
+    LDY      bss_07F1                     ; 0x19af0 $9AE0 AC F1 07                ;
     CMP      L978E,y                   ; 0x19af3 $9AE3 D9 8E 97                ;
     BNE      L9AF5                     ; 0x19af6 $9AE6 D0 0D                   ;
-    LDA      $07F1                     ; 0x19af8 $9AE8 AD F1 07                ;
+    LDA      bss_07F1                     ; 0x19af8 $9AE8 AD F1 07                ;
     BEQ      L9AF0                     ; 0x19afb $9AEB F0 03                   ;
-    DEC      $07F1                     ; 0x19afd $9AED CE F1 07                ;
+    DEC      bss_07F1                     ; 0x19afd $9AED CE F1 07                ;
 L9AF0:                                                                          ;
     LDA      #$1B                      ; 0x19b00 $9AF0 A9 1B                   ;;A = #$1b 0001_1011
-    STA      $07F2                     ; 0x19b02 $9AF2 8D F2 07                ;
+    STA      bss_07F2                     ; 0x19b02 $9AF2 8D F2 07                ;
 L9AF5:                                                                          ;
-    LDA      $07F2                     ; 0x19b05 $9AF5 AD F2 07                ;
+    LDA      bss_07F2                     ; 0x19b05 $9AF5 AD F2 07                ;
     LSR                                ; 0x19b08 $9AF8 4A                      ;
     TAY                                ; 0x19b09 $9AF9 A8                      ;
     LDA      L9780,y                   ; 0x19b0a $9AFA B9 80 97                ;
@@ -2191,14 +2191,14 @@ L9AF5:                                                                          
     STA      $400C                     ; 0x19b1a $9B0A 8D 0C 40                ;
     LDA      #$08                      ; 0x19b1d $9B0D A9 08                   ;;A = #$08 0000_1000
     STA      $400F                     ; 0x19b1f $9B0F 8D 0F 40                ;
-    DEC      $07F2                     ; 0x19b22 $9B12 CE F2 07                ;
+    DEC      bss_07F2                     ; 0x19b22 $9B12 CE F2 07                ;
     JMP      L98E9                     ; 0x19b25 $9B15 4C E9 98                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Play_Music:                                                                          ;
     LDA      $EB                       ; 0x19b28 $9B18 A5 EB                   ;; Music; Music
     BNE      Load_Song                     ; 0x19b2a $9B1A D0 45                   ;
-    LDA      $07FB                     ; 0x19b2c $9B1C AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19b2c $9B1C AD FB 07                ;
     BEQ      L9B4E                     ; 0x19b2f $9B1F F0 2D                   ;
     JMP      L9C87                     ; 0x19b31 $9B21 4C 87 9C                ;
                                                                                ;
@@ -2207,17 +2207,17 @@ Next_Song:                                                                      
     LDA      world_number                     ; 0x19b34 $9B24 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     CMP      #$05                      ; 0x19b37 $9B27 C9 05                   ;
     BNE      L9B34                     ; 0x19b39 $9B29 D0 09                   ;
-    LDA      $07FB                     ; 0x19b3b $9B2B AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19b3b $9B2B AD FB 07                ;
     AND      #$5F                      ; 0x19b3e $9B2E 29 5F                   ;;Keep Bits:0101_1111
     BNE      L9B4F                     ; 0x19b40 $9B30 D0 1D                   ;
     BEQ      Stop_And_Mute_All_Channels                     ; 0x19b42 $9B32 F0 07                   ;
 L9B34:                                                                          ;
-    LDA      $07FB                     ; 0x19b44 $9B34 AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19b44 $9B34 AD FB 07                ;
     AND      #$1F                      ; 0x19b47 $9B37 29 1F                   ;;Keep Bits:0001_1111
     BNE      L9B4F                     ; 0x19b49 $9B39 D0 14                   ;
 Stop_And_Mute_All_Channels:                                                                          ;
     LDA      #$00                      ; 0x19b4b $9B3B A9 00                   ;;A = #$00 0000_0000
-    STA      $07FB                     ; 0x19b4d $9B3D 8D FB 07                ;
+    STA      bss_07FB                     ; 0x19b4d $9B3D 8D FB 07                ;
     STA      $4008                     ; 0x19b50 $9B40 8D 08 40                ;
 L9B43:                                                                          ;
     LDA      #$10                      ; 0x19b53 $9B43 A9 10                   ;;A = #$10 0001_0000
@@ -2234,22 +2234,22 @@ L9B4F:                                                                          
     LDA      #$02                      ; 0x19b63 $9B53 A9 02                   ;;A = #$02 0000_0010
     BNE      Load_Song                     ; 0x19b65 $9B55 D0 0A                   ;
 L9B57:                                                                          ;
-    LDA      $07FB                     ; 0x19b67 $9B57 AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19b67 $9B57 AD FB 07                ;
     AND      #$4E                      ; 0x19b6a $9B5A 29 4E                   ;;Keep Bits:0100_1110
     BNE      Load_Song                     ; 0x19b6c $9B5C D0 03                   ;
-    LDA      $07DB                     ; 0x19b6e $9B5E AD DB 07                ;; Something for Palaces ?
+    LDA      bss_07DB                     ; 0x19b6e $9B5E AD DB 07                ;; Something for Palaces ?
 Load_Song:                                                                          ;
     TAX                                ; 0x19b71 $9B61 AA                      ;
     AND      #$10                      ; 0x19b72 $9B62 29 10                   ;;Keep Bits:0001_0000
     BEQ      L9B70                     ; 0x19b74 $9B64 F0 0A                   ;
-    LDA      $07FB                     ; 0x19b76 $9B66 AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19b76 $9B66 AD FB 07                ;
     AND      #$0F                      ; 0x19b79 $9B69 29 0F                   ;;Keep Bits:0000_1111
     BEQ      L9B70                     ; 0x19b7b $9B6B F0 03                   ;
-    STA      $07DB                     ; 0x19b7d $9B6D 8D DB 07                ;; Something for Palaces ?
+    STA      bss_07DB                     ; 0x19b7d $9B6D 8D DB 07                ;; Something for Palaces ?
 L9B70:                                                                          ;
     TXA                                ; 0x19b80 $9B70 8A                      ;
     BEQ      Stop_And_Mute_All_Channels                     ; 0x19b81 $9B71 F0 C8                   ;
-    STA      $07FB                     ; 0x19b83 $9B73 8D FB 07                ;
+    STA      bss_07FB                     ; 0x19b83 $9B73 8D FB 07                ;
     LDY      #$00                      ; 0x19b86 $9B76 A0 00                   ;;Y = #$00 0000_0000
     STY      $E3                       ; 0x19b88 $9B78 84 E3                   ;
 L9B7A:                                                                          ;
@@ -2276,11 +2276,11 @@ Load_Song_Data:                                                                 
     LDA      LA002,y                   ; 0x19bb0 $9BA0 B9 02 A0                ;
     STA      $E1                       ; 0x19bb3 $9BA3 85 E1                   ;
     LDA      LA003,y                   ; 0x19bb5 $9BA5 B9 03 A0                ;
-    STA      $07E9                     ; 0x19bb8 $9BA8 8D E9 07                ;; Triangle
+    STA      bss_07E9                     ; 0x19bb8 $9BA8 8D E9 07                ;; Triangle
     LDA      LA004,y                   ; 0x19bbb $9BAB B9 04 A0                ;
-    STA      $07EA                     ; 0x19bbe $9BAE 8D EA 07                ;; Pulse 2
+    STA      bss_07EA                     ; 0x19bbe $9BAE 8D EA 07                ;; Pulse 2
     LDA      LA005,y                   ; 0x19bc1 $9BB1 B9 05 A0                ;
-    STA      $07E8                     ; 0x19bc4 $9BB4 8D E8 07                ;; Noise
+    STA      bss_07E8                     ; 0x19bc4 $9BB4 8D E8 07                ;; Noise
     STA      $E4                       ; 0x19bc7 $9BB7 85 E4                   ;
     JMP      L9C74                     ; 0x19bc9 $9BB9 4C 74 9C                ;
                                                                                ;
@@ -2307,11 +2307,11 @@ L9BC4:                                                                          
     LDA      LA3CC,y                   ; 0x19bef $9BDF B9 CC A3                ;
     STA      $E1                       ; 0x19bf2 $9BE2 85 E1                   ;
     LDA      LA3CD,y                   ; 0x19bf4 $9BE4 B9 CD A3                ;
-    STA      $07E9                     ; 0x19bf7 $9BE7 8D E9 07                ;; Triangle
+    STA      bss_07E9                     ; 0x19bf7 $9BE7 8D E9 07                ;; Triangle
     LDA      LA3CE,y                   ; 0x19bfa $9BEA B9 CE A3                ;
-    STA      $07EA                     ; 0x19bfd $9BED 8D EA 07                ;; Pulse 2
+    STA      bss_07EA                     ; 0x19bfd $9BED 8D EA 07                ;; Pulse 2
     LDA      LA3CF,y                   ; 0x19c00 $9BF0 B9 CF A3                ;
-    STA      $07E8                     ; 0x19c03 $9BF3 8D E8 07                ;; Noise
+    STA      bss_07E8                     ; 0x19c03 $9BF3 8D E8 07                ;; Noise
     STA      $E4                       ; 0x19c06 $9BF6 85 E4                   ;
     JMP      L9C74                     ; 0x19c08 $9BF8 4C 74 9C                ;
                                                                                ;
@@ -2338,11 +2338,11 @@ L9C03:                                                                          
     LDA      LA631,y                   ; 0x19c2e $9C1E B9 31 A6                ;
     STA      $E1                       ; 0x19c31 $9C21 85 E1                   ;
     LDA      LA632,y                   ; 0x19c33 $9C23 B9 32 A6                ;
-    STA      $07E9                     ; 0x19c36 $9C26 8D E9 07                ;; Triangle
+    STA      bss_07E9                     ; 0x19c36 $9C26 8D E9 07                ;; Triangle
     LDA      LA633,y                   ; 0x19c39 $9C29 B9 33 A6                ;
-    STA      $07EA                     ; 0x19c3c $9C2C 8D EA 07                ;; Pulse 2
+    STA      bss_07EA                     ; 0x19c3c $9C2C 8D EA 07                ;; Pulse 2
     LDA      LA634,y                   ; 0x19c3f $9C2F B9 34 A6                ;
-    STA      $07E8                     ; 0x19c42 $9C32 8D E8 07                ;; Noise
+    STA      bss_07E8                     ; 0x19c42 $9C32 8D E8 07                ;; Noise
     STA      $E4                       ; 0x19c45 $9C35 85 E4                   ;
     JMP      L9C74                     ; 0x19c47 $9C37 4C 74 9C                ;
                                                                                ;
@@ -2372,41 +2372,41 @@ L9C40:                                                                          
     LDA      LA938,y                   ; 0x19c6b $9C5B B9 38 A9                ;
     STA      $E1                       ; 0x19c6e $9C5E 85 E1                   ;
     LDA      LA939,y                   ; 0x19c70 $9C60 B9 39 A9                ;
-    STA      $07E9                     ; 0x19c73 $9C63 8D E9 07                ;; Triangle
+    STA      bss_07E9                     ; 0x19c73 $9C63 8D E9 07                ;; Triangle
     LDA      LA93A,y                   ; 0x19c76 $9C66 B9 3A A9                ;
-    STA      $07EA                     ; 0x19c79 $9C69 8D EA 07                ;; Pulse 2
+    STA      bss_07EA                     ; 0x19c79 $9C69 8D EA 07                ;; Pulse 2
     LDA      LA93B,y                   ; 0x19c7c $9C6C B9 3B A9                ;
-    STA      $07E8                     ; 0x19c7f $9C6F 8D E8 07                ;; Noise
+    STA      bss_07E8                     ; 0x19c7f $9C6F 8D E8 07                ;; Noise
     STA      $E4                       ; 0x19c82 $9C72 85 E4                   ;
 L9C74:                                                                          ;
     LDA      #$00                      ; 0x19c84 $9C74 A9 00                   ;;A = #$00 0000_0000
-    STA      $07EB                     ; 0x19c86 $9C76 8D EB 07                ;; Pulse 1
+    STA      bss_07EB                     ; 0x19c86 $9C76 8D EB 07                ;; Pulse 1
     LDA      #$01                      ; 0x19c89 $9C79 A9 01                   ;;A = #$01 0000_0001
-    STA      $07E7                     ; 0x19c8b $9C7B 8D E7 07                ;
-    STA      $07E6                     ; 0x19c8e $9C7E 8D E6 07                ;
-    STA      $07E5                     ; 0x19c91 $9C81 8D E5 07                ;
-    STA      $07E4                     ; 0x19c94 $9C84 8D E4 07                ;
+    STA      bss_07E7                     ; 0x19c8b $9C7B 8D E7 07                ;
+    STA      bss_07E6                     ; 0x19c8e $9C7E 8D E6 07                ;
+    STA      bss_07E5                     ; 0x19c91 $9C81 8D E5 07                ;
+    STA      bss_07E4                     ; 0x19c94 $9C84 8D E4 07                ;
 L9C87:                                                                          ;
-    LDA      $07FE                     ; 0x19c97 $9C87 AD FE 07                ;
+    LDA      bss_07FE                     ; 0x19c97 $9C87 AD FE 07                ;
     BEQ      L9C91                     ; 0x19c9a $9C8A F0 05                   ;
     LDA      #$00                      ; 0x19c9c $9C8C A9 00                   ;;A = #$00 0000_0000
-    STA      $07E3                     ; 0x19c9e $9C8E 8D E3 07                ;
+    STA      bss_07E3                     ; 0x19c9e $9C8E 8D E3 07                ;
 L9C91:                                                                          ;
-    DEC      $07E7                     ; 0x19ca1 $9C91 CE E7 07                ;
+    DEC      bss_07E7                     ; 0x19ca1 $9C91 CE E7 07                ;
     BNE      L9CC3                     ; 0x19ca4 $9C94 D0 2D                   ;
-    LDY      $07EB                     ; 0x19ca6 $9C96 AC EB 07                ;; Pulse 1
-    INC      $07EB                     ; 0x19ca9 $9C99 EE EB 07                ;; Pulse 1
+    LDY      bss_07EB                     ; 0x19ca6 $9C96 AC EB 07                ;; Pulse 1
+    INC      bss_07EB                     ; 0x19ca9 $9C99 EE EB 07                ;; Pulse 1
     LDA      ($E0),y                   ; 0x19cac $9C9C B1 E0                   ;
     BEQ      L9C3D                     ; 0x19cae $9C9E F0 9D                   ;
     JSR      Get_Note_Duration                     ; 0x19cb0 $9CA0 20 6F 90                ;
-    STA      $07E7                     ; 0x19cb3 $9CA3 8D E7 07                ;
-    LDA      $07FE                     ; 0x19cb6 $9CA6 AD FE 07                ;
+    STA      bss_07E7                     ; 0x19cb3 $9CA3 8D E7 07                ;
+    LDA      bss_07FE                     ; 0x19cb6 $9CA6 AD FE 07                ;
     BNE      L9CDE                     ; 0x19cb9 $9CA9 D0 33                   ;
     TXA                                ; 0x19cbb $9CAB 8A                      ;
     AND      #$3E                      ; 0x19cbc $9CAC 29 3E                   ;;Keep Bits:0011_1110
     JSR      Play_Note_On_Pulse2                     ; 0x19cbe $9CAE 20 67 90                ;
     BEQ      L9CC3                     ; 0x19cc1 $9CB1 F0 10                   ;
-    LDA      $07FB                     ; 0x19cc3 $9CB3 AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19cc3 $9CB3 AD FB 07                ;
     AND      #$04                      ; 0x19cc6 $9CB6 29 04                   ;;Keep Bits:0000_0100
     BEQ      L9CBE                     ; 0x19cc8 $9CB8 F0 04                   ;
     LDA      #$18                      ; 0x19cca $9CBA A9 18                   ;;A = #$18 0001_1000
@@ -2414,15 +2414,15 @@ L9C91:                                                                          
 L9CBE:                                                                          ;
     LDA      #$2F                      ; 0x19cce $9CBE A9 2F                   ;;A = #$2f 0010_1111
 L9CC0:                                                                          ;
-    STA      $07E3                     ; 0x19cd0 $9CC0 8D E3 07                ;
+    STA      bss_07E3                     ; 0x19cd0 $9CC0 8D E3 07                ;
 L9CC3:                                                                          ;
-    LDA      $07FE                     ; 0x19cd3 $9CC3 AD FE 07                ;
+    LDA      bss_07FE                     ; 0x19cd3 $9CC3 AD FE 07                ;
     BNE      L9CDE                     ; 0x19cd6 $9CC6 D0 16                   ;
     JSR      Vibrato_On_Pulse2                     ; 0x19cd8 $9CC8 20 97 90                ;
-    LDA      $07E3                     ; 0x19cdb $9CCB AD E3 07                ;
+    LDA      bss_07E3                     ; 0x19cdb $9CCB AD E3 07                ;
     BEQ      L9CD4                     ; 0x19cde $9CCE F0 04                   ;
     LSR                                ; 0x19ce0 $9CD0 4A                      ;
-    DEC      $07E3                     ; 0x19ce1 $9CD1 CE E3 07                ;
+    DEC      bss_07E3                     ; 0x19ce1 $9CD1 CE E3 07                ;
 L9CD4:                                                                          ;
     TAY                                ; 0x19ce4 $9CD4 A8                      ;
     LDA      L9135,y                   ; 0x19ce5 $9CD5 B9 35 91                ;
@@ -2430,27 +2430,27 @@ L9CD4:                                                                          
     LDY      #$7F                      ; 0x19ce9 $9CD9 A0 7F                   ;;Y = #$7f 0111_1111
     JSR      Configure_Pulse2_Channel                     ; 0x19ceb $9CDB 20 38 90                ;
 L9CDE:                                                                          ;
-    LDA      $07FF                     ; 0x19cee $9CDE AD FF 07                ;
-    ORA      $07DF                     ; 0x19cf1 $9CE1 0D DF 07                ;
+    LDA      bss_07FF                     ; 0x19cee $9CDE AD FF 07                ;
+    ORA      bss_07DF                     ; 0x19cf1 $9CE1 0D DF 07                ;
     BEQ      L9CEB                     ; 0x19cf4 $9CE4 F0 05                   ;
     LDA      #$00                      ; 0x19cf6 $9CE6 A9 00                   ;;A = #$00 0000_0000
-    STA      $07E2                     ; 0x19cf8 $9CE8 8D E2 07                ;
+    STA      bss_07E2                     ; 0x19cf8 $9CE8 8D E2 07                ;
 L9CEB:                                                                          ;
-    DEC      $07E6                     ; 0x19cfb $9CEB CE E6 07                ;
+    DEC      bss_07E6                     ; 0x19cfb $9CEB CE E6 07                ;
     BNE      L9D1E                     ; 0x19cfe $9CEE D0 2E                   ;
-    LDY      $07EA                     ; 0x19d00 $9CF0 AC EA 07                ;; Pulse 2
-    INC      $07EA                     ; 0x19d03 $9CF3 EE EA 07                ;; Pulse 2
+    LDY      bss_07EA                     ; 0x19d00 $9CF0 AC EA 07                ;; Pulse 2
+    INC      bss_07EA                     ; 0x19d03 $9CF3 EE EA 07                ;; Pulse 2
     LDA      ($E0),y                   ; 0x19d06 $9CF6 B1 E0                   ;
     JSR      Get_Note_Duration                     ; 0x19d08 $9CF8 20 6F 90                ;
-    STA      $07E6                     ; 0x19d0b $9CFB 8D E6 07                ;
-    LDA      $07FF                     ; 0x19d0e $9CFE AD FF 07                ;
-    ORA      $07DF                     ; 0x19d11 $9D01 0D DF 07                ;
+    STA      bss_07E6                     ; 0x19d0b $9CFB 8D E6 07                ;
+    LDA      bss_07FF                     ; 0x19d0e $9CFE AD FF 07                ;
+    ORA      bss_07DF                     ; 0x19d11 $9D01 0D DF 07                ;
     BNE      L9D3C                     ; 0x19d14 $9D04 D0 36                   ;
     TXA                                ; 0x19d16 $9D06 8A                      ;
     AND      #$3E                      ; 0x19d17 $9D07 29 3E                   ;;Keep Bits:0011_1110
     JSR      Play_Note_On_Pulse1                     ; 0x19d19 $9D09 20 42 90                ;
     BEQ      L9D1E                     ; 0x19d1c $9D0C F0 10                   ;
-    LDA      $07FB                     ; 0x19d1e $9D0E AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19d1e $9D0E AD FB 07                ;
     AND      #$04                      ; 0x19d21 $9D11 29 04                   ;;Keep Bits:0000_0100
     BEQ      L9D19                     ; 0x19d23 $9D13 F0 04                   ;
     LDA      #$18                      ; 0x19d25 $9D15 A9 18                   ;;A = #$18 0001_1000
@@ -2458,16 +2458,16 @@ L9CEB:                                                                          
 L9D19:                                                                          ;
     LDA      #$2F                      ; 0x19d29 $9D19 A9 2F                   ;;A = #$2f 0010_1111
 L9D1B:                                                                          ;
-    STA      $07E2                     ; 0x19d2b $9D1B 8D E2 07                ;
+    STA      bss_07E2                     ; 0x19d2b $9D1B 8D E2 07                ;
 L9D1E:                                                                          ;
-    LDA      $07FF                     ; 0x19d2e $9D1E AD FF 07                ;
-    ORA      $07DF                     ; 0x19d31 $9D21 0D DF 07                ;
+    LDA      bss_07FF                     ; 0x19d2e $9D1E AD FF 07                ;
+    ORA      bss_07DF                     ; 0x19d31 $9D21 0D DF 07                ;
     BNE      L9D3C                     ; 0x19d34 $9D24 D0 16                   ;
     JSR      Vibrato_On_Pulse1                     ; 0x19d36 $9D26 20 89 90                ;
-    LDA      $07E2                     ; 0x19d39 $9D29 AD E2 07                ;
+    LDA      bss_07E2                     ; 0x19d39 $9D29 AD E2 07                ;
     BEQ      L9D32                     ; 0x19d3c $9D2C F0 04                   ;
     LSR                                ; 0x19d3e $9D2E 4A                      ;
-    DEC      $07E2                     ; 0x19d3f $9D2F CE E2 07                ;
+    DEC      bss_07E2                     ; 0x19d3f $9D2F CE E2 07                ;
 L9D32:                                                                          ;
     TAY                                ; 0x19d42 $9D32 A8                      ;
     LDA      L9135,y                   ; 0x19d43 $9D33 B9 35 91                ;
@@ -2475,17 +2475,17 @@ L9D32:                                                                          
     LDY      #$7F                      ; 0x19d47 $9D37 A0 7F                   ;;Y = #$7f 0111_1111
     JSR      Configure_Pulse1_Channel                     ; 0x19d49 $9D39 20 31 90                ;
 L9D3C:                                                                          ;
-    DEC      $07E5                     ; 0x19d4c $9D3C CE E5 07                ;
+    DEC      bss_07E5                     ; 0x19d4c $9D3C CE E5 07                ;
     BNE      L9D6C                     ; 0x19d4f $9D3F D0 2B                   ;
-    LDY      $07E9                     ; 0x19d51 $9D41 AC E9 07                ;; Triangle
-    INC      $07E9                     ; 0x19d54 $9D44 EE E9 07                ;; Triangle
+    LDY      bss_07E9                     ; 0x19d51 $9D41 AC E9 07                ;; Triangle
+    INC      bss_07E9                     ; 0x19d54 $9D44 EE E9 07                ;; Triangle
     LDA      ($E0),y                   ; 0x19d57 $9D47 B1 E0                   ;
     JSR      Get_Note_Duration                     ; 0x19d59 $9D49 20 6F 90                ;
-    STA      $07E5                     ; 0x19d5c $9D4C 8D E5 07                ;
-    LDA      $07FD                     ; 0x19d5f $9D4F AD FD 07                ;
+    STA      bss_07E5                     ; 0x19d5c $9D4C 8D E5 07                ;
+    LDA      bss_07FD                     ; 0x19d5f $9D4F AD FD 07                ;
     AND      #$0A                      ; 0x19d62 $9D52 29 0A                   ;;Keep Bits:0000_1010
     BNE      L9D6C                     ; 0x19d64 $9D54 D0 16                   ;
-    LDA      $07FB                     ; 0x19d66 $9D56 AD FB 07                ;
+    LDA      bss_07FB                     ; 0x19d66 $9D56 AD FB 07                ;
     AND      #$10                      ; 0x19d69 $9D59 29 10                   ;;Keep Bits:0001_0000
     BNE      L9D61                     ; 0x19d6b $9D5B D0 04                   ;
     LDY      #$1F                      ; 0x19d6d $9D5D A0 1F                   ;;Y = #$1f 0001_1111
@@ -2498,23 +2498,23 @@ L9D63:                                                                          
     AND      #$3E                      ; 0x19d77 $9D67 29 3E                   ;;Keep Bits:0011_1110
     JSR      Play_Note_On_Triangle                     ; 0x19d79 $9D69 20 6B 90                ;
 L9D6C:                                                                          ;
-    LDA      $07E8                     ; 0x19d7c $9D6C AD E8 07                ;; Noise
+    LDA      bss_07E8                     ; 0x19d7c $9D6C AD E8 07                ;; Noise
     BEQ      L9DA7                     ; 0x19d7f $9D6F F0 36                   ;
-    DEC      $07E4                     ; 0x19d81 $9D71 CE E4 07                ;
+    DEC      bss_07E4                     ; 0x19d81 $9D71 CE E4 07                ;
     BNE      L9DA7                     ; 0x19d84 $9D74 D0 31                   ;
 L9D76:                                                                          ;
-    LDY      $07E8                     ; 0x19d86 $9D76 AC E8 07                ;; Noise
-    INC      $07E8                     ; 0x19d89 $9D79 EE E8 07                ;; Noise
+    LDY      bss_07E8                     ; 0x19d86 $9D76 AC E8 07                ;; Noise
+    INC      bss_07E8                     ; 0x19d89 $9D79 EE E8 07                ;; Noise
     LDA      ($E0),y                   ; 0x19d8c $9D7C B1 E0                   ;
     BNE      L9D87                     ; 0x19d8e $9D7E D0 07                   ;
     LDA      $E4                       ; 0x19d90 $9D80 A5 E4                   ;
-    STA      $07E8                     ; 0x19d92 $9D82 8D E8 07                ;; Noise
+    STA      bss_07E8                     ; 0x19d92 $9D82 8D E8 07                ;; Noise
     BNE      L9D76                     ; 0x19d95 $9D85 D0 EF                   ;
 L9D87:                                                                          ;
     JSR      Get_Note_Duration                     ; 0x19d97 $9D87 20 6F 90                ;
-    STA      $07E4                     ; 0x19d9a $9D8A 8D E4 07                ;
-    LDA      $07FD                     ; 0x19d9d $9D8D AD FD 07                ;
-    ORA      $07E0                     ; 0x19da0 $9D90 0D E0 07                ;
+    STA      bss_07E4                     ; 0x19d9a $9D8A 8D E4 07                ;
+    LDA      bss_07FD                     ; 0x19d9d $9D8D AD FD 07                ;
+    ORA      bss_07E0                     ; 0x19da0 $9D90 0D E0 07                ;
     BNE      L9DA7                     ; 0x19da3 $9D93 D0 12                   ;
     TXA                                ; 0x19da5 $9D95 8A                      ;
     AND      #$3E                      ; 0x19da6 $9D96 29 3E                   ;;Keep Bits:0011_1110

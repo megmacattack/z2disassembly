@@ -321,8 +321,8 @@
 .global bss_079C
 .global bss_079D
 .global bss_079F
-.global bss_07A0
-.global bss_07A1
+.global new_game_plus
+.global player_name
 .global bss_07A9
 .global bss_07AA
 .global bss_07AB

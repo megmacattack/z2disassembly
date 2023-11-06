@@ -535,8 +535,8 @@ bss_079D: .res 1 ; unknown size
 
 setpos $079F
 bss_079F: .res 1 ; unknown size
-bss_07A0: .res 1 ; unknown size
-bss_07A1: .res 1 ; unknown size
+new_game_plus: .res 1
+player_name: .res 8
 
 setpos $07A9
 bss_07A9: .res 1 ; unknown size

@@ -577,7 +577,7 @@ LC3C0:                                                                          
     BPL      LC3C0                     ; 0x1c3d7 $C3C7 10 F7                   ;
     LDY      #$07                      ; 0x1c3d9 $C3C9 A0 07                   ; Y = 07
 LC3CB:                                                                          ;
-    LDA      bss_07A1,y                   ; 0x1c3db $C3CB B9 A1 07                ;
+    LDA      player_name,y                   ; 0x1c3db $C3CB B9 A1 07                ;
     STA      bss_0305,y                   ; 0x1c3de $C3CE 99 05 03                ;
     DEY                                ; 0x1c3e1 $C3D1 88                      ;
     BPL      LC3CB                     ; 0x1c3e2 $C3D2 10 F7                   ;

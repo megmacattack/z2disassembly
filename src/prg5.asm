@@ -1825,7 +1825,7 @@ L921B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L921C:                                                                          ;
     LDA      #$01                      ; 0x1522c $921C A9 01                   ; A = 01
-    STA      bss_07A0                     ; 0x1522e $921E 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
+    STA      new_game_plus                     ; 0x1522e $921E 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     LDA      #$00                      ; 0x15231 $9221 A9 00                   ; A = 00
     STA      player_exp                     ; 0x15233 $9223 8D 75 07                ; Current Experience (high byte)
     STA      player_exp+1                     ; 0x15236 $9226 8D 76 07                ; Current Experience (low byte)
@@ -5610,7 +5610,7 @@ LB2B4:                                                                          
     LDA      $19                       ; 0x172c4 $B2B4 A5 19                   ; Position Code for Fairy Cursor
     STA      bss_0772                     ; 0x172c6 $B2B6 8D 72 07                ; Current Game Slot
     JSR      LB911                     ; 0x172c9 $B2B9 20 11 B9                ;
-    LDA      bss_07A0                     ; 0x172cc $B2BC AD A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
+    LDA      new_game_plus                     ; 0x172cc $B2BC AD A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     CMP      #$01                      ; 0x172cf $B2BF C9 01                   ;
     BNE      LB2EE                     ; 0x172d1 $B2C1 D0 2B                   ;
     LDA      player_skills                     ; 0x172d3 $B2C3 AD 96 07                ; Down/Up Techs
@@ -5635,7 +5635,7 @@ LB2D9:                                                                          
     LDA      L0000                     ; 0x172f4 $B2E4 A5 00                   ;
     STA      player_skills                     ; 0x172f6 $B2E6 8D 96 07                ; Down/Up Techs
     LDA      #$02                      ; 0x172f9 $B2E9 A9 02                   ; A = 02
-    STA      bss_07A0                     ; 0x172fb $B2EB 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
+    STA      new_game_plus                     ; 0x172fb $B2EB 8D A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
 LB2EE:                                                                          ;
     LDX      #$0F                      ; 0x172fe $B2EE A2 0F                   ; X = 0F
     LDA      #$00                      ; 0x17300 $B2F0 A9 00                   ; A = 00

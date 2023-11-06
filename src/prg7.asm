@@ -5980,10 +5980,10 @@ LE7BB:                                                                          
     STA      $EF                       ; 0x1e7d9 $E7C9 85 EF                   ; Sound Effects Type 4
     TYA                                ; 0x1e7db $E7CB 98                      ;
     TAX                                ; 0x1e7dc $E7CC AA                      ;
-    INC      player_exp,x                   ; 0x1e7dd $E7CD FE 75 07                ; 0E = Magic Containers, 0F = Heart Containers
+    INC      player_stats,x                   ; 0x1e7dd $E7CD FE 75 07                ; 0E = Magic Containers, 0F = Heart Containers
     CPX      #$0E                      ; 0x1e7e0 $E7D0 E0 0E                   ;
     BNE      LE7E3                     ; 0x1e7e2 $E7D2 D0 0F                   ;
-    LDY      player_exp,x                   ; 0x1e7e4 $E7D4 BC 75 07                ;
+    LDY      player_stats,x                   ; 0x1e7e4 $E7D4 BC 75 07                ;
     CPY      #$07                      ; 0x1e7e7 $E7D7 C0 07                   ; check if Link has 7 Magic Containers
     BCC      LE7E3                     ; 0x1e7e9 $E7D9 90 08                   ;
     LDA      bss_079D                     ; 0x1e7eb $E7DB AD 9D 07                ;; Have 7 Magic Containers (08)

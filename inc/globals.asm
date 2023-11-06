@@ -13,6 +13,7 @@
 .global PRG_bank
 .global player_magic
 .global player_life
+.global player_stats
 .global player_exp
 .global player_levels
 .global player_atk_lvl

@@ -491,6 +491,7 @@ bss_0771: .res 1 ; unknown size
 bss_0772: .res 1 ; unknown size
 player_magic: .res 1
 player_life: .res 1
+player_stats: ; the player's overall stats when selected indirectly (ie. `lda player_stats,x`)
 player_exp: .res 2
 player_levels: ; the player's levels when selected indirectly (ie. `lda player_life_lvl,x`)
 player_atk_lvl: .res 1

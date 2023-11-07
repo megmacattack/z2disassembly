@@ -1,3 +1,3 @@
 .macro setpos base
-.res base-*, $ff
+.res base-*
 .endmacro

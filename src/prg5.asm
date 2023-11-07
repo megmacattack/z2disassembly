@@ -2462,7 +2462,7 @@ L983E:                                                                          
     BNE      L9852                     ; 0x15853 $9843 D0 0D                   ;
     LDA      #$0D                      ; 0x15855 $9845 A9 0D                   ;;A = #$0d 0000_1101
 L9847:                                                                          ;
-    STA      bss_0725                     ; 0x15857 $9847 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x15857 $9847 8D 25 07                ;; PPU Macro Selector
     LDA      #$80                      ; 0x1585a $984A A9 80                   ;;A = #$80 1000_0000
     STA      $EB                       ; 0x1585c $984C 85 EB                   ;; Music; Music
     LDA      #$04                      ; 0x1585e $984E A9 04                   ;;A = #$04 0000_0100
@@ -2939,7 +2939,7 @@ L9B3A:                                                                          
     CMP      #$81                      ; 0x15b4d $9B3D C9 81                   ;
     BNE      L9B46                     ; 0x15b4f $9B3F D0 05                   ;
     LDA      #$0E                      ; 0x15b51 $9B41 A9 0E                   ;;A = #$0e 0000_1110
-    STA      bss_0725                     ; 0x15b53 $9B43 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x15b53 $9B43 8D 25 07                ;; PPU Macro Selector
 L9B46:                                                                          ;
     LDA      bss_0479                     ; 0x15b56 $9B46 AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
     ORA      bss_0504                     ; 0x15b59 $9B49 0D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
@@ -4024,7 +4024,7 @@ LA290:                                                                          
     LDA      #$07                      ; 0x162ac $A29C A9 07                   ;;A = #$07 0000_0111
     STA      bss_0362                     ; 0x162ae $A29E 8D 62 03                ;; PPU Macro Offset
     LDA      #$01                      ; 0x162b1 $A2A1 A9 01                   ;;A = #$01 0000_0001
-    STA      bss_0725                     ; 0x162b3 $A2A3 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x162b3 $A2A3 8D 25 07                ;; PPU Macro Selector
 LA2A6:                                                                          ;
     RTS                                ; 0x162b6 $A2A6 60                      ;
                                                                                ;
@@ -4097,7 +4097,7 @@ LA30F:                                                                          
     STA      bss_0362                     ; 0x16322 $A312 8D 62 03                ;; PPU Macro Offset
 LA315:                                                                          ;
     LDA      #$01                      ; 0x16325 $A315 A9 01                   ;;A = #$01 0000_0001
-    STA      bss_0725                     ; 0x16327 $A317 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x16327 $A317 8D 25 07                ;; PPU Macro Selector
     LDX      $10                       ; 0x1632a $A31A A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x1632c $A31C 60                      ;
                                                                                ;
@@ -4494,7 +4494,7 @@ bank5_A610:                                                                    ;
     STA      OAM_ADDR                  ; 0x16649 $A639 8D 03 20                ;
     LDA      #$02                      ; 0x1664c $A63C A9 02                   ; A = #$02 0000_0010
     STA      OAM_DMA                   ; 0x1664e $A63E 8D 14 40                ;
-    LDA      bss_0725                     ; 0x16651 $A641 AD 25 07                ; PPU Macro Selector
+    LDA      PPU_macro_select                     ; 0x16651 $A641 AD 25 07                ; PPU Macro Selector
     ASL                                ; 0x16654 $A644 0A                      ;
     TAX                                ; 0x16655 $A645 AA                      ;
     LDA      bank5_table_A600,x        ; 0x16656 $A646 BD 00 A6                ;
@@ -4517,7 +4517,7 @@ bank5_A610:                                                                    ;
     LDA      $FE                       ; 0x16683 $A673 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     STA      PPU_MASK                  ; 0x16685 $A675 8D 01 20                ;
     STY      bss_0301                     ; 0x16688 $A678 8C 01 03                ; ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    STY      bss_0725                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector
+    STY      PPU_macro_select                     ; 0x1668b $A67B 8C 25 07                ; PPU Macro Selector
     DEY                                ; 0x1668e $A67E 88                      ;
     STY      bss_0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
     JSR      bank7_Title_Music_Tick              ; 0x16692 $A682 20 32 C0                ;
@@ -5424,13 +5424,13 @@ LAF1F:                                                                          
 .byt    $34                            ; 0x16f39 $AF29 34                      ;
 .byt    $AF                            ; 0x16f3a $AF2A AF                      ;
     LDA      #$01                      ; 0x16f3b $AF2B A9 01                   ;;A = #$01 0000_0001
-    STA      bss_0725                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
     INC      bss_073D                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
     RTS                                ; 0x16f43 $AF33 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     LDA      #$04                      ; 0x16f44 $AF34 A9 04                   ;;A = #$04 0000_0100
-    STA      bss_0725                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
     INC      game_mode                     ; 0x16f49 $AF39 EE 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x16f4c $AF3C 60                      ;
                                                                                ;
@@ -5565,7 +5565,7 @@ bank5_Load_Saved_Games_Data:                                                    
     LDY      bss_073E                     ; 0x1727d $B26D AC 3E 07                ;
     BNE      LB27B                     ; 0x17280 $B270 D0 09                   ;
     LDA      #$02                      ; 0x17282 $B272 A9 02                   ; A = 02
-    STA      bss_0725                     ; 0x17284 $B274 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x17284 $B274 8D 25 07                ;; PPU Macro Selector
     INC      bss_073E                     ; 0x17287 $B277 EE 3E 07                ;
     RTS                                ; 0x1728a $B27A 60                      ;
                                                                                ;
@@ -5575,7 +5575,7 @@ LB27B:                                                                          
     BNE      LB28B                     ; 0x1728c $B27C D0 0D                   ;
     INC      bss_073E                     ; 0x1728e $B27E EE 3E 07                ;
     LDA      #$05                      ; 0x17291 $B281 A9 05                   ; A = 05
-    STA      bss_0725                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector
     LDA      #$00                      ; 0x17296 $B286 A9 00                   ; A = 00
     STA      $19                       ; 0x17298 $B288 85 19                   ; Position Code for Fairy Cursor
     RTS                                ; 0x1729a $B28A 60                      ;
@@ -5850,7 +5850,7 @@ bank5_code25:                                                                   
     LDY      bss_073E                     ; 0x17435 $B425 AC 3E 07                ;
     BNE      LB433                     ; 0x17438 $B428 D0 09                   ;
     LDA      #$06                      ; 0x1743a $B42A A9 06                   ; A = 06
-    STA      bss_0725                     ; 0x1743c $B42C 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1743c $B42C 8D 25 07                ;; PPU Macro Selector
     INC      bss_073E                     ; 0x1743f $B42F EE 3E 07                ;
     RTS                                ; 0x17442 $B432 60                      ;
                                                                                ;
@@ -5859,7 +5859,7 @@ LB433:                                                                          
     DEY                                ; 0x17443 $B433 88                      ;
     BNE      LB443                     ; 0x17444 $B434 D0 0D                   ;
     LDA      #$07                      ; 0x17446 $B436 A9 07                   ; A = 07
-    STA      bss_0725                     ; 0x17448 $B438 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x17448 $B438 8D 25 07                ;; PPU Macro Selector
     INC      bss_073E                     ; 0x1744b $B43B EE 3E 07                ;
     LDA      #$00                      ; 0x1744e $B43E A9 00                   ; A = 00
     STA      $19                       ; 0x17450 $B440 85 19                   ; Position Code for Fairy Cursor
@@ -6200,7 +6200,7 @@ LB678:                                                                          
     LDY      bss_073E                     ; 0x17688 $B678 AC 3E 07                ;
     BNE      LB692                     ; 0x1768b $B67B D0 15                   ;
     LDA      #$06                      ; 0x1768d $B67D A9 06                   ; A = 06
-    STA      bss_0725                     ; 0x1768f $B67F 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1768f $B67F 8D 25 07                ;; PPU Macro Selector
     INC      bss_073E                     ; 0x17692 $B682 EE 3E 07                ;
     LDA      #$00                      ; 0x17695 $B685 A9 00                   ; A = 00
     STA      $19                       ; 0x17697 $B687 85 19                   ;;fall_or_invisible (0=invisible, 1=normal, 2~FF=fall in hole); Position Code for Fairy Cursor (Selection Screen)	(and) ;draw link's sprite =yes/no

@@ -208,7 +208,7 @@ L813F:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown1:                                                                 ;
     LDA      #$05                      ; 0x150 $8140 A9 05                     ; A = 05
-    STA      bss_0725                     ; 0x152 $8142 8D 25 07                  ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x152 $8142 8D 25 07                  ;; PPU Macro Selector
     INC      bss_073D                     ; 0x155 $8145 EE 3D 07                  ;; Routine Index
     RTS                                ; 0x158 $8148 60                        ;
                                                                                ;
@@ -264,7 +264,7 @@ L817B:                                                                          
     STA      $71                       ; 0x1af $819F 85 71                     ; related to OW display
     LDA      #$0A                      ; 0x1b1 $81A1 A9 0A                     ; A = 0A
 L81A3:                                                                          ;
-    STA      bss_0725                     ; 0x1b3 $81A3 8D 25 07                  ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1b3 $81A3 8D 25 07                  ;; PPU Macro Selector
     INC      bss_0726                     ; 0x1b6 $81A6 EE 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     INC      game_mode                     ; 0x1b9 $81A9 EE 36 07                  ;; Game Mode ; screen intro type
 L81AC:                                                                          ;
@@ -2354,7 +2354,7 @@ L8F57:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L8F58:                                                                          ;
     LDA      #$01                      ; 0xf68 $8F58 A9 01                     ; A = 01
-    STA      bss_0725                     ; 0xf6a $8F5A 8D 25 07                  ; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0xf6a $8F5A 8D 25 07                  ; PPU Macro Selector
     LDA      $00                       ; 0xf6d $8F5D A5 00                     ;
     STA      bss_0363,x                   ; 0xf6f $8F5F 9D 63 03                  ;
     LDA      $01                       ; 0xf72 $8F62 A5 01                     ;
@@ -4160,7 +4160,7 @@ bank0_unknown26:                                                                
     STA      bss_03A4,y                   ; 0x1b17 $9B07 99 A4 03                 ;
     STY      bss_03A3                     ; 0x1b1a $9B0A 8C A3 03                 ;
     LDA      #$02                      ; 0x1b1d $9B0D A9 02                    ; A = 02
-    STA      bss_0725                     ; 0x1b1f $9B0F 8D 25 07                 ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1b1f $9B0F 8D 25 07                 ;; PPU Macro Selector
     RTS                                ; 0x1b22 $9B12 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5292,7 +5292,7 @@ LA3A5:                                                                          
     STA      bss_0363,y                   ; 0x23b7 $A3A7 99 63 03                 ;
     STY      bss_0362                     ; 0x23ba $A3AA 8C 62 03                 ;; PPU Macro Offset
     LDA      #$01                      ; 0x23bd $A3AD A9 01                    ; A = 01
-    STA      bss_0725                     ; 0x23bf $A3AF 8D 25 07                 ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x23bf $A3AF 8D 25 07                 ;; PPU Macro Selector
     RTS                                ; 0x23c2 $A3B2 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5908,7 +5908,7 @@ LA726:                                                                          
     LDA      #$FF                      ; 0x27a4 $A794 A9 FF                    ; A = FF
     STA      bss_036D,x                   ; 0x27a6 $A796 9D 6D 03                 ;
     LDA      #$01                      ; 0x27a9 $A799 A9 01                    ; A = 01
-    STA      bss_0725                     ; 0x27ab $A79B 8D 25 07                 ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x27ab $A79B 8D 25 07                 ;; PPU Macro Selector
     LDX      $10                       ; 0x27ae $A79E A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x27b0 $A7A0 60                       ;
                                                                                ;
@@ -6004,7 +6004,7 @@ Some_Palettes_Data_related_to_Falling_Animation:                                
 bank0_unknown41:                                                                ;
     JSR      bank7_Remove_All_Sprites  ; 0x286a $A85A 20 4C D2                 ;
     LDA      #$06                      ; 0x286d $A85D A9 06                    ; A = 06
-    STA      bss_0725                     ; 0x286f $A85F 8D 25 07                 ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x286f $A85F 8D 25 07                 ;; PPU Macro Selector
     INC      bss_073D                     ; 0x2872 $A862 EE 3D 07                 ;; Routine Index
     RTS                                ; 0x2875 $A865 60                       ;
                                                                                ;

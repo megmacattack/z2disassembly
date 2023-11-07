@@ -101,7 +101,7 @@ bank7_NMI_Entry_Point:                                                         ;
     STA      PPU_CTRL                  ; 0x1c09e $C08E 8D 00 20                ; PPU Control Register 1
     LDA      bss_0727                     ; 0x1c0a1 $C091 AD 27 07                ;
     BEQ      :+                        ; 0x1c0a4 $C094 F0 00                   ; useless branching
-:                                                                              ;
+    :                                                                              ;
     LDY      #$00                      ; 0x1c0a6 $C096 A0 00                   ; Y = 00
     LDA      $FE                       ; 0x1c0a8 $C098 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     AND      #$E0                      ; 0x1c0aa $C09A 29 E0                   ; keep bits xxx. ....
@@ -125,7 +125,7 @@ bank7_NMI_Entry_Point:                                                         ;
     BEQ      :+                        ; 0x1c0d5 $C0C5 F0 03                   ;
         JSR      bank7_code52              ; 0x1c0d7 $C0C7 20 82 FD                ; related to palette loading (side view)
     :                                                                              ;
-    LDA      bss_0725                     ; 0x1c0da $C0CA AD 25 07                ; PPU Macro Selector
+    LDA      PPU_macro_select                     ; 0x1c0da $C0CA AD 25 07                ; PPU Macro Selector
     ASL                                ; 0x1c0dd $C0CD 0A                      ;
     TAX                                ; 0x1c0de $C0CE AA                      ;
     LDA      bank7_PPU_Adresses_according_to_725_as_index,x; 0x1c0df $C0CF BD 3D C0; refer to table at $1C03D
@@ -151,7 +151,7 @@ bank7_NMI_Entry_Point:                                                         ;
     :                                                                              ;
     LDA      $FE                       ; 0x1c113 $C103 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     STA      PPU_MASK                  ; 0x1c115 $C105 8D 01 20                ; PPU Control Register 2
-    LDX      bss_0725                     ; 0x1c118 $C108 AE 25 07                ; PPU Macro Selector
+    LDX      PPU_macro_select                     ; 0x1c118 $C108 AE 25 07                ; PPU Macro Selector
     BEQ      :++                       ; 0x1c11b $C10B F0 0F                   ;
         INY                                ; 0x1c11d $C10D C8                      ;
         CPX      #$01                      ; 0x1c11e $C10E E0 01                   ;
@@ -161,16 +161,16 @@ bank7_NMI_Entry_Point:                                                         ;
             CPX      #$02                      ; 0x1c125 $C115 E0 02                   ;
             BNE      :+++                      ; 0x1c127 $C117 D0 13                   ;
         :                                                                              ;
-        DEC      bss_0725                     ; 0x1c129 $C119 CE 25 07                ; PPU Macro Selector
+        DEC      PPU_macro_select                     ; 0x1c129 $C119 CE 25 07                ; PPU Macro Selector
     :                                                                              ;
     LDX      bank7_table0,y            ; 0x1c12c $C11C BE 5D C0                ;
     LDA      #$00                      ; 0x1c12f $C11F A9 00                   ; A = 00
     STA      bss_0301,x                   ; 0x1c131 $C121 9D 01 03                ;
     LDA      #$FF                      ; 0x1c134 $C124 A9 FF                   ; A = FF
     STA      bss_0302,x                   ; 0x1c136 $C126 9D 02 03                ;
-    LDA      bss_0725                     ; 0x1c139 $C129 AD 25 07                ; PPU Macro Selector
+    LDA      PPU_macro_select                     ; 0x1c139 $C129 AD 25 07                ; PPU Macro Selector
 :                                                                              ;
-    STA      bss_0725                     ; 0x1c13c $C12C 8D 25 07                ; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1c13c $C12C 8D 25 07                ; PPU Macro Selector
     JSR      bank7_related_to_sound    ; 0x1c13f $C12F 20 C1 C1                ; related to sound
     LDA      $F7                       ; 0x1c142 $C132 A5 F7                   ; Controller 1 Buttons Held
     STA      bss_0744                     ; 0x1c144 $C134 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
@@ -558,7 +558,7 @@ bank7_pointer_table7:                                                           
 ; ---------------------------------------------------------------------------- ;
 bank7_code10:                                                                   ;
     LDA      #$0C                      ; 0x1c3b5 $C3A5 A9 0C                   ; A = 0C
-    STA      bss_0725                     ; 0x1c3b7 $C3A7 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1c3b7 $C3A7 8D 25 07                ;; PPU Macro Selector
     LDA      #$00                      ; 0x1c3ba $C3AA A9 00                   ; A = 00
     STA      bss_0760                     ; 0x1c3bc $C3AC 8D 60 07                ;
     INC      bss_0726                     ; 0x1c3bf $C3AF EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
@@ -1475,7 +1475,7 @@ bank7_code15:                                                                   
 LCA15:                                                                          ;
     LDA      #$04                      ; 0x1ca25 $CA15 A9 04                   ; A = 04
 LCA17:                                                                          ;
-    STA      bss_0725                     ; 0x1ca27 $CA17 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1ca27 $CA17 8D 25 07                ;; PPU Macro Selector
     RTS                                ; 0x1ca2a $CA1A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2563,7 +2563,7 @@ LD150:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LD158:                                                                          ;
-    STA      bss_0725                     ; 0x1d168 $D158 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1d168 $D158 8D 25 07                ;; PPU Macro Selector
     RTS                                ; 0x1d16b $D15B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2920,10 +2920,10 @@ bank7_Controllers_Input_Capture:                                               ;
 @Loop:                                                                         ;
     LDA      JOY1                      ; 0x1d382 $D372 AD 16 40                ;
     LSR                                ; 0x1d385 $D375 4A                      ;
-    ROL      $F5                       ; 0x1d386 $D376 26 F5                   ; Controller 1 Buttons Pressed
+    ROL      joy1_pressed                       ; 0x1d386 $D376 26 F5                   ; Controller 1 Buttons Pressed
     LDA      JOY2                      ; 0x1d388 $D378 AD 17 40                ;
     LSR                                ; 0x1d38b $D37B 4A                      ;
-    ROL      $F6                       ; 0x1d38c $D37C 26 F6                   ; Controller 2 Buttons Pressed
+    ROL      joy2_pressed                       ; 0x1d38c $D37C 26 F6                   ; Controller 2 Buttons Pressed
     DEX                                ; 0x1d38e $D37E CA                      ;
     BNE      @Loop                     ; 0x1d38f $D37F D0 F1                   ;
     RTS                                ; 0x1d391 $D381 60                      ;
@@ -4308,7 +4308,7 @@ bank7_code29:                                                                   
     LDA      #$E8                      ; 0x1dcef $DCDF A9 E8                   ; A = E8
     STA      bss_074B                     ; 0x1dcf1 $DCE1 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$0F                      ; 0x1dcf4 $DCE4 A9 0F                   ; A = 0F
-    STA      bss_0725                     ; 0x1dcf6 $DCE6 8D 25 07                ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x1dcf6 $DCE6 8D 25 07                ;; PPU Macro Selector
     LDA      #$80                      ; 0x1dcf9 $DCE9 A9 80                   ; A = 80
     STA      $EC                       ; 0x1dcfb $DCEB 85 EC                   ; Sound Effects Type 1
 LDCED:                                                                          ;
@@ -4719,7 +4719,7 @@ LDF7C:                                                                          
     DEX                                ; 0x1df93 $DF83 CA                      ;
     BPL      LDF7C                     ; 0x1df94 $DF84 10 F6                   ;
     INX                                ; 0x1df96 $DF86 E8                      ;
-    STX      bss_0725                     ; 0x1df97 $DF87 8E 25 07                ;; PPU Macro Selector
+    STX      PPU_macro_select                     ; 0x1df97 $DF87 8E 25 07                ;; PPU Macro Selector
     RTS                                ; 0x1df9a $DF8A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

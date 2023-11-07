@@ -11,6 +11,7 @@
 .global world_number
 .global game_mode
 .global PRG_bank
+.global PPU_macro_select
 .global player_magic
 .global player_life
 .global player_stats
@@ -244,7 +245,6 @@
 .global bss_0720
 .global bss_0721
 .global bss_0722
-.global bss_0725
 .global bss_0726
 .global bss_0727
 .global bss_0728

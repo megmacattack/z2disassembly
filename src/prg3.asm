@@ -3164,7 +3164,7 @@ bank3_End_PPU_Macro:                                                            
     STA      bss_0363,y                   ; 0xf163 $B153 99 63 03                 ;
     STY      bss_0362                     ; 0xf166 $B156 8C 62 03                 ;; PPU Macro Offset
     LDA      #$01                      ; 0xf169 $B159 A9 01                    ; A = 01
-    STA      bss_0725                     ; 0xf16b $B15B 8D 25 07                 ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0xf16b $B15B 8D 25 07                 ;; PPU Macro Selector
     RTS                                ; 0xf16e $B15E 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

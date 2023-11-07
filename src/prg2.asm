@@ -573,7 +573,7 @@ bank2_Check_for_Hidden_Palace_spot:                                             
     CMP      #$2D                      ; 0x8387 $8377 C9 2D                    ; X position of Hidden Palace call spot
     BNE      bank2_Check_for_Spider_in_OW; 0x8389 $8379 D0 0C                    ;
     LDA      #$0B                      ; 0x838b $837B A9 0B                    ; A = 0B
-    STA      bss_0725                     ; 0x838d $837D 8D 25 07                 ;; PPU Macro Selector
+    STA      PPU_macro_select                     ; 0x838d $837D 8D 25 07                 ;; PPU Macro Selector
     INC      $01                       ; 0x8390 $8380 E6 01                    ; 2 tiles
     INC      $01                       ; 0x8392 $8382 E6 01                    ; south...
     JMP      bank7_forest_chop_with_hammer; 0x8394 $8384 4C 79 DF                 ;

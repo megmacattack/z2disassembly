@@ -406,7 +406,7 @@ bss_0721: .res 1 ; unknown size
 bss_0722: .res 1 ; unknown size
 
 setpos $0725
-bss_0725: .res 1 ; unknown size
+PPU_macro_select: .res 1
 bss_0726: .res 1 ; unknown size
 bss_0727: .res 1 ; unknown size
 bss_0728: .res 1 ; unknown size

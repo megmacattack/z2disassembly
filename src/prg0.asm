@@ -3478,9 +3478,9 @@ L968B:                                                                          
 Hub_Update_Routine:                                                             ;
     LDA      player_exp+1                     ; 0x169d $968D AD 76 07                 ; Current Experience (low byte)
     SEC                                ; 0x16a0 $9690 38                       ;
-    SBC      bss_0771                     ; 0x16a1 $9691 ED 71 07                 ; Exp. needed for Next Level (low byte)
+    SBC      player_next_lvl+1                     ; 0x16a1 $9691 ED 71 07                 ; Exp. needed for Next Level (low byte)
     LDA      player_exp                     ; 0x16a4 $9694 AD 75 07                 ; Current Experience (high byte)
-    SBC      bss_0770                     ; 0x16a7 $9697 ED 70 07                 ; Exp. needed for Next Level (high byte)
+    SBC      player_next_lvl                     ; 0x16a7 $9697 ED 70 07                 ; Exp. needed for Next Level (high byte)
     BCC      L96A1                     ; 0x16aa $969A 90 05                    ;
     LDA      #$01                      ; 0x16ac $969C A9 01                    ; A = 01
     STA      bss_074C                     ; 0x16ae $969E 8D 4C 07                 ;; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
@@ -3594,9 +3594,9 @@ L972E:                                                                          
     STA      bss_0311,y                   ; 0x1772 $9762 99 11 03                 ;
     PLA                                ; 0x1775 $9765 68                       ;
     STA      bss_0314,y                   ; 0x1776 $9766 99 14 03                 ;
-    LDA      bss_0770                     ; 0x1779 $9769 AD 70 07                 ;; Exp. needed for Next Level (high byte)
+    LDA      player_next_lvl                     ; 0x1779 $9769 AD 70 07                 ;; Exp. needed for Next Level (high byte)
     STA      $00                       ; 0x177c $976C 85 00                    ;
-    LDA      bss_0771                     ; 0x177e $976E AD 71 07                 ;; Exp. needed for Next Level (low byte)
+    LDA      player_next_lvl+1                     ; 0x177e $976E AD 71 07                 ;; Exp. needed for Next Level (low byte)
     JSR      Experience_Convertion_and_Display_Routine; 0x1781 $9771 20 A4 A5      ;
     TYA                                ; 0x1784 $9774 98                       ;
     LDY      bss_0301                     ; 0x1785 $9775 AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
@@ -4768,8 +4768,8 @@ LA04B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 update_next_level_exp:                                                          ;
     LDA      #$FF                      ; 0x2067 $A057 A9 FF                    ; A = FF
-    STA      bss_0770                     ; 0x2069 $A059 8D 70 07                 ; Exp. needed for Next Level (high byte)
-    STA      bss_0771                     ; 0x206c $A05C 8D 71 07                 ; Exp. needed for Next Level (low byte)
+    STA      player_next_lvl                     ; 0x2069 $A059 8D 70 07                 ; Exp. needed for Next Level (high byte)
+    STA      player_next_lvl+1                     ; 0x206c $A05C 8D 71 07                 ; Exp. needed for Next Level (low byte)
     LDX      #$02                      ; 0x206f $A05F A2 02                    ; X = 02
 LA061:                                                                          ;
     TXA                                ; 0x2071 $A061 8A                       ;
@@ -4780,15 +4780,15 @@ LA061:                                                                          
     TAY                                ; 0x2078 $A068 A8                       ;
     LDA      L9670,y                   ; 0x2079 $A069 B9 70 96                 ;
     SEC                                ; 0x207c $A06C 38                       ;
-    SBC      bss_0771                     ; 0x207d $A06D ED 71 07                 ; Exp. needed for Next Level (low byte)
+    SBC      player_next_lvl+1                     ; 0x207d $A06D ED 71 07                 ; Exp. needed for Next Level (low byte)
     LDA      L9658,y                   ; 0x2080 $A070 B9 58 96                 ;
-    SBC      bss_0770                     ; 0x2083 $A073 ED 70 07                 ; Exp. needed for Next Level (high byte)
+    SBC      player_next_lvl                     ; 0x2083 $A073 ED 70 07                 ; Exp. needed for Next Level (high byte)
     BCS      LA084                     ; 0x2086 $A076 B0 0C                    ;
     LDA      L9658,y                   ; 0x2088 $A078 B9 58 96                 ;
-    STA      bss_0770                     ; 0x208b $A07B 8D 70 07                 ; Exp. needed for Next Level (high byte)
+    STA      player_next_lvl                     ; 0x208b $A07B 8D 70 07                 ; Exp. needed for Next Level (high byte)
 LA07E:                                                                          ;
     LDA      L9670,y                   ; 0x208e $A07E B9 70 96                 ;
-    STA      bss_0771                     ; 0x2091 $A081 8D 71 07                 ; Exp. needed for Next Level (low byte)
+    STA      player_next_lvl+1                     ; 0x2091 $A081 8D 71 07                 ; Exp. needed for Next Level (low byte)
 LA084:                                                                          ;
     DEX                                ; 0x2094 $A084 CA                       ;
     BPL      LA061                     ; 0x2095 $A085 10 DA                    ;
@@ -4807,8 +4807,8 @@ LA08B:                                                                          
     INC      $04                       ; 0x20a7 $A097 E6 04                    ;
 LA099:                                                                          ;
     LDA      #$FF                      ; 0x20a9 $A099 A9 FF                    ; A = FF
-    STA      bss_0770                     ; 0x20ab $A09B 8D 70 07                 ;; Exp. needed for Next Level (high byte)
-    STA      bss_0771                     ; 0x20ae $A09E 8D 71 07                 ;; Exp. needed for Next Level (low byte)
+    STA      player_next_lvl                     ; 0x20ab $A09B 8D 70 07                 ;; Exp. needed for Next Level (high byte)
+    STA      player_next_lvl+1                     ; 0x20ae $A09E 8D 71 07                 ;; Exp. needed for Next Level (low byte)
     LDX      #$02                      ; 0x20b1 $A0A1 A2 02                    ; X = 02
 LA0A3:                                                                          ;
     LDA      $02,x                     ; 0x20b3 $A0A3 B5 02                    ;
@@ -4821,14 +4821,14 @@ LA0A3:                                                                          
     TAY                                ; 0x20be $A0AE A8                       ;
     LDA      L9670,y                   ; 0x20bf $A0AF B9 70 96                 ;
     SEC                                ; 0x20c2 $A0B2 38                       ;
-    SBC      bss_0771                     ; 0x20c3 $A0B3 ED 71 07                 ;; Exp. needed for Next Level (low byte)
+    SBC      player_next_lvl+1                     ; 0x20c3 $A0B3 ED 71 07                 ;; Exp. needed for Next Level (low byte)
     LDA      L9658,y                   ; 0x20c6 $A0B6 B9 58 96                 ;
-    SBC      bss_0770                     ; 0x20c9 $A0B9 ED 70 07                 ;; Exp. needed for Next Level (high byte)
+    SBC      player_next_lvl                     ; 0x20c9 $A0B9 ED 70 07                 ;; Exp. needed for Next Level (high byte)
     BCS      LA0CA                     ; 0x20cc $A0BC B0 0C                    ;
     LDA      L9658,y                   ; 0x20ce $A0BE B9 58 96                 ;
-    STA      bss_0770                     ; 0x20d1 $A0C1 8D 70 07                 ;; Exp. needed for Next Level (high byte)
+    STA      player_next_lvl                     ; 0x20d1 $A0C1 8D 70 07                 ;; Exp. needed for Next Level (high byte)
     LDA      L9670,y                   ; 0x20d4 $A0C4 B9 70 96                 ;
-    STA      bss_0771                     ; 0x20d7 $A0C7 8D 71 07                 ;; Exp. needed for Next Level (low byte)
+    STA      player_next_lvl+1                     ; 0x20d7 $A0C7 8D 71 07                 ;; Exp. needed for Next Level (low byte)
 LA0CA:                                                                          ;
     DEX                                ; 0x20da $A0CA CA                       ;
     BPL      LA0A3                     ; 0x20db $A0CB 10 D6                    ;
@@ -4846,10 +4846,10 @@ LA0D0:                                                                          
     ASL                                ; 0x20e7 $A0D7 0A                       ;
     ADC      player_levels,x                   ; 0x20e8 $A0D8 7D 77 07                 ;
     TAY                                ; 0x20eb $A0DB A8                       ;
-    LDA      bss_0771                     ; 0x20ec $A0DC AD 71 07                 ;; Exp. needed for Next Level (low byte)
+    LDA      player_next_lvl+1                     ; 0x20ec $A0DC AD 71 07                 ;; Exp. needed for Next Level (low byte)
     SEC                                ; 0x20ef $A0DF 38                       ;
     SBC      L9670,y                   ; 0x20f0 $A0E0 F9 70 96                 ;
-    LDA      bss_0770                     ; 0x20f3 $A0E3 AD 70 07                 ;; Exp. needed for Next Level (high byte)
+    LDA      player_next_lvl                     ; 0x20f3 $A0E3 AD 70 07                 ;; Exp. needed for Next Level (high byte)
     SBC      L9658,y                   ; 0x20f6 $A0E6 F9 58 96                 ;
     BCS      LA0ED                     ; 0x20f9 $A0E9 B0 02                    ;
     INC      $02,x                     ; 0x20fb $A0EB F6 02                    ;

@@ -357,25 +357,25 @@ bss_05E8: .res 1 ; unknown size
 bss_05E9: .res 1 ; unknown size
 
 setpos $600
-bss_0600: .res 1 ; unknown size
+item_presence_west_hyrule: .res $20
 
 setpos $620
-bss_0620: .res 1 ; unknown size
+item_presence_death_maze: .res $20
 
 setpos $640
-bss_0640: .res 1 ; unknown size
+item_presence_east_hyrule: .res $20
 
 setpos $660
-bss_0660: .res 1 ; unknown size
+item_presence_west_towns: .res $20
 
 setpos $680
-bss_0680: .res 1 ; unknown size
+item_presence_palace_1_2: .res $20
 
 setpos $6A0
-bss_06A0: .res 1 ; unknown size
+item_presence_palace_3: .res $20
 
 setpos $6C0
-bss_06C0: .res 1 ; unknown size
+item_presence_great_palace: .res $20
 
 setpos $06FE
 bss_06FE: .res 1 ; unknown size
@@ -466,8 +466,7 @@ bss_0751: .res 1 ; unknown size
 bss_0752: .res 1 ; unknown size
 bss_0753: .res 1 ; unknown size
 bss_0754: .res 1 ; unknown size
-bss_0755: .res 1 ; unknown size
-bss_0756: .res 1 ; unknown size
+player_exp_add: .res 2
 bss_0757: .res 1 ; unknown size
 bss_0758: .res 1 ; unknown size
 bss_0759: .res 1 ; unknown size
@@ -495,9 +494,8 @@ bss_076C: .res 1 ; unknown size
 bss_076D: .res 1 ; unknown size
 bss_076E: .res 1 ; unknown size
 bss_076F: .res 1 ; unknown size
-bss_0770: .res 1 ; unknown size
-bss_0771: .res 1 ; unknown size
-bss_0772: .res 1 ; unknown size
+player_next_lvl: .res 2
+player_slot: .res 1
 player_magic: .res 1
 player_life: .res 1
 player_stats: ; the player's overall stats when selected indirectly (ie. `lda player_stats,x`)

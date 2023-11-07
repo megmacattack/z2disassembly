@@ -353,22 +353,22 @@ bank7_C258:                                                                     
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Pointer_table_for_Item_Presence:                                          ;
-.word    bss_0600                         ; 0x1c275 $C265 00 06                   ;West Hyrule
-.word    bss_0660                         ; 0x1c277 $C267 60 06                   ;Towns in West Hyrule
-.word    bss_0660                         ; 0x1c279 $C269 60 06                   ;
-.word    bss_0680                         ; 0x1c27b $C26B 80 06                   ;Palace 1 / Palace 2
-.word    bss_06A0                         ; 0x1c27d $C26D A0 06                   ;Palace 3
-.word    bss_0620                         ; 0x1c27f $C26F 20 06                   ;Death Mountain / Maze Island
-.word    bss_0660                         ; 0x1c281 $C271 60 06                   ;
-.word    bss_0660                         ; 0x1c283 $C273 60 06                   ;
-.word    bss_0680                         ; 0x1c285 $C275 80 06                   ;
-.word    bss_06A0                         ; 0x1c287 $C277 A0 06                   ;Palace 4
-.word    bss_0640                         ; 0x1c289 $C279 40 06                   ;East Hyrule
-.word    bss_0660                         ; 0x1c28b $C27B 60 06                   ;
-.word    bss_0660                         ; 0x1c28d $C27D 60 06                   ;Towns in East Hyrule
-.word    bss_0680                         ; 0x1c28f $C27F 80 06                   ;Palace 5
-.word    bss_06A0                         ; 0x1c291 $C281 A0 06                   ;Palace 6
-.word    bss_06C0                         ; 0x1c293 $C283 C0 06                   ;Palace 7
+.word    item_presence_west_hyrule                         ; 0x1c275 $C265 00 06                   ;West Hyrule
+.word    item_presence_west_towns                         ; 0x1c277 $C267 60 06                   ;Towns in West Hyrule
+.word    item_presence_west_towns                         ; 0x1c279 $C269 60 06                   ;
+.word    item_presence_palace_1_2                         ; 0x1c27b $C26B 80 06                   ;Palace 1 / Palace 2
+.word    item_presence_palace_3                         ; 0x1c27d $C26D A0 06                   ;Palace 3
+.word    item_presence_death_maze                         ; 0x1c27f $C26F 20 06                   ;Death Mountain / Maze Island
+.word    item_presence_west_towns                         ; 0x1c281 $C271 60 06                   ;
+.word    item_presence_west_towns                         ; 0x1c283 $C273 60 06                   ;
+.word    item_presence_palace_1_2                         ; 0x1c285 $C275 80 06                   ;
+.word    item_presence_palace_3                         ; 0x1c287 $C277 A0 06                   ;Palace 4
+.word    item_presence_east_hyrule                         ; 0x1c289 $C279 40 06                   ;East Hyrule
+.word    item_presence_west_towns                         ; 0x1c28b $C27B 60 06                   ;
+.word    item_presence_west_towns                         ; 0x1c28d $C27D 60 06                   ;Towns in East Hyrule
+.word    item_presence_palace_1_2                         ; 0x1c28f $C27F 80 06                   ;Palace 5
+.word    item_presence_palace_3                         ; 0x1c291 $C281 A0 06                   ;Palace 6
+.word    item_presence_great_palace                         ; 0x1c293 $C283 C0 06                   ;Palace 7
 ; ---------------------------------------------------------------------------- ;
 bank7_Tables_for_Various_Bitmasks1:                                             ;
 .byt    $F7,$FB,$FD,$FE                ; 0x1c295 $C285 F7 FB FD FE             ;
@@ -1517,8 +1517,8 @@ LCA3E:                                                                          
     LDA      #$00                      ; 0x1ca6d $CA5D A9 00                   ; A = 00
     STA      player_exp                     ; 0x1ca6f $CA5F 8D 75 07                ; Current Experience (high byte)
     STA      player_exp+1                     ; 0x1ca72 $CA62 8D 76 07                ; Current Experience (low byte)
-    STA      bss_0756                     ; 0x1ca75 $CA65 8D 56 07                ; Experience to be added (low byte)
-    STA      bss_0755                     ; 0x1ca78 $CA68 8D 55 07                ; Experience to be added (high byte)
+    STA      player_exp_add+1                     ; 0x1ca75 $CA65 8D 56 07                ; Experience to be added (low byte)
+    STA      player_exp_add                     ; 0x1ca78 $CA68 8D 55 07                ; Experience to be added (high byte)
     RTS                                ; 0x1ca7b $CA6B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1583,8 +1583,8 @@ LCAB1:                                                                          
 LCAC4:                                                                          ;
     STA      player_exp                     ; 0x1cad4 $CAC4 8D 75 07                ; Current Experience (high byte)
     STA      player_exp+1                     ; 0x1cad7 $CAC7 8D 76 07                ; Current Experience (low byte)
-    STA      bss_0756                     ; 0x1cada $CACA 8D 56 07                ; Experience to be added (low byte)
-    STA      bss_0755                     ; 0x1cadd $CACD 8D 55 07                ; Experience to be added (high byte)
+    STA      player_exp_add+1                     ; 0x1cada $CACA 8D 56 07                ; Experience to be added (low byte)
+    STA      player_exp_add                     ; 0x1cadd $CACD 8D 55 07                ; Experience to be added (high byte)
     JSR      bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW; 0x1cae0 $CAD0 20 30 CF; Region Code * 5 + World Code
     CMP      #$0F                      ; 0x1cae3 $CAD3 C9 0F                   ; Check if in Great Palace
     BEQ      bank7_restore_in_grand_palace_restore_restart_in_gp; 0x1cae5 $CAD5 F0 07;
@@ -2768,7 +2768,7 @@ bank7_Reset_Memory_Ranges:                                                     ;
     LDX      #$00                      ; 0x1d29a $D28A A2 00                   ; X = 00
     TXA                                ; 0x1d29c $D28C 8A                      ;
 @Loop0600:                                                                     ;
-    STA      bss_0600,x                   ; 0x1d29d $D28D 9D 00 06                ;
+    STA      item_presence_west_hyrule,x                   ; 0x1d29d $D28D 9D 00 06                ;
     DEX                                ; 0x1d2a0 $D290 CA                      ;
     BNE      @Loop0600                 ; 0x1d2a1 $D291 D0 FA                   ;
 bank7_D293:                                                                         ;
@@ -3007,12 +3007,12 @@ LD41C:                                                                          
     LDA      #$10                      ; 0x1d43f $D42F A9 10                   ; A = 10 (sound for meters/experience up/down)
     STA      $EF                       ; 0x1d441 $D431 85 EF                   ; Sound Effects Type 4
 LD433:                                                                          ;
-    LDA      bss_0756                     ; 0x1d443 $D433 AD 56 07                ; Experience to be added (low byte)
-    ORA      bss_0755                     ; 0x1d446 $D436 0D 55 07                ; Experience to be added (high byte)
+    LDA      player_exp_add+1                     ; 0x1d443 $D433 AD 56 07                ; Experience to be added (low byte)
+    ORA      player_exp_add                     ; 0x1d446 $D436 0D 55 07                ; Experience to be added (high byte)
     BEQ      LD477                     ; 0x1d449 $D439 F0 3C                   ; check if Exp. to be added is 0
     LDY      #$0A                      ; 0x1d44b $D43B A0 0A                   ; Y = 0A
-    LDA      bss_0756                     ; 0x1d44d $D43D AD 56 07                ; Experience to be added (low byte)
-    LDX      bss_0755                     ; 0x1d450 $D440 AE 55 07                ; Experience to be added (high byte)
+    LDA      player_exp_add+1                     ; 0x1d44d $D43D AD 56 07                ; Experience to be added (low byte)
+    LDX      player_exp_add                     ; 0x1d450 $D440 AE 55 07                ; Experience to be added (high byte)
     BNE      LD44B                     ; 0x1d453 $D443 D0 06                   ;
     CMP      #$0A                      ; 0x1d455 $D445 C9 0A                   ;
     BCS      LD44B                     ; 0x1d457 $D447 B0 02                   ;
@@ -3021,9 +3021,9 @@ LD44B:                                                                          
     STY      $00                       ; 0x1d45b $D44B 84 00                   ;
     SEC                                ; 0x1d45d $D44D 38                      ;
     SBC      $00                       ; 0x1d45e $D44E E5 00                   ;
-    STA      bss_0756                     ; 0x1d460 $D450 8D 56 07                ; Experience to be added (low byte)
+    STA      player_exp_add+1                     ; 0x1d460 $D450 8D 56 07                ; Experience to be added (low byte)
     BCS      LD458                     ; 0x1d463 $D453 B0 03                   ;
-    DEC      bss_0755                     ; 0x1d465 $D455 CE 55 07                ; Experience to be added (high byte)
+    DEC      player_exp_add                     ; 0x1d465 $D455 CE 55 07                ; Experience to be added (high byte)
 LD458:                                                                          ;
     LDA      player_exp+1                     ; 0x1d468 $D458 AD 76 07                ; Current Experience (low byte)
     CLC                                ; 0x1d46b $D45B 18                      ;
@@ -4445,11 +4445,11 @@ bank7_monster_death_give_exp:                                                   
     TAY                                ; 0x1de01 $DDF1 A8                      ;
     LDA      bank7_Experience_Table_Low_Byte,y; 0x1de02 $DDF2 B9 C0 DD             ;
     CLC                                ; 0x1de05 $DDF5 18                      ;
-    ADC      bss_0756                     ; 0x1de06 $DDF6 6D 56 07                ;; Experience to be added (low byte)
-    STA      bss_0756                     ; 0x1de09 $DDF9 8D 56 07                ; Experience to be added (low byte)
+    ADC      player_exp_add+1                     ; 0x1de06 $DDF6 6D 56 07                ;; Experience to be added (low byte)
+    STA      player_exp_add+1                     ; 0x1de09 $DDF9 8D 56 07                ; Experience to be added (low byte)
     LDA      bank7_Experience_Table_High_Byte,y; 0x1de0c $DDFC B9 DC DD            ;
-    ADC      bss_0755                     ; 0x1de0f $DDFF 6D 55 07                ;; Experience to be added (high byte)
-    STA      bss_0755                     ; 0x1de12 $DE02 8D 55 07                ; Experience to be added (high byte)
+    ADC      player_exp_add                     ; 0x1de0f $DDFF 6D 55 07                ;; Experience to be added (high byte)
+    STA      player_exp_add                     ; 0x1de12 $DE02 8D 55 07                ; Experience to be added (high byte)
     LDY      $A1,x                     ; 0x1de15 $DE05 B4 A1                   ; Enemy Code
     LDA      $6E1D,y                   ; 0x1de17 $DE07 B9 1D 6E                ;
     CMP      #$FF                      ; 0x1de1a $DE0A C9 FF                   ;

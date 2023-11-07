@@ -5608,7 +5608,7 @@ LB2AA:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB2B4:                                                                          ;
     LDA      $19                       ; 0x172c4 $B2B4 A5 19                   ; Position Code for Fairy Cursor
-    STA      bss_0772                     ; 0x172c6 $B2B6 8D 72 07                ; Current Game Slot
+    STA      player_slot                     ; 0x172c6 $B2B6 8D 72 07                ; Current Game Slot
     JSR      LB911                     ; 0x172c9 $B2B9 20 11 B9                ;
     LDA      new_game_plus                     ; 0x172cc $B2BC AD A0 07                ;; this is a new game+ file?, set it up during the save game load for newgame+ settings
     CMP      #$01                      ; 0x172cf $B2BF C9 01                   ;
@@ -5628,7 +5628,7 @@ bank5_Load_Initial_Item_Presence_Bits:                                          
     LDY      #$DF                      ; 0x172e7 $B2D7 A0 DF                   ; Y = DF
 LB2D9:                                                                          ;
     LDA      bank5_Initial_Item_Presence_Bits_600_61F__West_Hyrule,y; 0x172e9 $B2D9 B9 15 BB;
-    STA      bss_0600,y                   ; 0x172ec $B2DC 99 00 06                ;
+    STA      item_presence_west_hyrule,y                   ; 0x172ec $B2DC 99 00 06                ;
     DEY                                ; 0x172ef $B2DF 88                      ;
     CPY      #$FF                      ; 0x172f0 $B2E0 C0 FF                   ;
     BNE      LB2D9                     ; 0x172f2 $B2E2 D0 F5                   ;
@@ -6831,7 +6831,7 @@ LBA54:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LBA6C:                                                                          ;
-    LDA      bss_0772                     ; 0x17a7c $BA6C AD 72 07                ; Current Game Slot
+    LDA      player_slot                     ; 0x17a7c $BA6C AD 72 07                ; Current Game Slot
 LBA6F:                                                                          ;
     ASL                                ; 0x17a7f $BA6F 0A                      ;
     TAY                                ; 0x17a80 $BA70 A8                      ;

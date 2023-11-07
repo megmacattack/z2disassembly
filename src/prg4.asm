@@ -2149,13 +2149,13 @@ L9B56:                                                                          
     ORA      bss_070D                     ; 0x11b69 $9B59 0D 0D 07                ; Life to be added to Life Meter
     BNE      L9B88                     ; 0x11b6c $9B5C D0 2A                   ;
     STA      $DE                       ; 0x11b6e $9B5E 85 DE                   ; Spell Spell modifier (and more)
-    LDA      bss_0771                     ; 0x11b70 $9B60 AD 71 07                ; Exp. needed for Next Level (low byte)
+    LDA      player_next_lvl+1                     ; 0x11b70 $9B60 AD 71 07                ; Exp. needed for Next Level (low byte)
     SEC                                ; 0x11b73 $9B63 38                      ;
     SBC      player_exp+1                     ; 0x11b74 $9B64 ED 76 07                ; Current Experience (low byte)
-    STA      bss_0756                     ; 0x11b77 $9B67 8D 56 07                ; Experience to be added (low byte)
-    LDA      bss_0770                     ; 0x11b7a $9B6A AD 70 07                ; Exp. needed for Next Level (high byte)
+    STA      player_exp_add+1                     ; 0x11b77 $9B67 8D 56 07                ; Experience to be added (low byte)
+    LDA      player_next_lvl                     ; 0x11b7a $9B6A AD 70 07                ; Exp. needed for Next Level (high byte)
     SBC      player_exp                     ; 0x11b7d $9B6D ED 75 07                ; Current Experience (high byte)
-    STA      bss_0755                     ; 0x11b80 $9B70 8D 55 07                ; Experience to be added (high byte)
+    STA      player_exp_add                     ; 0x11b80 $9B70 8D 55 07                ; Experience to be added (high byte)
     LDY      $BC,x                     ; 0x11b83 $9B73 B4 BC                   ;; Generated Enemy Y Position ?
     INY                                ; 0x11b85 $9B75 C8                      ;
     LDA      #$D5                      ; 0x11b86 $9B76 A9 D5                   ; A = D5

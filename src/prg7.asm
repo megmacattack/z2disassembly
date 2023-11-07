@@ -107,10 +107,10 @@ bank7_NMI_Entry_Point:                                                         ;
     AND      #$E0                      ; 0x1c0aa $C09A 29 E0                   ; keep bits xxx. ....
     LDY      bss_0726                     ; 0x1c0ac $C09C AC 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     BNE      :+                        ; 0x1c0af $C09F D0 07                   ;
-    LDA      $FE                       ; 0x1c0b1 $C0A1 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
-    ORA      #$18                      ; 0x1c0b3 $C0A3 09 18                   ; set bits  ...x x...
-    ORA      bss_0768                     ; 0x1c0b5 $C0A5 0D 68 07                ; makes weird ppu effect
-:                                                                              ;
+        LDA      $FE                       ; 0x1c0b1 $C0A1 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
+        ORA      #$18                      ; 0x1c0b3 $C0A3 09 18                   ; set bits  ...x x...
+        ORA      bss_0768                     ; 0x1c0b5 $C0A5 0D 68 07                ; makes weird ppu effect
+    :                                                                              ;
     STA      $FE                       ; 0x1c0b8 $C0A8 85 FE                   ; does interesting effects when changed, perhaps involves palette?
     AND      #$E1                      ; 0x1c0ba $C0AA 29 E1                   ; keep bits xxx. ...x
     STA      PPU_MASK                  ; 0x1c0bc $C0AC 8D 01 20                ; PPU Control Register 2
@@ -123,8 +123,8 @@ bank7_NMI_Entry_Point:                                                         ;
     STA      OAM_DMA                   ; 0x1c0cf $C0BF 8D 14 40                ; DMA Sprite Memory ($100 * 02)
     LDA      bss_07AE                     ; 0x1c0d2 $C0C2 AD AE 07                ;
     BEQ      :+                        ; 0x1c0d5 $C0C5 F0 03                   ;
-    JSR      bank7_code52              ; 0x1c0d7 $C0C7 20 82 FD                ; related to palette loading (side view)
-:                                                                              ;
+        JSR      bank7_code52              ; 0x1c0d7 $C0C7 20 82 FD                ; related to palette loading (side view)
+    :                                                                              ;
     LDA      bss_0725                     ; 0x1c0da $C0CA AD 25 07                ; PPU Macro Selector
     ASL                                ; 0x1c0dd $C0CD 0A                      ;
     TAX                                ; 0x1c0de $C0CE AA                      ;
@@ -141,28 +141,28 @@ bank7_NMI_Entry_Point:                                                         ;
     STY      PPU_ADDR                  ; 0x1c0f9 $C0E9 8C 06 20                ; PPU Memory Address
     LDA      bss_0768                     ; 0x1c0fc $C0EC AD 68 07                ; makes weird ppu effect
     BNE      :+                        ; 0x1c0ff $C0EF D0 12                   ;
-    LDA      $FF                       ; 0x1c101 $C0F1 A5 FF                   ; Sprite Bank ?
-    STA      PPU_CTRL                  ; 0x1c103 $C0F3 8D 00 20                ; PPU Control Register 1
-    LDX      PPU_STATUS                ; 0x1c106 $C0F6 AE 02 20                ; PPU Status Register
-    LDA      $FD                       ; 0x1c109 $C0F9 A5 FD                   ;
-    STA      PPU_SCROLL                ; 0x1c10b $C0FB 8D 05 20                ; Screen Scroll Offsets
-    LDA      $FC                       ; 0x1c10e $C0FE A5 FC                   ;
-    STA      PPU_SCROLL                ; 0x1c110 $C100 8D 05 20                ; Screen Scroll Offsets
-:                                                                              ;
+        LDA      $FF                       ; 0x1c101 $C0F1 A5 FF                   ; Sprite Bank ?
+        STA      PPU_CTRL                  ; 0x1c103 $C0F3 8D 00 20                ; PPU Control Register 1
+        LDX      PPU_STATUS                ; 0x1c106 $C0F6 AE 02 20                ; PPU Status Register
+        LDA      $FD                       ; 0x1c109 $C0F9 A5 FD                   ;
+        STA      PPU_SCROLL                ; 0x1c10b $C0FB 8D 05 20                ; Screen Scroll Offsets
+        LDA      $FC                       ; 0x1c10e $C0FE A5 FC                   ;
+        STA      PPU_SCROLL                ; 0x1c110 $C100 8D 05 20                ; Screen Scroll Offsets
+    :                                                                              ;
     LDA      $FE                       ; 0x1c113 $C103 A5 FE                   ; does interesting effects when changed, perhaps involves palette?
     STA      PPU_MASK                  ; 0x1c115 $C105 8D 01 20                ; PPU Control Register 2
     LDX      bss_0725                     ; 0x1c118 $C108 AE 25 07                ; PPU Macro Selector
     BEQ      :++                       ; 0x1c11b $C10B F0 0F                   ;
-    INY                                ; 0x1c11d $C10D C8                      ;
-    CPX      #$01                      ; 0x1c11e $C10E E0 01                   ;
-    BEQ      :+                        ; 0x1c120 $C110 F0 07                   ;
-    INY                                ; 0x1c122 $C112 C8                      ;
-    LDA      #$00                      ; 0x1c123 $C113 A9 00                   ; A = 00
-    CPX      #$02                      ; 0x1c125 $C115 E0 02                   ;
-    BNE      :+++                      ; 0x1c127 $C117 D0 13                   ;
-:                                                                              ;
-    DEC      bss_0725                     ; 0x1c129 $C119 CE 25 07                ; PPU Macro Selector
-:                                                                              ;
+        INY                                ; 0x1c11d $C10D C8                      ;
+        CPX      #$01                      ; 0x1c11e $C10E E0 01                   ;
+        BEQ      :+                        ; 0x1c120 $C110 F0 07                   ;
+            INY                                ; 0x1c122 $C112 C8                      ;
+            LDA      #$00                      ; 0x1c123 $C113 A9 00                   ; A = 00
+            CPX      #$02                      ; 0x1c125 $C115 E0 02                   ;
+            BNE      :+++                      ; 0x1c127 $C117 D0 13                   ;
+        :                                                                              ;
+        DEC      bss_0725                     ; 0x1c129 $C119 CE 25 07                ; PPU Macro Selector
+    :                                                                              ;
     LDX      bank7_table0,y            ; 0x1c12c $C11C BE 5D C0                ;
     LDA      #$00                      ; 0x1c12f $C11F A9 00                   ; A = 00
     STA      bss_0301,x                   ; 0x1c131 $C121 9D 01 03                ;
@@ -177,41 +177,41 @@ bank7_NMI_Entry_Point:                                                         ;
     JSR      bank7_Controllers_Input   ; 0x1c147 $C137 20 46 D3                ; Controllers Input
     LDA      $DE                       ; 0x1c14a $C13A A5 DE                   ; prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
     BEQ      :+                        ; 0x1c14c $C13C F0 08                   ;
-    LDA      bss_0763                     ; 0x1c14e $C13E AD 63 07                ; Counter for Big Door in Hidden Kasuto
-    ORA      bss_0764                     ; 0x1c151 $C141 0D 64 07                ; Counter for Big Door in Hidden Kasuto
-    BNE      :++                       ; 0x1c154 $C144 D0 08                   ;
-:                                                                              ;
+        LDA      bss_0763                     ; 0x1c14e $C13E AD 63 07                ; Counter for Big Door in Hidden Kasuto
+        ORA      bss_0764                     ; 0x1c151 $C141 0D 64 07                ; Counter for Big Door in Hidden Kasuto
+        BNE      :++                       ; 0x1c154 $C144 D0 08                   ;
+    :                                                                              ;
     LDA      bss_0729                     ; 0x1c156 $C146 AD 29 07                ;
     BEQ      :+                        ; 0x1c159 $C149 F0 03                   ;
-    JSR      bank7_related_to_Pause_Pane_routine; 0x1c15b $C14B 20 CD C1       ; related to Pause Pane routine
-:                                                                              ;
+        JSR      bank7_related_to_Pause_Pane_routine; 0x1c15b $C14B 20 CD C1       ; related to Pause Pane routine
+    :                                                                              ;
     LDA      bss_074C                     ; 0x1c15e $C14E AD 4C 07                ; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
     BEQ      :+                        ; 0x1c161 $C151 F0 11                   ;
-    CMP      #$02                      ; 0x1c163 $C153 C9 02                   ;
-    BCC      @End                      ; 0x1c165 $C155 90 51                   ;
-    LDA      bss_0524                     ; 0x1c167 $C157 AD 24 05                ; Routine Index
-    CMP      #$03                      ; 0x1c16a $C15A C9 03                   ;
-    BCC      :++                       ; 0x1c16c $C15C 90 0B                   ;
-    CMP      #$07                      ; 0x1c16e $C15E C9 07                   ;
-    BCS      :++                       ; 0x1c170 $C160 B0 07                   ;
-    BCC      @End                      ; 0x1c172 $C162 90 44                   ;
-:                                                                              ;
+        CMP      #$02                      ; 0x1c163 $C153 C9 02                   ;
+        BCC      @End                      ; 0x1c165 $C155 90 51                   ;
+        LDA      bss_0524                     ; 0x1c167 $C157 AD 24 05                ; Routine Index
+        CMP      #$03                      ; 0x1c16a $C15A C9 03                   ;
+        BCC      :++                       ; 0x1c16c $C15C 90 0B                   ;
+        CMP      #$07                      ; 0x1c16e $C15E C9 07                   ;
+        BCS      :++                       ; 0x1c170 $C160 B0 07                   ;
+        BCC      @End                      ; 0x1c172 $C162 90 44                   ;
+    :                                                                              ;
     LDA      bss_0524                     ; 0x1c174 $C164 AD 24 05                ; Routine Index
     BNE      @End                      ; 0x1c177 $C167 D0 3F                   ;
-:                                                                              ;
-    LDX      #$0C                      ; 0x1c179 $C169 A2 0C                   ; X = 0C
-    DEC      bss_0500                     ; 0x1c17b $C16B CE 00 05                ; Timer frequency		;?Invincibility after stun counter (counts down, nonzero = invincible)
-    BPL      :+                        ; 0x1c17e $C16E 10 07                   ;
-    LDA      #$14                      ; 0x1c180 $C170 A9 14                   ; A = 14
-    STA      bss_0500                     ; 0x1c182 $C172 8D 00 05                ; Timer frequency		;?Invincibility after stun counter (counts down, nonzero = invincible)
-    LDX      #$18                      ; 0x1c185 $C175 A2 18                   ; X = 18
-:                                                                              ;
-    LDA      bss_0501,x                   ; 0x1c187 $C177 BD 01 05                ;
-    BEQ      :+                        ; 0x1c18a $C17A F0 03                   ;
-    DEC      bss_0501,x                   ; 0x1c18c $C17C DE 01 05                ; decrease all 5xx timers (if > 0)
-:                                                                              ;
-    DEX                                ; 0x1c18f $C17F CA                      ;
-    BPL      :--                        ; 0x1c190 $C180 10 F5                   ;
+    :                                                                              ;
+        LDX      #$0C                      ; 0x1c179 $C169 A2 0C                   ; X = 0C
+        DEC      bss_0500                     ; 0x1c17b $C16B CE 00 05                ; Timer frequency		;?Invincibility after stun counter (counts down, nonzero = invincible)
+        BPL      :+                        ; 0x1c17e $C16E 10 07                   ;
+            LDA      #$14                      ; 0x1c180 $C170 A9 14                   ; A = 14
+            STA      bss_0500                     ; 0x1c182 $C172 8D 00 05                ; Timer frequency		;?Invincibility after stun counter (counts down, nonzero = invincible)
+            LDX      #$18                      ; 0x1c185 $C175 A2 18                   ; X = 18
+        :                                                                              ;
+        LDA      bss_0501,x                   ; 0x1c187 $C177 BD 01 05                ;
+        BEQ      :+                        ; 0x1c18a $C17A F0 03                   ;
+            DEC      bss_0501,x                   ; 0x1c18c $C17C DE 01 05                ; decrease all 5xx timers (if > 0)
+        :                                                                              ;
+        DEX                                ; 0x1c18f $C17F CA                      ;
+        BPL      :--                        ; 0x1c190 $C180 10 F5                   ;
     INC      a:$12                     ; 0x1c192 $C182 EE 12 00                ;
     LDX      #$00                      ; 0x1c195 $C185 A2 00                   ; X = 00
     LDY      #$09                      ; 0x1c197 $C187 A0 09                   ; Y = 09
@@ -223,12 +223,12 @@ bank7_NMI_Entry_Point:                                                         ;
     EOR      $00                       ; 0x1c1a5 $C195 45 00                   ;
     CLC                                ; 0x1c1a7 $C197 18                      ;
     BEQ      :+                        ; 0x1c1a8 $C198 F0 01                   ;
-    SEC                                ; 0x1c1aa $C19A 38                      ;
-:                                                                              ;
-    ROR      rng_base,x                   ; 0x1c1ab $C19B 7E 1A 05                ;
-    INX                                ; 0x1c1ae $C19E E8                      ;
-    DEY                                ; 0x1c1af $C19F 88                      ;
-    BNE      :-                        ; 0x1c1b0 $C1A0 D0 F9                   ;
+        SEC                                ; 0x1c1aa $C19A 38                      ;
+    :                                                                              ;
+        ROR      rng_base,x                   ; 0x1c1ab $C19B 7E 1A 05                ;
+        INX                                ; 0x1c1ae $C19E E8                      ;
+        DEY                                ; 0x1c1af $C19F 88                      ;
+        BNE      :-                        ; 0x1c1b0 $C1A0 D0 F9                   ;
     JSR      bank7_Remove_All_Sprites_except_Sprite0; 0x1c1b2 $C1A2 20 50 D2   ; Remove All Sprites, except Sprite 0
     JSR      LC2CA                     ; 0x1c1b5 $C1A5 20 CA C2                ;
 @End:                                                                          ;

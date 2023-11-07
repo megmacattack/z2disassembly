@@ -1,9 +1,3 @@
-; constants
-joy1_pressed = $F5
-joy2_pressed = $F6
-joy1_held    = $F7
-joy2_held    = $F8
-
 ; character mappings
 ;(c) = $0e
 COPYRIGHT = $0e

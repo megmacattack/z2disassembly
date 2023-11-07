@@ -4,6 +4,15 @@
 .include "macros.asm"
 .include "globals.asm"
 
+.segment "ZEROPAGE"
+.org $00
+
+setpos $F5
+joy1_pressed: .res 1
+joy2_pressed: .res 1
+joy1_held: .res 1
+joy2_held: .res 1
+
 .segment "BSS"
 .org $300
 
@@ -587,3 +596,6 @@ bss_07FC: .res 1 ; unknown size
 bss_07FD: .res 1 ; unknown size
 bss_07FE: .res 1 ; unknown size
 bss_07FF: .res 1 ; unknown size
+
+.segment "SRAM"
+.org $6000

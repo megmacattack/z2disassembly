@@ -1,3 +1,9 @@
+; globals in the zero page
+.globalzp joy1_pressed
+.globalzp joy2_pressed
+.globalzp joy1_held
+.globalzp joy2_held
+
 ; globals in system RAM
 .global rng_base
 .global rng_out

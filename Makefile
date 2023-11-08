@@ -10,10 +10,10 @@ Zelda2Reassembled.nes: bin/header.bin prg.bin chr.bin
 
 obj/%.o: src/%.asm inc/mmc1.asm inc/nes.asm inc/macros.asm inc/globals.asm inc/variables.asm src/prg7/reset.asm src/prg7/vector.asm
 	mkdir -p obj
-	${AS65} -I inc -o $@ $<
+	${AS65} -g -I inc -o $@ $<
 
 prg.bin: nes.cfg $(PRG)
-	$(LD65) -C nes.cfg -o $@ $(PRG)
+	$(LD65) -C nes.cfg -o $@ --dbgfile $@.dbg $(PRG)
 
 chr.bin: $(CHR)
 	cat $+ > .$@.new

@@ -1,6 +1,8 @@
 ; globals in the zero page
+.globalzp joy_pressed
 .globalzp joy1_pressed
 .globalzp joy2_pressed
+.globalzp joy_held
 .globalzp joy1_held
 .globalzp joy2_held
 

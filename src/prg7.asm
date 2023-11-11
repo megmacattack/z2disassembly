@@ -2890,44 +2890,65 @@ LD330:                                                                         ;
     JMP      bank7_LD2EC               ; 0x1d353 $D343 4C EC D2                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_Controllers_Input:                                                       ;
+.proc bank7_Controllers_Input                                                       ;
+; Read from the controller shift register once and store it in zp:$00...
     JSR      bank7_Controllers_Input_Capture; 0x1d356 $D346 20 67 D3           ;
-    LDA      joy1_pressed              ; 0x1d359 $D349 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0              ; 0x1d359 $D349 A5 F5                   ; Controller 1 buttons pressed
     STA      $00                       ; 0x1d35b $D34B 85 00                   ;
+; And then do it again, to verify that the result is the same, and compare it
+; with the previously read value.
     JSR      bank7_Controllers_Input_Capture; 0x1d35d $D34D 20 67 D3           ;
-    LDA      joy1_pressed              ; 0x1d360 $D350 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0              ; 0x1d360 $D350 A5 F5                   ; Controller 1 buttons pressed
     CMP      $00                       ; 0x1d362 $D352 C5 00                   ;
+; If they differ, start over again, because there was probably a bus conflict
+; with the audio processor reading DPCM data
+; [ref: https://www.nesdev.org/wiki/Controller_reading_code#DPCM_Safety_using_Repeated_Reads]
     BNE      bank7_Controllers_Input   ; 0x1d364 $D354 D0 F0                   ;
     LDX      #$01                      ; 0x1d366 $D356 A2 01                   ; X = 01
-@Loop:                                                                         ;
-    LDA      joy1_pressed,x            ; 0x1d368 $D358 B5 F5                   ;
-    TAY                                ; 0x1d36a $D35A A8                      ;
-    EOR      joy1_held,x               ; 0x1d36b $D35B 55 F7                   ;
-    AND      joy1_pressed,x            ; 0x1d36d $D35D 35 F5                   ;
-    STA      joy1_pressed,x            ; 0x1d36f $D35F 95 F5                   ;
-    STY      joy1_held,x               ; 0x1d371 $D361 94 F7                   ;
-    DEX                                ; 0x1d373 $D363 CA                      ;
-    BPL      @Loop                     ; 0x1d374 $D364 10 F2                   ;
+    @Loop:                                                                         ;
+    ; And then note which buttons on either controller have been held for more than one frame.
+    ; Load the pressed button from controller X into A and copy it to Y
+        LDA      joy_pressed,x            ; 0x1d368 $D358 B5 F5                   ;
+        TAY                                ; 0x1d36a $D35A A8                      ;
+    ; clear any buttons in A that haven't changed since the last read
+        EOR      joy_held,x               ; 0x1d36b $D35B 55 F7                   ;
+    ; mask off buttons that aren't currently set
+        AND      joy_pressed,x            ; 0x1d36d $D35D 35 F5                   ;
+    ; store the buttons that just started being pressed this read in joyX_pressed
+        STA      joy_pressed,x            ; 0x1d36f $D35F 95 F5                   ;
+    ; store the current button presses in joyX_held
+        STY      joy_held,x               ; 0x1d371 $D361 94 F7                   ;
+    ; continue with controller X-1
+        DEX                                ; 0x1d373 $D363 CA                      ;
+        BPL      @Loop                     ; 0x1d374 $D364 10 F2                   ;
     RTS                                ; 0x1d376 $D366 60                      ;
-                                                                               ;
+.endproc                                                                               ;
 ; ---------------------------------------------------------------------------- ;
-bank7_Controllers_Input_Capture:                                               ;
+.proc bank7_Controllers_Input_Capture                                               ;
+; push 1 into the controller register to have controllers load their shift register
+; with the currently pressed buttons, then clear it to put it back into serial mode.
     LDX      #$01                      ; 0x1d377 $D367 A2 01                   ; X = #$01 0000_0001
     STX      JOY1                      ; 0x1d379 $D369 8E 16 40                ; controllers strobe (01)
     DEX                                ; 0x1d37c $D36C CA                      ;
     STX      JOY1                      ; 0x1d37d $D36D 8E 16 40                ; controllers strobe (00)
+; read the 8 bits from the JOY[x] registers into the joy[x]_pressed globals, one bit per iteration
     LDX      #$08                      ; 0x1d380 $D370 A2 08                   ; X = #$08 0000_1000
-@Loop:                                                                         ;
-    LDA      JOY1                      ; 0x1d382 $D372 AD 16 40                ;
-    LSR                                ; 0x1d385 $D375 4A                      ;
-    ROL      joy1_pressed                       ; 0x1d386 $D376 26 F5                   ; Controller 1 Buttons Pressed
-    LDA      JOY2                      ; 0x1d388 $D378 AD 17 40                ;
-    LSR                                ; 0x1d38b $D37B 4A                      ;
-    ROL      joy2_pressed                       ; 0x1d38c $D37C 26 F6                   ; Controller 2 Buttons Pressed
-    DEX                                ; 0x1d38e $D37E CA                      ;
-    BNE      @Loop                     ; 0x1d38f $D37F D0 F1                   ;
+    @Loop:                                                                         ;
+    ; right shift from JOY1 into the carry flag
+        LDA      JOY1                      ; 0x1d382 $D372 AD 16 40                ;
+        LSR                                ; 0x1d385 $D375 4A                      ;
+    ; left shift the carry flag into joy_pressed+0
+        ROL      joy_pressed+0                       ; 0x1d386 $D376 26 F5                   ; Controller 1 Buttons Pressed
+    ; right shift from JOY2 into the carry flag
+        LDA      JOY2                      ; 0x1d388 $D378 AD 17 40                ;
+        LSR                                ; 0x1d38b $D37B 4A                      ;
+    ; left shift the carry flag into joy_pressed+1
+        ROL      joy_pressed+1                       ; 0x1d38c $D37C 26 F6                   ; Controller 2 Buttons Pressed
+    ; continue with the next bit.
+        DEX                                ; 0x1d38e $D37E CA                      ;
+        BNE      @Loop                     ; 0x1d38f $D37F D0 F1                   ;
     RTS                                ; 0x1d391 $D381 60                      ;
-                                                                               ;
+.endproc                                                                               ;
 ; ---------------------------------------------------------------------------- ;
 bank7_JmpToRoutine_at_Index_073D_in_Table_Address_from_the_top_of_the_Stack_The_Pointer_Table_immediately_follows_the_JSR_to_D382: ;
     LDA      bss_073D                     ; 0x1d392 $D382 AD 3D 07                ;; Routine Index

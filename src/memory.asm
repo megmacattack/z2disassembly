@@ -8,10 +8,8 @@
 .org $00
 
 setpos $F5
-joy1_pressed: .res 1
-joy2_pressed: .res 1
-joy1_held: .res 1
-joy2_held: .res 1
+joy_pressed: .res 2 ; the buttons on controllers that were *just* pressed this frame, one byte for each controller
+joy_held: .res 2 ; the buttons on controller that were pressed this frame, including those pressed last frame too, one byte for each controller
 
 .segment "BSS"
 .org $300

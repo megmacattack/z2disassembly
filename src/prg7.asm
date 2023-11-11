@@ -2934,10 +2934,11 @@ LD330:                                                                         ;
 ; read the 8 bits from the JOY[x] registers into the joy[x]_pressed globals, one bit per iteration
     LDX      #$08                      ; 0x1d380 $D370 A2 08                   ; X = #$08 0000_1000
     @Loop:                                                                         ;
-    ; right shift from JOY1 into the carry flag
+    ; check if D0 or D1 are set in JOY1, to allow for Famicom expansion port controller 1
         LDA      JOY1                      ; 0x1d382 $D372 AD 16 40                ;
-        LSR                                ; 0x1d385 $D375 4A                      ;
-    ; left shift the carry flag into joy_pressed+0
+        and      #%11
+        cmp      #$01
+    ; left shift the carry flag into joy_pressed[0]
         ROL      joy_pressed+0                       ; 0x1d386 $D376 26 F5                   ; Controller 1 Buttons Pressed
     ; right shift from JOY2 into the carry flag
         LDA      JOY2                      ; 0x1d388 $D378 AD 17 40                ;

@@ -5537,12 +5537,18 @@ LB082:                                                                          
     JSR      bank7_D168                     ; 0x17240 $B230 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x17243 $B233 20 85 D3;
 bank5_table_B236:                                                               ;
-.byt    $42,$B2,$CF,$B3,$FA,$B3        ; 0x17246 $B236 42 B2 CF B3 FA B3       ;
+.word LB242                            ; 0x17246 $B236 42 B2
+.word LB3CF                            ; 0x17248 $B238 CF B3
+.word LB3FA                            ; 0x1724A $B23A FA B3
 LB23C:                                                                          ;
 .byt    $2C                            ; 0x1724c $B23C 2C                      ;
 LB23D:                                                                          ;
-.byt    $60,$5E,$60,$90,$60,$AD,$3B,$07; 0x1724d $B23D 60 5E 60 90 60 AD 3B 07 ;
-.byt    $20,$85,$D3,$0A,$B4,$4E,$B2,$61; 0x17255 $B245 20 85 D3 0A B4 4E B2 61 ;
+.byt    $60,$5E,$60,$90,$60            ; 0x1724d $B23D 60 5E 60 90 60
+LB242:
+    LDA      bss_073B                  ; 0x17252 $B242 AD 3B 07
+    JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x17255 $B245 20 85 D3
+
+.byt    $0A,$B4,$4E,$B2,$61            ; 0x17258 $B248 0A B4 4E B2 61 ;
 .byt    $B2                            ; 0x1725d $B24D B2                      ;
 ; ---------------------------------------------------------------------------- ;
 bank5_code22:                                                                   ;
@@ -5785,6 +5791,7 @@ LB3B6:                                                                          
     RTS                                ; 0x173de $B3CE 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LB3CF:
     LDA      bss_073B                     ; 0x173df $B3CF AD 3B 07                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x173e2 $B3D2 20 85 D3;
 bank5_pointer_table4:                                                           ;
@@ -5816,6 +5823,7 @@ LB3F4:                                                                          
     RTS                                ; 0x17409 $B3F9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LB3FA:
     LDA      bss_073B                     ; 0x1740a $B3FA AD 3B 07                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1740d $B3FD 20 85 D3;
 bank5_pointer_table5:                                                           ;

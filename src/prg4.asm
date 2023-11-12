@@ -5337,25 +5337,25 @@ LB929:                                                                          
     LDA      $AF,x                     ; 0x13939 $B929 B5 AF                   ;; Various enemy state variables
     AND      #$03                      ; 0x1393b $B92B 29 03                   ; keep bits .... ..xx
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1393d $B92D 20 85 D3;
-.byt    $3C                            ; 0x13940 $B930 3C                      ;
-    LDA      LB96D,y                   ; 0x13941 $B931 B9 6D B9                ;
-.byt    $7C                            ; 0x13944 $B934 7C                      ;
-LB937     = * + $0002                                                          ;
-    LDA      LB991,y                   ; 0x13945 $B935 B9 91 B9                ;
-LB939     = * + $0001                                                          ;
-    BEQ      LB93A                     ; 0x13948 $B938 F0 00                   ;
-LB93A:                                                                          ;
-    CPX      #$20                      ; 0x1394a $B93A E0 20                   ;
+.word       LB93C                            ; 0x13940 $B930 3C B9                   ;
+.word       LB96D                            ; 0x13942 $B932 6D B9                ;
+.word       LB97C                            ; 0x13944 $B934 7C B9                   ;
+.word       LB991                            ; 0x13946 $B936 91 B9                ;
+bank4_B938:
+.byt        $f0,$00                    ; 0x13948 $B938 F0 00                   ;
+bank4_B93A:
+.byt        $e0,$20                    ; 0x1394a $B93A E0 20                   ;
+LB93C:
     LDA      bss_0504,x                   ; 0x1394c $B93C BD 04 05                ;; Timer for Enemy
     BNE      LB96C                     ; 0x1394f $B93F D0 2B                   ;
     LDY      $5F                       ; 0x13951 $B941 A4 5F                   ;; Link's facing direction
     LDA      bss_072C                     ; 0x13953 $B943 AD 2C 07                ;; Scrolling Offset Low Byte
-    ADC      LB937,y                   ; 0x13956 $B946 79 37 B9                ;
+    ADC      bank4_B938-1,y                   ; 0x13956 $B946 79 37 B9                ;
     STA      $4E,x                     ; 0x13959 $B949 95 4E                   ;; Enemy X Position (low byte)
     LDA      bss_072A                     ; 0x1395b $B94B AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     ADC      #$00                      ; 0x1395e $B94E 69 00                   ;
     STA      $3C,x                     ; 0x13960 $B950 95 3C                   ;; Enemy X Position (high byte)
-    LDA      LB939,y                   ; 0x13962 $B952 B9 39 B9                ;
+    LDA      bank4_B93A-1,y                   ; 0x13962 $B952 B9 39 B9                ;
     STA      $71,x                     ; 0x13965 $B955 95 71                   ;; Enemy X Velocity
     LDA      #$7D                      ; 0x13967 $B957 A9 7D                   ;;A = #$7d 0111_1101
     STA      $2A,x                     ; 0x13969 $B959 95 2A                   ;; Enemy Y Position
@@ -5383,6 +5383,7 @@ LB979:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     ORA      ($FF,x)                   ; 0x1398a $B97A 01 FF                   ;
+LB97C:
     LDA      bss_0504,x                   ; 0x1398c $B97C BD 04 05                ;; Timer for Enemy
     BEQ      LB98E                     ; 0x1398f $B97F F0 0D                   ;
     DEC      $2A,x                     ; 0x13991 $B981 D6 2A                   ;; Enemy Y Position

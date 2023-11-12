@@ -5294,11 +5294,11 @@ LAE49:                                                                          
 LAE4A:                                                                          ;
     LDA      $35                       ; 0x16e5a $AE4A A5 35                   ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x16e5c $AE4C 20 85 D3;
-    EOR      $AE,x                     ; 0x16e5f $AE4F 55 AE                   ;
-.byt    $02                            ; 0x16e61 $AE51 02                      ;
-.byt    $AF                            ; 0x16e62 $AE52 AF                      ;
-    ORA      LA5AF,y                   ; 0x16e63 $AE53 19 AF A5                ;
-.byt    $FC                            ; 0x16e66 $AE56 FC                      ;
+.word LAE55                            ; 0x16e5f $AE4F 55 AE                   ;
+.word LAF02                            ; 0x16e61 $AE51 02 AF                   ;
+.word LAF19                            ; 0x16e63 $AE53 19 AF                   ;
+LAE55:
+    LDA      $FC                       ; 0x16e65 $AE55 A5 FC                   ;
     AND      #$07                      ; 0x16e67 $AE57 29 07                   ;;Keep Bits:0000_0111
     BNE      LAE14                     ; 0x16e69 $AE59 D0 B9                   ;
     LDA      $FC                       ; 0x16e6b $AE5B A5 FC                   ;
@@ -5396,6 +5396,7 @@ LAEF9:                                                                          
     RTS                                ; 0x16f11 $AF01 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LAF02:
     JSR      LACFA                     ; 0x16f12 $AF02 20 FA AC                ;
     LDA      bss_0761                     ; 0x16f15 $AF05 AD 61 07                ;
     BEQ      LAF0F                     ; 0x16f18 $AF08 F0 05                   ;
@@ -5412,6 +5413,7 @@ LAF13:                                                                          
     RTS                                ; 0x16f28 $AF18 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LAF19:
     JSR      bank5_code_AD7C           ; 0x16f29 $AF19 20 7C AD                ;
     JMP      LAF0F                     ; 0x16f2c $AF1C 4C 0F AF                ;
                                                                                ;
@@ -5419,17 +5421,17 @@ LAF13:                                                                          
 LAF1F:                                                                          ;
     LDA      bss_073D                     ; 0x16f2f $AF1F AD 3D 07                ;; Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x16f32 $AF22 20 85 D3;
-    ROR      $D2                       ; 0x16f35 $AF25 66 D2                   ;
-.byt    $2B                            ; 0x16f37 $AF27 2B                      ;
-.byt    $AF                            ; 0x16f38 $AF28 AF                      ;
-.byt    $34                            ; 0x16f39 $AF29 34                      ;
-.byt    $AF                            ; 0x16f3a $AF2A AF                      ;
+.word bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0; 0x16f35 $AF25 66 D2                   ;
+.word LAF2B                         ; 0x16f37 $AF27 2B AF                   ;
+.word LAF34                         ; 0x16f39 $AF29 34 AF                   ;
+LAF2B:
     LDA      #$01                      ; 0x16f3b $AF2B A9 01                   ;;A = #$01 0000_0001
     STA      PPU_macro_select                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
     INC      bss_073D                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
     RTS                                ; 0x16f43 $AF33 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LAF34:
     LDA      #$04                      ; 0x16f44 $AF34 A9 04                   ;;A = #$04 0000_0100
     STA      PPU_macro_select                     ; 0x16f46 $AF36 8D 25 07                ;; PPU Macro Selector
     INC      game_mode                     ; 0x16f49 $AF39 EE 36 07                ;; Game Mode ; screen intro type
@@ -5549,9 +5551,9 @@ LB23D:                                                                          
 LB242:
     LDA      bss_073B                  ; 0x17252 $B242 AD 3B 07
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x17255 $B245 20 85 D3
-
-.byt    $0A,$B4,$4E,$B2,$61            ; 0x17258 $B248 0A B4 4E B2 61 ;
-.byt    $B2                            ; 0x1725d $B24D B2                      ;
+.word   bank5_code24                   ; 0x17258 $B248 0A B4 ;
+.word   bank5_code22                   ; 0x1725A $B24A 4E B2 ;
+.word   bank5_Load_Saved_Games_Data    ; 0x1725C $B24C 61 B2 ;
 ; ---------------------------------------------------------------------------- ;
 bank5_code22:                                                                   ;
     LDY      #$00                      ; 0x1725e $B24E A0 00                   ; Y = 00

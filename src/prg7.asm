@@ -2904,7 +2904,7 @@ LD330:                                                                         ;
 ; with the audio processor reading DPCM data
 ; [ref: https://www.nesdev.org/wiki/Controller_reading_code#DPCM_Safety_using_Repeated_Reads]
     BNE      bank7_Controllers_Input   ; 0x1d364 $D354 D0 F0                   ;
-    LDX      #$01                      ; 0x1d366 $D356 A2 01                   ; X = 01
+    LDX      #$02
     @Loop:                                                                         ;
     ; And then note which buttons on either controller have been held for more than one frame.
     ; Load the pressed button from controller X into A and copy it to Y
@@ -2933,7 +2933,7 @@ LD330:                                                                         ;
     STX      JOY1                      ; 0x1d37d $D36D 8E 16 40                ; controllers strobe (00)
 ; read the 8 bits from the JOY[x] registers into the joy[x]_pressed globals, one bit per iteration
     LDX      #$08                      ; 0x1d380 $D370 A2 08                   ; X = #$08 0000_1000
-    @Loop:                                                                         ;
+    @MainLoop:                                                                         ;
     ; check if D0 or D1 are set in JOY1, to allow for Famicom expansion port controller 1
         LDA      JOY1                      ; 0x1d382 $D372 AD 16 40                ;
         and      #%11
@@ -2947,7 +2947,27 @@ LD330:                                                                         ;
         ROL      joy_pressed+1                       ; 0x1d38c $D37C 26 F6                   ; Controller 2 Buttons Pressed
     ; continue with the next bit.
         DEX                                ; 0x1d38e $D37E CA                      ;
-        BNE      @Loop                     ; 0x1d38f $D37F D0 F1                   ;
+        BNE      @MainLoop                     ; 0x1d38f $D37F D0 F1                   ;
+; then read the 8 extra bits from the first controller to find extended buttons
+; from a snes controller
+    LDX    #$08
+    @ExtendedLoop:
+    ; as above, look at D0 and D1 so we work with the combo of snes controller *and*
+    ; famicom expansion port.
+        LDA      JOY1
+        AND      #%11
+        CMP      #$01
+        ROL      joy_pressed+2
+        DEX
+        BNE      @ExtendedLoop
+; check if all the bits were set in the extended buttons, which means it's
+; just a normal NES controller
+    LDA joy_pressed+2
+    CMP #%11111111
+    BNE :+
+        LDA #$0
+        STA joy_pressed+2
+    :
     RTS                                ; 0x1d391 $D381 60                      ;
 .endproc                                                                               ;
 ; ---------------------------------------------------------------------------- ;

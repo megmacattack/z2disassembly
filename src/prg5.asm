@@ -4565,13 +4565,14 @@ bank5_PowerON__Reset_Memory:                                                   ;
 LA6D9:                                                                          ;
     JSR      bank7_D174                     ; 0x166e9 $A6D9 20 74 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x166ec $A6DC 20 85 D3;
-    BEQ      LA687                     ; 0x166ef $A6DF F0 A6                   ;
-    AND      bank7_E5B2                     ; 0x166f1 $A6E1 2D B2 E5                ;
-    LDX      $A9                       ; 0x166f4 $A6E4 A6 A9                   ;
-    CPY      #$8D                      ; 0x166f6 $A6E6 C0 8D                   ;
-    BRK                                ; 0x166f8 $A6E8 00                      ;
-    ORA      ($A9,x)                   ; 0x166f9 $A6E9 01 A9                   ;
-    BRK                                ; 0x166fb $A6EB 00                      ;
+    ; fix this jump table
+    .word bank5_code19                 ; 0x166ef $A6DF F0 A6                   ;
+    .word LB22D                        ; 0x166f1 $A6E1 2D B2                ;
+    .word :+                           ; 0x166f3 $A6E3 E5 A6
+:
+    LDA      #$C0                      ; 0x166f5 $A6E5 A9 C0                ;
+    STA      $0100                      ; 0x166f7 $A6E7 8D 00 01                ;
+    LDA      #$00                      ; 0x166fa $A6EA A9 00                ;
     STA      bss_076C                     ; 0x166fc $A6EC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x166ff $A6EF 60                      ;
                                                                                ;
@@ -5533,6 +5534,7 @@ LB082:                                                                          
 .byt    $55,$55,$55,$DF,$FF,$FF,$75,$55; 0x17232 $B222 55 55 55 DF FF FF 75 55 ;
 .byt    $55,$55,$FF                    ; 0x1723a $B22A 55 55 FF                ;
 ; ---------------------------------------------------------------------------- ;
+LB22D:
     JSR      bank7_Remove_All_Sprites  ; 0x1723d $B22D 20 4C D2                ;
     JSR      bank7_D168                     ; 0x17240 $B230 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x17243 $B233 20 85 D3;

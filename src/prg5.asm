@@ -2017,7 +2017,7 @@ bank5_Pointer_table_for_Enemy_Routines1:                                        
 .word    bank7_Enemy_Routines1_Moa     ; 0x154a9 $9499 CF DA                   ;Moa (free roaming)	(06)
 .word    bank7_Enemy_Routines1_Ache_and_Acheman; 0x154ab $949B 53 DB           ;Ache			(07)
 .word    LAB98                         ; 0x154ad $949D 98 AB                   ;? Mega Glitch		(08)
-.word    LABE9                         ; 0x154af $949F E9 AB                   ;? Fast Glitch		(09)
+.word    $ABE9 ; mid-instruction                         ; 0x154af $949F E9 AB                   ;? Fast Glitch		(09)
 .word    bank7_Enemy_Routines1_Ache_and_Acheman; 0x154b1 $94A1 53 DB           ;Acheman			(0A)
 .word    bank7_Enemy_Routines1_Raising_Bubbles; 0x154b3 $94A3 15 DC            ;Bubbles Generator (uses Energy Ball sprite)	(0B)
 .word    bank7_Desert_Rocks_initialization_routine; 0x154b5 $94A5 4F DC        ;Rocks Generator (uses Energy Ball sprite)	(0C)
@@ -4970,15 +4970,13 @@ LABDF:                                                                          
     BNE      LAC06                     ; 0x16bf3 $ABE3 D0 21                   ;
 LABE5:                                                                          ;
     LDA      bss_0761                     ; 0x16bf5 $ABE5 AD 61 07                ;
-.byt    $20                            ; 0x16bf8 $ABE8 20                      ;
-LABE9:                                                                          ;
-    STA      $D3                       ; 0x16bf9 $ABE9 85 D3                   ;
-    AND      ($AC),y                   ; 0x16bfb $ABEB 31 AC                   ;
-.byt    $73                            ; 0x16bfd $ABED 73                      ;
-    LDY      LACA8                     ; 0x16bfe $ABEE AC A8 AC                ;
-.byt    $FA                            ; 0x16c01 $ABF1 FA                      ;
-    LDY      bank5_code_AD7C           ; 0x16c02 $ABF2 AC 7C AD                ;
-    ORA      $AE,x                     ; 0x16c05 $ABF5 15 AE                   ;
+    JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x16bf8 $ABE8 20 85 D3
+.word   bank5_code_AC31                ; 0x16bfb $ABEB 31 AC                   ;
+.word   LAC73                          ; 0x16bfd $ABED 73 AC                   ;
+.word   LACA8                          ; 0x16bff $ABEF A8 AC                ;
+.word   LACFA                          ; 0x16c01 $ABF1 FA AC                   ;
+.word   bank5_code_AD7C                ; 0x16c02 $ABF2 7C AD                ;
+.word   LAE15                          ; 0x16c05 $ABF5 15 AE                   ;
 bank5_code_ABF7:                                                                ;
     JSR      LAC07                     ; 0x16c07 $ABF7 20 07 AC                ;
     LDA      $33                       ; 0x16c0a $ABFA A5 33                   ;
@@ -5005,10 +5003,10 @@ bank5_table_AC11:                                                               
 .byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16c21 $AC11 F4 F4 F4 F4 F4 F4 F4 F4 ;
 .byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16c29 $AC19 F4 F4 F4 F4 F4 F4 F4 F4 ;
 .byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$F4; 0x16c31 $AC21 F4 F4 F4 F4 F4 F4 F4 F4 ;
-.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4    ; 0x16c39 $AC29 F4 F4 F4 F4 F4 F4 F4    ;
+.byt    $F4,$F4,$F4,$F4,$F4,$F4,$F4,$FD; 0x16c39 $AC29 F4 F4 F4 F4 F4 F4 F4 FD ;
 ; ---------------------------------------------------------------------------- ;
-bank5_code_AC30:                                                                ;
-    SBC      bank7_FCA5,x                   ; 0x16c40 $AC30 FD A5 FC                ;
+bank5_code_AC31:                                                                ;
+    LDA      $FC                   ; 0x16c40 $AC30 FD A5 FC                ;
     AND      #$0F                      ; 0x16c43 $AC33 29 0F                   ;;Keep Bits:0000_1111
     BEQ      LAC3D                     ; 0x16c45 $AC35 F0 06                   ;
     LDA      #$03                      ; 0x16c47 $AC37 A9 03                   ;;A = #$03 0000_0011
@@ -5042,6 +5040,7 @@ LAC5E:                                                                          
     RTS                                ; 0x16c82 $AC72 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LAC73:
     LDX      $33                       ; 0x16c83 $AC73 A6 33                   ;
     LDA      LAAE5,x                   ; 0x16c85 $AC75 BD E5 AA                ;
     STA      L0000                     ; 0x16c88 $AC78 85 00                   ;
@@ -5262,6 +5261,7 @@ LAE14:                                                                          
     RTS                                ; 0x16e24 $AE14 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
+LAE15:
     LDA      bss_0747                     ; 0x16e25 $AE15 AD 47 07                ;
     BNE      LAE4A                     ; 0x16e28 $AE18 D0 30                   ;
     LDA      bss_0504                     ; 0x16e2a $AE1A AD 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)

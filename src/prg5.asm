@@ -1851,7 +1851,7 @@ L923B:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9248:                                                                          ;
     JSR      L8C8B                     ; 0x15258 $9248 20 8B 8C                ;
-    LDA      $F7                       ; 0x1525b $924B A5 F7                   ; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1525b $924B A5 F7                   ; Controller 1 Buttons Held
     AND      #$10                      ; 0x1525d $924D 29 10                   ; keep bits ...x .... (Start Button)
     BEQ      L9254                     ; 0x1525f $924F F0 03                   ;
     INC      bss_0761                     ; 0x15261 $9251 EE 61 07                ;
@@ -2582,7 +2582,7 @@ bank5_dark_link_AI_movement_maybe1:                                             
 L9911:                                                                          ;
     LDA      $62                       ; 0x15921 $9911 A5 62                   ;
     BNE      L994E                     ; 0x15923 $9913 D0 39                   ;
-    LDA      $F5                       ; 0x15925 $9915 A5 F5                   ;; Controller 1 Buttons Pressed
+    LDA      joy_pressed+0                       ; 0x15925 $9915 A5 F5                   ;; Controller 1 Buttons Pressed
     AND      #$40                      ; 0x15927 $9917 29 40                   ;;Keep Bits:0100_0000
     BEQ      L994F                     ; 0x15929 $9919 F0 34                   ;
     LDA      $17                       ; 0x1592b $991B A5 17                   ;; Link's Shield Position; Link's Shield Position (0 = Link ducked)
@@ -3340,7 +3340,7 @@ L9DBA:                                                                          
     JSR      bank7_Floor_Y_Position    ; 0x15dd0 $9DC0 20 C1 DA                ;
 L9DC3:                                                                          ;
     JSR      L9E42                     ; 0x15dd3 $9DC3 20 42 9E                ;
-    LDA       a:$F5                     ; 0x15dd6 $9DC6 AD F5 00                ;
+    LDA       a:joy_pressed+0                     ; 0x15dd6 $9DC6 AD F5 00                ;
     AND      #$40                      ; 0x15dd9 $9DC9 29 40                   ;;Keep Bits:0100_0000
     BEQ      L9DD2                     ; 0x15ddb $9DCB F0 05                   ;
     LDA      $17                       ; 0x15ddd $9DCD A5 17                   ;; Link's Shield Position; Link's Shield Position (0 = Link ducked)
@@ -4521,7 +4521,7 @@ bank5_A610:                                                                    ;
     DEY                                ; 0x1668e $A67E 88                      ;
     STY      bss_0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
     JSR      bank7_Title_Music_Tick              ; 0x16692 $A682 20 32 C0                ;
-    LDA      $F7                       ; 0x16695 $A685 A5 F7                   ; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x16695 $A685 A5 F7                   ; Controller 1 Buttons Held
 LA687:                                                                         ;
     STA      bss_0744                     ; 0x16697 $A687 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
     JSR      bank7_Controllers_Input   ; 0x1669a $A68A 20 46 D3                ;
@@ -4670,7 +4670,7 @@ LA787:                                                                          
     BNE      LA795                     ; 0x167a1 $A791 D0 02                   ;
     INC      $FC                       ; 0x167a3 $A793 E6 FC                   ;
 LA795:                                                                          ;
-    LDA      $F7                       ; 0x167a5 $A795 A5 F7                   ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x167a5 $A795 A5 F7                   ;; Controller 1 Buttons Held
     CMP      bss_0744                     ; 0x167a7 $A797 CD 44 07                ;; Controller 1 Input; Controller 1 Buttons Held
     BEQ      LA7C0                     ; 0x167aa $A79A F0 24                   ;
     AND      #$10                      ; 0x167ac $A79C 29 10                   ;;Keep Bits:0001_0000
@@ -5590,7 +5590,7 @@ LB27B:                                                                          
 LB28B:                                                                          ;
     LDA      #$00                      ; 0x1729b $B28B A9 00                   ; A = 00
     STA      bss_0726                     ; 0x1729d $B28D 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    LDA      $F5                       ; 0x172a0 $B290 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x172a0 $B290 A5 F5                   ; Controller 1 buttons pressed
     AND      #$10                      ; 0x172a2 $B292 29 10                   ; keep bits ...x .... (Start button)
     BEQ      LB303                     ; 0x172a4 $B294 F0 6D                   ;
     LDA      #$00                      ; 0x172a6 $B296 A9 00                   ; A = 00
@@ -5659,7 +5659,7 @@ LB2F9:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB303:                                                                          ;
-    LDA      $F5                       ; 0x17313 $B303 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x17313 $B303 A5 F5                   ; Controller 1 buttons pressed
 ;                                                                              ;intro screen	save game selection screen
 ;                                                                              ;it picks the screenY position based on $19
 ;                                                                              ;then jumps to $B384, which sets screenX position
@@ -5877,7 +5877,7 @@ LB433:                                                                          
 LB443:                                                                          ;
     LDA      #$00                      ; 0x17453 $B443 A9 00                   ; A = 00
     STA      bss_0726                     ; 0x17455 $B445 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    LDA      $F5                       ; 0x17458 $B448 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x17458 $B448 A5 F5                   ; Controller 1 buttons pressed
     AND      #$10                      ; 0x1745a $B44A 29 10                   ; keep bits ...x .... (Start button)
     BEQ      LB4A6                     ; 0x1745c $B44C F0 58                   ;
     LDA      $19                       ; 0x1745e $B44E A5 19                   ; Position Code for Fairy Cursor
@@ -5927,7 +5927,7 @@ LB493:                                                                          
     CMP      #$BB                      ; 0x174b2 $B4A2 C9 BB                   ;
     BNE      LB493                     ; 0x174b4 $B4A4 D0 ED                   ;
 LB4A6:                                                                          ;
-    LDA      $F5                       ; 0x174b6 $B4A6 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x174b6 $B4A6 A5 F5                   ; Controller 1 buttons pressed
     AND      #$20                      ; 0x174b8 $B4A8 29 20                   ; keep bits ..x. .... (Select button)
     BEQ      LB4BC                     ; 0x174ba $B4AA F0 10                   ;
     LDA      #$04                      ; 0x174bc $B4AC A9 04                   ; A = 04
@@ -6221,7 +6221,7 @@ LB678:                                                                          
 LB692:                                                                          ;
     LDA      #$00                      ; 0x176a2 $B692 A9 00                   ; A = 00
     STA      bss_0726                     ; 0x176a4 $B694 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    LDA      $F5                       ; 0x176a7 $B697 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x176a7 $B697 A5 F5                   ; Controller 1 buttons pressed
     AND      #$10                      ; 0x176a9 $B699 29 10                   ; keep bits ...x .... (Start button)
     BEQ      LB6AC                     ; 0x176ab $B69B F0 0F                   ;
     LDA      $19                       ; 0x176ad $B69D A5 19                   ;;fall_or_invisible (0=invisible, 1=normal, 2~FF=fall in hole); Position Code for Fairy Cursor (Selection Screen)	(and) ;draw link's sprite =yes/no
@@ -6235,7 +6235,7 @@ LB692:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB6AC:                                                                          ;
 ;register your name, increase fairy position when you press select button      ;
-    LDA      $F5                       ; 0x176bc $B6AC A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x176bc $B6AC A5 F5                   ; Controller 1 buttons pressed
     AND      #$20                      ; 0x176be $B6AE 29 20                   ; keep bits ..x. .... (Select button)
     BEQ      LB6C6                     ; 0x176c0 $B6B0 F0 14                   ;
     LDA      #$04                      ; 0x176c2 $B6B2 A9 04                   ; A = 04
@@ -6296,7 +6296,7 @@ LB6E4:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB711:                                                                          ;
-    LDA      $F5                       ; 0x17721 $B711 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x17721 $B711 A5 F5                   ; Controller 1 buttons pressed
     AND      #$C0                      ; 0x17723 $B713 29 C0                   ; keep bits xx.. .... (A/B buttons)
     BEQ      LB727                     ; 0x17725 $B715 F0 10                   ;
     LDA      #$01                      ; 0x17727 $B717 A9 01                   ; A = 01
@@ -6341,7 +6341,7 @@ LB74B:                                                                          
     STA      $0205                     ; 0x1776b $B75B 8D 05 02                ;
     LDA      #$03                      ; 0x1776e $B75E A9 03                   ; A = 03
     STA      $0206                     ; 0x17770 $B760 8D 06 02                ;
-    LDA      $F7                       ; 0x17773 $B763 A5 F7                   ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x17773 $B763 A5 F7                   ; Controller 1 buttons held
     AND      #$0F                      ; 0x17775 $B765 29 0F                   ; keep bits .... xxxx (All Arrows)
     BNE      LB772                     ; 0x17777 $B767 D0 09                   ;
     LDA      #$00                      ; 0x17779 $B769 A9 00                   ; A = 00
@@ -6374,7 +6374,7 @@ LB78E:                                                                          
     STA      $21                       ; 0x177a0 $B790 85 21                   ;
     LDA      #$02                      ; 0x177a2 $B792 A9 02                   ; A = 02
     STA      $EB                       ; 0x177a4 $B794 85 EB                   ; Music
-    LDA      $F7                       ; 0x177a6 $B796 A5 F7                   ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x177a6 $B796 A5 F7                   ; Controller 1 buttons held
     AND      #$03                      ; 0x177a8 $B798 29 03                   ; keep bits .... ..xx (Left/Right Arrows)
     BEQ      LB7F2                     ; 0x177aa $B79A F0 56                   ;
     CMP      #$01                      ; 0x177ac $B79C C9 01                   ;
@@ -6430,7 +6430,7 @@ LB7EF:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB7F2:                                                                          ;
-    LDA      $F7                       ; 0x17802 $B7F2 A5 F7                   ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x17802 $B7F2 A5 F7                   ; Controller 1 buttons held
     AND      #$08                      ; 0x17804 $B7F4 29 08                   ; keep bits .... x... (Up Arrow)
     BEQ      LB814                     ; 0x17806 $B7F6 F0 1C                   ;
     DEC      $20                       ; 0x17808 $B7F8 C6 20                   ;
@@ -6528,7 +6528,7 @@ LB878:                                                                          
     DEX                                ; 0x1789e $B88E CA                      ;
     DEX                                ; 0x1789f $B88F CA                      ;
     BPL      LB878                     ; 0x178a0 $B890 10 E6                   ;
-    LDA      $F5                       ; 0x178a2 $B892 A5 F5                   ;only occurs during Register Your Name ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x178a2 $B892 A5 F5                   ;only occurs during Register Your Name ; Controller 1 buttons pressed
     AND      #$80                      ; 0x178a4 $B894 29 80                   ; keep bits x... .... (A button)
     BEQ      LB8C4                     ; 0x178a6 $B896 F0 2C                   ;
     LDX      $20                       ; 0x178a8 $B898 A6 20                   ;

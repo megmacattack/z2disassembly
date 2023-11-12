@@ -1383,7 +1383,7 @@ L96F0:                                                                          
     STA      $AF,x                     ; 0xd71d $970D 95 AF                    ;; Various enemy state variables
     LDA      #$B0                      ; 0xd71f $970F A9 B0                    ; A = B0
     STA      $2A,x                     ; 0xd721 $9711 95 2A                    ; Enemy Y Position
-    LDA      $F7                       ; 0xd723 $9713 A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0xd723 $9713 A5 F7                    ; Controller 1 buttons held
     AND      #$03                      ; 0xd725 $9715 29 03                    ; keep bits .... ..xx (Right and Left)
     BNE      L971B                     ; 0xd727 $9717 D0 02                    ;
     LDA      L0002                     ; 0xd729 $9719 A5 02                    ;
@@ -1850,7 +1850,7 @@ L9A28:                                                                          
     LDA      $AF,x                     ; 0xda38 $9A28 B5 AF                    ;; Various enemy state variables
     BNE      L9A4F                     ; 0xda3a $9A2A D0 23                    ;
 bank3_Check_for_B_button_to_talk_to_people:                                     ;
-    LDA       a:$F5                     ; 0xda3c $9A2C AD F5 00                 ; Controller 1 buttons pressed
+    LDA       a:joy_pressed+0                     ; 0xda3c $9A2C AD F5 00                 ; Controller 1 buttons pressed
     AND      #$40                      ; 0xda3f $9A2F 29 40                    ; keep bits .x.. .... (B button)
     BEQ      L9A4F                     ; 0xda41 $9A31 F0 1C                    ;
 L9A33:                                                                          ;
@@ -4014,7 +4014,7 @@ LB6A2:                                                                          
     BEQ      LB6BA                     ; 0xf6be $B6AE F0 0A                    ;
     CMP      #$0F                      ; 0xf6c0 $B6B0 C9 0F                    ; Townfolk type 0F prevents dialog cancel
     BEQ      LB6BA                     ; 0xf6c2 $B6B2 F0 06                    ;
-    LDA      $F5                       ; 0xf6c4 $B6B4 A5 F5                    ; controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0xf6c4 $B6B4 A5 F5                    ; controller 1 buttons pressed
     AND      #$40                      ; 0xf6c6 $B6B6 29 40                    ; keep bits .x.. .... (B button)
     BNE      LB672                     ; 0xf6c8 $B6B8 D0 B8                    ; if pressed, skip to $F672
 LB6BA:                                                                          ;
@@ -4152,7 +4152,7 @@ LB7A5:                                                                          
 bank3_Dialog_Routines_wait_for_B_button:                                        ;
     LDA      bss_0766                     ; 0xf7b6 $B7A6 AD 66 07                 ;; Dialog Flag (00-01)	wait for B button press; set when conversation occurs? Might prevent other ppu instruction
     BEQ      LB7A2                     ; 0xf7b9 $B7A9 F0 F7                    ;
-    LDA      $F5                       ; 0xf7bb $B7AB A5 F5                    ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0xf7bb $B7AB A5 F5                    ; Controller 1 buttons pressed
     AND      #$40                      ; 0xf7bd $B7AD 29 40                    ; keep bits .x.. .... (B button)
     BNE      LB7A2                     ; 0xf7bf $B7AF D0 F1                    ; if pressed, advance to next routine
     RTS                                ; 0xf7c1 $B7B1 60                       ;

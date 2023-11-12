@@ -2455,7 +2455,7 @@ L9D4F:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9D52:                                                                          ;
-    LDA      $F5                       ; 0x11d62 $9D52 A5 F5                   ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x11d62 $9D52 A5 F5                   ; Controller 1 buttons pressed
 L9D54:                                                                          ;
     AND      #$40                      ; 0x11d64 $9D54 29 40                   ; check if B is pressed
     BEQ      L9D67                     ; 0x11d66 $9D56 F0 0F                   ; if B is NOT pressed, skip to $11D67
@@ -5238,7 +5238,7 @@ LB876:                                                                          
     STA      $2A,x                     ; 0x13897 $B887 95 2A                   ;; Enemy Y Position
     LDA      #$1C                      ; 0x13899 $B889 A9 1C                   ; A = 1C
     STA      $A1,x                     ; 0x1389b $B88B 95 A1                   ;; Enemy Code
-    LDA      $F7                       ; 0x1389d $B88D A5 F7                   ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x1389d $B88D A5 F7                   ; Controller 1 buttons held
     AND      #$03                      ; 0x1389f $B88F 29 03                   ; check if Up/Down are held
     BNE      LB896                     ; 0x138a1 $B891 D0 03                   ; if None, skip to 13896
     LDA      rng_out,x                   ; 0x138a3 $B893 BD 1B 05                ;; Randomizer

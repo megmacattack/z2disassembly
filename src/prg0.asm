@@ -803,7 +803,7 @@ L84F1:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank0_A_Button_in_Overworld_Hammer:                                             ;
-    LDA      $F5                       ; 0x502 $84F2 A5 F5                     ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x502 $84F2 A5 F5                     ; Controller 1 buttons pressed
     AND      #$80                      ; 0x504 $84F4 29 80                     ; keep bits x... .... (button A pressed)
     BEQ      bank0_B_Button_in_Overworld_Flute; 0x506 $84F6 F0 1A                  ;
     LDA      bss_0563                     ; 0x508 $84F8 AD 63 05                  ; Type of terrain Link is facing
@@ -826,7 +826,7 @@ L850C:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank0_B_Button_in_Overworld_Flute:                                              ;
-    LDA      $F5                       ; 0x522 $8512 A5 F5                     ;; Controller 1 Buttons Pressed
+    LDA      joy_pressed+0                       ; 0x522 $8512 A5 F5                     ;; Controller 1 Buttons Pressed
     AND      #$40                      ; 0x524 $8514 29 40                     ; keep bits .x.. .... (B Button pressed)
     BEQ      L8527                     ; 0x526 $8516 F0 0F                     ;
 
@@ -957,7 +957,7 @@ L8600:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8601:                                                                          ;
-    LDA      $F7                       ; 0x611 $8601 A5 F7                     ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x611 $8601 A5 F7                     ; Controller 1 buttons held
     AND      #$0F                      ; 0x613 $8603 29 0F                     ; keep bits .... xxxx (Arrows All Directions)
     BEQ      L8600                     ; 0x615 $8605 F0 F9                     ;
     STA      $70                       ; 0x617 $8607 85 70                     ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
@@ -2117,7 +2117,7 @@ Spell_Casting_Routine:                                                          
     INY                                ; 0xde0 $8DD0 C8                        ;
     CPY      bss_074A                     ; 0xde1 $8DD1 CC 4A 07                  ;
     BEQ      L8E1F                     ; 0xde4 $8DD4 F0 49                     ;
-    LDA      $F5                       ; 0xde6 $8DD6 A5 F5                     ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0xde6 $8DD6 A5 F5                     ; Controller 1 buttons pressed
     AND      #$20                      ; 0xde8 $8DD8 29 20                     ; check if Select is pressed
     BEQ      L8E1F                     ; 0xdea $8DDA F0 43                     ; if Select NOT pressed, skip to $0E1F
     LDY      bss_0749                     ; 0xdec $8DDC AC 49 07                  ; Current position of the Magic selector
@@ -2885,16 +2885,16 @@ L92E9:                                                                          
     STA      $70                       ; 0x130d $92FD 85 70                    ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
     LDA      #$02                      ; 0x130f $92FF A9 02                    ; A = 02
     STA      $EF                       ; 0x1311 $9301 85 EF                    ;; Sound Effects Type 4; Sound Effects Type 4
-    LDA      $F7                       ; 0x1313 $9303 A5 F7                    ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1313 $9303 A5 F7                    ;; Controller 1 Buttons Held
     AND      #$0C                      ; 0x1315 $9305 29 0C                    ; keep bits .... xx.. (Arrows Up and Down)
     STA      bss_0743                     ; 0x1317 $9307 8D 43 07                 ;; Controller 1 Input; Up/Down Buttons Held		;elevator was moving up or down: 8=up, 4=down
-    LDA      $F7                       ; 0x131a $930A A5 F7                    ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x131a $930A A5 F7                    ;; Controller 1 Buttons Held
     AND      #$0F                      ; 0x131c $930C 29 0F                    ; keep bits .... xxxx (Arrows All Directions)
     BEQ      L9340                     ; 0x131e $930E F0 30                    ; if no Arrow pressed, goto $1340 (RTS)
     TAY                                ; 0x1320 $9310 A8                       ;
     AND      bss_05E7                     ; 0x1321 $9311 2D E7 05                 ;
     BNE      L9340                     ; 0x1324 $9314 D0 2A                    ;
-    LDA      $F7                       ; 0x1326 $9316 A5 F7                    ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1326 $9316 A5 F7                    ;; Controller 1 Buttons Held
     AND      #$03                      ; 0x1328 $9318 29 03                    ; keep bits .... ..xx (Arrows Right/Left)
     BEQ      L931E                     ; 0x132a $931A F0 02                    ;
     STA      $5F                       ; 0x132c $931C 85 5F                    ; Link's facing direction
@@ -2910,7 +2910,7 @@ L931E:                                                                          
     BCS      L9336                     ; 0x1342 $9332 B0 02                    ;
     ORA      #$08                      ; 0x1344 $9334 09 08                    ; set bits  .... x...
 L9336:                                                                          ;
-    AND      $F7                       ; 0x1346 $9336 25 F7                    ;; Controller 1 Buttons Held
+    AND      joy_held+0                       ; 0x1346 $9336 25 F7                    ;; Controller 1 Buttons Held
     BNE      L9340                     ; 0x1348 $9338 D0 06                    ;
     JSR      bank0_goto__1610          ; 0x134a $933A 20 10 96                 ; goto $1610
     JMP      bank7_D20A                     ; 0x134d $933D 4C 0A D2                 ;
@@ -3262,7 +3262,7 @@ L951C:                                                                          
     STA      bss_0479                     ; 0x153a $952A 8D 79 04                 ; Link is in mid-air ? (1 = mid-air)
 L952D:                                                                          ;
     LDY      #$48                      ; 0x153d $952D A0 48                    ; Y = 48
-    LDA      $F7                       ; 0x153f $952F A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x153f $952F A5 F7                    ; Controller 1 buttons held
     AND      #$80                      ; 0x1541 $9531 29 80                    ; check if A is held
     BEQ      L953C                     ; 0x1543 $9533 F0 07                    ; if A is held, skip to $153C
     LDA      bss_057D                     ; 0x1545 $9535 AD 7D 05                 ; Link's Y Velocity
@@ -3305,7 +3305,7 @@ L956C:                                                                          
     LDA      player_skills                     ; 0x1584 $9574 AD 96 07                 ; Upward/Downward techs
     AND      #$04                      ; 0x1587 $9577 29 04                    ; check if Upward tech learned
     BEQ      L9582                     ; 0x1589 $9579 F0 07                    ; if Upward NOT learned, skip to $1582			;007 CHANGE THIS
-    LDA      $F7                       ; 0x158b $957B A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x158b $957B A5 F7                    ; Controller 1 buttons held
     AND      #$08                      ; 0x158d $957D 29 08                    ; check if Up is held
     BEQ      L9582                     ; 0x158f $957F F0 01                    ; if Up is NOT held, skip to $1582			;AND CHANGE THIS
     TAY                                ; 0x1591 $9581 A8                       ; 08 = Up Stab animation frame				;AND LDY #$08 			then automatically does upstab always when jumping
@@ -3329,7 +3329,7 @@ L959B:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L959C:                                                                          ;
-    LDA      $F7                       ; 0x15ac $959C A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x15ac $959C A5 F7                    ; Controller 1 buttons held
     AND      #$87                      ; 0x15ae $959E 29 87                    ; check if A/Down/Left/Right are held
     BEQ      L95B5                     ; 0x15b0 $95A0 F0 13                    ; if none of them, skip to $15B5
     LDY      bss_0400                     ; 0x15b2 $95A2 AC 00 04                 ;;sword_slash_frame (animation frame); Sword slash frame code
@@ -3341,7 +3341,7 @@ L959C:                                                                          
     BNE      L95B5                     ; 0x15c1 $95B1 D0 02                    ;
     STA      $70                       ; 0x15c3 $95B3 85 70                    ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
 L95B5:                                                                          ;
-    LDA      $F7                       ; 0x15c5 $95B5 A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x15c5 $95B5 A5 F7                    ; Controller 1 buttons held
     AND      #$0C                      ; 0x15c7 $95B7 29 0C                    ; check if Up/Down are held
     STA      bss_0743                     ; 0x15c9 $95B9 8D 43 07                 ; Up/Down buttons held
     LDY      #$00                      ; 0x15cc $95BC A0 00                    ; Y = 00
@@ -3350,13 +3350,13 @@ L95B5:                                                                          
     INY                                ; 0x15d2 $95C2 C8                       ;
 L95C3:                                                                          ;
     STY       a:$17                     ; 0x15d3 $95C3 8C 17 00                 ; Link's Shield Position
-    LDA      $F7                       ; 0x15d6 $95C6 A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x15d6 $95C6 A5 F7                    ; Controller 1 buttons held
     AND      #$03                      ; 0x15d8 $95C8 29 03                    ; check if Left/Right are held
     STA      bss_0742                     ; 0x15da $95CA 8D 42 07                 ; Left/Right buttons held
     BEQ      L95D1                     ; 0x15dd $95CD F0 02                    ; if none is held, skip to $15D1
     STA      $9F                       ; 0x15df $95CF 85 9F                    ; Direction arrow pressed
 L95D1:                                                                          ;
-    LDA      $F5                       ; 0x15e1 $95D1 A5 F5                    ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x15e1 $95D1 A5 F5                    ; Controller 1 buttons pressed
     AND      #$C0                      ; 0x15e3 $95D3 29 C0                    ; check if A/B are pressed
     STA      bss_0741                     ; 0x15e5 $95D5 8D 41 07                 ; A/B buttons pressed
     AND      #$40                      ; 0x15e8 $95D8 29 40                    ; check if B is pressed
@@ -4376,7 +4376,7 @@ bank0_unknown28:                                                                
     LDA      bss_0744                     ; 0x1da6 $9D96 AD 44 07                 ;; Controller 1 Input; Controller 1 Buttons Held
     AND      #$10                      ; 0x1da9 $9D99 29 10                    ; keep bits ...x ....
     STA      $00                       ; 0x1dab $9D9B 85 00                    ;
-    LDA      $F7                       ; 0x1dad $9D9D A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x1dad $9D9D A5 F7                    ; Controller 1 buttons held
     AND      #$10                      ; 0x1daf $9D9F 29 10                    ; Check if Start is held
     BEQ      L9DCC                     ; 0x1db1 $9DA1 F0 29                    ; if held, skip to $1DCC (RTS)
     CMP      $00                       ; 0x1db3 $9DA3 C5 00                    ;
@@ -4433,7 +4433,7 @@ bank0_unknown29:                                                                
     STA      $01                       ; 0x1e0b $9DFB 85 01                    ;
     LDA      #$0C                      ; 0x1e0d $9DFD A9 0C                    ; A = 0C
     STA      $00                       ; 0x1e0f $9DFF 85 00                    ;
-    LDA      $F7                       ; 0x1e11 $9E01 A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x1e11 $9E01 A5 F7                    ; Controller 1 buttons held
     AND      #$0C                      ; 0x1e13 $9E03 29 0C                    ; Check if Up/Down is held
     BIT      $00                       ; 0x1e15 $9E05 24 00                    ;
     BEQ      L9E1D                     ; 0x1e17 $9E07 F0 14                    ;
@@ -4524,7 +4524,7 @@ L9E98:                                                                          
     SBC      L9670,x                   ; 0x1ebb $9EAB FD 70 96                 ;
     LDA      player_exp                     ; 0x1ebe $9EAE AD 75 07                 ;; Experience x256; Current Experience (high byte)
     SBC      L9658,x                   ; 0x1ec1 $9EB1 FD 58 96                 ;
-    LDA      $F7                       ; 0x1ec4 $9EB4 A5 F7                    ; Controller 1 buttons held
+    LDA      joy_held+0                       ; 0x1ec4 $9EB4 A5 F7                    ; Controller 1 buttons held
     BCC      bank0_Related_To_LevelUp  ; 0x1ec6 $9EB6 90 CA                    ;nop nop here to allow movement without exp required
     BCS      L9ECA                     ; 0x1ec8 $9EB8 B0 10                    ;
 L9EBA:                                                                          ;
@@ -4533,7 +4533,7 @@ L9EBA:                                                                          
     ORA      $03                       ; 0x1ecf $9EBF 05 03                    ;
     ORA      $04                       ; 0x1ed1 $9EC1 05 04                    ;
     BNE      L9ECA                     ; 0x1ed3 $9EC3 D0 05                    ;
-    LDA      $F7                       ; 0x1ed5 $9EC5 A5 F7                    ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1ed5 $9EC5 A5 F7                    ;; Controller 1 Buttons Held
     JMP      bank0_Related_To_LevelUp  ; 0x1ed7 $9EC7 4C 82 9E                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4599,7 +4599,7 @@ L9F34:                                                                          
     LDA      #$FB                      ; 0x1f48 $9F38 A9 FB                    ; A = FB
     STA      bss_0305,y                   ; 0x1f4a $9F3A 99 05 03                 ;
 L9F3D:                                                                          ;
-    LDA      $F7                       ; 0x1f4d $9F3D A5 F7                    ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1f4d $9F3D A5 F7                    ;; Controller 1 Buttons Held
     AND      #$10                      ; 0x1f4f $9F3F 29 10                    ; keep bits ...x ....
     BIT      bss_0744                     ; 0x1f51 $9F41 2C 44 07                 ;; Controller 1 Input; Controller 1 Buttons Held
     BNE      L9FBC                     ; 0x1f54 $9F44 D0 76                    ;
@@ -4961,7 +4961,7 @@ bank0_A199:                                                                     
 ; ---------------------------------------------------------------------------- ;
 bank0_Manual_Save_Game_Routine_UP_AND_A:                                        ;
     JSR      bank0_A256                     ; 0x21ac $A19C 20 56 A2                 ;
-    LDA      $F8                       ; 0x21af $A19F A5 F8                    ; Controller 2 buttons held
+    LDA      joy_held+1                       ; 0x21af $A19F A5 F8                    ; Controller 2 buttons held
     CMP      #$88                      ; 0x21b1 $A1A1 C9 88                    ; 88 = 1000 1000 (Buttons A and Up)
     BNE      LA1DC                     ; 0x21b3 $A1A3 D0 37                    ;
 LA1A5:                                                                          ;
@@ -4992,7 +4992,7 @@ LA1DC:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank0_Pause_Pane_Pointer_5__Table_1DE4:                                         ;
-    LDA      $F8                       ; 0x21ed $A1DD A5 F8                    ; Controller 2 buttons held
+    LDA      joy_held+1                       ; 0x21ed $A1DD A5 F8                    ; Controller 2 buttons held
     CMP      #$88                      ; 0x21ef $A1DF C9 88                    ; 88 = 1000 1000 (Buttons A and Up)
     BEQ      LA1A5                     ; 0x21f1 $A1E1 F0 C2                    ;
     LDY      #$07                      ; 0x21f3 $A1E3 A0 07                    ; Y = 07
@@ -5061,7 +5061,7 @@ bank0_A256:                                                                     
     LDA      bss_0744                     ; 0x2266 $A256 AD 44 07                 ; Controller 1 Buttons Held
     AND      #$10                      ; 0x2269 $A259 29 10                    ; keep bits ...x .... (Start Button)
     STA      $00                       ; 0x226b $A25B 85 00                    ;
-    LDA      $F7                       ; 0x226d $A25D A5 F7                    ; Controller 1 Buttons Held				;occurs in overworld and sidescroll:spell menu open
+    LDA      joy_held+0                       ; 0x226d $A25D A5 F7                    ; Controller 1 Buttons Held				;occurs in overworld and sidescroll:spell menu open
     AND      #$10                      ; 0x226f $A25F 29 10                    ; keep bits ...x .... (Start Button)
     BEQ      LA26A                     ; 0x2271 $A261 F0 07                    ;
     CMP      $00                       ; 0x2273 $A263 C5 00                    ;

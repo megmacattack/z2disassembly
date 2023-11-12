@@ -2630,7 +2630,7 @@ L9B96:                                                                          
     STA      bss_05E4                     ; 0x9bab $9B9B 8D E4 05                 ;
     ASL                                ; 0x9bae $9B9E 0A                       ;
     STA      bss_05E5                     ; 0x9baf $9B9F 8D E5 05                 ;
-    LDA      $F5                       ; 0x9bb2 $9BA2 A5 F5                    ; Controller 1 buttons pressed
+    LDA      joy_pressed+0                       ; 0x9bb2 $9BA2 A5 F5                    ; Controller 1 buttons pressed
     AND      #$40                      ; 0x9bb4 $9BA4 29 40                    ; keep bits .x.. .... (B button)
     BEQ      L9BB4                     ; 0x9bb6 $9BA6 F0 0C                    ;
     LDA      rng_out,x                   ; 0x9bb8 $9BA8 BD 1B 05                 ; Randomizer

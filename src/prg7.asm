@@ -172,7 +172,7 @@ bank7_NMI_Entry_Point:                                                         ;
 :                                                                              ;
     STA      PPU_macro_select                     ; 0x1c13c $C12C 8D 25 07                ; PPU Macro Selector
     JSR      bank7_related_to_sound    ; 0x1c13f $C12F 20 C1 C1                ; related to sound
-    LDA      $F7                       ; 0x1c142 $C132 A5 F7                   ; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1c142 $C132 A5 F7                   ; Controller 1 Buttons Held
     STA      bss_0744                     ; 0x1c144 $C134 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
     JSR      bank7_Controllers_Input   ; 0x1c147 $C137 20 46 D3                ; Controllers Input
     LDA      $DE                       ; 0x1c14a $C13A A5 DE                   ; prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
@@ -1532,7 +1532,7 @@ LCA71:                                                                          
 LCA72:                                                                          ;
     LDA      #$00                      ; 0x1ca82 $CA72 A9 00                   ; A = 00
     STA      bss_0726                     ; 0x1ca84 $CA74 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    LDA      $F7                       ; 0x1ca87 $CA77 A5 F7                   ; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1ca87 $CA77 A5 F7                   ; Controller 1 Buttons Held
     AND      #$10                      ; 0x1ca89 $CA79 29 10                   ; keep bits ...x .... (Start button)
     BNE      LCA82                     ; 0x1ca8b $CA7B D0 05                   ;
     LDA      bss_0501                     ; 0x1ca8d $CA7D AD 01 05                ;; Timer
@@ -1542,7 +1542,7 @@ LCA82:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCA85:                                                                          ;
-    LDA      $F7                       ; 0x1ca95 $CA85 A5 F7                   ; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1ca95 $CA85 A5 F7                   ; Controller 1 Buttons Held
     AND      #$30                      ; 0x1ca97 $CA87 29 30                   ; keep bits ..xx .... (Start/Select buttons)
     ASL                                ; 0x1ca99 $CA89 0A                      ;
     ASL                                ; 0x1ca9a $CA8A 0A                      ;
@@ -4951,7 +4951,7 @@ LE0E5:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LE0E6:                                                                          ;
-    LDA      $F7                       ; 0x1e0f6 $E0E6 A5 F7                   ;; Controller 1 Buttons Held
+    LDA      joy_held+0                       ; 0x1e0f6 $E0E6 A5 F7                   ;; Controller 1 Buttons Held
     AND      #$08                      ; 0x1e0f8 $E0E8 29 08                   ;;Keep Bits:0000_1000
     BEQ      LE0F9                     ; 0x1e0fa $E0EA F0 0D                   ;
     LDA      bss_0479                     ; 0x1e0fc $E0EC AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)

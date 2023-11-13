@@ -1830,20 +1830,20 @@ L921C:                                                                          
     STA      player_exp                     ; 0x15233 $9223 8D 75 07                ; Current Experience (high byte)
     STA      player_exp+1                     ; 0x15236 $9226 8D 76 07                ; Current Experience (low byte)
     LDY      #$69                      ; 0x15239 $9229 A0 69                   ; Y = 69
-L922B:                                                                          ;
-    STA      lives_remaining,y                   ; 0x1523b $922B 99 00 07                ;
-    DEY                                ; 0x1523e $922E 88                      ;
-    BNE      L922B                     ; 0x1523f $922F D0 FA                   ;
+    :                                                                          ;
+        STA      lives_remaining,y                   ; 0x1523b $922B 99 00 07                ;
+        DEY                                ; 0x1523e $922E 88                      ;
+        BNE      :-                     ; 0x1523f $922F D0 FA                   ;
     LDY      #$C0                      ; 0x15241 $9231 A0 C0                   ; Y = C0
-L9233:                                                                          ;
-    STA      lives_remaining,y                   ; 0x15243 $9233 99 00 07                ;
-    INY                                ; 0x15246 $9236 C8                      ;
-    BNE      L9233                     ; 0x15247 $9237 D0 FA                   ;
+    :                                                                          ;
+        STA      lives_remaining,y                   ; 0x15243 $9233 99 00 07                ;
+        INY                                ; 0x15246 $9236 C8                      ;
+        BNE      :-                     ; 0x15247 $9237 D0 FA                   ;
     LDY      #$0F                      ; 0x15249 $9239 A0 0F                   ; Y = 0F
-L923B:                                                                          ;
-    STA      $E0,y                     ; 0x1524b $923B 99 E0 00                ;
-    DEY                                ; 0x1524e $923E 88                      ;
-    BPL      L923B                     ; 0x1524f $923F 10 FA                   ;
+    :                                                                          ;
+        STA      $E0,y                     ; 0x1524b $923B 99 E0 00                ;
+        DEY                                ; 0x1524e $923E 88                      ;
+        BPL      :-                     ; 0x1524f $923F 10 FA                   ;
     JSR      bank7_D293                     ; 0x15251 $9241 20 93 D2                ;
     INC      game_event                     ; 0x15254 $9244 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x15257 $9247 60                      ;
@@ -3015,7 +3015,7 @@ L9BA8:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9BBA:                                                                          ;
-    LDA      #$03                      ; 0x15bca $9BBA A9 03                   ;;A = #$03 0000_0011
+    LDA      #game_event::zelda_awakens                      ; 0x15bca $9BBA A9 03                   ;;A = #$03 0000_0011
     STA      game_event                     ; 0x15bcc $9BBC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     LDA      #$00                      ; 0x15bcf $9BBF A9 00                   ;;A = #$00 0000_0000
     STA      $2001                     ; 0x15bd1 $9BC1 8D 01 20                ;
@@ -4472,7 +4472,7 @@ bank5_table_A600:                                                              ;
 .byt    $02,$03,$3D,$AF,$F5,$BB,$BD,$D0; 0x16611 $A601 02 03 3D AF F5 BB BD D0 ;
 .byt    $61,$AF,$00,$7F,$BF,$BC,$55,$BD; 0x16619 $A609 61 AF 00 7F BF BC 55 BD ;
 ; ---------------------------------------------------------------------------- ;
-bank5_A610:                                                                    ;
+bank5_title_NMI_entry_point:                                                                    ;
     LDA      $FF                       ; 0x16620 $A610 A5 FF                   ; Sprite Bank ?
     AND      #$7C                      ; 0x16622 $A612 29 7C                   ; Keep Bits:0111_1100
     ORA      bss_0747                     ; 0x16624 $A614 0D 47 07                ;
@@ -4522,11 +4522,10 @@ bank5_A610:                                                                    ;
     STY      bss_0302                     ; 0x1668f $A67F 8C 02 03                ; Used when writing text to screen
     JSR      bank7_Title_Music_Tick              ; 0x16692 $A682 20 32 C0                ;
     LDA      joy_held+0                       ; 0x16695 $A685 A5 F7                   ; Controller 1 Buttons Held
-LA687:                                                                         ;
     STA      bss_0744                     ; 0x16697 $A687 8D 44 07                ; Controller 1 Input; Controller 1 Buttons Held
     JSR      bank7_Controllers_Input   ; 0x1669a $A68A 20 46 D3                ;
     INC      a:$12                     ; 0x1669d $A68D EE 12 00                ;
-    JSR      LA6D9                     ; 0x166a0 $A690 20 D9 A6                ;
+    JSR      title_state_machine_tick                     ; 0x166a0 $A690 20 D9 A6                ;
     LDA      PPU_STATUS                ; 0x166a3 $A693 AD 02 20                ;
     LDA      $FF                       ; 0x166a6 $A696 A5 FF                   ; Sprite Bank ?
     ORA      #$80                      ; 0x166a8 $A698 09 80                   ; Set Bits:1000_0000
@@ -4554,32 +4553,34 @@ bank5_PowerON__Reset_Memory:                                                   ;
     INC      bss_0726                     ; 0x166d4 $A6C4 EE 26 07                ; ?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      #$06                      ; 0x166d7 $A6C7 A9 06                   ; A = #$06 0000_0110
     STA      bss_0768                     ; 0x166d9 $A6C9 8D 68 07                ; makes weird ppu effect
-    LDA      #$80                      ; 0x166dc $A6CC A9 80                   ; A = #$80 1000_0000
-    STA      $0100                     ; 0x166de $A6CE 8D 00 01                ;
+    LDA      #nmi_mode::title                      ; 0x166dc $A6CC A9 80                   ; A = #$80 1000_0000
+    STA      nmi_mode                     ; 0x166de $A6CE 8D 00 01                ;
 	LDA      #$B0                      ; 0x166e1 $A6D1 A9 B0                   ; PPU_CTRL will be $B0 1011_0000
 	STA      $FF                       ; 0x166e3 $A6D3 85 FF                   ; Save PPU_CTRL to $FF
     STA      PPU_CTRL                  ; 0x166e5 $A6D5 8D 00 20                ; Set PPU_CTRL
     RTS                                ; 0x166e8 $A6D8 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LA6D9:                                                                          ;
-    JSR      bank7_D174                     ; 0x166e9 $A6D9 20 74 D1                ;
+title_state_machine_tick:                                                                          ;
+    JSR      bank7_start_event_if_changed                     ; 0x166e9 $A6D9 20 74 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x166ec $A6DC 20 85 D3;
-    ; fix this jump table
-    .word bank5_code19                 ; 0x166ef $A6DF F0 A6                   ;
-    .word LB22D                        ; 0x166f1 $A6E1 2D B2                ;
-    .word :+                           ; 0x166f3 $A6E3 E5 A6
-:
-    LDA      #$C0                      ; 0x166f5 $A6E5 A9 C0                ;
-    STA      $0100                      ; 0x166f7 $A6E7 8D 00 01                ;
-    LDA      #$00                      ; 0x166fa $A6EA A9 00                ;
+title_event_state_machine_pointers:
+    .word title_event_title_screen_animation                 ; 0x166ef $A6DF F0 A6                   ;
+    .word title_event_player_select                        ; 0x166f1 $A6E1 2D B2                ;
+    .word title_event_start_game                           ; 0x166f3 $A6E3 E5 A6
+; ---------------------------------------------------------------------------- ;
+title_event_start_game:
+    LDA      #nmi_mode::gameplay                      ; 0x166f5 $A6E5 A9 C0                ;
+    STA      nmi_mode                      ; 0x166f7 $A6E7 8D 00 01                ;
+    ; now that we're in the gameplay nmi mode, we use game_event instead of title_event.
+    LDA      #game_event::restart_game                      ; 0x166fa $A6EA A9 00                ;
     STA      game_event                     ; 0x166fc $A6EC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x166ff $A6EF 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank5_code19:                                                                   ;
-    LDA      game_mode                     ; 0x16700 $A6F0 AD 36 07                ; Game Mode
-    CMP      #$03                      ; 0x16703 $A6F3 C9 03                   ;
+title_event_title_screen_animation:                                                                   ;
+    LDA      title_mode                     ; 0x16700 $A6F0 AD 36 07                ; Game Mode
+    CMP      #title_mode::title_screen_animation                      ; 0x16703 $A6F3 C9 03                   ;
     BCC      LA6FF                     ; 0x16705 $A6F5 90 08                   ;
     JSR      bank5_Animation_of_Stars_in_the_Sky; 0x16707 $A6F7 20 CF A8           ; Animation of Stars in the Sky
     JSR      bank5_Animation_of_Glints_in_Water; 0x1670a $A6FA 20 18 A9            ; Animation of Glints in Water
@@ -4613,26 +4614,26 @@ LA723:                                                                          
 LA72E:                                                                          ;
     JSR      bank5_code21              ; 0x1673e $A72E 20 C1 A8                ;
     INC      bss_0727                     ; 0x16741 $A731 EE 27 07                ;
-    JMP      bank7_C72D                     ; 0x16744 $A734 4C 2D C7                ;
+    JMP      game_mode_reset_726_and_overworld_main                     ; 0x16744 $A734 4C 2D C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LA737:                                                                          ;
     LDY      #$00                      ; 0x16747 $A737 A0 00                   ;;Y = #$00 0000_0000
-LA739:                                                                          ;
-    NOP                                ; 0x16749 $A739 EA                      ;
-    DEY                                ; 0x1674a $A73A 88                      ;
-    BNE      LA739                     ; 0x1674b $A73B D0 FC                   ;
-LA73D:                                                                          ;
-    BIT      $2002                     ; 0x1674d $A73D 2C 02 20                ;
-    BVC      LA73D                     ; 0x16750 $A740 50 FB                   ;
+    :                                                                          ;
+        NOP                                ; 0x16749 $A739 EA                      ;
+        DEY                                ; 0x1674a $A73A 88                      ;
+        BNE      :-                     ; 0x1674b $A73B D0 FC                   ;
+    :                                                                          ;
+        BIT      $2002                     ; 0x1674d $A73D 2C 02 20                ;
+        BVC      :-                     ; 0x16750 $A740 50 FB                   ;
     LDY      #$00                      ; 0x16752 $A742 A0 00                   ;;Y = #$00 0000_0000
-LA744:                                                                          ;
-    DEY                                ; 0x16754 $A744 88                      ;
-    BNE      LA744                     ; 0x16755 $A745 D0 FD                   ;
+    :                                                                          ;
+        DEY                                ; 0x16754 $A744 88                      ;
+        BNE      :-                     ; 0x16755 $A745 D0 FD                   ;
     LDY      #$4A                      ; 0x16757 $A747 A0 4A                   ;;Y = #$4a 0100_1010
-LA749:                                                                          ;
-    DEY                                ; 0x16759 $A749 88                      ;
-    BNE      LA749                     ; 0x1675a $A74A D0 FD                   ;
+    :                                                                          ;
+        DEY                                ; 0x16759 $A749 88                      ;
+        BNE      :-                     ; 0x1675a $A74A D0 FD                   ;
     LDA      $FF                       ; 0x1675c $A74C A5 FF                   ;; Sprite Bank ?
     AND      #$FC                      ; 0x1675e $A74E 29 FC                   ;;Keep Bits:1111_1100
     ORA      $36                       ; 0x16760 $A750 05 36                   ;; Sword Projectile Y On Screen
@@ -4647,22 +4648,18 @@ LA749:                                                                          
     LDA      $2002                     ; 0x16777 $A767 AD 02 20                ;
     LDA      $FC                       ; 0x1677a $A76A A5 FC                   ;
     CMP      #$60                      ; 0x1677c $A76C C9 60                   ;
-    BNE      LA787                     ; 0x1677e $A76E D0 17                   ;
-    LDA      #$80                      ; 0x16780 $A770 A9 80                   ;;A = #$80 1000_0000
-    STA      bss_0504                     ; 0x16782 $A772 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
-    JSR      LA795                     ; 0x16785 $A775 20 95 A7                ;
-    LDA      $E8                       ; 0x16788 $A778 A5 E8                   ;; Music Note Pitch
-    CMP      #$08                      ; 0x1678a $A77A C9 08                   ;
-    BEQ      LA781                     ; 0x1678c $A77C F0 03                   ;
-    JMP      bank5_code_ABF7           ; 0x1678e $A77E 4C F7 AB                ;
-                                                                               ;
-; ---------------------------------------------------------------------------- ;
-LA781:                                                                          ;
-    INC      game_mode                     ; 0x16791 $A781 EE 36 07                ;; Game Mode ; screen intro type
-    JMP      LA795                     ; 0x16794 $A784 4C 95 A7                ;
-                                                                               ;
-; ---------------------------------------------------------------------------- ;
-LA787:                                                                          ;
+    BNE      :++                     ; 0x1677e $A76E D0 17                   ;
+        LDA      #$80                      ; 0x16780 $A770 A9 80                   ;;A = #$80 1000_0000
+        STA      bss_0504                     ; 0x16782 $A772 8D 04 05                ;; Timer for Link graphic to change when walking (OW)	;Timer for Sword in middle swing (SS)
+        JSR      LA795                     ; 0x16785 $A775 20 95 A7                ;
+        LDA      $E8                       ; 0x16788 $A778 A5 E8                   ;; Music Note Pitch
+        CMP      #$08                      ; 0x1678a $A77A C9 08                   ;
+        BEQ      :+                     ; 0x1678c $A77C F0 03                   ;
+            JMP      bank5_code_ABF7           ; 0x1678e $A77E 4C F7 AB                ;
+        :                                                                          ;
+        INC      title_mode                     ; 0x16791 $A781 EE 36 07                ;; Game Mode ; screen intro type
+        JMP      LA795                     ; 0x16794 $A784 4C 95 A7                ;
+    :                                                                          ;
     LDA      $E8                       ; 0x16797 $A787 A5 E8                   ;; Music Note Pitch
     CMP      #$02                      ; 0x16799 $A789 C9 02                   ;
     BNE      LA795                     ; 0x1679b $A78B D0 08                   ;
@@ -4680,7 +4677,6 @@ LA795:                                                                          
     STA      bss_0727                     ; 0x167b2 $A7A2 8D 27 07                ;
     STA      bss_0761                     ; 0x167b5 $A7A5 8D 61 07                ;
     JSR      bank7_Remove_All_Sprites_except_Sprite0; 0x167b8 $A7A8 20 50 D2       ;
-LA7AB:                                                                          ;
     LDA      #$80                      ; 0x167bb $A7AB A9 80                   ;;A = #$80 1000_0000
     STA      $EA                       ; 0x167bd $A7AD 85 EA                   ;;Global Sound Switch (0 = Sound On)
     LDA      #$00                      ; 0x167bf $A7AF A9 00                   ;;A = #$00 0000_0000
@@ -4688,7 +4684,7 @@ LA7AB:                                                                          
     STA      bss_0568                     ; 0x167c4 $A7B4 8D 68 05                ;; Related to Flute in Overworld
     STA      bss_073E                     ; 0x167c7 $A7B7 8D 3E 07                ;
     INC      bss_0726                     ; 0x167ca $A7BA EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    INC      game_event                     ; 0x167cd $A7BD EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      title_event                     ; 0x167cd $A7BD EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
 LA7C0:                                                                          ;
     RTS                                ; 0x167d0 $A7C0 60                      ;
                                                                                ;
@@ -5285,8 +5281,8 @@ LAE30:                                                                          
     STA      $35                       ; 0x16e4d $AE3D 85 35                   ;
     STA      $34                       ; 0x16e4f $AE3F 85 34                   ;
     JSR      bank5_code21              ; 0x16e51 $AE41 20 C1 A8                ;
-    LDA      #$03                      ; 0x16e54 $AE44 A9 03                   ;;A = #$03 0000_0011
-    STA      game_mode                     ; 0x16e56 $AE46 8D 36 07                ;; Game Mode ; screen intro type
+    LDA      #title_mode::title_screen_animation                      ; 0x16e54 $AE44 A9 03                   ;;A = #$03 0000_0011
+    STA      title_mode                     ; 0x16e56 $AE46 8D 36 07                ;; Game Mode ; screen intro type
 LAE49:                                                                          ;
     RTS                                ; 0x16e59 $AE49 60                      ;
                                                                                ;
@@ -5536,7 +5532,7 @@ LB082:                                                                          
 .byt    $55,$55,$55,$DF,$FF,$FF,$75,$55; 0x17232 $B222 55 55 55 DF FF FF 75 55 ;
 .byt    $55,$55,$FF                    ; 0x1723a $B22A 55 55 FF                ;
 ; ---------------------------------------------------------------------------- ;
-LB22D:
+title_event_player_select:
     JSR      bank7_Remove_All_Sprites  ; 0x1723d $B22D 20 4C D2                ;
     JSR      bank7_D168                     ; 0x17240 $B230 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x17243 $B233 20 85 D3;
@@ -5582,7 +5578,7 @@ bank5_Load_Saved_Games_Data:                                                    
 ; ---------------------------------------------------------------------------- ;
 LB27B:                                                                          ;
     DEY                                ; 0x1728b $B27B 88                      ;
-    BNE      LB28B                     ; 0x1728c $B27C D0 0D                   ;
+    BNE      handle_menu_button_press                     ; 0x1728c $B27C D0 0D                   ;
     INC      bss_073E                     ; 0x1728e $B27E EE 3E 07                ;
     LDA      #$05                      ; 0x17291 $B281 A9 05                   ; A = 05
     STA      PPU_macro_select                     ; 0x17293 $B283 8D 25 07                ;; PPU Macro Selector
@@ -5591,7 +5587,7 @@ LB27B:                                                                          
     RTS                                ; 0x1729a $B28A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LB28B:                                                                          ;
+handle_menu_button_press:                                                                          ;
     LDA      #$00                      ; 0x1729b $B28B A9 00                   ; A = 00
     STA      bss_0726                     ; 0x1729d $B28D 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      joy_pressed+0                       ; 0x172a0 $B290 A5 F5                   ; Controller 1 buttons pressed
@@ -5602,21 +5598,17 @@ LB28B:                                                                          
     STA      bss_073B                     ; 0x172ab $B29B 8D 3B 07                ;
     LDA      $19                       ; 0x172ae $B29E A5 19                   ; Position Code for Fairy Cursor
     CMP      #$03                      ; 0x172b0 $B2A0 C9 03                   ;
-    BNE      LB2AA                     ; 0x172b2 $B2A2 D0 06                   ;
-    LDA      #$01                      ; 0x172b4 $B2A4 A9 01                   ; A = 01
-    STA      game_mode                     ; 0x172b6 $B2A6 8D 36 07                ; Game Mode (01 = Register Your Name)
-    RTS                                ; 0x172b9 $B2A9 60                      ;
-                                                                               ;
-; ---------------------------------------------------------------------------- ;
-LB2AA:                                                                          ;
+    BNE      :+                     ; 0x172b2 $B2A2 D0 06                   ;
+        LDA      #title_mode::register_name                      ; 0x172b4 $B2A4 A9 01                   ; A = 01
+        STA      title_mode                     ; 0x172b6 $B2A6 8D 36 07                ; Game Mode (01 = Register Your Name)
+        RTS                                ; 0x172b9 $B2A9 60                      ;
+    :                                                                          ;
     CMP      #$04                      ; 0x172ba $B2AA C9 04                   ;
-    BNE      LB2B4                     ; 0x172bc $B2AC D0 06                   ;
-    LDA      #$02                      ; 0x172be $B2AE A9 02                   ; A = 02
-    STA      game_mode                     ; 0x172c0 $B2B0 8D 36 07                ; Game Mode (02 = Elimination Mode)
-    RTS                                ; 0x172c3 $B2B3 60                      ;
-                                                                               ;
-; ---------------------------------------------------------------------------- ;
-LB2B4:                                                                          ;
+    BNE      :+                     ; 0x172bc $B2AC D0 06                   ;
+        LDA      #title_mode::elimination_mode                      ; 0x172be $B2AE A9 02                   ; A = 02
+        STA      title_mode                     ; 0x172c0 $B2B0 8D 36 07                ; Game Mode (02 = Elimination Mode)
+        RTS                                ; 0x172c3 $B2B3 60                      ;
+    :                                                                          ;
     LDA      $19                       ; 0x172c4 $B2B4 A5 19                   ; Position Code for Fairy Cursor
     STA      player_slot                     ; 0x172c6 $B2B6 8D 72 07                ; Current Game Slot
     JSR      LB911                     ; 0x172c9 $B2B9 20 11 B9                ;
@@ -5628,20 +5620,20 @@ LB2B4:                                                                          
     STA      L0000                     ; 0x172d8 $B2C8 85 00                   ;
 function_reset_link_stats_to_beginning_values:                                  ;
     LDY      #$29                      ; 0x172da $B2CA A0 29                   ; Y = 29
-LB2CC:                                                                          ;
-    LDA      bank5_Beginning_Values,y  ; 0x172dc $B2CC B9 E3 BA                ; Load Initial Player Stats
-    STA      player_levels,y                   ; 0x172df $B2CF 99 77 07                ; AML, Magic, Items, etc.
-    DEY                                ; 0x172e2 $B2D2 88                      ;
-    CPY      #$0C                      ; 0x172e3 $B2D3 C0 0C                   ;
-    BCS      LB2CC                     ; 0x172e5 $B2D5 B0 F5                   ;
+    :                                                                          ;
+        LDA      bank5_Beginning_Values,y  ; 0x172dc $B2CC B9 E3 BA                ; Load Initial Player Stats
+        STA      player_levels,y                   ; 0x172df $B2CF 99 77 07                ; AML, Magic, Items, etc.
+        DEY                                ; 0x172e2 $B2D2 88                      ;
+        CPY      #$0C                      ; 0x172e3 $B2D3 C0 0C                   ;
+        BCS      :-                     ; 0x172e5 $B2D5 B0 F5                   ;
 bank5_Load_Initial_Item_Presence_Bits:                                          ;
     LDY      #$DF                      ; 0x172e7 $B2D7 A0 DF                   ; Y = DF
-LB2D9:                                                                          ;
-    LDA      bank5_Initial_Item_Presence_Bits_600_61F__West_Hyrule,y; 0x172e9 $B2D9 B9 15 BB;
-    STA      item_presence_west_hyrule,y                   ; 0x172ec $B2DC 99 00 06                ;
-    DEY                                ; 0x172ef $B2DF 88                      ;
-    CPY      #$FF                      ; 0x172f0 $B2E0 C0 FF                   ;
-    BNE      LB2D9                     ; 0x172f2 $B2E2 D0 F5                   ;
+    :                                                                          ;
+        LDA      bank5_Initial_Item_Presence_Bits_600_61F__West_Hyrule,y; 0x172e9 $B2D9 B9 15 BB;
+        STA      item_presence_west_hyrule,y                   ; 0x172ec $B2DC 99 00 06                ;
+        DEY                                ; 0x172ef $B2DF 88                      ;
+        CPY      #$FF                      ; 0x172f0 $B2E0 C0 FF                   ;
+        BNE      :-                     ; 0x172f2 $B2E2 D0 F5                   ;
     LDA      L0000                     ; 0x172f4 $B2E4 A5 00                   ;
     STA      player_skills                     ; 0x172f6 $B2E6 8D 96 07                ; Down/Up Techs
     LDA      #$02                      ; 0x172f9 $B2E9 A9 02                   ; A = 02
@@ -5649,16 +5641,16 @@ LB2D9:                                                                          
 LB2EE:                                                                          ;
     LDX      #$0F                      ; 0x172fe $B2EE A2 0F                   ; X = 0F
     LDA      #$00                      ; 0x17300 $B2F0 A9 00                   ; A = 00
-LB2F2:                                                                          ;
-    STA      $E0,x                     ; 0x17302 $B2F2 95 E0                   ;
-    DEX                                ; 0x17304 $B2F4 CA                      ;
-    BPL      LB2F2                     ; 0x17305 $B2F5 10 FB                   ;
+    :                                                                          ;
+        STA      $E0,x                     ; 0x17302 $B2F2 95 E0                   ;
+        DEX                                ; 0x17304 $B2F4 CA                      ;
+        BPL      :-                     ; 0x17305 $B2F5 10 FB                   ;
     LDY      #$DA                      ; 0x17307 $B2F7 A0 DA                   ; Y = DA
-LB2F9:                                                                          ;
-    STA      lives_remaining,y                   ; 0x17309 $B2F9 99 00 07                ;
-    INY                                ; 0x1730c $B2FC C8                      ;
-    BNE      LB2F9                     ; 0x1730d $B2FD D0 FA                   ;
-    INC      game_event                     ; 0x1730f $B2FF EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    :                                                                          ;
+        STA      lives_remaining,y                   ; 0x17309 $B2F9 99 00 07                ;
+        INY                                ; 0x1730c $B2FC C8                      ;
+        BNE      :-                     ; 0x1730d $B2FD D0 FA                   ;
+    INC      title_event                     ; 0x1730f $B2FF EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x17312 $B302 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5822,8 +5814,8 @@ LB3E1:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB3F4:                                                                          ;
-    LDA      #$00                      ; 0x17404 $B3F4 A9 00                   ; A = 00
-    STA      game_mode                     ; 0x17406 $B3F6 8D 36 07                ;; Game Mode ; screen intro type
+    LDA      #title_mode::unknown1                      ; 0x17404 $B3F4 A9 00                   ; A = 00
+    STA      title_mode                     ; 0x17406 $B3F6 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x17409 $B3F9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5890,8 +5882,8 @@ LB443:                                                                          
     LDA      #$00                      ; 0x17464 $B454 A9 00                   ; A = 00
     STA      bss_073E                     ; 0x17466 $B456 8D 3E 07                ;
     STA      bss_073B                     ; 0x17469 $B459 8D 3B 07                ;
-    LDA      #$01                      ; 0x1746c $B45C A9 01                   ; A = 01
-    STA      game_mode                     ; 0x1746e $B45E 8D 36 07                ;; Game Mode ; screen intro type
+    LDA      #title_mode::register_name                      ; 0x1746c $B45C A9 01                   ; A = 01
+    STA      title_mode                     ; 0x1746e $B45E 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x17471 $B461 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

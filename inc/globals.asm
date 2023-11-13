@@ -6,7 +6,84 @@
 .globalzp joy1_held
 .globalzp joy2_held
 
+; globals in the stack area (for some reason)
+nmi_mode := $0100
+.enum nmi_mode
+; the values here seems designed to work well
+; with the BIT instruction, allowing for a
+; quick check at the start of the NMI as to what
+; kind of super-mode we're in, and how to
+; configure the PPU.
+    ; The title screen, game select, elimination mode, etc.
+    ; runs bank5_title_NMI
+    title                            = %10000000 ; 0x80
+    ; A blank screen while loading is happening, keeps the music running
+    ; runs run_only_sound_NMI
+    blank                            = %01000000 ; 0x40
+    ; A normal gameplay screen of any sort
+    ; runs the normal bank7_NMI_Entry_Point to completion
+    gameplay                         = %11000000 ; 0xc0
+.endenum
+
 ; globals in system RAM
+; the overall mode of the game, either in
+; gameplay (`game_mode`) or in the title (`title_mode`).
+; These two values share the same address, and are
+; used depending on the current nmi_mode.
+.global game_mode
+.enum game_mode
+    load_rom_bank_data                      = $00
+    go_outside                              = $01
+    overworld_init                          = $02
+    overworld_load_tile_maps                = $03
+    reset_726_and_overworld_main            = $04
+    overworld_main                          = $05
+    load_sideview_area                      = $06
+    reset_routine_and_next_mode             = $07
+    empty1                                  = $08
+    side_view_draw_init                     = $09
+    switch_chr_bank_and_side_view_init      = $0A
+    side_view_main                          = $0B
+    vertical_exit_init                      = $0C
+    vertical_exit_tile_setup                = $0D
+    vertical_exit_setup                     = $0E
+    vertical_exit_main                      = $0F
+    take_side_exit                          = $10
+    unknown1                                = $11
+    vertical_exit_with_elevator             = $12
+    take_elevator_exit                      = $13
+    empty2                                  = $14
+    unknown2                                = $15
+    take_door_exit                          = $16
+    raft_travel_init                        = $17
+    raft_travel_main                        = $18
+.endenum
+title_mode := game_mode
+.enum title_mode
+    unknown1                                = $00
+    register_name                           = $01
+    elimination_mode                        = $02
+    title_screen_animation                  = $03
+.endenum
+
+.global game_event ; automated events/cutscenes/etc. that take the game over when this is set.
+.global game_running_event
+.enum game_event
+    restart_game                            = $00
+    no_event                                = $01
+    game_over                               = $02
+    zelda_awakens                           = $03
+    roll_credits                            = $04
+    restart_scene_with_lives                = $06
+    unknown                                 = $07
+.endenum
+title_event := game_event
+.enum title_event
+    title_screen_animation                  = $00
+    player_select                           = $01
+    start_game                              = $02
+.endenum
+
 .global rng_base
 .global rng_out
 .global rng_alt
@@ -17,7 +94,6 @@
 .global lives_remaining
 .global region_number
 .global world_number
-.global game_mode
 .global PRG_bank
 .global PPU_macro_select
 .global player_magic
@@ -57,8 +133,6 @@
 .global item_presence_palace_1_2
 .global item_presence_palace_3
 .global item_presence_great_palace
-.global game_event
-.global game_running_event
 
 .global bss_0300
 .global bss_0301
@@ -381,13 +455,13 @@
 .global bank0_Manual_Save_Game_Routine_UP_AND_A
 .global bank0_Return_of_Ganon_screen_Palettes
 .global bank0_unknown1
-.global bank0_unknown2
+.global bank0_game_mode_raft_travel_init
 .global bank0_unknown27
 .global bank0_unknown28
 .global bank0_unknown37
 .global bank0_unknown39
-.global bank0_unknown4
-.global bank0_unknown12
+.global bank0_game_mode_raft_travel_main
+.global bank0_game_mode_vertical_exit_main
 .global bank0_903A
 .global bank0_96A8
 .global bank0_9925
@@ -399,19 +473,19 @@
 .global bank0_A329
 .global bank0_A334
 .global bank0_A338
-.global bank0_A82A
+.global bank0_game_mode_vertical_exit_tile_setup
 .global bank0_99E6
 .global Chandeliers_in_North_Castle
 .global Check_for_Fire_Spell
 .global Hub_Update_Routine
-.global Initialization_stuff
+.global game_mode_overworld_init
 .global LevelUp_Pane__BlankLine_SecondHalfOnly
 .global Side_View_Initialization_when_entering_a_Key_Area
 .global Some_Palettes_Data_related_to_Falling_Animation
 .global Spell_Casting_Routine
 .global Tables_for_Game_Over_screen_text
-.global overworld3
-.global overworld4
+.global game_mode_overworld_main
+.global game_mode_overworld_load_tile_maps
 .global startup_init_begin_game
 
 ; bank 1 exports
@@ -445,7 +519,7 @@
 .global bank5_routines_related_to_Ending_sequence
 .global bank5_9764
 .global bank5_PowerON__Reset_Memory
-.global bank5_A610
+.global bank5_title_NMI_entry_point
 .global bank5_B9CA
 .global bank5_Build_a_pointer_with_81_and_a_value_from_14177
 .global bank5_Object_Construction_Routine
@@ -497,9 +571,9 @@
 .global bank7_Link_Hit_Routine ; banks 1 4 5
 .global bank7_Links_Display_Routine ; banks 0
 .global bank7_Mute_music_when_loading_between_areas ; banks 0
-.global bank7_NMI_Entry_Point ; banks
+.global bank7_NMI_Entry_Point ; used in duplicated end of banks
 .global bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1 ; banks 0
-.global bank7_PowerON_code ; banks
+.global bank7_PowerON_code ; used in duplicated end of banks
 .global bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP ; banks 0 1 2 3 4 5
 .global bank7_Remove_All_Sprites ; banks 0 5
 .global bank7_Remove_All_Sprites_except_Sprite0 ; banks 5
@@ -532,7 +606,7 @@
 .global bank7_idem__maybe ; banks 1 4 5
 .global bank7_remove_enemy_or_item ; banks 4
 .global bank7_LD2EC ; banks 0 5
-.global bank7_irq ; banks
+.global bank7_irq ; used in duplicated end of banks
 .global Set_Item_RAM_bit_to_0__Bits_0_3 ; banks 4
 .global bank7_Title_Music_Tick ; banks 5
 .global LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe ; banks 0
@@ -544,12 +618,12 @@
 .global bank7_DFD2 ; banks 0
 .global bank7_DFD1 ; banks 0
 .global bank7_E001 ; banks 0
-.global bank7_C72D ; banks 0 5
+.global game_mode_reset_726_and_overworld_main ; banks 0 5
 .global bank7_DF56 ; banks 0 1 2 3 4 5
 .global bank7_EC02 ; banks 0 5
 .global bank7_C2A6 ; banks 0 4 5
 .global bank7_E726 ; banks 0 4 5
-.global bank7_E187 ; banks 0
+.global bank7_set_game_mode_to_A_and_clear_enemies ; banks 0
 .global bank7_D55E ; banks 0
 .global bank7_D20A ; banks 0
 .global bank7_DAC7 ; banks 1 4 5
@@ -583,7 +657,7 @@
 .global bank7_C722 ; banks 5
 .global bank7_CF05 ; banks 5
 .global bank7_D168 ; banks 5
-.global bank7_D174 ; banks 5
+.global bank7_start_event_if_changed ; banks 5
 .global bank7_D293 ; banks 5
 .global bank7_E5B2 ; banks 5
 .global bank7_EA18 ; banks 5

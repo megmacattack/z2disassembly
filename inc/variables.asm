@@ -51,7 +51,7 @@ LF = $fd
 ; - world 3 = bank4 (palaces 1,2,5)
 ; - world 4 = bank4 (palaces 3,4,6)
 ; - world 5 = bank5 (grand palace)
-; (note: table at $C4B7 is this except always bank1, bank7_code18($CD40) does this logic)
+; (note: table at $C4B7 is this except always bank1, game_mode_load_rom_bank_data($CD40) does this logic)
 
 ; The base address of "Key Area" pointer tables in banks 1 or 2
 Main_World_Key_Areas = $861F ; The "main worlds", East Hyrule and West Hyrule

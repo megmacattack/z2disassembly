@@ -213,7 +213,7 @@ bank0_unknown1:                                                                 
     RTS                                ; 0x158 $8148 60                        ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-Initialization_stuff:                                                           ;
+game_mode_overworld_init:                                                           ;
     LDA      #$0F                      ; 0x159 $8149 A9 0F                     ; A = 0F
     JSR      ConfigureMMC1             ; 0x15b $814B 20 9D BF           ; Set Mapper Parameters at 0x8000
     LDA      #$10                      ; 0x15e $814E A9 10                     ; A = 10
@@ -280,7 +280,7 @@ Table_for_Raft_Speed_and_Sprite_Attributes:                                     
 L81AE:                                                                          ;
 .byt    $FF,$40,$00                    ; 0x1be $81AE FF 40 00                  ;
 ; ---------------------------------------------------------------------------- ;
-bank0_unknown2:                                                                 ;
+bank0_game_mode_raft_travel_init:                                                                 ;
     JSR      L8222                     ; 0x1c1 $81B1 20 22 82                  ;
     JSR      L81F6                     ; 0x1c4 $81B4 20 F6 81                  ;
     BEQ      L81E5                     ; 0x1c7 $81B7 F0 2C                     ;
@@ -310,7 +310,7 @@ L81E5:                                                                          
     INC      bss_0726                     ; 0x1f5 $81E5 EE 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     LDA      #$06                      ; 0x1f8 $81E8 A9 06                     ; A = 06
     STA      bss_0768                     ; 0x1fa $81EA 8D 68 07                  ;;makes weird ppu effect
-    LDA      #$06                      ; 0x1fd $81ED A9 06                     ; A = 06
+    LDA      #game_mode::load_sideview_area                      ; 0x1fd $81ED A9 06                     ; A = 06
     STA      game_mode                     ; 0x1ff $81EF 8D 36 07                  ;; Game Mode ; screen intro type
     STA      bss_07AA                     ; 0x202 $81F2 8D AA 07                  ;
     RTS                                ; 0x205 $81F5 60                        ;
@@ -330,7 +330,7 @@ L8204:                                                                          
 bank0_unknown3:                                                                 ;
 .byt    $80,$78                        ; 0x215 $8205 80 78                     ;
 ; ---------------------------------------------------------------------------- ;
-bank0_unknown4:                                                                 ;
+bank0_game_mode_raft_travel_main:                                                                 ;
     INC      $80                       ; 0x217 $8207 E6 80                     ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
     JSR      L81F6                     ; 0x219 $8209 20 F6 81                  ;
     JSR      L81BD                     ; 0x21c $820C 20 BD 81                  ;
@@ -339,7 +339,7 @@ bank0_unknown4:                                                                 
     LDX      L8204,y                   ; 0x225 $8215 BE 04 82                  ;
     CPX      $80                       ; 0x228 $8218 E4 80                     ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
     BNE      L8221                     ; 0x22a $821A D0 05                     ;
-    LDA      #$05                      ; 0x22c $821C A9 05                     ; A = 05
+    LDA      #game_mode::overworld_main                      ; 0x22c $821C A9 05                     ; A = 05
     STA      game_mode                     ; 0x22e $821E 8D 36 07                  ;; Game Mode ; screen intro type
 L8221:                                                                          ;
     RTS                                ; 0x231 $8221 60                        ;
@@ -863,7 +863,7 @@ L8553:                                                                          
 L8555:                                                                          ;
 .byt    $28,$28,$34                    ; 0x565 $8555 28 28 34                  ;
 ; ---------------------------------------------------------------------------- ;
-overworld3:                                                                     ;
+game_mode_overworld_main:                                                                     ;
     LDA      #$00                      ; 0x568 $8558 A9 00                     ; A = 00
     STA      bss_07AC                     ; 0x56a $855A 8D AC 07                  ;
     STA      bss_07AD                     ; 0x56d $855D 8D AD 07                  ;; * related to Raft Animation *
@@ -926,7 +926,7 @@ L85AE:                                                                          
     STA      $81                       ; 0x5d5 $85C5 85 81                     ; X Position of Raft (in that case)
     ASL                                ; 0x5d7 $85C7 0A                        ; A -> 00
     STA      bss_0729                     ; 0x5d8 $85C8 8D 29 07                  ;
-    LDA      #$17                      ; 0x5db $85CB A9 17                     ; A = 17
+    LDA      #game_mode::raft_travel_init                      ; 0x5db $85CB A9 17                     ; A = 17
     STA      game_mode                     ; 0x5dd $85CD 8D 36 07                  ; Game Mode
     BNE      L85FB                     ; 0x5e0 $85D0 D0 29                     ;
 L85D2:                                                                          ;
@@ -1252,7 +1252,7 @@ bank0_Overworld_Palette_Codes_0_3:                                              
 .byt    $02,$01,$02,$01,$03,$00,$00,$00; 0x7f3 $87E3 02 01 02 01 03 00 00 00   ;
 .byt    $01,$01,$01,$01,$03,$03,$01,$01; 0x7fb $87EB 01 01 01 01 03 03 01 01   ;
 ; ---------------------------------------------------------------------------- ;
-overworld4:                                                                     ;
+game_mode_overworld_load_tile_maps:                                                                     ;
     LDA      #$00                      ; 0x803 $87F3 A9 00                     ; A = 00 (Pointer to Overworld Data - Low)
     STA      L000E                     ; 0x805 $87F5 85 0E                     ;
     LDA      #$7C                      ; 0x807 $87F7 A9 7C                     ; A = 7C (Pointer to Overworld Data - High)
@@ -1344,14 +1344,14 @@ L8895:                                                                          
     LDA      bss_05E9                     ; 0x8a9 $8899 AD E9 05                  ;; Sound Played Out of Area (0 = No Sound)
     STA      $EE                       ; 0x8ac $889C 85 EE                     ;; Sound Effects Type 3; Sound Effects Type 3
 L889E:                                                                          ;
-    LDA      #$04                      ; 0x8ae $889E A9 04                     ; A = 04
+    LDA      #game_mode::reset_726_and_overworld_main                      ; 0x8ae $889E A9 04                     ; A = 04
 L88A0:                                                                          ;
     LDY      bss_07AA                     ; 0x8b0 $88A0 AC AA 07                  ;
     BEQ      L88AF                     ; 0x8b3 $88A3 F0 0A                     ;
     LDX      #$00                      ; 0x8b5 $88A5 A2 00                     ; X = 00
     STX      bss_07AA                     ; 0x8b7 $88A7 8E AA 07                  ;
     STX      bss_0726                     ; 0x8ba $88AA 8E 26 07                  ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    LDA      #$18                      ; 0x8bd $88AD A9 18                     ; A = 18
+    LDA      #game_mode::raft_travel_main                      ; 0x8bd $88AD A9 18                     ; A = 18
 L88AF:                                                                          ;
     STA      game_mode                     ; 0x8bf $88AF 8D 36 07                  ; Game Mode
 L88B2:                                                                          ;
@@ -2085,7 +2085,7 @@ L8CF7:                                                                          
     STA      $EB                       ; 0xd81 $8D71 85 EB                     ; Music Channel
     LDA      #$00                      ; 0xd83 $8D73 A9 00                     ; A = 00
     STA      bss_075F                     ; 0xd85 $8D75 8D 5F 07                  ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
-    JMP      bank7_C72D                     ; 0xd88 $8D78 4C 2D C7                  ;
+    JMP      game_mode_reset_726_and_overworld_main                     ; 0xd88 $8D78 4C 2D C7                  ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Table_for_Magic_Needed_for_Spells:                                              ;
@@ -2414,7 +2414,7 @@ L8FB3:                                                                          
 L8FB4:                                                                          ;
 .byt    $0C,$2C,$1C                    ; 0xfc4 $8FB4 0C 2C 1C                  ;
 ; ---------------------------------------------------------------------------- ;
-bank0_unknown12:                                                                ;
+bank0_game_mode_vertical_exit_main:                                                                ;
 ;L8FB7: original disassembly had this as the following data, but more likely code;
 ;.byt    $E6,$29,$E6,$29,$A5,$29,$E9,$08; 0xfc7 $8FB7 E6 29 E6 29 A5 29 E9 08   ;
     INC      $29
@@ -2473,10 +2473,10 @@ L9012:                                                                          
     CMP      #$E8                      ; 0x1036 $9026 C9 E8                    ;
     BCC      L9039                     ; 0x1038 $9028 90 0F                    ;
     INC      bss_0726                     ; 0x103a $902A EE 26 07                 ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    LDA      #$08                      ; 0x103d $902D A9 08                    ; A = 08
+    LDA      #game_mode::empty1                      ; 0x103d $902D A9 08                    ; A = 08
     LDY      world_number                     ; 0x103f $902F AC 07 07                 ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     BEQ      L9036                     ; 0x1042 $9032 F0 02                    ;
-    LDA      #$10                      ; 0x1044 $9034 A9 10                    ; A = 10
+    LDA      #game_mode::take_side_exit                      ; 0x1044 $9034 A9 10                    ; A = 10
 L9036:                                                                          ;
     STA      game_mode                     ; 0x1046 $9036 8D 36 07                 ;; Game Mode ; screen intro type
 L9039:                                                                          ;
@@ -2869,8 +2869,8 @@ bank0_Side_View3:                                                               
 ; ---------------------------------------------------------------------------- ;
 L92E1:                                                                          ;
     INC      bss_075B                     ; 0x12f1 $92E1 EE 5B 07                 ;
-    LDA      #$16                      ; 0x12f4 $92E4 A9 16                    ; A = 16
-    JMP      bank7_E187                     ; 0x12f6 $92E6 4C 87 E1                 ;
+    LDA      #game_mode::take_door_exit                      ; 0x12f4 $92E4 A9 16                    ; A = 16
+    JMP      bank7_set_game_mode_to_A_and_clear_enemies                     ; 0x12f6 $92E6 4C 87 E1                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L92E9:                                                                          ;
@@ -4967,10 +4967,10 @@ bank0_Manual_Save_Game_Routine_UP_AND_A:                                        
 LA1A5:                                                                          ;
     JSR      bank7_Remove_All_Sprites  ; 0x21b5 $A1A5 20 4C D2                 ;
     JSR      bank7_Mute_music_when_loading_between_areas; 0x21b8 $A1A8 20 3D D0    ;
-    LDA      #$02                      ; 0x21bb $A1AB A9 02                    ; A = 02
+    LDA      #game_event::game_over                      ; 0x21bb $A1AB A9 02                    ; A = 02
     STA      game_event                     ; 0x21bd $A1AD 8D 6C 07                 ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     STA      game_running_event                     ; 0x21c0 $A1B0 8D 6D 07                 ;
-    LDA      #$05                      ; 0x21c3 $A1B3 A9 05                    ; A = 05
+    LDA      #game_mode::overworld_main                      ; 0x21c3 $A1B3 A9 05                    ; A = 05
     STA      game_mode                     ; 0x21c5 $A1B5 8D 36 07                 ;; Game Mode ; screen intro type
     LDA      #$00                      ; 0x21c8 $A1B8 A9 00                    ; A = 00
     STA      bss_074C                     ; 0x21ca $A1BA 8D 4C 07                 ;; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
@@ -5986,7 +5986,7 @@ LA829:                                                                          
     RTS                                ; 0x2839 $A829 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank0_A82A:                                                                          ;
+bank0_game_mode_vertical_exit_tile_setup:                                                                          ;
     LDA      bss_073D                     ; 0x283a $A82A AD 3D 07                 ;; Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x283d $A82D 20 85 D3;
 bank0_unknown40:                                                                ;

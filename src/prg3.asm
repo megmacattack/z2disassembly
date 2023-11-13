@@ -1802,7 +1802,7 @@ L99CB:                                                                          
     BEQ      L9A1C                     ; 0xd9e2 $99D2 F0 48                    ;
     STX      bss_048B                     ; 0xd9e4 $99D4 8E 8B 04                 ;; Conversation Pointer; Townfolk Slot				used as X position for monster ID
     LDA      game_mode                     ; 0xd9e7 $99D7 AD 36 07                 ; Game Mode
-    CMP      #$16                      ; 0xd9ea $99DA C9 16                    ;
+    CMP      #game_mode::take_door_exit                      ; 0xd9ea $99DA C9 16                    ;
     BNE      L9A1D                     ; 0xd9ec $99DC D0 3F                    ;
     LDA      $AF,x                     ; 0xd9ee $99DE B5 AF                    ;; Various enemy state variables
     CMP      #$40                      ; 0xd9f0 $99E0 C9 40                    ;
@@ -1816,7 +1816,7 @@ L99E6:                                                                          
     STY      bss_074C                     ; 0xd9ff $99EF 8C 4C 07                 ;; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
     STY      $DE                       ; 0xda02 $99F2 84 DE                    ;;prevent movement/actions, occur when a chat is occuring; Spell Spell modifier (1 = Spell spell active) (and more)	;set to 1 to prevent moving, 0 to allow??
     INC      bss_05C3,x                   ; 0xda04 $99F4 FE C3 05                 ;
-    LDA      #$0B                      ; 0xda07 $99F7 A9 0B                    ; A = 0B
+    LDA      #game_mode::side_view_main                      ; 0xda07 $99F7 A9 0B                    ; A = 0B
     STA      game_mode                     ; 0xda09 $99F9 8D 36 07                 ; Game Mode
     DEC      bss_075B                     ; 0xda0c $99FC CE 5B 07                 ;
     INC      bss_048D                     ; 0xda0f $99FF EE 8D 04                 ;; Related to Link's flicker after being hit ?

@@ -17,22 +17,22 @@ bank7_PowerON_code:                                                            ;
     LDA      #$05                      ; 0x1c018 $C008 A9 05                   ; A = #$05 0000_0101
     JSR      SwapPRG                   ; 0x1c01a $C00A 20 CC FF                ; Load Bank 5
     JSR      bank5_PowerON__Reset_Memory; 0x1c01d $C00D 20 A0 A6               ;
-@Loop:                                                                         ;
-    LDA      game_mode                     ; 0x1c020 $C010 AD 36 07                ; Game Mode
-    CMP      #$08                      ; 0x1c023 $C013 C9 08                   ;
-    BEQ      :+                        ; 0x1c025 $C015 F0 04                   ;
-    CMP      #$14                      ; 0x1c027 $C017 C9 14                   ;
-    BNE      @Loop                     ; 0x1c029 $C019 D0 F5                   ;
-:                                                                              ;
-    LDA      game_event                     ; 0x1c02b $C01B AD 6C 07                ; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
-    CMP      #$01                      ; 0x1c02e $C01E C9 01                   ;
-    BNE      @Loop                     ; 0x1c030 $C020 D0 EE                   ;
-    LDA      #$40                      ; 0x1c032 $C022 A9 40                   ; A = #$40 0100_0000
-    STA      $0100                     ; 0x1c034 $C024 8D 00 01                ;
-    JSR      bank7_code13              ; 0x1c037 $C027 20 CB C4                ;
-    LDA      #$C0                      ; 0x1c03a $C02A A9 C0                   ; A = #$c0 1100_0000
-    STA      $0100                     ; 0x1c03c $C02C 8D 00 01                ;
-    JMP      @Loop                     ; 0x1c03f $C02F 4C 10 C0                ;
+    @Loop:                                                                         ;
+        LDA      game_mode                     ; 0x1c020 $C010 AD 36 07                ; Game Mode
+        CMP      #game_mode::empty1                      ; 0x1c023 $C013 C9 08                   ;
+        BEQ      :+                        ; 0x1c025 $C015 F0 04                   ;
+            CMP      #game_mode::empty2                      ; 0x1c027 $C017 C9 14                   ;
+            BNE      @Loop                     ; 0x1c029 $C019 D0 F5                   ;
+        :                                                                              ;
+        LDA      game_event                     ; 0x1c02b $C01B AD 6C 07                ; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+        CMP      #game_event::no_event                      ; 0x1c02e $C01E C9 01                   ;
+        BNE      @Loop                     ; 0x1c030 $C020 D0 EE                   ;
+            LDA      #nmi_mode::blank                      ; 0x1c032 $C022 A9 40                   ; A = #$40 0100_0000
+            STA      nmi_mode                     ; 0x1c034 $C024 8D 00 01                ;
+            JSR      bank7_code13              ; 0x1c037 $C027 20 CB C4                ;
+            LDA      #nmi_mode::gameplay                      ; 0x1c03a $C02A A9 C0                   ; A = #$c0 1100_0000
+            STA      nmi_mode                     ; 0x1c03c $C02C 8D 00 01                ;
+            JMP      @Loop                     ; 0x1c03f $C02F 4C 10 C0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Title_Music_Tick:
@@ -63,7 +63,7 @@ bank7_PPU_Adresses_according_to_725_as_index:                                  ;
 bank7_table0:                                                                   ;
 .byt    $00,$61,$A2                    ; 0x1c06d $C05D 00 61 A2                ;Memory Addresses Offsets (from 301) for PPU Macro Commands ?
 ; ---------------------------------------------------------------------------- ;
-bank7_code1:                                                                    ;
+run_only_sound_NMI:                                                                    ;
     PHA                                ; 0x1c070 $C060 48                      ;
     TXA                                ; 0x1c071 $C061 8A                      ;
     PHA                                ; 0x1c072 $C062 48                      ;
@@ -82,16 +82,16 @@ bank7_code1:                                                                    
     RTI                                ; 0x1c086 $C076 40                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC077:                                                                         ;
+run_title_NMI:                                                                         ;
     PLP                                ; 0x1c087 $C077 28                      ;
-    JMP      bank5_A610                ; 0x1c088 $C078 4C 10 A6                ; This seems to assume bank 5 is loaded?
+    JMP      bank5_title_NMI_entry_point                ; 0x1c088 $C078 4C 10 A6                ; This seems to assume bank 5 is loaded?
                                                                                ; Bank 5 is the only bank with code here that has an RTI
 ; ---------------------------------------------------------------------------- ;
 bank7_NMI_Entry_Point:                                                         ;
     PHP                                ; 0x1c08b $C07B 08                      ;
-    BIT      $0100                     ; 0x1c08c $C07C 2C 00 01                ;
-    BPL      bank7_code1               ; 0x1c08f $C07F 10 DF                   ; Switch to Bank 6, Play Sounds
-    BVC      LC077                     ; 0x1c091 $C081 50 F4                   ;
+    BIT      nmi_mode                     ; 0x1c08c $C07C 2C 00 01                ;
+    BPL      run_only_sound_NMI               ; 0x1c08f $C07F 10 DF                   ; Switch to Bank 6, Play Sounds
+    BVC      run_title_NMI                     ; 0x1c091 $C081 50 F4                   ;
     PLP                                ; 0x1c093 $C083 28                      ;
     PHA                                ; 0x1c094 $C084 48                      ;
     LDA      $FF                       ; 0x1c095 $C085 A5 FF                   ; Sprite Bank ?
@@ -230,7 +230,7 @@ bank7_NMI_Entry_Point:                                                         ;
         DEY                                ; 0x1c1af $C19F 88                      ;
         BNE      :-                        ; 0x1c1b0 $C1A0 D0 F9                   ;
     JSR      bank7_Remove_All_Sprites_except_Sprite0; 0x1c1b2 $C1A2 20 50 D2   ; Remove All Sprites, except Sprite 0
-    JSR      LC2CA                     ; 0x1c1b5 $C1A5 20 CA C2                ;
+    JSR      game_state_machine_tick                     ; 0x1c1b5 $C1A5 20 CA C2                ;
 @End:                                                                          ;
     LDA      PPU_STATUS                ; 0x1c1b8 $C1A8 AD 02 20                ; PPU Status Register
     LDA      $FF                       ; 0x1c1bb $C1AB A5 FF                   ; Sprite Bank ?
@@ -261,7 +261,7 @@ LC1CC:                                                                          
 bank7_related_to_Pause_Pane_routine:                                            ;
     JSR      SwapToPRG0; 0x1c1dd $C1CD 20 C5 FF                ; Load Bank 0
     LDA      game_mode                     ; 0x1c1e0 $C1D0 AD 36 07                ; Game Mode
-    CMP      #$0B                      ; 0x1c1e3 $C1D3 C9 0B                   ; 0B = sidescroll mode
+    CMP      #game_mode::side_view_main                      ; 0x1c1e3 $C1D3 C9 0B                   ; 0B = sidescroll mode
     BNE      LC220                     ; 0x1c1e5 $C1D5 D0 49                   ;
     JSR      LC1DD                     ; 0x1c1e7 $C1D7 20 DD C1                ;
     JMP      SwapToSavedPRG; 0x1c1ea $C1DA 4C C9 FF                ;
@@ -420,53 +420,54 @@ LC2B3:                                                                          
     RTS                                ; 0x1c2d9 $C2C9 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC2CA:                                                                          ;
+game_state_machine_tick:                                                                          ;
     LDY      #$00                      ; 0x1c2da $C2CA A0 00                   ; Y = 00
     STY      bss_0727                     ; 0x1c2dc $C2CC 8C 27 07                ;
     STY      bss_0729                     ; 0x1c2df $C2CF 8C 29 07                ;
-    JSR      bank7_D174                     ; 0x1c2e2 $C2D2 20 74 D1                ;
+    JSR      bank7_start_event_if_changed                     ; 0x1c2e2 $C2D2 20 74 D1                ;
+    ; the above function returns the current game event on A
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c2e5 $C2D5 20 85 D3;
-bank7_pointer_table2:                                                           ;
-.word    LC34F                         ; 0x1c2e8 $C2D8 4F C3                   ;
-.word    bank7_code5                   ; 0x1c2ea $C2DA E6 C2                   ;
-.word    bank7_code6                   ; 0x1c2ec $C2DC 1E C3                   ;
-.word    LCB27                         ; 0x1c2ee $C2DE 27 CB                   ;
-.word    LC364                         ; 0x1c2f0 $C2E0 64 C3                   ;
-.word    LC38D                         ; 0x1c2f2 $C2E2 8D C3                   ;
-.word    LC410                         ; 0x1c2f4 $C2E4 10 C4                   ;
+bank7_pointer_table_game_events:                                                           ;
+.word    game_event_restart_game                         ; 0x1c2e8 $C2D8 4F C3                   ;
+.word    game_event_no_event                   ; 0x1c2ea $C2DA E6 C2                   ;
+.word    game_event_game_over                   ; 0x1c2ec $C2DC 1E C3                   ;
+.word    game_event_zelda_awakens                         ; 0x1c2ee $C2DE 27 CB                   ;
+.word    game_event_roll_credits                         ; 0x1c2f0 $C2E0 64 C3                   ;
+.word    game_event_restart_scene_with_lives                         ; 0x1c2f2 $C2E2 8D C3                   ;
+.word    game_event_unknown                         ; 0x1c2f4 $C2E4 10 C4                   ;
 ; ---------------------------------------------------------------------------- ;
-bank7_code5:                                                                    ;
+game_event_no_event:                                                                    ;
     JSR      bank7_D168                     ; 0x1c2f6 $C2E6 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c2f9 $C2E9 20 85 D3;
 bank7_pointer_table__game_mode:                                                 ;
 ;Probably Bank 0 for addresses in the 8000-BFFF range                          ;
-.word    bank7_code18                  ; 0x1c2fc $C2EC 40 CD                   ; 00	Load ROM bank, Overworld data, enemy data, etc.
-.word    bank7_go_outside              ; 0x1c2fe $C2EE B3 CC                   ; 01	Overworld Out of Area ?
-.word    Initialization_stuff          ; 0x1c300 $C2F0 49 81                   ; 02	Overworld Init
-.word    overworld4                    ; 0x1c302 $C2F2 F3 87                   ; 03	Overworld Load Map Tiles
-.word    bank7_C72D                         ; 0x1c304 $C2F4 2D C7                   ; 04	Set $0726 to 0 and Increment Game Mode
-.word    overworld3                    ; 0x1c306 $C2F6 58 85                   ; 05	Overworld Main
-.word    bank7_code17                  ; 0x1c308 $C2F8 35 CB                   ; 06	Load Side View Area
-.word    bank7_code12                  ; 0x1c30a $C2FA A4 C4                   ; 07	Set Routine Index to 0 and Increment Game Mode
-.word    LC6EE                         ; 0x1c30c $C2FC EE C6                   ; 08	RTS
-.word    LCF3C                         ; 0x1c30e $C2FE 3C CF                   ; 09	Side View Area Drawing Init
-.word    LC62F                         ; 0x1c310 $C300 2F C6                   ; 0A	Switch Graphics Bank, Load Bank 0, Side View Init
-.word    bank7_check_if_link_died_0494__linkdeath; 0x1c312 $C302 CC D3         ; 0B	Side View Main
-.word    LC68A                         ; 0x1c314 $C304 8A C6                   ; 0C	Fall in Hole Init
-.word    bank0_A82A                         ; 0x1c316 $C306 2A A8                   ; 0D	Fall in Hole Tile Setup
-.word    bank7_Related_to_Link_falling ; 0x1c318 $C308 EF C6                   ; 0E	Fall in Hole Setup
-.word    bank0_unknown12                         ; 0x1c31a $C30A B7 8F                   ; 0F	Fall in Hole Main
-.word    bank7_take_side_exit          ; 0x1c31c $C30C 4C CF                   ; 10
-.word    bank7_code9                   ; 0x1c31e $C30E 97 C3                   ; 11
-.word    LC63E                         ; 0x1c320 $C310 3E C6                   ; 12	Increment Game Mode and execute Game Mode 0C
-.word    bank7_take_elevator_exit      ; 0x1c322 $C312 44 C6                   ; 13
-.word    LC6EE                         ; 0x1c324 $C314 EE C6                   ; 14	RTS
-.word    LC70C                         ; 0x1c326 $C316 0C C7                   ; 15
-.word    bank7_take_door_exit          ; 0x1c328 $C318 FC CF                   ; 16	Enter Door in Town
-.word    bank0_unknown2                ; 0x1c32a $C31A B1 81                   ; 17	Raft Travel Init
-.word    bank0_unknown4                ; 0x1c32c $C31C 07 82                   ; 18	Raft Travel
+.word    game_mode_load_rom_bank_data                  ; 0x1c2fc $C2EC 40 CD                   ; 00	Load ROM bank, Overworld data, enemy data, etc.
+.word    game_mode_go_outside              ; 0x1c2fe $C2EE B3 CC                   ; 01	Overworld Out of Area ?
+.word    game_mode_overworld_init          ; 0x1c300 $C2F0 49 81                   ; 02	Overworld Init
+.word    game_mode_overworld_load_tile_maps                    ; 0x1c302 $C2F2 F3 87                   ; 03	Overworld Load Map Tiles
+.word    game_mode_reset_726_and_overworld_main                         ; 0x1c304 $C2F4 2D C7                   ; 04	Set $0726 to 0 and Increment Game Mode
+.word    game_mode_overworld_main                    ; 0x1c306 $C2F6 58 85                   ; 05	Overworld Main
+.word    game_mode_load_sideview_area                  ; 0x1c308 $C2F8 35 CB                   ; 06	Load Side View Area
+.word    game_mode_reset_routine_and_next_mode                  ; 0x1c30a $C2FA A4 C4                   ; 07	Set Routine Index to 0 and Increment Game Mode
+.word    game_mode_empty                         ; 0x1c30c $C2FC EE C6                   ; 08	RTS
+.word    game_mode_side_view_draw_init                         ; 0x1c30e $C2FE 3C CF                   ; 09	Side View Area Drawing Init
+.word    game_mode_switch_chr_bank_and_side_view_init                         ; 0x1c310 $C300 2F C6                   ; 0A	Switch Graphics Bank, Load Bank 0, Side View Init
+.word    game_mode_side_view_main; 0x1c312 $C302 CC D3         ; 0B	Side View Main
+.word    game_mode_vertical_exit_init                         ; 0x1c314 $C304 8A C6                   ; 0C	Fall in Hole Init
+.word    bank0_game_mode_vertical_exit_tile_setup                         ; 0x1c316 $C306 2A A8                   ; 0D	Fall in Hole Tile Setup
+.word    game_mode_vertical_exit_setup ; 0x1c318 $C308 EF C6                   ; 0E	Fall in Hole Setup
+.word    bank0_game_mode_vertical_exit_main                         ; 0x1c31a $C30A B7 8F                   ; 0F	Fall in Hole Main
+.word    game_mode_take_side_exit          ; 0x1c31c $C30C 4C CF                   ; 10
+.word    game_mode_unknown1                   ; 0x1c31e $C30E 97 C3                   ; 11
+.word    game_mode_vertical_exit_with_elevator                         ; 0x1c320 $C310 3E C6                   ; 12	Increment Game Mode and execute Game Mode 0C
+.word    game_mode_take_elevator_exit      ; 0x1c322 $C312 44 C6                   ; 13
+.word    game_mode_empty                         ; 0x1c324 $C314 EE C6                   ; 14	RTS
+.word    game_mode_unknown2                         ; 0x1c326 $C316 0C C7                   ; 15
+.word    game_mode_take_door_exit          ; 0x1c328 $C318 FC CF                   ; 16	Enter Door in Town
+.word    bank0_game_mode_raft_travel_init                ; 0x1c32a $C31A B1 81                   ; 17	Raft Travel Init
+.word    bank0_game_mode_raft_travel_main                ; 0x1c32c $C31C 07 82                   ; 18	Raft Travel
 ; ---------------------------------------------------------------------------- ;
-bank7_code6:                                                                    ;
+game_event_game_over:                                                                    ;
     JSR      bank7_D168                     ; 0x1c32e $C31E 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c331 $C321 20 85 D3;
 bank7_pointer_table4:                                                           ;
@@ -477,7 +478,7 @@ bank7_pointer_table4:                                                           
 .word    LCA1B                         ; 0x1c33c $C32C 1B CA                   ;
 .word    bank7_C722                         ; 0x1c33e $C32E 22 C7                   ;
 .word    LD04D                         ; 0x1c340 $C330 4D D0                   ;
-.word    bank7_C72D                         ; 0x1c342 $C332 2D C7                   ;
+.word    game_mode_reset_726_and_overworld_main                         ; 0x1c342 $C332 2D C7                   ;
 .word    bank7_CF05                         ; 0x1c344 $C334 05 CF                   ; Increment Game Mode by 1
 .word    LCA85                         ; 0x1c346 $C336 85 CA                   ;
 .word    bank7_code53                  ; 0x1c348 $C338 76 FE                   ;
@@ -487,14 +488,14 @@ bank7_code7:                                                                    
     LDA      #$05                      ; 0x1c34c $C33C A9 05                   ; A = 05
     JSR      SwapPRG                     ; 0x1c34e $C33E 20 CC FF                ;
     JSR      SwapCHR; 0x1c351 $C341 20 B1 FF                ;
-    LDA      #$80                      ; 0x1c354 $C344 A9 80                   ; A = 80
-    STA      $0100                     ; 0x1c356 $C346 8D 00 01                ;
-    LDA      #$00                      ; 0x1c359 $C349 A9 00                   ; A = 00
-    STA      game_event                     ; 0x1c35b $C34B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    LDA      #nmi_mode::title                      ; 0x1c354 $C344 A9 80                   ; A = 80
+    STA      nmi_mode                     ; 0x1c356 $C346 8D 00 01                ;
+    LDA      #title_event::title_screen_animation                      ; 0x1c359 $C349 A9 00                   ; A = 00
+    STA      title_event                     ; 0x1c35b $C34B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x1c35e $C34E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC34F:                                                                          ;
+game_event_restart_game:                                                                          ;
     JSR      SwapToPRG0; 0x1c35f $C34F 20 C5 FF                ;
     JSR      bank7_D293                     ; 0x1c362 $C352 20 93 D2                ;
     JSR      startup_init_begin_game   ; 0x1c365 $C355 20 08 AA                ;
@@ -507,15 +508,15 @@ LC360:                                                                          
     RTS                                ; 0x1c373 $C363 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC364:                                                                          ;
+game_event_roll_credits:                                                                          ;
     JSR      bank7_D168                     ; 0x1c374 $C364 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c377 $C367 20 85 D3;
 bank7_pointer_table5:                                                           ;
 .word    bank7_code8                   ; 0x1c37a $C36A 76 C3                   ;
 .word    bank7_code13                  ; 0x1c37c $C36C CB C4                   ;
-.word    LCF3C                         ; 0x1c37e $C36E 3C CF                   ;
+.word    game_mode_side_view_draw_init                         ; 0x1c37e $C36E 3C CF                   ;
 .word    LC37C                         ; 0x1c380 $C370 7C C3                   ;
-.word    LC62F                         ; 0x1c382 $C372 2F C6                   ;
+.word    game_mode_switch_chr_bank_and_side_view_init                         ; 0x1c382 $C372 2F C6                   ;
 .word    LC382                         ; 0x1c384 $C374 82 C3                   ;
 ; ---------------------------------------------------------------------------- ;
 bank7_code8:                                                                    ;
@@ -538,14 +539,14 @@ LC388:                                                                          
     JMP      SwapPRG                     ; 0x1c39a $C38A 4C CC FF                ; Switch to Bank 5
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC38D:                                                                          ;
+game_event_restart_scene_with_lives:                                                                          ;
     JSR      bank7_D168                     ; 0x1c39d $C38D 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c3a0 $C390 20 85 D3;
 bank7_pointer_table6:                                                           ;
 .word    LCD19                         ; 0x1c3a3 $C393 19 CD                   ;
 .word    bank7_code7                   ; 0x1c3a5 $C395 3C C3                   ;
 ; ---------------------------------------------------------------------------- ;
-bank7_code9:                                                                    ;
+game_mode_unknown1:                                                                    ;
     JSR      LD15C                     ; 0x1c3a7 $C397 20 5C D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c3aa $C39A 20 85 D3;
 ; Pointer table for "Ready..." Screen Routines (4 * 2 = 8 bytes)               ;
@@ -617,7 +618,7 @@ LC3F5:                                                                          
     JMP      bank7_EC02                     ; 0x1c41d $C40D 4C 02 EC                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC410:                                                                          ;
+game_event_unknown:                                                                          ;
     JSR      LD15C                     ; 0x1c420 $C410 20 5C D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c423 $C413 20 85 D3;
 bank7_pointer_table8:                                                           ;
@@ -641,10 +642,10 @@ LC435:                                                                          
     ASL                                ; 0x1c445 $C435 0A                      ;
 LC436:                                                                          ;
     STA      bss_075F                     ; 0x1c446 $C436 8D 5F 07                ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
-    LDA      #$01                      ; 0x1c449 $C439 A9 01                   ; A = 01
+    LDA      #game_event::no_event                      ; 0x1c449 $C439 A9 01                   ; A = 01
     STA      game_event                     ; 0x1c44b $C43B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     STA      game_running_event                     ; 0x1c44e $C43E 8D 6D 07                ;
-    LDA      #$07                      ; 0x1c451 $C441 A9 07                   ; A = 07
+    LDA      #game_mode::reset_routine_and_next_mode                      ; 0x1c451 $C441 A9 07                   ; A = 07
     STA      game_mode                     ; 0x1c453 $C443 8D 36 07                ; Game Mode
 LC446:                                                                          ;
     JMP      LC3F5                     ; 0x1c456 $C446 4C F5 C3                ;
@@ -687,7 +688,7 @@ LC490:                                                                          
 .byt    $07,$27,$37,$0F,$07,$16,$30,$0F; 0x1c4a8 $C498 07 27 37 0F 07 16 30 0F ;
 .byt    $3C,$1C,$0C,$FF                ; 0x1c4b0 $C4A0 3C 1C 0C FF             ;
 ; ---------------------------------------------------------------------------- ;
-bank7_code12:                                                                   ;
+game_mode_reset_routine_and_next_mode:                                                                   ;
     JMP      bank7_C722                     ; 0x1c4b4 $C4A4 4C 22 C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -707,9 +708,9 @@ bank7_Pointer_table_for_Area_and_Enemy_Pointers:                                
 .word    Sub_World_Enemy_Pointers                         ; 0x1c4d9 $C4C9 7E A0                   ;Death Moutain - Enemy Pointers
 ; ---------------------------------------------------------------------------- ;
 bank7_code13:                                                                  ;
-    LDA      #$30                      ; 0x1c4db $C4CB A9 30                   ; A = 30
+    LDA      #%00110000                      ; 0x1c4db $C4CB A9 30                   ; A = 30
     STA      PPU_CTRL                  ; 0x1c4dd $C4CD 8D 00 20                ;
-    LDA      #$0E                      ; 0x1c4e0 $C4D0 A9 0E                   ; A = 0E
+    LDA      #%00001110                      ; 0x1c4e0 $C4D0 A9 0E                   ; A = 0E
     JSR      ConfigureMMC1             ; 0x1c4e2 $C4D2 20 9D FF                ;
     JSR      SwapToSavedPRG            ; 0x1c4e5 $C4D5 20 C9 FF                ;
     LDA      $FF                       ; 0x1c4e8 $C4D8 A5 FF                   ; Sprite Bank ?
@@ -892,7 +893,7 @@ LC5F9:                                                                          
     JMP      bank7_C722                     ; 0x1c63c $C62C 4C 22 C7                ;this jump is the last chance to change sidescreen tile data(?), when we jump to $C62C we are done processing map data
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC62F:                                                                          ;
+game_mode_switch_chr_bank_and_side_view_init:                                                                          ;
     LDA      bss_076E                     ; 0x1c63f $C62F AD 6E 07                ; Graphics bank to use
     JSR      SwapCHR; 0x1c642 $C632 20 B1 FF                ;
     JSR      SwapToPRG0; 0x1c645 $C635 20 C5 FF                ;
@@ -902,12 +903,12 @@ LC62F:                                                                          
     JMP      SwapToSavedPRG; 0x1c64b $C63B 4C C9 FF                ; Load Bank $0769
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC63E:                                                                          ;
+game_mode_vertical_exit_with_elevator:                                                                          ;
     INC      game_mode                     ; 0x1c64e $C63E EE 36 07                ; Game Mode
-    JMP      LC68A                     ; 0x1c651 $C641 4C 8A C6                ;
+    JMP      game_mode_vertical_exit_init                     ; 0x1c651 $C641 4C 8A C6                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_take_elevator_exit:                                                       ;
+game_mode_take_elevator_exit:                                                       ;
     JSR      SwapToSavedPRG; 0x1c654 $C644 20 C9 FF                ; Load Bank $0769
     LDA      area_code                     ; 0x1c657 $C647 AD 61 05                ; Area Code
     ASL                                ; 0x1c65a $C64A 0A                      ;
@@ -945,7 +946,7 @@ LC67C:                                                                          
     JMP      bank7_C722                     ; 0x1c697 $C687 4C 22 C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC68A:                                                                          ;
+game_mode_vertical_exit_init:                                                                          ;
     JSR      SwapToPRG0; 0x1c69a $C68A 20 C5 FF                ;
     JMP      LC67C                     ; 0x1c69d $C68D 4C 7C C6                ;
                                                                                ;
@@ -998,11 +999,11 @@ LC690:                                                                          
     LDA      $4D                       ; 0x1c6f7 $C6E7 A5 4D                   ; Link's X Position (low byte)
     AND      #$F0                      ; 0x1c6f9 $C6E9 29 F0                   ; keep bits xxxx ....
     STA      bss_05D3,x                   ; 0x1c6fb $C6EB 9D D3 05                ;
-LC6EE:                                                                          ;
+game_mode_empty:                                                                          ;
     RTS                                ; 0x1c6fe $C6EE 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_Related_to_Link_falling:                                                  ;
+game_mode_vertical_exit_setup:                                                  ;
     INC      bss_0704                     ; 0x1c6ff $C6EF EE 04 07                ;; 0=start bottom of screen, 1=start at top of screen ; elevator
     LDA      #$01                      ; 0x1c702 $C6F2 A9 01                   ; A = 01
     STA      $19                       ; 0x1c704 $C6F4 85 19                   ;;fall_or_invisible (0=invisible, 1=normal, 2~FF=fall in hole); Position Code for Fairy Cursor (Selection Screen)	(and) ;draw link's sprite =yes/no
@@ -1016,13 +1017,13 @@ LC702:                                                                          
     STA      bss_075F                     ; 0x1c712 $C702 8D 5F 07                ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
     LDA      #$01                      ; 0x1c715 $C705 A9 01                   ; A = 01 (sound of Link falling)
     STA      $EE                       ; 0x1c717 $C707 85 EE                   ; Sound Effects Type 3
-    JMP      bank7_C72D                     ; 0x1c719 $C709 4C 2D C7                ;
+    JMP      game_mode_reset_726_and_overworld_main                     ; 0x1c719 $C709 4C 2D C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LC70C:                                                                          ;
+game_mode_unknown2:                                                                          ;
     LDA      bss_071F                     ; 0x1c71c $C70C AD 1F 07                ;; ???
     STA      bss_0720                     ; 0x1c71f $C70F 8D 20 07                ;
-    LDA      #$09                      ; 0x1c722 $C712 A9 09                   ; A = 09
+    LDA      #game_mode::side_view_draw_init                      ; 0x1c722 $C712 A9 09                   ; A = 09
     STA      game_mode                     ; 0x1c724 $C714 8D 36 07                ; Game Mode
     JMP      bank7_code33              ; 0x1c727 $C717 4C 30 E0                ;
                                                                                ;
@@ -1030,7 +1031,7 @@ LC70C:                                                                          
 flashing_effect__length__when_link_dies:                                        ;
     LDA      #$07                      ; 0x1c72a $C71A A9 07                   ; A = 07
     STA      bss_050E                     ; 0x1c72c $C71C 8D 0E 05                ;
-    JMP      bank7_C72D                     ; 0x1c72f $C71F 4C 2D C7                ;
+    JMP      game_mode_reset_726_and_overworld_main                     ; 0x1c72f $C71F 4C 2D C7                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_C722:                                                                          ;
@@ -1040,7 +1041,7 @@ bank7_C722:                                                                     
     JMP      bank7_CF05                     ; 0x1c73a $C72A 4C 05 CF                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_C72D:                                                                          ;
+game_mode_reset_726_and_overworld_main:                                                                          ;
     LDA      #$00                      ; 0x1c73d $C72D A9 00                   ; A = 00
     STA      bss_0726                     ; 0x1c73f $C72F 8D 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     JMP      bank7_CF05                     ; 0x1c742 $C732 4C 05 CF                ;
@@ -1504,26 +1505,25 @@ LCA3E:                                                                          
     DEY                                ; 0x1ca51 $CA41 88                      ;
     BPL      LCA3E                     ; 0x1ca52 $CA42 10 FA                   ;
     DEC      lives_remaining                    ; 0x1ca54 $CA44 CE 00 07                ; Current number of lives
-    BNE      LCA6C                     ; 0x1ca57 $CA47 D0 23                   ;
-;Game Over                                                                     ;
-    LDA      #$02                      ; 0x1ca59 $CA49 A9 02                   ; A = 02
-    STA      $E9                       ; 0x1ca5b $CA4B 85 E9                   ;
-    LDA      #$F0                      ; 0x1ca5d $CA4D A9 F0                   ; A = F0 (delay to show Ganon's Return)
-    STA      bss_0501                     ; 0x1ca5f $CA4F 8D 01 05                ;; Timer
-    INC      bss_0726                     ; 0x1ca62 $CA52 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    INC      bss_073D                     ; 0x1ca65 $CA55 EE 3D 07                ;; Routine Index
-    LDA      #$09                      ; 0x1ca68 $CA58 A9 09                   ; A = 09
-    JSR      LCA17                     ; 0x1ca6a $CA5A 20 17 CA                ;
-    LDA      #$00                      ; 0x1ca6d $CA5D A9 00                   ; A = 00
-    STA      player_exp                     ; 0x1ca6f $CA5F 8D 75 07                ; Current Experience (high byte)
-    STA      player_exp+1                     ; 0x1ca72 $CA62 8D 76 07                ; Current Experience (low byte)
-    STA      player_exp_add+1                     ; 0x1ca75 $CA65 8D 56 07                ; Experience to be added (low byte)
-    STA      player_exp_add                     ; 0x1ca78 $CA68 8D 55 07                ; Experience to be added (high byte)
-    RTS                                ; 0x1ca7b $CA6B 60                      ;
-                                                                               ;
-; ---------------------------------------------------------------------------- ;
-LCA6C:                                                                          ;
-    LDA      #$06                      ; 0x1ca7c $CA6C A9 06                   ; A = 06
+    BNE      :+                     ; 0x1ca57 $CA47 D0 23                   ;
+        ;Game Over                                                                     ;
+        LDA      #$02                      ; 0x1ca59 $CA49 A9 02                   ; A = 02
+        STA      $E9                       ; 0x1ca5b $CA4B 85 E9                   ;
+        LDA      #$F0                      ; 0x1ca5d $CA4D A9 F0                   ; A = F0 (delay to show Ganon's Return)
+        STA      bss_0501                     ; 0x1ca5f $CA4F 8D 01 05                ;; Timer
+        INC      bss_0726                     ; 0x1ca62 $CA52 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
+        INC      bss_073D                     ; 0x1ca65 $CA55 EE 3D 07                ;; Routine Index
+        LDA      #$09                      ; 0x1ca68 $CA58 A9 09                   ; A = 09
+        JSR      LCA17                     ; 0x1ca6a $CA5A 20 17 CA                ;
+        LDA      #$00                      ; 0x1ca6d $CA5D A9 00                   ; A = 00
+        STA      player_exp                     ; 0x1ca6f $CA5F 8D 75 07                ; Current Experience (high byte)
+        STA      player_exp+1                     ; 0x1ca72 $CA62 8D 76 07                ; Current Experience (low byte)
+        STA      player_exp_add+1                     ; 0x1ca75 $CA65 8D 56 07                ; Experience to be added (low byte)
+        STA      player_exp_add                     ; 0x1ca78 $CA68 8D 55 07                ; Experience to be added (high byte)
+        RTS                                ; 0x1ca7b $CA6B 60                      ;
+    :                                                                                ;
+; ---------------------------------------------------------------------------- ;                                                                          ;
+    LDA      #game_event::restart_scene_with_lives                      ; 0x1ca7c $CA6C A9 06                   ; A = 06
     STA      game_event                     ; 0x1ca7e $CA6E 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
 LCA71:                                                                          ;
     RTS                                ; 0x1ca81 $CA71 60                      ;
@@ -1588,7 +1588,7 @@ LCAC4:                                                                          
     JSR      bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW; 0x1cae0 $CAD0 20 30 CF; Region Code * 5 + World Code
     CMP      #$0F                      ; 0x1cae3 $CAD3 C9 0F                   ; Check if in Great Palace
     BEQ      bank7_restore_in_grand_palace_restore_restart_in_gp; 0x1cae5 $CAD5 F0 07;
-    LDA      #$00                      ; 0x1cae7 $CAD7 A9 00                   ; A = 00
+    LDA      #game_event::restart_game                      ; 0x1cae7 $CAD7 A9 00                   ; A = 00
     LDY      #$01                      ; 0x1cae9 $CAD9 A0 01                   ; Y = 01
     JMP      LCAF0                     ; 0x1caeb $CADB 4C F0 CA                ;
                                                                                ;
@@ -1599,7 +1599,7 @@ bank7_restore_in_grand_palace_restore_restart_in_gp:                            
     STA      area_code                     ; 0x1caf3 $CAE3 8D 61 05                ; Area Code
     STA      bss_0701                     ; 0x1caf6 $CAE6 8D 01 07                ; Facing direction when entering area
     STA      bss_075C                     ; 0x1caf9 $CAE9 8D 5C 07                ; Position code when entering area (0-3)
-    LDA      #$01                      ; 0x1cafc $CAEC A9 01                   ; A = 01 (if 0, restart in North Castle)
+    LDA      #game_event::no_event                      ; 0x1cafc $CAEC A9 01                   ; A = 01 (if 0, restart in North Castle)
     LDY      #$02                      ; 0x1cafe $CAEE A0 02                   ; Y = 02
 LCAF0:                                                                          ;
     STA      game_event                     ; 0x1cb00 $CAF0 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
@@ -1648,7 +1648,7 @@ LCB18_fill_hp_or_mp_to_full__provide_x_register__maybe:                         
     RTS                                ; 0x1cb36 $CB26 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LCB27:                                                                          ;
+game_event_zelda_awakens:                                                                          ;
     LDA      #$0E                      ; 0x1cb37 $CB27 A9 0E                   ; A = 0E
     STA      bss_076E                     ; 0x1cb39 $CB29 8D 6E 07                ; Graphics bank to use
     JSR      LC388                     ; 0x1cb3c $CB2C 20 88 C3                ;
@@ -1661,7 +1661,7 @@ bank7_Height_of_frontier_between_North_and_South:                               
 ;4C	Region 2	East Hyrule                                                       ;
 .byt    $3C,$4B,$4C                    ; 0x1cb42 $CB32 3C 4B 4C                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_code17:                                                                   ;
+game_mode_load_sideview_area:                                                                   ;
     JSR      SwapToSavedPRG; 0x1cb45 $CB35 20 C9 FF                ; Load Bank in $0769
     LDY      bss_0748                     ; 0x1cb48 $CB38 AC 48 07                ;; area location index (the index of the spot on the overworld that pulled you into the sideview)	; Overworld Area out of Side View
     CPY      #$FF                      ; 0x1cb4b $CB3B C0 FF                   ;
@@ -1730,7 +1730,7 @@ LCBA5:                                                                          
     BNE      LCBB2                     ; 0x1cbbd $CBAD D0 03                   ;
     INC      bss_0709                     ; 0x1cbbf $CBAF EE 09 07                ;; used for going outside??
 LCBB2:                                                                          ;
-    LDA      #$00                      ; 0x1cbc2 $CBB2 A9 00                   ; A = 00
+    LDA      #game_mode::load_rom_bank_data                      ; 0x1cbc2 $CBB2 A9 00                   ; A = 00
     STA      game_mode                     ; 0x1cbc4 $CBB4 8D 36 07                ; Game Mode
     RTS                                ; 0x1cbc7 $CBB7 60                      ;
                                                                                ;
@@ -1778,7 +1778,7 @@ LCBF8:                                                                          
     BNE      LCBF2                     ; 0x1cc12 $CC02 D0 EE                   ;
     STA      bss_075C                     ; 0x1cc14 $CC04 8D 5C 07                ;;start this map page		; start this many 'pages' into the scene	0	1	2	3		;4 = middle?	; Position code when entering area (0-3) (can be 4)
     JSR      LCC50                     ; 0x1cc17 $CC07 20 50 CC                ;
-    LDA      #$11                      ; 0x1cc1a $CC0A A9 11                   ; A = 11
+    LDA      #game_mode::unknown1                      ; 0x1cc1a $CC0A A9 11                   ; A = 11
     JMP      LCC85                     ; 0x1cc1c $CC0C 4C 85 CC                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1835,9 +1835,9 @@ LCC50:                                                                          
     STX      bss_0733                     ; 0x1cc88 $CC78 8E 33 07                ;
     LDA      $6ABD,y                   ; 0x1cc8b $CC7B B9 BD 6A                ; Area Byte 3 (World Number)
     ASL                                ; 0x1cc8e $CC7E 0A                      ;
-    LDA      #$12                      ; 0x1cc8f $CC7F A9 12                   ; A = 12
+    LDA      #game_mode::vertical_exit_with_elevator                      ; 0x1cc8f $CC7F A9 12                   ; A = 12
     BCC      LCC85                     ; 0x1cc91 $CC81 90 02                   ;
-    LDA      #$0C                      ; 0x1cc93 $CC83 A9 0C                   ; A = 0C
+    LDA      #game_mode::vertical_exit_init                      ; 0x1cc93 $CC83 A9 0C                   ; A = 0C
 LCC85:                                                                          ;
     STA      game_mode                     ; 0x1cc95 $CC85 8D 36 07                ; Game Mode
 LCC88:                                                                          ;
@@ -1872,7 +1872,7 @@ bank7_Get_Area_Code__Enter_Code_and_Direction:                                  
 LCCAF:                                                                          ;
     LDA      #$66                      ; 0x1ccbf $CCAF A9 66                   ; A = 66
     BNE      LCCCC                     ; 0x1ccc1 $CCB1 D0 19                   ;
-bank7_go_outside:                                                               ;
+game_mode_go_outside:                                                               ;
     LDA      #$00                      ; 0x1ccc3 $CCB3 A9 00                   ; A = 00
     STA      bss_0709                     ; 0x1ccc5 $CCB5 8D 09 07                ;; used for going outside??
     STA      bss_075B                     ; 0x1ccc8 $CCB8 8D 5B 07                ;
@@ -1969,7 +1969,7 @@ bank7_Table_for_Palace_Entrance_Palettes_Offset:                                
 .byt    $00,$10,$20,$20,$30,$30,$30,$30; 0x1cd45 $CD35 00 10 20 20 30 30 30 30 ;
 .byt    $40,$50,$60                    ; 0x1cd4d $CD3D 40 50 60                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_code18:                                                                   ;
+game_mode_load_rom_bank_data:                                                                   ;
     LDY      world_number                     ; 0x1cd50 $CD40 AC 07 07                ; Current World;cd40 ;Normalized world number into Y
     LDA      LC4B7,y                   ; 0x1cd53 $CD43 B9 B7 C4                ;cd43 ;Load bank number from table
     CMP      #$01                      ; 0x1cd56 $CD46 C9 01                   ;cd46 ;Bank 1 represents overworlds
@@ -2222,7 +2222,7 @@ LCEF6:                                                                          
     BNE      LCF09                     ; 0x1cf09 $CEF9 D0 0E                   ;
     LDA      bss_0709                     ; 0x1cf0b $CEFB AD 09 07                ;; used for going outside??
     BNE      bank7_CF05                     ; 0x1cf0e $CEFE D0 05                   ;
-    LDA      #$06                      ; 0x1cf10 $CF00 A9 06                   ; A = 06
+    LDA      #game_mode::load_sideview_area                      ; 0x1cf10 $CF00 A9 06                   ; A = 06
     JMP      LCF0B                     ; 0x1cf12 $CF02 4C 0B CF                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2232,7 +2232,7 @@ bank7_CF05:                                                                     
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LCF09:                                                                          ;
-    LDA      #$07                      ; 0x1cf19 $CF09 A9 07                   ; A = 07
+    LDA      #game_mode::reset_routine_and_next_mode                      ; 0x1cf19 $CF09 A9 07                   ; A = 07
 LCF0B:                                                                          ;
     STA      game_mode                     ; 0x1cf1b $CF0B 8D 36 07                ; Game Mode
     LDA      #$01                      ; 0x1cf1e $CF0E A9 01                   ; A = 01
@@ -2266,7 +2266,7 @@ bank7_FUNCTION_CONVERT_706_and_707_to_Rx5plusW:                                 
     RTS                                ; 0x1cf4b $CF3B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-LCF3C:                                                                          ;
+game_mode_side_view_draw_init:                                                                          ;
     JSR      SwapToSavedPRG; 0x1cf4c $CF3C 20 C9 FF                ; Load Bank $0769
     JSR      bank7_JmpToRoutine_at_Index_073D_in_Table_Address_from_the_top_of_the_Stack_The_Pointer_Table_immediately_follows_the_JSR_to_D382; 0x1cf4f $CF3F 20 82 D3;
 bank7_pointer_table13:                                                          ;
@@ -2276,7 +2276,7 @@ bank7_pointer_table13:                                                          
 .word    bank7_code19                  ; 0x1cf58 $CF48 FC D0                   ;
 .word    LD120                         ; 0x1cf5a $CF4A 20 D1                   ;
 ; ---------------------------------------------------------------------------- ;
-bank7_take_side_exit:                                                           ;
+game_mode_take_side_exit:                                                           ;
     JSR      bank7_Remove_All_Sprites  ; 0x1cf5c $CF4C 20 4C D2                ; Remove All Sprites
     JSR      SwapToSavedPRG; 0x1cf5f $CF4F 20 C9 FF                ; Load Bank $0769
     LDA      area_code                     ; 0x1cf62 $CF52 AD 61 05                ; Area Code
@@ -2305,14 +2305,14 @@ LCF60:                                                                          
     STY      bss_05E9                     ; 0x1cf8e $CF7E 8C E9 05                ; Sound Played Out of Area
     LDY      #$90                      ; 0x1cf91 $CF81 A0 90                   ; Y = 90
     STY      $4000                     ; 0x1cf93 $CF83 8C 00 40                ;
-    LDA      #$01                      ; 0x1cf96 $CF86 A9 01                   ; A = 01
+    LDA      #game_mode::go_outside                      ; 0x1cf96 $CF86 A9 01                   ; A = 01
     LDY      world_number                     ; 0x1cf98 $CF88 AC 07 07                ; Current World
     BEQ      LCF9D                     ; 0x1cf9b $CF8B F0 10                   ;
     JSR      bank7_Mute_music_when_loading_between_areas; 0x1cf9d $CF8D 20 3D D0   ; Mute Music
     LDY      #$00                      ; 0x1cfa0 $CF90 A0 00                   ; Y = 00
     STY      world_number                     ; 0x1cfa2 $CF92 8C 07 07                ; Current World
     INC      bss_0709                     ; 0x1cfa5 $CF95 EE 09 07                ;; used for going outside??
-    LDA      #$00                      ; 0x1cfa8 $CF98 A9 00                   ; A = 00
+    LDA      #game_mode::load_rom_bank_data                      ; 0x1cfa8 $CF98 A9 00                   ; A = 00
 LCF9A:                                                                          ;
     JMP      LCFF8                     ; 0x1cfaa $CF9A 4C F8 CF                ;
                                                                                ;
@@ -2363,13 +2363,13 @@ LCFEC:                                                                          
 LCFF3:                                                                          ;
     STA      bss_075F                     ; 0x1d003 $CFF3 8D 5F 07                ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
 LCFF6:                                                                          ;
-    LDA      #$07                      ; 0x1d006 $CFF6 A9 07                   ; A = 07
+    LDA      #game_mode::reset_routine_and_next_mode                      ; 0x1d006 $CFF6 A9 07                   ; A = 07
 LCFF8:                                                                          ;
     STA      game_mode                     ; 0x1d008 $CFF8 8D 36 07                ;; Game Mode ; screen intro type
     RTS                                ; 0x1d00b $CFFB 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_take_door_exit:                                                           ;
+game_mode_take_door_exit:                                                           ;
     JSR      SwapToSavedPRG; 0x1d00c $CFFC 20 C9 FF                ; Load Bank in $0769
 bank7_D000     = * + $0001                                                          ;
     LDA      area_code                     ; 0x1d00f $CFFF AD 61 05                ; Area Code
@@ -2583,14 +2583,14 @@ bank7_D168:                                                                     
     RTS                                ; 0x1d183 $D173 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_D174:                                                                          ;
+bank7_start_event_if_changed: ; returns current game event on A                                                                          ;
     LDA      game_event                     ; 0x1d184 $D174 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     CMP      game_running_event                     ; 0x1d187 $D177 CD 6D 07                ;
     STA      game_running_event                     ; 0x1d18a $D17A 8D 6D 07                ;
     BEQ      LD19A                     ; 0x1d18d $D17D F0 1B                   ;
     JSR      bank7_Remove_All_Sprites  ; 0x1d18f $D17F 20 4C D2                ;
     LDA      game_event                     ; 0x1d192 $D182 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
-    LDY      #$00                      ; 0x1d195 $D185 A0 00                   ; Y = 00
+    LDY      #game_mode::load_rom_bank_data                      ; 0x1d195 $D185 A0 00                   ; Y = 00
     STY      bss_073C                     ; 0x1d197 $D187 8C 3C 07                ;
     STY      game_mode                     ; 0x1d19a $D18A 8C 36 07                ; Game Mode
 LD18D:                                                                          ;
@@ -2972,7 +2972,7 @@ setpos $d3ca
 bank7_table13:                                                                  ;
 .byt    $80,$40                        ; 0x1d3da $D3CA 80 40                   ;
 ; ---------------------------------------------------------------------------- ;
-bank7_check_if_link_died_0494__linkdeath:                                       ;
+game_mode_side_view_main:                                       ;
     LDA      bss_0494                     ; 0x1d3dc $D3CC AD 94 04                ;; INC $0494 TO KILL LINK
     BEQ      LD3E9                     ; 0x1d3df $D3CF F0 18                   ;
 ;occurs shortly after INC $0012		?		only in sidescroll with menu closed?       ;
@@ -3152,7 +3152,7 @@ LD52D:                                                                          
     JSR      bank7_related_to_breakable_block; 0x1d545 $D535 20 DD E1              ;related to breakable block
 LD538:                                                                          ;
     LDA      game_mode                     ; 0x1d548 $D538 AD 36 07                ; Game Mode
-    CMP      #$0B                      ; 0x1d54b $D53B C9 0B                   ;
+    CMP      #game_mode::side_view_main                      ; 0x1d54b $D53B C9 0B                   ;
     BNE      LD545                     ; 0x1d54d $D53D D0 06                   ;
     INC      bss_0727                     ; 0x1d54f $D53F EE 27 07                ;
     INC      bss_0729                     ; 0x1d552 $D542 EE 29 07                ;
@@ -3743,8 +3743,8 @@ LD8FB:                                                                          
     LDA      #$00                      ; 0x1d91f $D90F A9 00                   ; A = 00
     STA      $FD                       ; 0x1d921 $D911 85 FD                   ;
     STA      bss_072C                     ; 0x1d923 $D913 8D 2C 07                ; Scrolling Offset Low Byte
-    LDA      #$13                      ; 0x1d926 $D916 A9 13                   ; A = 13
-    JMP      bank7_E187                     ; 0x1d928 $D918 4C 87 E1                ;
+    LDA      #game_mode::take_elevator_exit                      ; 0x1d926 $D916 A9 13                   ; A = 13
+    JMP      bank7_set_game_mode_to_A_and_clear_enemies                     ; 0x1d928 $D918 4C 87 E1                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LD91B:                                                                          ;
@@ -4879,11 +4879,11 @@ bank7_table21:                                                                  
 ; ---------------------------------------------------------------------------- ;
 bank7_code34:                                                                   ;
     JSR      SwapToSavedPRG; 0x1e080 $E070 20 C9 FF                ;
-    JSR      bank7_Related_to_Link_falling_in_Lava_Water; 0x1e083 $E073 20 79 E0   ;
+    JSR      game_mode_vertical_exit_setup_in_Lava_Water; 0x1e083 $E073 20 79 E0   ;
     JMP      SwapToPRG0; 0x1e086 $E076 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_Related_to_Link_falling_in_Lava_Water:                                    ;
+game_mode_vertical_exit_setup_in_Lava_Water:                                    ;
     LDX      #$00                      ; 0x1e089 $E079 A2 00                   ; X = 00
     STX      $A7                       ; 0x1e08b $E07B 86 A7                   ;;collision bits for Link - 0000ABLR (above,below,left,right)
     LDA      #$07                      ; 0x1e08d $E07D A9 07                   ; A = 07
@@ -4957,8 +4957,8 @@ LE0E6:                                                                          
     LDA      bss_0479                     ; 0x1e0fc $E0EC AD 79 04                ;;jumping_state (2=going up, 1=coming down, 0=not jumping); Link is in mid-air ? (1 = mid-air, 0 = on ground); Link is in mid-air ? (1 = mid-air, 0 = on ground)
     BNE      LE0E5                     ; 0x1e0ff $E0EF D0 F4                   ;
     INC      bss_075B                     ; 0x1e101 $E0F1 EE 5B 07                ;
-    LDA      #$16                      ; 0x1e104 $E0F4 A9 16                   ;;A = #$16 0001_0110
-    JMP      bank7_E187                     ; 0x1e106 $E0F6 4C 87 E1                ;
+    LDA      #game_mode::take_door_exit                      ; 0x1e104 $E0F4 A9 16                   ;;A = #$16 0001_0110
+    JMP      bank7_set_game_mode_to_A_and_clear_enemies                     ; 0x1e106 $E0F6 4C 87 E1                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LE0F9:                                                                          ;
@@ -5042,8 +5042,8 @@ LE179:                                                                          
     STA      bss_0759                     ; 0x1e18d $E17D 8D 59 07                ;; if not 0, cause fairy spawn at next encounter (??)
     STA      bss_075A                     ; 0x1e190 $E180 8D 5A 07                ;
     STA      $70                       ; 0x1e193 $E183 85 70                   ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
-    LDA      #$10                      ; 0x1e195 $E185 A9 10                   ;;A = #$10 0001_0000
-bank7_E187:                                                                          ;
+    LDA      #game_mode::take_side_exit                      ; 0x1e195 $E185 A9 10                   ;;A = #$10 0001_0000
+bank7_set_game_mode_to_A_and_clear_enemies:                                                                          ;
     STA      game_mode                     ; 0x1e197 $E187 8D 36 07                ;; Game Mode ; screen intro type
 LE18A:                                                                          ;
     INC      bss_0726                     ; 0x1e19a $E18A EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.

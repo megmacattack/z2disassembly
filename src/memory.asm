@@ -430,7 +430,7 @@ bss_0732: .res 1 ; unknown size
 bss_0733: .res 1 ; unknown size
 bss_0734: .res 1 ; unknown size
 bss_0735: .res 1 ; unknown size
-game_mode: .res 1
+game_mode: .res 1; the current game or title mode
 bss_0737: .res 1 ; unknown size
 bss_0738: .res 1 ; unknown size
 bss_0739: .res 1 ; unknown size

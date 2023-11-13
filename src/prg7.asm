@@ -24,7 +24,7 @@ bank7_PowerON_code:                                                            ;
     CMP      #$14                      ; 0x1c027 $C017 C9 14                   ;
     BNE      @Loop                     ; 0x1c029 $C019 D0 F5                   ;
 :                                                                              ;
-    LDA      bss_076C                     ; 0x1c02b $C01B AD 6C 07                ; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    LDA      game_event                     ; 0x1c02b $C01B AD 6C 07                ; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     CMP      #$01                      ; 0x1c02e $C01E C9 01                   ;
     BNE      @Loop                     ; 0x1c030 $C020 D0 EE                   ;
     LDA      #$40                      ; 0x1c032 $C022 A9 40                   ; A = #$40 0100_0000
@@ -490,7 +490,7 @@ bank7_code7:                                                                    
     LDA      #$80                      ; 0x1c354 $C344 A9 80                   ; A = 80
     STA      $0100                     ; 0x1c356 $C346 8D 00 01                ;
     LDA      #$00                      ; 0x1c359 $C349 A9 00                   ; A = 00
-    STA      bss_076C                     ; 0x1c35b $C34B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_event                     ; 0x1c35b $C34B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x1c35e $C34E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -503,7 +503,7 @@ bank7_Reset_Number_of_Lives__to_3_:                                             
     STA      lives_remaining                    ; 0x1c36a $C35A 8D 00 07                ; Current number of lives
     INC      bss_0760                     ; 0x1c36d $C35D EE 60 07                ;
 LC360:                                                                          ;
-    INC      bss_076C                     ; 0x1c370 $C360 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      game_event                     ; 0x1c370 $C360 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x1c373 $C363 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -642,8 +642,8 @@ LC435:                                                                          
 LC436:                                                                          ;
     STA      bss_075F                     ; 0x1c446 $C436 8D 5F 07                ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
     LDA      #$01                      ; 0x1c449 $C439 A9 01                   ; A = 01
-    STA      bss_076C                     ; 0x1c44b $C43B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
-    STA      bss_076D                     ; 0x1c44e $C43E 8D 6D 07                ;
+    STA      game_event                     ; 0x1c44b $C43B 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_running_event                     ; 0x1c44e $C43E 8D 6D 07                ;
     LDA      #$07                      ; 0x1c451 $C441 A9 07                   ; A = 07
     STA      game_mode                     ; 0x1c453 $C443 8D 36 07                ; Game Mode
 LC446:                                                                          ;
@@ -1524,7 +1524,7 @@ LCA3E:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LCA6C:                                                                          ;
     LDA      #$06                      ; 0x1ca7c $CA6C A9 06                   ; A = 06
-    STA      bss_076C                     ; 0x1ca7e $CA6E 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_event                     ; 0x1ca7e $CA6E 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
 LCA71:                                                                          ;
     RTS                                ; 0x1ca81 $CA71 60                      ;
                                                                                ;
@@ -1602,7 +1602,7 @@ bank7_restore_in_grand_palace_restore_restart_in_gp:                            
     LDA      #$01                      ; 0x1cafc $CAEC A9 01                   ; A = 01 (if 0, restart in North Castle)
     LDY      #$02                      ; 0x1cafe $CAEE A0 02                   ; Y = 02
 LCAF0:                                                                          ;
-    STA      bss_076C                     ; 0x1cb00 $CAF0 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_event                     ; 0x1cb00 $CAF0 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     STY      bss_075F                     ; 0x1cb03 $CAF3 8C 5F 07                ;;at bank0: 0D64: AD 5F07	LDA $075F	then 	STA $EB		; Music Channel	; something to do with music
 LCAF6:                                                                          ;
     RTS                                ; 0x1cb06 $CAF6 60                      ;
@@ -2584,12 +2584,12 @@ bank7_D168:                                                                     
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_D174:                                                                          ;
-    LDA      bss_076C                     ; 0x1d184 $D174 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
-    CMP      bss_076D                     ; 0x1d187 $D177 CD 6D 07                ;
-    STA      bss_076D                     ; 0x1d18a $D17A 8D 6D 07                ;
+    LDA      game_event                     ; 0x1d184 $D174 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    CMP      game_running_event                     ; 0x1d187 $D177 CD 6D 07                ;
+    STA      game_running_event                     ; 0x1d18a $D17A 8D 6D 07                ;
     BEQ      LD19A                     ; 0x1d18d $D17D F0 1B                   ;
     JSR      bank7_Remove_All_Sprites  ; 0x1d18f $D17F 20 4C D2                ;
-    LDA      bss_076C                     ; 0x1d192 $D182 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    LDA      game_event                     ; 0x1d192 $D182 AD 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     LDY      #$00                      ; 0x1d195 $D185 A0 00                   ; Y = 00
     STY      bss_073C                     ; 0x1d197 $D187 8C 3C 07                ;
     STY      game_mode                     ; 0x1d19a $D18A 8C 36 07                ; Game Mode
@@ -2983,7 +2983,7 @@ bank7_check_if_link_died_0494__linkdeath:                                       
     INX                                ; 0x1d3e9 $D3D9 E8                      ;
     STX      $EC                       ; 0x1d3ea $D3DA 86 EC                   ; Sound Effects Type 1
     LDA      #$02                      ; 0x1d3ec $D3DC A9 02                   ; A = 02
-    STA      bss_076C                     ; 0x1d3ee $D3DE 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_event                     ; 0x1d3ee $D3DE 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     LDA      #$00                      ; 0x1d3f1 $D3E1 A9 00                   ; A = 00
     STA      $2001                     ; 0x1d3f3 $D3E3 8D 01 20                ;
     JMP      LE18A                     ; 0x1d3f6 $D3E6 4C 8A E1                ;

@@ -488,8 +488,8 @@ PRG_bank: .res 1
 
 setpos $076B
 bss_076B: .res 1 ; unknown size
-bss_076C: .res 1 ; unknown size
-bss_076D: .res 1 ; unknown size
+game_event: .res 1 ; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+game_running_event: .res 1 ; the event currently being run, to avoid re-triggering the event while it's ongoing.
 bss_076E: .res 1 ; unknown size
 bss_076F: .res 1 ; unknown size
 player_next_lvl: .res 2

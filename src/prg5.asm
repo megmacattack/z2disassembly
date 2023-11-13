@@ -1845,7 +1845,7 @@ L923B:                                                                          
     DEY                                ; 0x1524e $923E 88                      ;
     BPL      L923B                     ; 0x1524f $923F 10 FA                   ;
     JSR      bank7_D293                     ; 0x15251 $9241 20 93 D2                ;
-    INC      bss_076C                     ; 0x15254 $9244 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      game_event                     ; 0x15254 $9244 EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x15257 $9247 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3016,7 +3016,7 @@ L9BA8:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9BBA:                                                                          ;
     LDA      #$03                      ; 0x15bca $9BBA A9 03                   ;;A = #$03 0000_0011
-    STA      bss_076C                     ; 0x15bcc $9BBC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_event                     ; 0x15bcc $9BBC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     LDA      #$00                      ; 0x15bcf $9BBF A9 00                   ;;A = #$00 0000_0000
     STA      $2001                     ; 0x15bd1 $9BC1 8D 01 20                ;
     INC      bss_0726                     ; 0x15bd4 $9BC4 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
@@ -4573,7 +4573,7 @@ LA6D9:                                                                          
     LDA      #$C0                      ; 0x166f5 $A6E5 A9 C0                ;
     STA      $0100                      ; 0x166f7 $A6E7 8D 00 01                ;
     LDA      #$00                      ; 0x166fa $A6EA A9 00                ;
-    STA      bss_076C                     ; 0x166fc $A6EC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_event                     ; 0x166fc $A6EC 8D 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x166ff $A6EF 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4688,7 +4688,7 @@ LA7AB:                                                                          
     STA      bss_0568                     ; 0x167c4 $A7B4 8D 68 05                ;; Related to Flute in Overworld
     STA      bss_073E                     ; 0x167c7 $A7B7 8D 3E 07                ;
     INC      bss_0726                     ; 0x167ca $A7BA EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-    INC      bss_076C                     ; 0x167cd $A7BD EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      game_event                     ; 0x167cd $A7BD EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
 LA7C0:                                                                          ;
     RTS                                ; 0x167d0 $A7C0 60                      ;
                                                                                ;
@@ -5658,7 +5658,7 @@ LB2F9:                                                                          
     STA      lives_remaining,y                   ; 0x17309 $B2F9 99 00 07                ;
     INY                                ; 0x1730c $B2FC C8                      ;
     BNE      LB2F9                     ; 0x1730d $B2FD D0 FA                   ;
-    INC      bss_076C                     ; 0x1730f $B2FF EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    INC      game_event                     ; 0x1730f $B2FF EE 6C 07                ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
     RTS                                ; 0x17312 $B302 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

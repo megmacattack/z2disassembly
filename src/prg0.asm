@@ -4968,8 +4968,8 @@ LA1A5:                                                                          
     JSR      bank7_Remove_All_Sprites  ; 0x21b5 $A1A5 20 4C D2                 ;
     JSR      bank7_Mute_music_when_loading_between_areas; 0x21b8 $A1A8 20 3D D0    ;
     LDA      #$02                      ; 0x21bb $A1AB A9 02                    ; A = 02
-    STA      bss_076C                     ; 0x21bd $A1AD 8D 6C 07                 ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
-    STA      bss_076D                     ; 0x21c0 $A1B0 8D 6D 07                 ;
+    STA      game_event                     ; 0x21bd $A1AD 8D 6C 07                 ;; (00=restart from zelda's castle with 3 lives,  01=no routine, 02=die, 03=wake up zelda, 04=roll credits, 06=show the lives then restart the scene)
+    STA      game_running_event                     ; 0x21c0 $A1B0 8D 6D 07                 ;
     LDA      #$05                      ; 0x21c3 $A1B3 A9 05                    ; A = 05
     STA      game_mode                     ; 0x21c5 $A1B5 8D 36 07                 ;; Game Mode ; screen intro type
     LDA      #$00                      ; 0x21c8 $A1B8 A9 00                    ; A = 00

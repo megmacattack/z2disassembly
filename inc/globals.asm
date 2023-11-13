@@ -57,6 +57,8 @@
 .global item_presence_palace_1_2
 .global item_presence_palace_3
 .global item_presence_great_palace
+.global game_event
+.global game_running_event
 
 .global bss_0300
 .global bss_0301
@@ -319,8 +321,6 @@
 .global bss_0767
 .global bss_0768
 .global bss_076B
-.global bss_076C
-.global bss_076D
 .global bss_076E
 .global bss_076F
 .global bss_0797

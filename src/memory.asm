@@ -12,8 +12,198 @@ joy_pressed: .res 2 ; the buttons on controllers that were *just* pressed this f
 joy_held: .res 2 ; the buttons on controller that were pressed this frame, including those pressed last frame too, one byte for each controller
 
 .segment "BSS"
-.org $300
+.org $100
+nmi_mode: .res 1
 
+setpos $010A
+bss_010A: .res 1 ; unknown size
+bss_010B: .res 1 ; unknown size
+bss_010C: .res 1 ; unknown size
+bss_010D: .res 1 ; unknown size
+bss_010E: .res 1 ; unknown size
+bss_010F: .res 1 ; unknown size
+
+setpos $0112
+bss_0112: .res 1 ; unknown size
+
+setpos $01AD
+bss_01AD: .res 1 ; unknown size
+
+setpos $01F0
+bss_01F0: .res 2 ; unknown size
+bss_01F2: .res 2 ; unknown size
+bss_01F4: .res 1 ; unknown size
+bss_01F5: .res 1 ; unknown size
+bss_01F6: .res 1 ; unknown size
+bss_01F7: .res 1 ; unknown size
+bss_01F8: .res 2 ; unknown size
+bss_01FA: .res 1 ; unknown size
+bss_01FB: .res 1 ; unknown size
+bss_01FC: .res 1 ; unknown size
+bss_01FD: .res 1 ; unknown size
+bss_01FE: .res 1 ; unknown size
+bss_01FF: .res 1 ; unknown size
+bss_0200: .res 1 ; unknown size
+bss_0201: .res 1 ; unknown size
+bss_0202: .res 1 ; unknown size
+bss_0203: .res 1 ; unknown size
+bss_0204: .res 1 ; unknown size
+bss_0205: .res 1 ; unknown size
+bss_0206: .res 1 ; unknown size
+bss_0207: .res 1 ; unknown size
+bss_0208: .res 1 ; unknown size
+bss_0209: .res 1 ; unknown size
+bss_020A: .res 1 ; unknown size
+bss_020B: .res 1 ; unknown size
+bss_020C: .res 1 ; unknown size
+bss_020D: .res 1 ; unknown size
+bss_020E: .res 1 ; unknown size
+bss_020F: .res 1 ; unknown size
+bss_0210: .res 1 ; unknown size
+bss_0211: .res 1 ; unknown size
+bss_0212: .res 1 ; unknown size
+bss_0213: .res 1 ; unknown size
+
+setpos $0216
+bss_0216: .res 1 ; unknown size
+bss_0217: .res 1 ; unknown size
+bss_0218: .res 1 ; unknown size
+bss_0219: .res 1 ; unknown size
+bss_021A: .res 1 ; unknown size
+bss_021B: .res 1 ; unknown size
+
+setpos $021F
+bss_021F: .res 1 ; unknown size
+bss_0220: .res 1 ; unknown size
+bss_0221: .res 1 ; unknown size
+bss_0222: .res 1 ; unknown size
+bss_0223: .res 1 ; unknown size
+bss_0224: .res 1 ; unknown size
+bss_0225: .res 1 ; unknown size
+bss_0226: .res 1 ; unknown size
+bss_0227: .res 1 ; unknown size
+
+setpos $022B
+bss_022B: .res 1 ; unknown size
+
+setpos $022F
+bss_022F: .res 1 ; unknown size
+bss_0230: .res 1 ; unknown size
+bss_0231: .res 1 ; unknown size
+bss_0232: .res 1 ; unknown size
+bss_0233: .res 1 ; unknown size
+bss_0234: .res 1 ; unknown size
+bss_0235: .res 1 ; unknown size
+bss_0236: .res 1 ; unknown size
+bss_0237: .res 1 ; unknown size
+
+setpos $0240
+bss_0240: .res 1 ; unknown size
+bss_0241: .res 1 ; unknown size
+bss_0242: .res 1 ; unknown size
+bss_0243: .res 1 ; unknown size
+bss_0244: .res 1 ; unknown size
+bss_0245: .res 1 ; unknown size
+bss_0246: .res 1 ; unknown size
+bss_0247: .res 1 ; unknown size
+
+setpos $0250
+bss_0250: .res 2 ; unknown size
+bss_0252: .res 1 ; unknown size
+bss_0253: .res 1 ; unknown size
+bss_0254: .res 2 ; unknown size
+bss_0256: .res 1 ; unknown size
+bss_0257: .res 1 ; unknown size
+bss_0258: .res 2 ; unknown size
+
+setpos $025A
+bss_025A: .res 1 ; unknown size
+bss_025B: .res 1 ; unknown size
+bss_025C: .res 3 ; unknown size
+bss_025F: .res 1 ; unknown size
+bss_0260: .res 2 ; unknown size
+bss_0262: .res 2 ; unknown size
+bss_0264: .res 2 ; unknown size
+bss_0266: .res 1 ; unknown size
+bss_0267: .res 1 ; unknown size
+
+setpos $026C
+bss_026C: .res 1 ; unknown size
+
+setpos $026F
+bss_026F: .res 1 ; unknown size
+bss_0270: .res 1 ; unknown size
+bss_0271: .res 1 ; unknown size
+bss_0272: .res 1 ; unknown size
+bss_0273: .res 1 ; unknown size
+bss_0274: .res 1 ; unknown size
+bss_0275: .res 1 ; unknown size
+bss_0276: .res 1 ; unknown size
+bss_0277: .res 1 ; unknown size
+bss_0278: .res 1 ; unknown size
+bss_0279: .res 1 ; unknown size
+bss_027A: .res 1 ; unknown size
+bss_027B: .res 1 ; unknown size
+bss_027C: .res 1 ; unknown size
+bss_027D: .res 1 ; unknown size
+bss_027E: .res 1 ; unknown size
+bss_027F: .res 1 ; unknown size
+bss_0280: .res 1 ; unknown size
+bss_0281: .res 1 ; unknown size
+bss_0282: .res 1 ; unknown size
+bss_0283: .res 1 ; unknown size
+bss_0284: .res 1 ; unknown size
+bss_0285: .res 1 ; unknown size
+bss_0286: .res 1 ; unknown size
+bss_0287: .res 1 ; unknown size
+
+setpos $0290
+bss_0290: .res 1 ; unknown size
+bss_0291: .res 1 ; unknown size
+bss_0292: .res 1 ; unknown size
+bss_0293: .res 1 ; unknown size
+bss_0294: .res 1 ; unknown size
+bss_0295: .res 1 ; unknown size
+bss_0296: .res 1 ; unknown size
+bss_0297: .res 1 ; unknown size
+
+setpos $02A0
+bss_02A0: .res 1 ; unknown size
+bss_02A1: .res 1 ; unknown size
+bss_02A2: .res 1 ; unknown size
+bss_02A3: .res 1 ; unknown size
+bss_02A4: .res 1 ; unknown size
+bss_02A5: .res 1 ; unknown size
+bss_02A6: .res 1 ; unknown size
+bss_02A7: .res 1 ; unknown size
+bss_02A8: .res 1 ; unknown size
+bss_02A9: .res 1 ; unknown size
+bss_02AA: .res 1 ; unknown size
+bss_02AB: .res 1 ; unknown size
+bss_02AC: .res 1 ; unknown size
+bss_02AD: .res 1 ; unknown size
+bss_02AE: .res 1 ; unknown size
+bss_02AF: .res 1 ; unknown size
+bss_02B0: .res 1 ; unknown size
+bss_02B1: .res 1 ; unknown size
+bss_02B2: .res 1 ; unknown size
+bss_02B3: .res 1 ; unknown size
+bss_02B4: .res 1 ; unknown size
+bss_02B5: .res 1 ; unknown size
+bss_02B6: .res 1 ; unknown size
+bss_02B7: .res 1 ; unknown size
+
+setpos $02C0
+bss_02C0: .res 1 ; unknown size
+bss_02C1: .res 1 ; unknown size
+bss_02C2: .res 1 ; unknown size
+bss_02C3: .res 1 ; unknown size
+
+setpos $02D3
+bss_02D3: .res 1 ; unknown size
+
+setpos $02FF
+bss_02FF: .res 1 ; unknown size
 bss_0300: .res 1 ; unknown size
 bss_0301: .res 1 ; unknown size
 bss_0302: .res 1 ; unknown size

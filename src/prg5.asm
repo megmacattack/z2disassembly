@@ -18,7 +18,7 @@
 
 L0000 = $0000
 L000E = $000E
-L02AD = $02AD
+L02AD = bss_02AD
 L6002 = $6002
 L6034 = $6034
 L6066 = $6066
@@ -209,14 +209,14 @@ bank5_Table_for_Level_Layers_Data_pointers:                                     
 .byt    $53,$5C,$65,$6E                ; 0x14187 $8177 53 5C 65 6E             ;Pointer created from 81 (14184) and a value from this table
 ; ---------------------------------------------------------------------------- ;
 bank5_Build_a_pointer_with_81_and_a_value_from_14177:                           ;
-    LDX      $010C                     ; 0x1418b $817B AE 0C 01                ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
+    LDX      bss_010C                     ; 0x1418b $817B AE 0C 01                ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
     LDA      bank5_Table_for_Level_Layers_Data_pointers,x; 0x1418e $817E BD 77 81  ;
     STA      $0C                       ; 0x14191 $8181 85 0C                   ;
     LDA      #$81                      ; 0x14193 $8183 A9 81                   ; A = 81
     STA      $0D                       ; 0x14195 $8185 85 0D                   ;
     LDY      #$08                      ; 0x14197 $8187 A0 08                   ; Y = 08
     LDA      ($0C),y                   ; 0x14199 $8189 B1 0C                   ;
-    STA      $010D                     ; 0x1419b $818B 8D 0D 01                ;; Area Bottom Row Tile Code
+    STA      bss_010D                     ; 0x1419b $818B 8D 0D 01                ;; Area Bottom Row Tile Code
     RTS                                ; 0x1419e $818E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -263,7 +263,7 @@ L81B1     = * + $0001                                                          ;
 bank5_Objects_Construction_Routines_2_high__X_wide:                             ;
     JSR      bank5_Objects_Construction_Routines_Object_1_high__X_wide; 0x141c3 $81B3 20 AD 81;
     LDA      L0000                     ; 0x141c6 $81B6 A5 00                   ;
-    STA      $0112                     ; 0x141c8 $81B8 8D 12 01                ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x141c8 $81B8 8D 12 01                ;; Tile Code 0 for Object
     JSR      bank7_DF4C                     ; 0x141cb $81BB 20 4C DF                ;
 L81BE:                                                                          ;
     LDA      bss_0731                     ; 0x141ce $81BE AD 31 07                ;; Level Object Type and Size
@@ -271,7 +271,7 @@ L81BE:                                                                          
     TAX                                ; 0x141d3 $81C3 AA                      ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x141d4 $81C4 20 44 C9          ;
 L81C7:                                                                          ;
-    LDA      $0112                     ; 0x141d7 $81C7 AD 12 01                ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0x141d7 $81C7 AD 12 01                ;; Tile Code 0 for Object
     JSR      bank7_Set_tile_and_move_right_1_column; 0x141da $81CA 20 E7 DE        ;
     DEX                                ; 0x141dd $81CD CA                      ;
     BPL      L81C7                     ; 0x141de $81CE 10 F7                   ;
@@ -286,19 +286,19 @@ bank5_Objects_Construction_Routines_X_high__1_wide_single_tile_type:            
 bank5_Objects_Construction_Routines_Object_X_high__1_wide:                      ;
     JSR      L8201                     ; 0x141e7 $81D7 20 01 82                ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x141ea $81DA 20 44 C9          ;
-    LDA      $0112                     ; 0x141ed $81DD AD 12 01                ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0x141ed $81DD AD 12 01                ;; Tile Code 0 for Object
     JSR      bank7_DF56                     ; 0x141f0 $81E0 20 56 DF                ;
     STA      bss_0730                     ; 0x141f3 $81E3 8D 30 07                ;; Position of Object Placement
     DEC      bss_0731                     ; 0x141f6 $81E6 CE 31 07                ;; Level Object Type and Size
     LDA      L0000                     ; 0x141f9 $81E9 A5 00                   ;
-    STA      $0112                     ; 0x141fb $81EB 8D 12 01                ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x141fb $81EB 8D 12 01                ;; Tile Code 0 for Object
 L81EE:                                                                          ;
     LDA      bss_0731                     ; 0x141fe $81EE AD 31 07                ;; Level Object Type and Size
     AND      #$0F                      ; 0x14201 $81F1 29 0F                   ; keep bits .... xxxx
     TAX                                ; 0x14203 $81F3 AA                      ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x14204 $81F4 20 44 C9          ;
 L81F7:                                                                          ;
-    LDA      $0112                     ; 0x14207 $81F7 AD 12 01                ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0x14207 $81F7 AD 12 01                ;; Tile Code 0 for Object
     JSR      bank7_DF56                     ; 0x1420a $81FA 20 56 DF                ;
     DEX                                ; 0x1420d $81FD CA                      ;
     BPL      L81F7                     ; 0x1420e $81FE 10 F7                   ;
@@ -317,7 +317,7 @@ L8207     = * + $0001                                                          ;
     BCS      L8211                     ; 0x1421c $820C B0 03                   ;
     LDA      bank5_Tile_Codes_for_Objects_Set_0_Canopy_00,x; 0x1421e $820E BD 8F 81;
 L8211:                                                                          ;
-    STA      $0112                     ; 0x14221 $8211 8D 12 01                ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x14221 $8211 8D 12 01                ;; Tile Code 0 for Object
     LDA      L81AE,x                   ; 0x14224 $8214 BD AE 81                ; ???
     BCS      L821C                     ; 0x14227 $8217 B0 03                   ;
     LDA      L8190,x                   ; 0x14229 $8219 BD 90 81                ;
@@ -332,19 +332,19 @@ bank5_Objects_Construction_Routines_Object_Lava_Pit__3_high_bottom_of_screen:   
     ORA      #$A0                      ; 0x14234 $8224 09 A0                   ; set  bits x.x. ....
     STA      bss_0730                     ; 0x14236 $8226 8D 30 07                ;; Position of Object Placement
     LDA      #$83                      ; 0x14239 $8229 A9 83                   ; A = 83
-    STA      $0112                     ; 0x1423b $822B 8D 12 01                ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x1423b $822B 8D 12 01                ;; Tile Code 0 for Object
 L822E:                                                                          ;
     LDA      bss_0731                     ; 0x1423e $822E AD 31 07                ;; Level Object Type and Size
     AND      #$0F                      ; 0x14241 $8231 29 0F                   ; keep bits .... xxxx
     TAX                                ; 0x14243 $8233 AA                      ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x14244 $8234 20 44 C9          ;
 L8237:                                                                          ;
-    LDA      $0112                     ; 0x14247 $8237 AD 12 01                ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0x14247 $8237 AD 12 01                ;; Tile Code 0 for Object
     JSR      bank7_Set_tile_and_move_right_1_column; 0x1424a $823A 20 E7 DE        ;
     DEX                                ; 0x1424d $823D CA                      ;
     BPL      L8237                     ; 0x1424e $823E 10 F7                   ;
     LDA      #$84                      ; 0x14250 $8240 A9 84                   ; A = 84
-    STA      $0112                     ; 0x14252 $8242 8D 12 01                ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x14252 $8242 8D 12 01                ;; Tile Code 0 for Object
     JSR      bank7_DF4C                     ; 0x14255 $8245 20 4C DF                ;
     AND      #$F0                      ; 0x14258 $8248 29 F0                   ; keep bits xxxx ....
     CMP      #$D0                      ; 0x1425a $824A C9 D0                   ;
@@ -353,13 +353,13 @@ L8237:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_Objects_Construction_Routines_Object_Elevator:                            ;
-    LDA      $010A                     ; 0x1425f $824F AD 0A 01                ;
+    LDA      bss_010A                     ; 0x1425f $824F AD 0A 01                ;
     STA      bss_0757                     ; 0x14262 $8252 8D 57 07                ;; Position of Elevator in Map
     RTS                                ; 0x14265 $8255 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank5_Small_Objects_Construction_Routines_Locked_Door:                          ;
-    LDA      $010A                     ; 0x14266 $8256 AD 0A 01                ;
+    LDA      bss_010A                     ; 0x14266 $8256 AD 0A 01                ;
     STA      bss_0758                     ; 0x14269 $8259 8D 58 07                ;; Position of Locked Door in Map
     RTS                                ; 0x1426c $825C 60                      ;
                                                                                ;
@@ -980,7 +980,7 @@ L8BC4:                                                                          
     AND      #$03                      ; 0x14be4 $8BD4 29 03                   ; keep bits .... ..xx
     TAY                                ; 0x14be6 $8BD6 A8                      ;
     LDA      bank5_table2,y            ; 0x14be7 $8BD7 B9 BB 8B                ;
-    STA      $02FF,x                   ; 0x14bea $8BDA 9D FF 02                ;
+    STA      bss_02FF,x                   ; 0x14bea $8BDA 9D FF 02                ;
     DEX                                ; 0x14bed $8BDD CA                      ;
     STX      bss_0301                     ; 0x14bee $8BDE 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDA      bss_0761                     ; 0x14bf1 $8BE1 AD 61 07                ;
@@ -1012,13 +1012,13 @@ bank5_code5:                                                                    
     LDY      #$07                      ; 0x14c2d $8C1D A0 07                   ; Y = 07
 L8C1F:                                                                          ;
     LDA      bank5_table3,y            ; 0x14c2f $8C1F B9 05 8C                ;
-    STA      $0230,y                   ; 0x14c32 $8C22 99 30 02                ;
+    STA      bss_0230,y                   ; 0x14c32 $8C22 99 30 02                ;
     DEY                                ; 0x14c35 $8C25 88                      ;
     BPL      L8C1F                     ; 0x14c36 $8C26 10 F7                   ;
     LDA      #$03                      ; 0x14c38 $8C28 A9 03                   ; A = 03
-    STA      $0232                     ; 0x14c3a $8C2A 8D 32 02                ;
+    STA      bss_0232                     ; 0x14c3a $8C2A 8D 32 02                ;
     ORA      #$40                      ; 0x14c3d $8C2D 09 40                   ; set  bits .x.. ....
-    STA      $0236                     ; 0x14c3f $8C2F 8D 36 02                ;
+    STA      bss_0236                     ; 0x14c3f $8C2F 8D 36 02                ;
     JSR      L8C38                     ; 0x14c42 $8C32 20 38 8C                ;
     JMP      L8C44                     ; 0x14c45 $8C35 4C 44 8C                ;
                                                                                ;
@@ -1027,7 +1027,7 @@ L8C38:                                                                          
     LDY      #$0F                      ; 0x14c48 $8C38 A0 0F                   ; Y = 0F
 L8C3A:                                                                          ;
     LDA      L8C0D,y                   ; 0x14c4a $8C3A B9 0D 8C                ;
-    STA      $0210,y                   ; 0x14c4d $8C3D 99 10 02                ;
+    STA      bss_0210,y                   ; 0x14c4d $8C3D 99 10 02                ;
     DEY                                ; 0x14c50 $8C40 88                      ;
     BPL      L8C3A                     ; 0x14c51 $8C41 10 F7                   ;
     RTS                                ; 0x14c53 $8C43 60                      ;
@@ -1087,20 +1087,20 @@ L8C8D:                                                                          
     ASL                                ; 0x14ca0 $8C90 0A                      ;
     TAY                                ; 0x14ca1 $8C91 A8                      ;
     LDA      $38,x                     ; 0x14ca2 $8C92 B5 38                   ;
-    STA      $0230,y                   ; 0x14ca4 $8C94 99 30 02                ;
-    STA      $0234,y                   ; 0x14ca7 $8C97 99 34 02                ;
+    STA      bss_0230,y                   ; 0x14ca4 $8C94 99 30 02                ;
+    STA      bss_0234,y                   ; 0x14ca7 $8C97 99 34 02                ;
     LDA      #$D6                      ; 0x14caa $8C9A A9 D6                   ; A = D6
-    STA      $0231,y                   ; 0x14cac $8C9C 99 31 02                ;
-    STA      $0235,y                   ; 0x14caf $8C9F 99 35 02                ;
+    STA      bss_0231,y                   ; 0x14cac $8C9C 99 31 02                ;
+    STA      bss_0235,y                   ; 0x14caf $8C9F 99 35 02                ;
     LDA      #$03                      ; 0x14cb2 $8CA2 A9 03                   ; A = 03
-    STA      $0232,y                   ; 0x14cb4 $8CA4 99 32 02                ;
+    STA      bss_0232,y                   ; 0x14cb4 $8CA4 99 32 02                ;
     ORA      #$40                      ; 0x14cb7 $8CA7 09 40                   ; set  bits .x.. ....
-    STA      $0236,y                   ; 0x14cb9 $8CA9 99 36 02                ;
+    STA      bss_0236,y                   ; 0x14cb9 $8CA9 99 36 02                ;
     LDA      $3B,x                     ; 0x14cbc $8CAC B5 3B                   ;
-    STA      $0233,y                   ; 0x14cbe $8CAE 99 33 02                ;
+    STA      bss_0233,y                   ; 0x14cbe $8CAE 99 33 02                ;
     CLC                                ; 0x14cc1 $8CB1 18                      ;
     ADC      #$08                      ; 0x14cc2 $8CB2 69 08                   ;
-    STA      $0237,y                   ; 0x14cc4 $8CB4 99 37 02                ;
+    STA      bss_0237,y                   ; 0x14cc4 $8CB4 99 37 02                ;
     DEX                                ; 0x14cc7 $8CB7 CA                      ;
     BPL      L8C8D                     ; 0x14cc8 $8CB8 10 D3                   ;
     RTS                                ; 0x14cca $8CBA 60                      ;
@@ -1241,7 +1241,7 @@ L8DD5:                                                                          
     LDY      #$1F                      ; 0x14de5 $8DD5 A0 1F                   ; Y = 1F
 L8DD7:                                                                          ;
     LDA      bank5_table4,y            ; 0x14de7 $8DD7 B9 8D 8D                ;
-    STA      $0210,y                   ; 0x14dea $8DDA 99 10 02                ;
+    STA      bss_0210,y                   ; 0x14dea $8DDA 99 10 02                ;
     DEY                                ; 0x14ded $8DDD 88                      ;
     BPL      L8DD7                     ; 0x14dee $8DDE 10 F7                   ;
     RTS                                ; 0x14df0 $8DE0 60                      ;
@@ -1464,17 +1464,17 @@ L8F68:                                                                          
 L8F6B:                                                                          ;
     JSR      L8DD5                     ; 0x14f7b $8F6B 20 D5 8D                ;
     LDA      #$75                      ; 0x14f7e $8F6E A9 75                   ; A = 75
-    STA      $0213                     ; 0x14f80 $8F70 8D 13 02                ;
-    STA      $0223                     ; 0x14f83 $8F73 8D 23 02                ;
+    STA      bss_0213                     ; 0x14f80 $8F70 8D 13 02                ;
+    STA      bss_0223                     ; 0x14f83 $8F73 8D 23 02                ;
     LDA      #$7D                      ; 0x14f86 $8F76 A9 7D                   ; A = 7D
-    STA      $0217                     ; 0x14f88 $8F78 8D 17 02                ;
-    STA      $0227                     ; 0x14f8b $8F7B 8D 27 02                ;
+    STA      bss_0217                     ; 0x14f88 $8F78 8D 17 02                ;
+    STA      bss_0227                     ; 0x14f8b $8F7B 8D 27 02                ;
     LDA      #$7B                      ; 0x14f8e $8F7E A9 7B                   ; A = 7B
-    STA      $021B                     ; 0x14f90 $8F80 8D 1B 02                ;
-    STA      $022B                     ; 0x14f93 $8F83 8D 2B 02                ;
+    STA      bss_021B                     ; 0x14f90 $8F80 8D 1B 02                ;
+    STA      bss_022B                     ; 0x14f93 $8F83 8D 2B 02                ;
     LDA      #$83                      ; 0x14f96 $8F86 A9 83                   ; A = 83
-    STA      $021F                     ; 0x14f98 $8F88 8D 1F 02                ;
-    STA      $022F                     ; 0x14f9b $8F8B 8D 2F 02                ;
+    STA      bss_021F                     ; 0x14f98 $8F88 8D 1F 02                ;
+    STA      bss_022F                     ; 0x14f9b $8F8B 8D 2F 02                ;
     RTS                                ; 0x14f9e $8F8E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2257,11 +2257,11 @@ L96A8:                                                                          
     SBC      $D9                       ; 0x156e1 $96D1 E5 D9                   ;; Thunder Spell modifier ?
     JSR      bank7_F0D7                     ; 0x156e3 $96D3 20 D7 F0                ;
     LDA      $2A,x                     ; 0x156e6 $96D6 B5 2A                   ;; Enemy Y Position
-    STA      $0270                     ; 0x156e8 $96D8 8D 70 02                ;
-    STA      $0278                     ; 0x156eb $96DB 8D 78 02                ;
+    STA      bss_0270                     ; 0x156e8 $96D8 8D 70 02                ;
+    STA      bss_0278                     ; 0x156eb $96DB 8D 78 02                ;
     ADC      #$10                      ; 0x156ee $96DE 69 10                   ;
-    STA      $0274                     ; 0x156f0 $96E0 8D 74 02                ;
-    STA      $027C                     ; 0x156f3 $96E3 8D 7C 02                ;
+    STA      bss_0274                     ; 0x156f0 $96E0 8D 74 02                ;
+    STA      bss_027C                     ; 0x156f3 $96E3 8D 7C 02                ;
     LDA      $12                       ; 0x156f6 $96E6 A5 12                   ;; Frame Counter (ascending)
     AND      #$10                      ; 0x156f8 $96E8 29 10                   ;;Keep Bits:0001_0000
     LSR                                ; 0x156fa $96EA 4A                      ;
@@ -2272,27 +2272,27 @@ L96A8:                                                                          
     ADC      $CD                       ; 0x15700 $96F0 65 CD                   ;
     SEC                                ; 0x15702 $96F2 38                      ;
     SBC      #$08                      ; 0x15703 $96F3 E9 08                   ;
-    STA      $0273                     ; 0x15705 $96F5 8D 73 02                ;
-    STA      $0277                     ; 0x15708 $96F8 8D 77 02                ;
+    STA      bss_0273                     ; 0x15705 $96F5 8D 73 02                ;
+    STA      bss_0277                     ; 0x15708 $96F8 8D 77 02                ;
     LDA      $CD                       ; 0x1570b $96FB A5 CD                   ;
     CLC                                ; 0x1570d $96FD 18                      ;
     ADC      #$20                      ; 0x1570e $96FE 69 20                   ;
     SEC                                ; 0x15710 $9700 38                      ;
     SBC      $05                       ; 0x15711 $9701 E5 05                   ;
-    STA      $027B                     ; 0x15713 $9703 8D 7B 02                ;
-    STA      $027F                     ; 0x15716 $9706 8D 7F 02                ;
+    STA      bss_027B                     ; 0x15713 $9703 8D 7B 02                ;
+    STA      bss_027F                     ; 0x15716 $9706 8D 7F 02                ;
     LDA      #$F0                      ; 0x15719 $9709 A9 F0                   ;;A = #$f0 1111_0000
-    STA      $0271                     ; 0x1571b $970B 8D 71 02                ;
-    STA      $0279                     ; 0x1571e $970E 8D 79 02                ;
+    STA      bss_0271                     ; 0x1571b $970B 8D 71 02                ;
+    STA      bss_0279                     ; 0x1571e $970E 8D 79 02                ;
     LDA      #$F6                      ; 0x15721 $9711 A9 F6                   ;;A = #$f6 1111_0110
-    STA      $0275                     ; 0x15723 $9713 8D 75 02                ;
-    STA      $027D                     ; 0x15726 $9716 8D 7D 02                ;
-    LDA      $0252                     ; 0x15729 $9719 AD 52 02                ;
-    STA      $0272                     ; 0x1572c $971C 8D 72 02                ;
-    STA      $0276                     ; 0x1572f $971F 8D 76 02                ;
+    STA      bss_0275                     ; 0x15723 $9713 8D 75 02                ;
+    STA      bss_027D                     ; 0x15726 $9716 8D 7D 02                ;
+    LDA      bss_0252                     ; 0x15729 $9719 AD 52 02                ;
+    STA      bss_0272                     ; 0x1572c $971C 8D 72 02                ;
+    STA      bss_0276                     ; 0x1572f $971F 8D 76 02                ;
     ORA      #$40                      ; 0x15732 $9722 09 40                   ;;Set Bits:0100_0000
-    STA      $027A                     ; 0x15734 $9724 8D 7A 02                ;
-    STA      $027E                     ; 0x15737 $9727 8D 7E 02                ;
+    STA      bss_027A                     ; 0x15734 $9724 8D 7A 02                ;
+    STA      bss_027E                     ; 0x15737 $9727 8D 7E 02                ;
     LDA      $4E,x                     ; 0x1573a $972A B5 4E                   ;; Enemy X Position (low byte)
     PHA                                ; 0x1573c $972C 48                      ;
     SEC                                ; 0x1573d $972D 38                      ;
@@ -2310,14 +2310,14 @@ L96A8:                                                                          
     BEQ      L975A                     ; 0x15753 $9743 F0 15                   ;
     BPL      L974F                     ; 0x15755 $9745 10 08                   ;
     LDY      #$F8                      ; 0x15757 $9747 A0 F8                   ;;Y = #$f8 1111_1000
-    STY      $0270                     ; 0x15759 $9749 8C 70 02                ;
-    STY      $0274                     ; 0x1575c $974C 8C 74 02                ;
+    STY      bss_0270                     ; 0x15759 $9749 8C 70 02                ;
+    STY      bss_0274                     ; 0x1575c $974C 8C 74 02                ;
 L974F:                                                                          ;
     ASL                                ; 0x1575f $974F 0A                      ;
     BEQ      L975A                     ; 0x15760 $9750 F0 08                   ;
     LDY      #$F8                      ; 0x15762 $9752 A0 F8                   ;;Y = #$f8 1111_1000
-    STY      $0278                     ; 0x15764 $9754 8C 78 02                ;
-    STY      $027C                     ; 0x15767 $9757 8C 7C 02                ;
+    STY      bss_0278                     ; 0x15764 $9754 8C 78 02                ;
+    STY      bss_027C                     ; 0x15767 $9757 8C 7C 02                ;
 L975A:                                                                          ;
     PLA                                ; 0x1576a $975A 68                      ;
     STA      $3C,x                     ; 0x1576b $975B 95 3C                   ;; Enemy X Position (high byte)
@@ -3145,7 +3145,7 @@ L9C69:                                                                          
 L9C8E:                                                                          ;
     JSR      bank7_F0C6                     ; 0x15c9e $9C8E 20 C6 F0                ;
     LDA      #$41                      ; 0x15ca1 $9C91 A9 41                   ;;A = #$41 0100_0001
-    STA      $01FE,y                   ; 0x15ca3 $9C93 99 FE 01                ;
+    STA      bss_01FE,y                   ; 0x15ca3 $9C93 99 FE 01                ;
 L9C96:                                                                          ;
     RTS                                ; 0x15ca6 $9C96 60                      ;
                                                                                ;
@@ -3165,9 +3165,9 @@ L9C99:                                                                          
     STA      $0F                       ; 0x15cb6 $9CA6 85 0F                   ;
     LDY      $97,x                     ; 0x15cb8 $9CA8 B4 97                   ;
     LDA      $30,x                     ; 0x15cba $9CAA B5 30                   ;; Projectile Y Position
-    STA      $0200,y                   ; 0x15cbc $9CAC 99 00 02                ;
+    STA      bss_0200,y                   ; 0x15cbc $9CAC 99 00 02                ;
     LDA      $CE                       ; 0x15cbf $9CAF A5 CE                   ;
-    STA      $0203,y                   ; 0x15cc1 $9CB1 99 03 02                ;
+    STA      bss_0203,y                   ; 0x15cc1 $9CB1 99 03 02                ;
     PLA                                ; 0x15cc4 $9CB4 68                      ;
     TAY                                ; 0x15cc5 $9CB5 A8                      ;
     LDA      $6EAD,y                   ; 0x15cc6 $9CB6 B9 AD 6E                ;
@@ -3176,9 +3176,9 @@ L9C99:                                                                          
     LDY      $66,x                     ; 0x15ccd $9CBD B4 66                   ;; Projectile facing direction
     ORA      L9C96,y                   ; 0x15ccf $9CBF 19 96 9C                ;
     LDY      $97,x                     ; 0x15cd2 $9CC2 B4 97                   ;
-    STA      $0202,y                   ; 0x15cd4 $9CC4 99 02 02                ;
+    STA      bss_0202,y                   ; 0x15cd4 $9CC4 99 02 02                ;
     PLA                                ; 0x15cd7 $9CC7 68                      ;
-    STA      $0201,y                   ; 0x15cd8 $9CC8 99 01 02                ;
+    STA      bss_0201,y                   ; 0x15cd8 $9CC8 99 01 02                ;
     JMP      (L000E)                   ; 0x15cdb $9CCB 6C 0E 00                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3193,25 +3193,25 @@ L9C99:                                                                          
     BEQ      L9CEB                     ; 0x15cf1 $9CE1 F0 08                   ;
     LDY      $97,x                     ; 0x15cf3 $9CE3 B4 97                   ;
     LDA      #$F8                      ; 0x15cf5 $9CE5 A9 F8                   ;;A = #$f8 1111_1000
-    STA      $0200,y                   ; 0x15cf7 $9CE7 99 00 02                ;
+    STA      bss_0200,y                   ; 0x15cf7 $9CE7 99 00 02                ;
     RTS                                ; 0x15cfa $9CEA 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9CEB:                                                                          ;
     LDY      $97,x                     ; 0x15cfb $9CEB B4 97                   ;
-    LDA      $0202,y                   ; 0x15cfd $9CED B9 02 02                ;
+    LDA      bss_0202,y                   ; 0x15cfd $9CED B9 02 02                ;
     AND      #$43                      ; 0x15d00 $9CF0 29 43                   ;;Keep Bits:0100_0011
-    STA      $0202,y                   ; 0x15d02 $9CF2 99 02 02                ;
+    STA      bss_0202,y                   ; 0x15d02 $9CF2 99 02 02                ;
     LDA      #$52                      ; 0x15d05 $9CF5 A9 52                   ;;A = #$52 0101_0010
-    STA      $0201,y                   ; 0x15d07 $9CF7 99 01 02                ;
+    STA      bss_0201,y                   ; 0x15d07 $9CF7 99 01 02                ;
 L9CFA:                                                                          ;
     RTS                                ; 0x15d0a $9CFA 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     LDA      $12                       ; 0x15d0b $9CFB A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x15d0d $9CFD 29 03                   ;;Keep Bits:0000_0011
-    ORA      $0202,y                   ; 0x15d0f $9CFF 19 02 02                ;
-    STA      $0202,y                   ; 0x15d12 $9D02 99 02 02                ;
+    ORA      bss_0202,y                   ; 0x15d0f $9CFF 19 02 02                ;
+    STA      bss_0202,y                   ; 0x15d12 $9D02 99 02 02                ;
     RTS                                ; 0x15d15 $9D05 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3239,7 +3239,7 @@ L9D18:                                                                          
     ASL                                ; 0x15d2f $9D1F 0A                      ;
     AND      #$C3                      ; 0x15d30 $9D20 29 C3                   ;;Keep Bits:1100_0011
 L9D22:                                                                          ;
-    STA      $0202,y                   ; 0x15d32 $9D22 99 02 02                ;
+    STA      bss_0202,y                   ; 0x15d32 $9D22 99 02 02                ;
     RTS                                ; 0x15d35 $9D25 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3546,42 +3546,42 @@ L9ED7:                                                                          
     ADC      #$0C                      ; 0x15f2f $9F1F 69 0C                   ;
     STA      L0000                     ; 0x15f31 $9F21 85 00                   ;
     LDA      $2A,x                     ; 0x15f33 $9F23 B5 2A                   ;; Enemy Y Position
-    STA      $02A0                     ; 0x15f35 $9F25 8D A0 02                ;
-    STA      $02AC                     ; 0x15f38 $9F28 8D AC 02                ;
+    STA      bss_02A0                     ; 0x15f35 $9F25 8D A0 02                ;
+    STA      bss_02AC                     ; 0x15f38 $9F28 8D AC 02                ;
     ADC      L0000                     ; 0x15f3b $9F2B 65 00                   ;
-    STA      $02A4                     ; 0x15f3d $9F2D 8D A4 02                ;
-    STA      $02B0                     ; 0x15f40 $9F30 8D B0 02                ;
+    STA      bss_02A4                     ; 0x15f3d $9F2D 8D A4 02                ;
+    STA      bss_02B0                     ; 0x15f40 $9F30 8D B0 02                ;
     ADC      L0000                     ; 0x15f43 $9F33 65 00                   ;
-    STA      $02A8                     ; 0x15f45 $9F35 8D A8 02                ;
-    STA      $02B4                     ; 0x15f48 $9F38 8D B4 02                ;
+    STA      bss_02A8                     ; 0x15f45 $9F35 8D A8 02                ;
+    STA      bss_02B4                     ; 0x15f48 $9F38 8D B4 02                ;
     LDA      $CD                       ; 0x15f4b $9F3B A5 CD                   ;
     SEC                                ; 0x15f4d $9F3D 38                      ;
     SBC      #$08                      ; 0x15f4e $9F3E E9 08                   ;
-    STA      $02A3                     ; 0x15f50 $9F40 8D A3 02                ;
-    STA      $02A7                     ; 0x15f53 $9F43 8D A7 02                ;
-    STA      $02AB                     ; 0x15f56 $9F46 8D AB 02                ;
+    STA      bss_02A3                     ; 0x15f50 $9F40 8D A3 02                ;
+    STA      bss_02A7                     ; 0x15f53 $9F43 8D A7 02                ;
+    STA      bss_02AB                     ; 0x15f56 $9F46 8D AB 02                ;
     CLC                                ; 0x15f59 $9F49 18                      ;
     ADC      #$28                      ; 0x15f5a $9F4A 69 28                   ;
-    STA      $02AF                     ; 0x15f5c $9F4C 8D AF 02                ;
-    STA      $02B3                     ; 0x15f5f $9F4F 8D B3 02                ;
-    STA      $02B7                     ; 0x15f62 $9F52 8D B7 02                ;
+    STA      bss_02AF                     ; 0x15f5c $9F4C 8D AF 02                ;
+    STA      bss_02B3                     ; 0x15f5f $9F4F 8D B3 02                ;
+    STA      bss_02B7                     ; 0x15f62 $9F52 8D B7 02                ;
     LDA      #$0F                      ; 0x15f65 $9F55 A9 0F                   ;;A = #$0f 0000_1111
-    STA      $02A1                     ; 0x15f67 $9F57 8D A1 02                ;
+    STA      bss_02A1                     ; 0x15f67 $9F57 8D A1 02                ;
     STA      L02AD                     ; 0x15f6a $9F5A 8D AD 02                ;
     LDA      #$15                      ; 0x15f6d $9F5D A9 15                   ;;A = #$15 0001_0101
-    STA      $02A5                     ; 0x15f6f $9F5F 8D A5 02                ;
-    STA      $02B1                     ; 0x15f72 $9F62 8D B1 02                ;
+    STA      bss_02A5                     ; 0x15f6f $9F5F 8D A5 02                ;
+    STA      bss_02B1                     ; 0x15f72 $9F62 8D B1 02                ;
     LDA      #$1B                      ; 0x15f75 $9F65 A9 1B                   ;;A = #$1b 0001_1011
-    STA      $02A9                     ; 0x15f77 $9F67 8D A9 02                ;
-    STA      $02B5                     ; 0x15f7a $9F6A 8D B5 02                ;
-    LDA      $0252                     ; 0x15f7d $9F6D AD 52 02                ;
-    STA      $02A2                     ; 0x15f80 $9F70 8D A2 02                ;
-    STA      $02A6                     ; 0x15f83 $9F73 8D A6 02                ;
-    STA      $02AA                     ; 0x15f86 $9F76 8D AA 02                ;
+    STA      bss_02A9                     ; 0x15f77 $9F67 8D A9 02                ;
+    STA      bss_02B5                     ; 0x15f7a $9F6A 8D B5 02                ;
+    LDA      bss_0252                     ; 0x15f7d $9F6D AD 52 02                ;
+    STA      bss_02A2                     ; 0x15f80 $9F70 8D A2 02                ;
+    STA      bss_02A6                     ; 0x15f83 $9F73 8D A6 02                ;
+    STA      bss_02AA                     ; 0x15f86 $9F76 8D AA 02                ;
     ORA      #$40                      ; 0x15f89 $9F79 09 40                   ;;Set Bits:0100_0000
-    STA      $02AE                     ; 0x15f8b $9F7B 8D AE 02                ;
-    STA      $02B2                     ; 0x15f8e $9F7E 8D B2 02                ;
-    STA      $02B6                     ; 0x15f91 $9F81 8D B6 02                ;
+    STA      bss_02AE                     ; 0x15f8b $9F7B 8D AE 02                ;
+    STA      bss_02B2                     ; 0x15f8e $9F7E 8D B2 02                ;
+    STA      bss_02B6                     ; 0x15f91 $9F81 8D B6 02                ;
     LDA      $4E,x                     ; 0x15f94 $9F84 B5 4E                   ;; Enemy X Position (low byte)
     PHA                                ; 0x15f96 $9F86 48                      ;
     SEC                                ; 0x15f97 $9F87 38                      ;
@@ -3599,16 +3599,16 @@ L9ED7:                                                                          
     BEQ      L9FBA                     ; 0x15fad $9F9D F0 1B                   ;
     BPL      L9FAC                     ; 0x15faf $9F9F 10 0B                   ;
     LDY      #$F8                      ; 0x15fb1 $9FA1 A0 F8                   ;;Y = #$f8 1111_1000
-    STY      $02A0                     ; 0x15fb3 $9FA3 8C A0 02                ;
-    STY      $02A4                     ; 0x15fb6 $9FA6 8C A4 02                ;
-    STY      $02A8                     ; 0x15fb9 $9FA9 8C A8 02                ;
+    STY      bss_02A0                     ; 0x15fb3 $9FA3 8C A0 02                ;
+    STY      bss_02A4                     ; 0x15fb6 $9FA6 8C A4 02                ;
+    STY      bss_02A8                     ; 0x15fb9 $9FA9 8C A8 02                ;
 L9FAC:                                                                          ;
     ASL                                ; 0x15fbc $9FAC 0A                      ;
     BEQ      L9FBA                     ; 0x15fbd $9FAD F0 0B                   ;
     LDY      #$F8                      ; 0x15fbf $9FAF A0 F8                   ;;Y = #$f8 1111_1000
-    STY      $02AC                     ; 0x15fc1 $9FB1 8C AC 02                ;
-    STY      $02B0                     ; 0x15fc4 $9FB4 8C B0 02                ;
-    STY      $02B4                     ; 0x15fc7 $9FB7 8C B4 02                ;
+    STY      bss_02AC                     ; 0x15fc1 $9FB1 8C AC 02                ;
+    STY      bss_02B0                     ; 0x15fc4 $9FB4 8C B0 02                ;
+    STY      bss_02B4                     ; 0x15fc7 $9FB7 8C B4 02                ;
 L9FBA:                                                                          ;
     PLA                                ; 0x15fca $9FBA 68                      ;
     STA      $3C,x                     ; 0x15fcb $9FBB 95 3C                   ;; Enemy X Position (high byte)
@@ -3866,10 +3866,10 @@ bank5_Enemy_Routines2_Big_Bubble:                                               
     STA      $01                       ; 0x16177 $A167 85 01                   ;
     JSR      bank7_F0D7                     ; 0x16179 $A169 20 D7 F0                ;
     JSR      bank7_EF08                     ; 0x1617c $A16C 20 08 EF                ;
-    LDA      $01FF,y                   ; 0x1617f $A16F B9 FF 01                ;
+    LDA      bss_01FF,y                   ; 0x1617f $A16F B9 FF 01                ;
     CLC                                ; 0x16182 $A172 18                      ;
     ADC      #$10                      ; 0x16183 $A173 69 10                   ;
-    STA      $01FF,y                   ; 0x16185 $A175 99 FF 01                ;
+    STA      bss_01FF,y                   ; 0x16185 $A175 99 FF 01                ;
 LA178:                                                                          ;
     LDX      $10                       ; 0x16188 $A178 A6 10                   ;; used as monster x register ;draw boss hp bar
 LA17A:                                                                          ;
@@ -4349,7 +4349,7 @@ LA491:                                                                          
     LDX      #$3A                      ; 0x164bd $A4AD A2 3A                   ;;X = #$3a 0011_1010
     JSR      bank7_F0D7                     ; 0x164bf $A4AF 20 D7 F0                ;
     LDA      #$43                      ; 0x164c2 $A4B2 A9 43                   ;;A = #$43 0100_0011
-    STA      $01FE,y                   ; 0x164c4 $A4B4 99 FE 01                ;
+    STA      bss_01FE,y                   ; 0x164c4 $A4B4 99 FE 01                ;
     RTS                                ; 0x164c7 $A4B7 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4383,7 +4383,7 @@ LA4C9:                                                                          
     AND      #$03                      ; 0x164e9 $A4D9 29 03                   ;;Keep Bits:0000_0011
     TAY                                ; 0x164eb $A4DB A8                      ;
     LDA      LA4C0,y                   ; 0x164ec $A4DC B9 C0 A4                ;
-    STA      $02FF,x                   ; 0x164ef $A4DF 9D FF 02                ;
+    STA      bss_02FF,x                   ; 0x164ef $A4DF 9D FF 02                ;
     DEX                                ; 0x164f2 $A4E2 CA                      ;
     STX      bss_0301                     ; 0x164f3 $A4E3 8E 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     LDX      $10                       ; 0x164f6 $A4E6 A6 10                   ;; used as monster x register ;draw boss hp bar
@@ -4410,13 +4410,13 @@ LA4FB:                                                                          
     BMI      LA502                     ; 0x1650e $A4FE 30 02                   ;
     LDA      #$6E                      ; 0x16510 $A500 A9 6E                   ;;A = #$6e 0110_1110
 LA502:                                                                          ;
-    STA      $02C1,x                   ; 0x16512 $A502 9D C1 02                ;
+    STA      bss_02C1,x                   ; 0x16512 $A502 9D C1 02                ;
     LDA      #$01                      ; 0x16515 $A505 A9 01                   ;;A = #$01 0000_0001
-    STA      $02C2,x                   ; 0x16517 $A507 9D C2 02                ;
+    STA      bss_02C2,x                   ; 0x16517 $A507 9D C2 02                ;
     LDA      #$10                      ; 0x1651a $A50A A9 10                   ;;A = #$10 0001_0000
-    STA      $02C3,x                   ; 0x1651c $A50C 9D C3 02                ;
+    STA      bss_02C3,x                   ; 0x1651c $A50C 9D C3 02                ;
     LDA      L0000                     ; 0x1651f $A50F A5 00                   ;
-    STA      $02C0,x                   ; 0x16521 $A511 9D C0 02                ;
+    STA      bss_02C0,x                   ; 0x16521 $A511 9D C0 02                ;
     ADC      #$F8                      ; 0x16524 $A514 69 F8                   ;
     STA      L0000                     ; 0x16526 $A516 85 00                   ;
     DEX                                ; 0x16528 $A518 CA                      ;
@@ -4731,7 +4731,7 @@ bank5_code21:                                                                   
     LDY      #$FF                      ; 0x168d1 $A8C1 A0 FF                   ; Y = FF
 LA8C3:                                                                          ;
     LDA      bank5_Intro_Sprites,y     ; 0x168d3 $A8C3 B9 C1 A7                ; Intro Sprites Table
-    STA      $0200,y                   ; 0x168d6 $A8C6 99 00 02                ;
+    STA      bss_0200,y                   ; 0x168d6 $A8C6 99 00 02                ;
     DEY                                ; 0x168d9 $A8C9 88                      ;
     CPY      #$FF                      ; 0x168da $A8CA C0 FF                   ;
     BNE      LA8C3                     ; 0x168dc $A8CC D0 F5                   ;
@@ -4744,10 +4744,10 @@ bank5_Animation_of_Stars_in_the_Sky:                                            
     AND      #$0F                      ; 0x168e3 $A8D3 29 0F                   ; keep bits .... xxxx
     BNE      LA8E8                     ; 0x168e5 $A8D5 D0 11                   ;
 LA8D7:                                                                          ;
-    INC      $0267,x                   ; 0x168e7 $A8D7 FE 67 02                ;
-    LDA      $0267,x                   ; 0x168ea $A8DA BD 67 02                ;
+    INC      bss_0267,x                   ; 0x168e7 $A8D7 FE 67 02                ;
+    LDA      bss_0267,x                   ; 0x168ea $A8DA BD 67 02                ;
     AND      #$23                      ; 0x168ed $A8DD 29 23                   ; keep bits ..x. ..xx
-    STA      $0267,x                   ; 0x168ef $A8DF 9D 67 02                ;
+    STA      bss_0267,x                   ; 0x168ef $A8DF 9D 67 02                ;
     DEX                                ; 0x168f2 $A8E2 CA                      ;
     DEX                                ; 0x168f3 $A8E3 CA                      ;
     DEX                                ; 0x168f4 $A8E4 CA                      ;
@@ -4758,24 +4758,24 @@ LA8E8:                                                                          
     BNE      LA8EE                     ; 0x168fa $A8EA D0 02                   ;
     INC      $26                       ; 0x168fc $A8EC E6 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
 LA8EE:                                                                          ;
-    LDA      $026C                     ; 0x168fe $A8EE AD 6C 02                ;
+    LDA      bss_026C                     ; 0x168fe $A8EE AD 6C 02                ;
     CMP      #$37                      ; 0x16901 $A8F1 C9 37                   ; Vertical limit for shooting star
     BCC      LA8FE                     ; 0x16903 $A8F3 90 09                   ;
     LDA      #$00                      ; 0x16905 $A8F5 A9 00                   ; A = 00
     STA      $26                       ; 0x16907 $A8F7 85 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     LDA      #$F8                      ; 0x16909 $A8F9 A9 F8                   ; A = F8
-    STA      $026C                     ; 0x1690b $A8FB 8D 6C 02                ;
+    STA      bss_026C                     ; 0x1690b $A8FB 8D 6C 02                ;
 LA8FE:                                                                          ;
     LDA      $26                       ; 0x1690e $A8FE A5 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     BEQ      LA917                     ; 0x16910 $A900 F0 15                   ;
     LDA      $12                       ; 0x16912 $A902 A5 12                   ; Permanent Frame Counter
     AND      #$03                      ; 0x16914 $A904 29 03                   ; keep bits .... ..xx (speed of shooting star)
     BNE      LA917                     ; 0x16916 $A906 D0 0F                   ;
-    INC      $026C                     ; 0x16918 $A908 EE 6C 02                ;
-    INC      $026C                     ; 0x1691b $A90B EE 6C 02                ;
-    INC      $026F                     ; 0x1691e $A90E EE 6F 02                ;
-    INC      $026F                     ; 0x16921 $A911 EE 6F 02                ;
-    INC      $026F                     ; 0x16924 $A914 EE 6F 02                ;
+    INC      bss_026C                     ; 0x16918 $A908 EE 6C 02                ;
+    INC      bss_026C                     ; 0x1691b $A90B EE 6C 02                ;
+    INC      bss_026F                     ; 0x1691e $A90E EE 6F 02                ;
+    INC      bss_026F                     ; 0x16921 $A911 EE 6F 02                ;
+    INC      bss_026F                     ; 0x16924 $A914 EE 6F 02                ;
 LA917:                                                                          ;
     RTS                                ; 0x16927 $A917 60                      ;
                                                                                ;
@@ -4786,10 +4786,10 @@ bank5_Animation_of_Glints_in_Water:                                             
     AND      #$07                      ; 0x1692c $A91C 29 07                   ; keep bits .... .xxx
     BNE      LA931                     ; 0x1692e $A91E D0 11                   ;
 LA920:                                                                          ;
-    INC      $02D3,x                   ; 0x16930 $A920 FE D3 02                ;
-    LDA      $02D3,x                   ; 0x16933 $A923 BD D3 02                ;
+    INC      bss_02D3,x                   ; 0x16930 $A920 FE D3 02                ;
+    LDA      bss_02D3,x                   ; 0x16933 $A923 BD D3 02                ;
     AND      #$03                      ; 0x16936 $A926 29 03                   ; keep bits .... ..xx
-    STA      $02D3,x                   ; 0x16938 $A928 9D D3 02                ;
+    STA      bss_02D3,x                   ; 0x16938 $A928 9D D3 02                ;
     DEX                                ; 0x1693b $A92B CA                      ;
     DEX                                ; 0x1693c $A92C CA                      ;
     DEX                                ; 0x1693d $A92D CA                      ;
@@ -5762,13 +5762,13 @@ LB39E:                                                                          
     LSR      $02                       ; 0x173ae $B39E 46 02                   ; check if Game was finished
     BCC      LB3B6                     ; 0x173b0 $B3A0 90 14                   ; 1 bit for each Game Slot (Slot 3 = bit 0)
     LDA      L0000                     ; 0x173b2 $B3A2 A5 00                   ;
-    STA      $0218,x                   ; 0x173b4 $B3A4 9D 18 02                ;
+    STA      bss_0218,x                   ; 0x173b4 $B3A4 9D 18 02                ;
     LDA      #$D2                      ; 0x173b7 $B3A7 A9 D2                   ; A = D2 (Triforce Tile Code)
-    STA      $0219,x                   ; 0x173b9 $B3A9 9D 19 02                ;
+    STA      bss_0219,x                   ; 0x173b9 $B3A9 9D 19 02                ;
     LDA      #$01                      ; 0x173bc $B3AC A9 01                   ; A = 01 (Triforce Attributes Code)
-    STA      $021A,x                   ; 0x173be $B3AE 9D 1A 02                ;
+    STA      bss_021A,x                   ; 0x173be $B3AE 9D 1A 02                ;
     LDA      #$30                      ; 0x173c1 $B3B1 A9 30                   ; A = 30
-    STA      $021B,x                   ; 0x173c3 $B3B3 9D 1B 02                ;
+    STA      bss_021B,x                   ; 0x173c3 $B3B3 9D 1B 02                ;
 LB3B6:                                                                          ;
     LDA      L0000                     ; 0x173c6 $B3B6 A5 00                   ;
     CLC                                ; 0x173c8 $B3B8 18                      ;
@@ -6058,13 +6058,13 @@ LB574:                                                                          
     INX                                ; 0x1758f $B57F E8                      ;
 LB580:                                                                          ;
     STX      $1C                       ; 0x17590 $B580 86 1C                   ;
-    STY      $0200                     ; 0x17592 $B582 8C 00 02                ;; Animation frame for Link's OW sprite (part 1)
+    STY      bss_0200                     ; 0x17592 $B582 8C 00 02                ;; Animation frame for Link's OW sprite (part 1)
     LDA      #$01                      ; 0x17595 $B585 A9 01                   ; A = 01
-    STA      $0202                     ; 0x17597 $B587 8D 02 02                ;
+    STA      bss_0202                     ; 0x17597 $B587 8D 02 02                ;
     LDA       a:$4D                     ; 0x1759a $B58A AD 4D 00                ;
-    STA      $0203                     ; 0x1759d $B58D 8D 03 02                ;
+    STA      bss_0203                     ; 0x1759d $B58D 8D 03 02                ;
     LDA      $1C                       ; 0x175a0 $B590 A5 1C                   ;
-    STA      $0201                     ; 0x175a2 $B592 8D 01 02                ;; Animation frame for Link's OW sprite (part 2)
+    STA      bss_0201                     ; 0x175a2 $B592 8D 01 02                ;; Animation frame for Link's OW sprite (part 2)
     RTS                                ; 0x175a5 $B595 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -6072,13 +6072,13 @@ LB596:                                                                          
     LDX      #$08                      ; 0x175a6 $B596 A2 08                   ; X = 08
 LB598:                                                                          ;
     PHA                                ; 0x175a8 $B598 48                      ;
-    STA      $020C,x                   ; 0x175a9 $B599 9D 0C 02                ;
+    STA      bss_020C,x                   ; 0x175a9 $B599 9D 0C 02                ;
     TYA                                ; 0x175ac $B59C 98                      ;
-    STA      $020F,x                   ; 0x175ad $B59D 9D 0F 02                ;
+    STA      bss_020F,x                   ; 0x175ad $B59D 9D 0F 02                ;
     LDA      #$D0                      ; 0x175b0 $B5A0 A9 D0                   ; A = D0 (Link Tile Code)
-    STA      $020D,x                   ; 0x175b2 $B5A2 9D 0D 02                ;
+    STA      bss_020D,x                   ; 0x175b2 $B5A2 9D 0D 02                ;
     LDA      #$00                      ; 0x175b5 $B5A5 A9 00                   ; A = 00 (Link Palette Code)
-    STA      $020E,x                   ; 0x175b7 $B5A7 9D 0E 02                ;
+    STA      bss_020E,x                   ; 0x175b7 $B5A7 9D 0E 02                ;
     PLA                                ; 0x175ba $B5AA 68                      ;
     CLC                                ; 0x175bb $B5AB 18                      ;
     ADC      #$18                      ; 0x175bc $B5AC 69 18                   ;
@@ -6286,8 +6286,8 @@ LB6E4:                                                                          
     CMP      #$78                      ; 0x17712 $B702 C9 78                   ;
     BNE      LB711                     ; 0x17714 $B704 D0 0B                   ;
     LDA      #$F8                      ; 0x17716 $B706 A9 F8                   ; A = F8
-    STA      $0204                     ; 0x17718 $B708 8D 04 02                ;
-    STA      $0208                     ; 0x1771b $B70B 8D 08 02                ;
+    STA      bss_0204                     ; 0x17718 $B708 8D 04 02                ;
+    STA      bss_0208                     ; 0x1771b $B70B 8D 08 02                ;
     JMP      LB8C4                     ; 0x1771e $B70E 4C C4 B8                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -6329,14 +6329,14 @@ LB73F:                                                                          
     STA      $24                       ; 0x17759 $B749 85 24                   ;
 LB74B:                                                                          ;
     LDA      $24                       ; 0x1775b $B74B A5 24                   ;
-    STA      $0204                     ; 0x1775d $B74D 8D 04 02                ;
-    DEC      $0204                     ; 0x17760 $B750 CE 04 02                ;
+    STA      bss_0204                     ; 0x1775d $B74D 8D 04 02                ;
+    DEC      bss_0204                     ; 0x17760 $B750 CE 04 02                ;
     LDA      bss_03D6                     ; 0x17763 $B753 AD D6 03                ;
-    STA      $0207                     ; 0x17766 $B756 8D 07 02                ;
+    STA      bss_0207                     ; 0x17766 $B756 8D 07 02                ;
     LDA      #$FF                      ; 0x17769 $B759 A9 FF                   ; A = FF
-    STA      $0205                     ; 0x1776b $B75B 8D 05 02                ;
+    STA      bss_0205                     ; 0x1776b $B75B 8D 05 02                ;
     LDA      #$03                      ; 0x1776e $B75E A9 03                   ; A = 03
-    STA      $0206                     ; 0x17770 $B760 8D 06 02                ;
+    STA      bss_0206                     ; 0x17770 $B760 8D 06 02                ;
     LDA      joy_held+0                       ; 0x17773 $B763 A5 F7                   ; Controller 1 buttons held
     AND      #$0F                      ; 0x17775 $B765 29 0F                   ; keep bits .... xxxx (All Arrows)
     BNE      LB772                     ; 0x17777 $B767 D0 09                   ;
@@ -6501,24 +6501,24 @@ LB84D:                                                                          
     STA      $25                       ; 0x1786d $B85D 85 25                   ;
 LB85F:                                                                          ;
     LDA      $25                       ; 0x1786f $B85F A5 25                   ;
-    STA      $0244                     ; 0x17871 $B861 8D 44 02                ;
-    DEC      $0244                     ; 0x17874 $B864 CE 44 02                ;
+    STA      bss_0244                     ; 0x17871 $B861 8D 44 02                ;
+    DEC      bss_0244                     ; 0x17874 $B864 CE 44 02                ;
     LDA      $23                       ; 0x17877 $B867 A5 23                   ;
-    STA      $0247                     ; 0x17879 $B869 8D 47 02                ;
+    STA      bss_0247                     ; 0x17879 $B869 8D 47 02                ;
     LDA      #$FF                      ; 0x1787c $B86C A9 FF                   ; A = FF
-    STA      $0245                     ; 0x1787e $B86E 8D 45 02                ;
+    STA      bss_0245                     ; 0x1787e $B86E 8D 45 02                ;
     LDA      #$03                      ; 0x17881 $B871 A9 03                   ; A = 03
-    STA      $0246                     ; 0x17883 $B873 8D 46 02                ;
+    STA      bss_0246                     ; 0x17883 $B873 8D 46 02                ;
     LDX      #$1C                      ; 0x17886 $B876 A2 1C                   ; X = 1C
 LB878:                                                                          ;
     LDA      #$C7                      ; 0x17888 $B878 A9 C7                   ; A = C7
-    STA      $0224,x                   ; 0x1788a $B87A 9D 24 02                ;
+    STA      bss_0224,x                   ; 0x1788a $B87A 9D 24 02                ;
     LDA      #$F5                      ; 0x1788d $B87D A9 F5                   ; A = F5
-    STA      $0225,x                   ; 0x1788f $B87F 9D 25 02                ;
+    STA      bss_0225,x                   ; 0x1788f $B87F 9D 25 02                ;
     LDA      #$00                      ; 0x17892 $B882 A9 00                   ; A = 00
-    STA      $0226,x                   ; 0x17894 $B884 9D 26 02                ;
+    STA      bss_0226,x                   ; 0x17894 $B884 9D 26 02                ;
     LDA      #$10                      ; 0x17897 $B887 A9 10                   ; A = 10
-    STA      $0227,x                   ; 0x17899 $B889 9D 27 02                ;
+    STA      bss_0227,x                   ; 0x17899 $B889 9D 27 02                ;
     DEX                                ; 0x1789c $B88C CA                      ;
     DEX                                ; 0x1789d $B88D CA                      ;
     DEX                                ; 0x1789e $B88E CA                      ;

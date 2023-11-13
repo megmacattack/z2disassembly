@@ -133,14 +133,14 @@ L8104:                                                                          
     LDA      #$01                      ; 0xc11e $810E A9 01                    ; A = 01
     PHA                                ; 0xc120 $8110 48                       ;
     LDA      L0000                     ; 0xc121 $8111 A5 00                    ;
-    STA      $0112                     ; 0xc123 $8113 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0xc123 $8113 8D 12 01                 ;; Tile Code 0 for Object
 L8116:                                                                          ;
     LDA      bss_0731                     ; 0xc126 $8116 AD 31 07                 ; Level Object Type and Size
     AND      #$0F                      ; 0xc129 $8119 29 0F                    ; keep bits .... xxxx
     TAX                                ; 0xc12b $811B AA                       ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc12c $811C 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L811F:                                                                          ;
-    LDA      $0112                     ; 0xc12f $811F AD 12 01                 ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0xc12f $811F AD 12 01                 ;; Tile Code 0 for Object
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc132 $8122 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc135 $8125 CA                       ;
     BPL      L811F                     ; 0xc136 $8126 10 F7                    ;
@@ -152,7 +152,7 @@ L811F:                                                                          
     TXA                                ; 0xc140 $8130 8A                       ;
     PHA                                ; 0xc141 $8131 48                       ;
     LDA      $01                       ; 0xc142 $8132 A5 01                    ;
-    STA      $0112                     ; 0xc144 $8134 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0xc144 $8134 8D 12 01                 ;; Tile Code 0 for Object
     JMP      L8116                     ; 0xc147 $8137 4C 16 81                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -746,19 +746,19 @@ bank3_Table_for_Level_Layers_Data_pointers:                                     
 .byt    $1F,$28,$31,$3A                ; 0xc653 $8643 1F 28 31 3A              ;Pointer created from 86 (C650) and a value from this table
 ; ---------------------------------------------------------------------------- ;
 bank3_Build_a_pointer_with_86_and_a_value_from_C643:                            ;
-    LDX      $010C                     ; 0xc657 $8647 AE 0C 01                 ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
+    LDX      bss_010C                     ; 0xc657 $8647 AE 0C 01                 ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
     LDA      bank3_Table_for_Level_Layers_Data_pointers,x; 0xc65a $864A BD 43 86   ;
     STA      $0C                       ; 0xc65d $864D 85 0C                    ;
     LDA      #$86                      ; 0xc65f $864F A9 86                    ; A = 86
     STA      $0D                       ; 0xc661 $8651 85 0D                    ;
     LDY      #$08                      ; 0xc663 $8653 A0 08                    ; Y = 08
     LDA      ($0C),y                   ; 0xc665 $8655 B1 0C                    ;
-    STA      $010D                     ; 0xc667 $8657 8D 0D 01                 ;; Area Bottom Row Tile Code
+    STA      bss_010D                     ; 0xc667 $8657 8D 0D 01                 ;; Area Bottom Row Tile Code
     RTS                                ; 0xc66a $865A 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Objects_Construction_Routines_Bagu_maybe_confused_red_lumberjack__5x:     ;
-    LDA      $010A                     ; 0xc66b $865B AD 0A 01                 ;
+    LDA      bss_010A                     ; 0xc66b $865B AD 0A 01                 ;
     STA      bss_0757                     ; 0xc66e $865E 8D 57 07                 ;; Position of Elevator in Map
     RTS                                ; 0xc671 $8661 60                       ;
                                                                                ;
@@ -1003,7 +1003,7 @@ L8B82:                                                                          
 .byt    $80,$97,$83,$01                ; 0xcb9a $8B8A 80 97 83 01              ;
 ; ---------------------------------------------------------------------------- ;
 bank3_SmallObjectsConstructionRoutines_Locked_Door_glitched_tiles_0E:           ;
-    LDA      $010A                     ; 0xcb9e $8B8E AD 0A 01                 ;
+    LDA      bss_010A                     ; 0xcb9e $8B8E AD 0A 01                 ;
     STA      bss_0758                     ; 0xcba1 $8B91 8D 58 07                 ;; Position of Locked Door in Map
     RTS                                ; 0xcba4 $8B94 60                       ;
                                                                                ;

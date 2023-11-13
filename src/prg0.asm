@@ -168,40 +168,40 @@ L80EE:                                                                          
     LDX      #$0F                      ; 0x100 $80F0 A2 0F                     ; X = 0F
 L80F2:                                                                          ;
     LDA      North_Castle_Chandeliers_sprite_attributes,x; 0x102 $80F2 BD D5 80    ; refer to table at $00D5
-    STA      $0250,x                   ; 0x105 $80F5 9D 50 02                  ;
+    STA      bss_0250,x                   ; 0x105 $80F5 9D 50 02                  ;
     DEX                                ; 0x108 $80F8 CA                        ;
     BPL      L80F2                     ; 0x109 $80F9 10 F7                     ; loop
     LDA      $12                       ; 0x10b $80FB A5 12                     ;; Frame Counter (ascending)
     AND      #$04                      ; 0x10d $80FD 29 04                     ; keep bits .... .x..
     BNE      L8109                     ; 0x10f $80FF D0 08                     ;
     LDA      #$41                      ; 0x111 $8101 A9 41                     ; A = 41
-    STA      $0252                     ; 0x113 $8103 8D 52 02                  ;
-    STA      $025A                     ; 0x116 $8106 8D 5A 02                  ;
+    STA      bss_0252                     ; 0x113 $8103 8D 52 02                  ;
+    STA      bss_025A                     ; 0x116 $8106 8D 5A 02                  ;
 L8109:                                                                          ;
     LDA      #$58                      ; 0x119 $8109 A9 58                     ; A = 58	Left Chandelier X Position
     SEC                                ; 0x11b $810B 38                        ;
     SBC      bss_072C                     ; 0x11c $810C ED 2C 07                  ;; Scrolling Offset Low Byte
-    STA      $0253                     ; 0x11f $810F 8D 53 02                  ;
-    STA      $0257                     ; 0x122 $8112 8D 57 02                  ;
+    STA      bss_0253                     ; 0x11f $810F 8D 53 02                  ;
+    STA      bss_0257                     ; 0x122 $8112 8D 57 02                  ;
     LDA      #$01                      ; 0x125 $8115 A9 01                     ; A = 01	High Byte of X Position
     SBC      bss_072A                     ; 0x127 $8117 ED 2A 07                  ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     BEQ      L8124                     ; 0x12a $811A F0 08                     ;
     LDA      #$F8                      ; 0x12c $811C A9 F8                     ; A = F8	Deactivate Sprite
-    STA      $0250                     ; 0x12e $811E 8D 50 02                  ;
-    STA      $0254                     ; 0x131 $8121 8D 54 02                  ;
+    STA      bss_0250                     ; 0x12e $811E 8D 50 02                  ;
+    STA      bss_0254                     ; 0x131 $8121 8D 54 02                  ;
 L8124:                                                                          ;
     LDA      #$A0                      ; 0x134 $8124 A9 A0                     ; A = A0	Right Chandelier X Position
     SEC                                ; 0x136 $8126 38                        ;
     SBC      bss_072C                     ; 0x137 $8127 ED 2C 07                  ;; Scrolling Offset Low Byte
-    STA      $025B                     ; 0x13a $812A 8D 5B 02                  ;
+    STA      bss_025B                     ; 0x13a $812A 8D 5B 02                  ;
 
-    STA      $025F                     ; 0x13d $812D 8D 5F 02                  ;
+    STA      bss_025F                     ; 0x13d $812D 8D 5F 02                  ;
     LDA      #$01                      ; 0x140 $8130 A9 01                     ; A = 01	High Byte of X Position
     SBC      bss_072A                     ; 0x142 $8132 ED 2A 07                  ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     BEQ      L813F                     ; 0x145 $8135 F0 08                     ;
     LDA      #$F8                      ; 0x147 $8137 A9 F8                     ; A = F8	Deactivate Sprite
-    STA      $0258                     ; 0x149 $8139 8D 58 02                  ;
-    STA      $025C                     ; 0x14c $813C 8D 5C 02                  ;
+    STA      bss_0258                     ; 0x149 $8139 8D 58 02                  ;
+    STA      bss_025C                     ; 0x14c $813C 8D 5C 02                  ;
 L813F:                                                                          ;
     RTS                                ; 0x14f $813F 60                        ;
                                                                                ;
@@ -289,19 +289,19 @@ bank0_game_mode_raft_travel_init:                                               
 L81BD:                                                                          ;
     JSR      L8728                     ; 0x1cd $81BD 20 28 87                  ;
     LDA      #$45                      ; 0x1d0 $81C0 A9 45                     ; A = 45 (raft, going left, left tile)
-    STA      $0201                     ; 0x1d2 $81C2 8D 01 02                  ;; Animation frame for Link's OW sprite (part 2)
+    STA      bss_0201                     ; 0x1d2 $81C2 8D 01 02                  ;; Animation frame for Link's OW sprite (part 2)
     LDA      #$47                      ; 0x1d5 $81C5 A9 47                     ; A = 47 (raft, going left, right tile)
-    STA      $0205                     ; 0x1d7 $81C7 8D 05 02                  ;
+    STA      bss_0205                     ; 0x1d7 $81C7 8D 05 02                  ;
     LDY      bss_07A9                     ; 0x1da $81CA AC A9 07                  ;; Raft Direction (1 = Going Right, 2 = Going Left)
-    LDA      L81AE,y                   ; 0x1dd $81CD B9 AE 81                  ; refer to table $01AD (offset +1)
-    STA      $0202                     ; 0x1e0 $81D0 8D 02 02                  ;
-    STA      $0206                     ; 0x1e3 $81D3 8D 06 02                  ;
+    LDA      L81AE,y                   ; 0x1dd $81CD B9 AE 81                  ; refer to table bss_01AD (offset +1)
+    STA      bss_0202                     ; 0x1e0 $81D0 8D 02 02                  ;
+    STA      bss_0206                     ; 0x1e3 $81D3 8D 06 02                  ;
     CPY      #$01                      ; 0x1e6 $81D6 C0 01                     ;
     BNE      L81E4                     ; 0x1e8 $81D8 D0 0A                     ;
     LDA      #$47                      ; 0x1ea $81DA A9 47                     ; A = 47 (raft, going right, left tile)
-    STA      $0201                     ; 0x1ec $81DC 8D 01 02                  ;; Animation frame for Link's OW sprite (part 2)
+    STA      bss_0201                     ; 0x1ec $81DC 8D 01 02                  ;; Animation frame for Link's OW sprite (part 2)
     LDA      #$45                      ; 0x1ef $81DF A9 45                     ; A = 45 (raft, going right, right tile)
-    STA      $0205                     ; 0x1f1 $81E1 8D 05 02                  ;
+    STA      bss_0205                     ; 0x1f1 $81E1 8D 05 02                  ;
 L81E4:                                                                          ;
     RTS                                ; 0x1f4 $81E4 60                        ;
                                                                                ;
@@ -439,7 +439,7 @@ L8298:                                                                          
     LDA      $02                       ; 0x2b3 $82A3 A5 02                     ;
     LDY      #$06                      ; 0x2b5 $82A5 A0 06                     ; Y = 06
 L82A7:                                                                          ;
-    CMP      L8231,y                   ; 0x2b7 $82A7 D9 31 82                  ; refer to table at $0231
+    CMP      L8231,y                   ; 0x2b7 $82A7 D9 31 82                  ; refer to table at bss_0231
     BEQ      L82B0                     ; 0x2ba $82AA F0 04                     ;
     DEY                                ; 0x2bc $82AC 88                        ;
     BNE      L82A7                     ; 0x2bd $82AD D0 F8                     ;
@@ -554,19 +554,19 @@ L8342:                                                                          
     STA      $2A,x                     ; 0x35e $834E 95 2A                     ; Enemy Y Position
     SEC                                ; 0x360 $8350 38                        ;
     SBC      $7F                       ; 0x361 $8351 E5 7F                     ;
-    STA      $0280,y                   ; 0x363 $8353 99 80 02                  ;
-    STA      $0284,y                   ; 0x366 $8356 99 84 02                  ;
+    STA      bss_0280,y                   ; 0x363 $8353 99 80 02                  ;
+    STA      bss_0284,y                   ; 0x366 $8356 99 84 02                  ;
     LDA      $4E,x                     ; 0x369 $8359 B5 4E                     ; Enemy X position
     CLC                                ; 0x36b $835B 18                        ;
     ADC      bss_0575,x                   ; 0x36c $835C 7D 75 05                  ;
     STA      $4E,x                     ; 0x36f $835F 95 4E                     ; Enemy X position
     SEC                                ; 0x371 $8361 38                        ;
     SBC      $FD                       ; 0x372 $8362 E5 FD                     ;
-    STA      $0283,y                   ; 0x374 $8364 99 83 02                  ;
+    STA      bss_0283,y                   ; 0x374 $8364 99 83 02                  ;
     CLC                                ; 0x377 $8367 18                        ;
 L8368:                                                                          ;
     ADC      #$08                      ; 0x378 $8368 69 08                     ;
-    STA      $0287,y                   ; 0x37a $836A 99 87 02                  ;
+    STA      bss_0287,y                   ; 0x37a $836A 99 87 02                  ;
     TXA                                ; 0x37d $836D 8A                        ;
     PHA                                ; 0x37e $836E 48                        ;
     LDA      $12                       ; 0x37f $836F A5 12                     ;; Frame Counter (ascending)
@@ -578,8 +578,8 @@ L8368:                                                                          
     TAX                                ; 0x389 $8379 AA                        ;
     DEX                                ; 0x38a $837A CA                        ;
     LDA      L8281,x                   ; 0x38b $837B BD 81 82                  ;
-    STA      $0282,y                   ; 0x38e $837E 99 82 02                  ;
-    STA      $0286,y                   ; 0x391 $8381 99 86 02                  ;
+    STA      bss_0282,y                   ; 0x38e $837E 99 82 02                  ;
+    STA      bss_0286,y                   ; 0x391 $8381 99 86 02                  ;
     TXA                                ; 0x394 $8384 8A                        ;
     ASL                                ; 0x395 $8385 0A                        ;
     ASL                                ; 0x396 $8386 0A                        ;
@@ -587,9 +587,9 @@ L8368:                                                                          
     ADC      $07                       ; 0x398 $8388 65 07                     ;
     TAX                                ; 0x39a $838A AA                        ;
     LDA      L8275,x                   ; 0x39b $838B BD 75 82                  ;
-    STA      $0281,y                   ; 0x39e $838E 99 81 02                  ;
+    STA      bss_0281,y                   ; 0x39e $838E 99 81 02                  ;
     LDA      L8276,x                   ; 0x3a1 $8391 BD 76 82                  ;
-    STA      $0285,y                   ; 0x3a4 $8394 99 85 02                  ;
+    STA      bss_0285,y                   ; 0x3a4 $8394 99 85 02                  ;
     PLA                                ; 0x3a7 $8397 68                        ;
     TAX                                ; 0x3a8 $8398 AA                        ;
     LDA      $07                       ; 0x3a9 $8399 A5 07                     ;
@@ -599,15 +599,15 @@ L8368:                                                                          
 L83A1:                                                                          ;
     BNE      L83AB                     ; 0x3b1 $83A1 D0 08                     ;
     LDA      #$42                      ; 0x3b3 $83A3 A9 42                     ; A = 42
-    STA      $0282,y                   ; 0x3b5 $83A5 99 82 02                  ;
-    STA      $0286,y                   ; 0x3b8 $83A8 99 86 02                  ;
+    STA      bss_0282,y                   ; 0x3b5 $83A5 99 82 02                  ;
+    STA      bss_0286,y                   ; 0x3b8 $83A8 99 86 02                  ;
 L83AB:                                                                          ;
-    LDA      $0280,y                   ; 0x3bb $83AB B9 80 02                  ;
+    LDA      bss_0280,y                   ; 0x3bb $83AB B9 80 02                  ;
     CMP      #$64                      ; 0x3be $83AE C9 64                     ;
     BCC      L83FD                     ; 0x3c0 $83B0 90 4B                     ;
     CMP      #$76                      ; 0x3c2 $83B2 C9 76                     ;
     BCS      L83FD                     ; 0x3c4 $83B4 B0 47                     ;
-    LDA      $0283,y                   ; 0x3c6 $83B6 B9 83 02                  ;
+    LDA      bss_0283,y                   ; 0x3c6 $83B6 B9 83 02                  ;
     CMP      #$7A                      ; 0x3c9 $83B9 C9 7A                     ;
     BCC      L83FD                     ; 0x3cb $83BB 90 40                     ;
     CMP      #$86                      ; 0x3cd $83BD C9 86                     ;
@@ -650,10 +650,10 @@ L83EE:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L83FD:                                                                          ;
-    LDA      $0280,y                   ; 0x40d $83FD B9 80 02                  ;
+    LDA      bss_0280,y                   ; 0x40d $83FD B9 80 02                  ;
     CMP      #$F8                      ; 0x410 $8400 C9 F8                     ;
     BCS      L840B                     ; 0x412 $8402 B0 07                     ;
-    LDA      $0283,y                   ; 0x414 $8404 B9 83 02                  ;
+    LDA      bss_0283,y                   ; 0x414 $8404 B9 83 02                  ;
     CMP      #$F8                      ; 0x417 $8407 C9 F8                     ;
 L8409:                                                                          ;
     BCC      L8412                     ; 0x419 $8409 90 07                     ;
@@ -709,7 +709,7 @@ L8435:                                                                          
     LDA      $4E,x                     ; 0x461 $8451 B5 4E                     ; Enemy X position
     SEC                                ; 0x463 $8453 38                        ;
     SBC      $FD                       ; 0x464 $8454 E5 FD                     ;
-    CMP      $0203                     ; 0x466 $8456 CD 03 02                  ;
+    CMP      bss_0203                     ; 0x466 $8456 CD 03 02                  ;
     BCC      L845D                     ; 0x469 $8459 90 02                     ;
     LDY      #$FF                      ; 0x46b $845B A0 FF                     ; Y = FF
 L845D:                                                                          ;
@@ -719,7 +719,7 @@ L845D:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8464:                                                                          ;
-    LDA      $0203                     ; 0x474 $8464 AD 03 02                  ;
+    LDA      bss_0203                     ; 0x474 $8464 AD 03 02                  ;
     SEC                                ; 0x477 $8467 38                        ;
     SBC      $4E,x                     ; 0x478 $8468 F5 4E                     ;; Enemy X Position (low byte)
     CLC                                ; 0x47a $846A 18                        ;
@@ -1149,17 +1149,17 @@ L8721:                                                                          
 L8726:                                                                          ;
     LDA      #$84                      ; 0x736 $8726 A9 84                     ; A = 84 (Link's X Position on Screen)
 L8728:                                                                          ;
-    STA      $0203                     ; 0x738 $8728 8D 03 02                  ;
+    STA      bss_0203                     ; 0x738 $8728 8D 03 02                  ;
     CLC                                ; 0x73b $872B 18                        ;
     ADC      #$08                      ; 0x73c $872C 69 08                     ;
-    STA      $0207                     ; 0x73e $872E 8D 07 02                  ;
+    STA      bss_0207                     ; 0x73e $872E 8D 07 02                  ;
     LDA      #$6D                      ; 0x741 $8731 A9 6D                     ; A = 6D (Link's Y Position on Screen) (+1)
-    STA      $0200                     ; 0x743 $8733 8D 00 02                  ;; Animation frame for Link's OW sprite (part 1)
-    STA      $0204                     ; 0x746 $8736 8D 04 02                  ;
+    STA      bss_0200                     ; 0x743 $8733 8D 00 02                  ;; Animation frame for Link's OW sprite (part 1)
+    STA      bss_0204                     ; 0x746 $8736 8D 04 02                  ;
     LDA      #$F5                      ; 0x749 $8739 A9 F5                     ; A = F5 (Upper and Lower Right tiles) (empty)
-    STA      $0205                     ; 0x74b $873B 8D 05 02                  ;
+    STA      bss_0205                     ; 0x74b $873B 8D 05 02                  ;
     LDA      #$40                      ; 0x74e $873E A9 40                     ; A = 40
-    STA      $0206                     ; 0x750 $8740 8D 06 02                  ;
+    STA      bss_0206                     ; 0x750 $8740 8D 06 02                  ;
     LDA      bss_0562                     ; 0x753 $8743 AD 62 05                  ; Link's facing direction in OW
     CMP      #$04                      ; 0x756 $8746 C9 04                     ;
     BCS      L8763                     ; 0x758 $8748 B0 19                     ;
@@ -1167,7 +1167,7 @@ L8728:                                                                          
     LDA      #$00                      ; 0x75b $874B A9 00                     ; A = 00
     ROR                                ; 0x75d $874D 6A                        ;
     LSR                                ; 0x75e $874E 4A                        ;
-    STA      $0202                     ; 0x75f $874F 8D 02 02                  ;
+    STA      bss_0202                     ; 0x75f $874F 8D 02 02                  ;
     LDX      #$77                      ; 0x762 $8752 A2 77                     ; X = 77 (Tile Mapping when moving Left/Right)
     LDA      $7D                       ; 0x764 $8754 A5 7D                     ;;number of pixels to move? automove? on overworld, only partially, causes bug
     BEQ      L875E                     ; 0x766 $8756 F0 06                     ;
@@ -1176,7 +1176,7 @@ L8728:                                                                          
     DEX                                ; 0x76c $875C CA                        ;
     DEX                                ; 0x76d $875D CA                        ;
 L875E:                                                                          ;
-    STX      $0201                     ; 0x76e $875E 8E 01 02                  ;; Animation frame for Link's OW sprite (part 2)
+    STX      bss_0201                     ; 0x76e $875E 8E 01 02                  ;; Animation frame for Link's OW sprite (part 2)
     BPL      L877C                     ; 0x771 $8761 10 19                     ;
 L8763:                                                                          ;
     LDX      #$7B                      ; 0x773 $8763 A2 7B                     ; X = 7B (Tile Mapping when moving Up/Down)
@@ -1185,7 +1185,7 @@ L8763:                                                                          
     DEX                                ; 0x779 $8769 CA                        ;
     DEX                                ; 0x77a $876A CA                        ;
 L876B:                                                                          ;
-    STX      $0201                     ; 0x77b $876B 8E 01 02                  ;; Animation frame for Link's OW sprite (part 2)
+    STX      bss_0201                     ; 0x77b $876B 8E 01 02                  ;; Animation frame for Link's OW sprite (part 2)
     LDX      #$40                      ; 0x77e $876E A2 40                     ; X = 40 (Tile Mapping Up/Down 1 Frame)
     LDA      $7D                       ; 0x780 $8770 A5 7D                     ;;number of pixels to move? automove? on overworld, only partially, causes bug
     BEQ      L8779                     ; 0x782 $8772 F0 05                     ;
@@ -1193,23 +1193,23 @@ L876B:                                                                          
     BNE      L8779                     ; 0x786 $8776 D0 01                     ;
     TAX                                ; 0x788 $8778 AA                        ;
 L8779:                                                                          ;
-    STX      $0202                     ; 0x789 $8779 8E 02 02                  ;
+    STX      bss_0202                     ; 0x789 $8779 8E 02 02                  ;
 L877C:                                                                          ;
     LDX      #$0E                      ; 0x78c $877C A2 0E                     ; X = 0E
     LDY      #$00                      ; 0x78e $877E A0 00                     ; Y = 00
     STY      $00                       ; 0x790 $8780 84 00                     ;
 L8782:                                                                          ;
     LDA      $00                       ; 0x792 $8782 A5 00                     ;
-    STA      $0208,y                   ; 0x794 $8784 99 08 02                  ;
+    STA      bss_0208,y                   ; 0x794 $8784 99 08 02                  ;
     CLC                                ; 0x797 $8787 18                        ;
     ADC      #$10                      ; 0x798 $8788 69 10                     ;
     STA      $00                       ; 0x79a $878A 85 00                     ;
     LDA      #$FF                      ; 0x79c $878C A9 FF                     ; A = FF
-    STA      $0209,y                   ; 0x79e $878E 99 09 02                  ;
+    STA      bss_0209,y                   ; 0x79e $878E 99 09 02                  ;
     LDA      #$F8                      ; 0x7a1 $8791 A9 F8                     ; A = F8
-    STA      $020B,y                   ; 0x7a3 $8793 99 0B 02                  ;
+    STA      bss_020B,y                   ; 0x7a3 $8793 99 0B 02                  ;
     LDA      #$01                      ; 0x7a6 $8796 A9 01                     ; A = 01
-    STA      $020A,y                   ; 0x7a8 $8798 99 0A 02                  ;
+    STA      bss_020A,y                   ; 0x7a8 $8798 99 0A 02                  ;
 L879B:                                                                          ;
     INY                                ; 0x7ab $879B C8                        ;
     INY                                ; 0x7ac $879C C8                        ;
@@ -2020,7 +2020,7 @@ Side_View_Initialization_when_entering_a_Key_Area:                              
     LDY      #$03                      ; 0xcf1 $8CE1 A0 03                     ; Y = 03
 L8CE3:                                                                          ;
     LDA      bank0_Table_for_Sprite0,y ; 0xcf3 $8CE3 B9 DD 8C                  ;
-    STA      $0200,y                   ; 0xcf6 $8CE6 99 00 02                  ;
+    STA      bss_0200,y                   ; 0xcf6 $8CE6 99 00 02                  ;
     DEY                                ; 0xcf9 $8CE9 88                        ;
     BPL      L8CE3                     ; 0xcfa $8CEA 10 F7                     ;
     LDA      #$06                      ; 0xcfc $8CEC A9 06                     ; A = 06
@@ -3824,7 +3824,7 @@ L98BF:                                                                          
 L98C0:                                                                          ;
     LDY      $9D,x                     ; 0x18d0 $98C0 B4 9D                    ;
     LDA      $36,x                     ; 0x18d2 $98C2 B5 36                    ; Flying Blade/Flame Y Position
-    STA      $0200,y                   ; 0x18d4 $98C4 99 00 02                 ;
+    STA      bss_0200,y                   ; 0x18d4 $98C4 99 00 02                 ;
     LDA      $6D,x                     ; 0x18d7 $98C7 B5 6D                    ;
     LSR                                ; 0x18d9 $98C9 4A                       ;
     LDA      #$00                      ; 0x18da $98CA A9 00                    ; A = 00
@@ -3840,21 +3840,21 @@ L98C0:                                                                          
     AND      #$80                      ; 0x18e7 $98D7 29 80                    ; keep bits x... ....
     ORA      $00                       ; 0x18e9 $98D9 05 00                    ;
     ORA      #$01                      ; 0x18eb $98DB 09 01                    ; set bits  .... ...x
-    STA      $0202,y                   ; 0x18ed $98DD 99 02 02                 ;
+    STA      bss_0202,y                   ; 0x18ed $98DD 99 02 02                 ;
     LDA      #$84                      ; 0x18f0 $98E0 A9 84                    ; A = 84 (Flame tile mapping)
-    STA      $0201,y                   ; 0x18f2 $98E2 99 01 02                 ;
+    STA      bss_0201,y                   ; 0x18f2 $98E2 99 01 02                 ;
     LDA      bss_05CA,x                   ; 0x18f5 $98E5 BD CA 05                 ;; Projectile Lifespan (Flying Blade or Flame) (not sure)
     BEQ      L98FB                     ; 0x18f8 $98E8 F0 11                    ;
     LDA      #$32                      ; 0x18fa $98EA A9 32                    ; A = 32
-    STA      $0201,y                   ; 0x18fc $98EC 99 01 02                 ; Flying Blade Tile Mapping
+    STA      bss_0201,y                   ; 0x18fc $98EC 99 01 02                 ; Flying Blade Tile Mapping
     LDA      $12                       ; 0x18ff $98EF A5 12                    ; Flying Blade Palette
     AND      #$03                      ; 0x1901 $98F1 29 03                    ; keep bits .... ..xx
-    ORA      $0202,y                   ; 0x1903 $98F3 19 02 02                 ;
+    ORA      bss_0202,y                   ; 0x1903 $98F3 19 02 02                 ;
     AND      #$7F                      ; 0x1906 $98F6 29 7F                    ; keep bits .xxx xxxx
-    STA      $0202,y                   ; 0x1908 $98F8 99 02 02                 ;
+    STA      bss_0202,y                   ; 0x1908 $98F8 99 02 02                 ;
 L98FB:                                                                          ;
     LDA      $CF                       ; 0x190b $98FB A5 CF                    ; Flying Blade X Position
-    STA      $0203,y                   ; 0x190d $98FD 99 03 02                 ;
+    STA      bss_0203,y                   ; 0x190d $98FD 99 03 02                 ;
     RTS                                ; 0x1910 $9900 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3871,10 +3871,10 @@ L9908:                                                                          
     LDA      $8D,x                     ; 0x191d $990D B5 8D                    ;; Flying Blade/Flame slot
     JSR      bank7_D55E                     ; 0x191f $990F 20 5E D5                 ;
     LDA      $36,x                     ; 0x1922 $9912 B5 36                    ; Flying Blade/Flame Y Position
-    STA      $0200,y                   ; 0x1924 $9914 99 00 02                 ;
+    STA      bss_0200,y                   ; 0x1924 $9914 99 00 02                 ;
     LDA      $5A,x                     ; 0x1927 $9917 B5 5A                    ; Flying Blade/Flame X Position (low byte)
     SBC      bss_072C                     ; 0x1929 $9919 ED 2C 07                 ; Scrolling Offset Low Byte
-    STA      $0203,y                   ; 0x192c $991C 99 03 02                 ;
+    STA      bss_0203,y                   ; 0x192c $991C 99 03 02                 ;
     INC      $8D,x                     ; 0x192f $991F F6 8D                    ;; Flying Blade/Flame slot
     INC      $8D,x                     ; 0x1931 $9921 F6 8D                    ;; Flying Blade/Flame slot
     RTS                                ; 0x1933 $9923 60                       ;
@@ -4197,17 +4197,17 @@ L9B34:                                                                          
     PHA                                ; 0x1b4c $9B3C 48                       ;
     TAX                                ; 0x1b4d $9B3D AA                       ;
     LDA      #$B7                      ; 0x1b4e $9B3E A9 B7                    ; A = B7
-    STA      $0204,x                   ; 0x1b50 $9B40 9D 04 02                 ;
+    STA      bss_0204,x                   ; 0x1b50 $9B40 9D 04 02                 ;
     TYA                                ; 0x1b53 $9B43 98                       ;
     ASL                                ; 0x1b54 $9B44 0A                       ;
     ADC      #$8C                      ; 0x1b55 $9B45 69 8C                    ;
-    STA      $0205,x                   ; 0x1b57 $9B47 9D 05 02                 ;
+    STA      bss_0205,x                   ; 0x1b57 $9B47 9D 05 02                 ;
     LDA      #$01                      ; 0x1b5a $9B4A A9 01                    ; A = 01
-    STA      $0206,x                   ; 0x1b5c $9B4C 9D 06 02                 ;
+    STA      bss_0206,x                   ; 0x1b5c $9B4C 9D 06 02                 ;
     PLA                                ; 0x1b5f $9B4F 68                       ;
     ASL                                ; 0x1b60 $9B50 0A                       ;
     ADC      $01                       ; 0x1b61 $9B51 65 01                    ;
-    STA      $0207,x                   ; 0x1b63 $9B53 9D 07 02                 ;
+    STA      bss_0207,x                   ; 0x1b63 $9B53 9D 07 02                 ;
 L9B56:                                                                          ;
     DEY                                ; 0x1b66 $9B56 88                       ;
     BPL      L9B34                     ; 0x1b67 $9B57 10 DB                    ;

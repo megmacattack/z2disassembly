@@ -265,7 +265,7 @@ Build_Pointer_for_Layer_Tiles_Bank_1_and_2:                                     
 ;bank1_Build_A_Pointer_With_81                                                 ;
 ;Build a pointer with 81 and a value from $819B, 10C as the index              ;
 ;Store the last value (index 8) into 10D                                       ;
-    LDX      $010C                     ; 0x41b3 $81A3 AE 0C 01                 ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
+    LDX      bss_010C                     ; 0x41b3 $81A3 AE 0C 01                 ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
     LDA      bank1_Table_for_Level_Layers_Data_pointers,x; 0x41b6 $81A6 BD 9B 81   ;
     STA      $0C                       ; 0x41b9 $81A9 85 0C                    ;
     LDA      #$81                      ; 0x41bb $81AB A9 81                    ; A = 81
@@ -273,7 +273,7 @@ Build_Pointer_for_Layer_Tiles_Bank_1_and_2:                                     
     LDY      #$08                      ; 0x41bf $81AF A0 08                    ; Y = 08
 L81B1:                                                                          ;
     LDA      ($0C),y                   ; 0x41c1 $81B1 B1 0C                    ;
-    STA      $010D                     ; 0x41c3 $81B3 8D 0D 01                 ;; Area Bottom Row Tile Code
+    STA      bss_010D                     ; 0x41c3 $81B3 8D 0D 01                 ;; Area Bottom Row Tile Code
     RTS                                ; 0x41c6 $81B6 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -345,7 +345,7 @@ bank1_Tile_Codes_for_Objects_Set1_VerticalDolmen_1wide:                         
 bank1_Objects_Construction_Object_2high_Xwide:                                  ;
     JSR      bank1_Objects_Construction_Object_1high_Xwide; 0x4203 $81F3 20 01 82  ; Object 1 high, X wide
     LDA      L0000                     ; 0x4206 $81F6 A5 00                    ;
-    STA      $0112                     ; 0x4208 $81F8 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x4208 $81F8 8D 12 01                 ;; Tile Code 0 for Object
     JSR      bank7_DF4C                     ; 0x420b $81FB 20 4C DF                 ; Go down 1 row
     JMP      L8204                     ; 0x420e $81FE 4C 04 82                 ;
                                                                                ;
@@ -359,7 +359,7 @@ L8207:                                                                          
     TAX                                ; 0x4219 $8209 AA                       ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x421a $820A 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L820D:                                                                          ;
-    LDA      $0112                     ; 0x421d $820D AD 12 01                 ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0x421d $820D AD 12 01                 ;; Tile Code 0 for Object
     JSR      bank7_Set_tile_and_move_right_1_column; 0x4220 $8210 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0x4223 $8213 CA                       ;
     BPL      L820D                     ; 0x4224 $8214 10 F7                    ;
@@ -374,19 +374,19 @@ bank1_Objects_Construction_Object_Xhigh_1wide_SingleTileType:                   
 bank1_Objects_Construction_Object_Xhigh_1wide:                                  ;
     JSR      L8247                     ; 0x422d $821D 20 47 82                 ; Get Tile Codes for Object ($112 and $00)
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x4230 $8220 20 44 C9           ; Set RAM Address for Object (0E-0F)
-    LDA      $0112                     ; 0x4233 $8223 AD 12 01                 ;; Tile Code 0 for Object
+    LDA      bss_0112                     ; 0x4233 $8223 AD 12 01                 ;; Tile Code 0 for Object
     JSR      bank7_DF56                     ; 0x4236 $8226 20 56 DF                 ; Set tile and go down 1 row
     STA      bss_0730                     ; 0x4239 $8229 8D 30 07                 ; Position of Object Placement
     DEC      bss_0731                     ; 0x423c $822C CE 31 07                 ; Level Object Type and Size
     LDA      L0000                     ; 0x423f $822F A5 00                    ;
-    STA      $0112                     ; 0x4241 $8231 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x4241 $8231 8D 12 01                 ;; Tile Code 0 for Object
 L8234:                                                                          ;
     LDA      bss_0731                     ; 0x4244 $8234 AD 31 07                 ; Level Object Type and Size
     AND      #$0F                      ; 0x4247 $8237 29 0F                    ; keep bits .... xxxx
     TAX                                ; 0x4249 $8239 AA                       ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x424a $823A 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L823D:                                                                          ;
-    LDA      $0112                     ; 0x424d $823D AD 12 01                 ;
+    LDA      bss_0112                     ; 0x424d $823D AD 12 01                 ;
     JSR      bank7_DF56                     ; 0x4250 $8240 20 56 DF                 ; Set tile and go down 1 row
     DEX                                ; 0x4253 $8243 CA                       ;
     BPL      L823D                     ; 0x4254 $8244 10 F7                    ; Loop
@@ -404,7 +404,7 @@ L8247:                                                                          
     BCS      L8257                     ; 0x4262 $8252 B0 03                    ;
     LDA      bank1_Tile_Codes_for_Objects_Set0_BackgroundSky,x; 0x4264 $8254 BD B7 81; Tile Codes for Objects - Set 0
 L8257:                                                                          ;
-    STA      $0112                     ; 0x4267 $8257 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x4267 $8257 8D 12 01                 ;; Tile Code 0 for Object
     LDA      L81D6,x                   ; 0x426a $825A BD D6 81                 ;
     BCS      L8262                     ; 0x426d $825D B0 03                    ;
     LDA      L81B8,x                   ; 0x426f $825F BD B8 81                 ;
@@ -443,19 +443,19 @@ bank1_Objects_Construction_Object_LavaPit:                                      
     ORA      #$A0                      ; 0x429f $828F 09 A0                    ; set bits  x.x. ....
     STA      bss_0730                     ; 0x42a1 $8291 8D 30 07                 ; Position of Object Placement
     LDA      #$80                      ; 0x42a4 $8294 A9 80                    ; A = 80 (Lava Surface Tile Code)
-    STA      $0112                     ; 0x42a6 $8296 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x42a6 $8296 8D 12 01                 ;; Tile Code 0 for Object
 L8299:                                                                          ;
     LDA      bss_0731                     ; 0x42a9 $8299 AD 31 07                 ;; Level Object Type and Size
     AND      #$0F                      ; 0x42ac $829C 29 0F                    ; keep bits .... xxxx
     TAX                                ; 0x42ae $829E AA                       ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x42af $829F 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L82A2:                                                                          ;
-    LDA      $0112                     ; 0x42b2 $82A2 AD 12 01                 ;
+    LDA      bss_0112                     ; 0x42b2 $82A2 AD 12 01                 ;
     JSR      bank7_Set_tile_and_move_right_1_column; 0x42b5 $82A5 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0x42b8 $82A8 CA                       ;
     BPL      L82A2                     ; 0x42b9 $82A9 10 F7                    ; loop to $42A2
     LDA      #$89                      ; 0x42bb $82AB A9 89                    ; A = 89 (Lava Tile Code)
-    STA      $0112                     ; 0x42bd $82AD 8D 12 01                 ;; Tile Code 0 for Object
+    STA      bss_0112                     ; 0x42bd $82AD 8D 12 01                 ;; Tile Code 0 for Object
     JSR      bank7_DF4C                     ; 0x42c0 $82B0 20 4C DF                 ; Go down 1 row
     AND      #$F0                      ; 0x42c3 $82B3 29 F0                    ; keep bits xxxx ....
     CMP      #$D0                      ; 0x42c5 $82B5 C9 D0                    ;
@@ -464,13 +464,13 @@ L82A2:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Objects_Construction_Object_Elevator:                                     ;
-    LDA      $010A                     ; 0x42ca $82BA AD 0A 01                 ;
+    LDA      bss_010A                     ; 0x42ca $82BA AD 0A 01                 ;
     STA      bss_0757                     ; 0x42cd $82BD 8D 57 07                 ;; Position of Elevator in Map
     RTS                                ; 0x42d0 $82C0 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Small_Objects_Construction_LockedDoor_Ypos8:                              ;
-    LDA      $010A                     ; 0x42d1 $82C1 AD 0A 01                 ;
+    LDA      bss_010A                     ; 0x42d1 $82C1 AD 0A 01                 ;
     STA      bss_0758                     ; 0x42d4 $82C4 8D 58 07                 ;; Position of Locked Door in Map
     RTS                                ; 0x42d7 $82C7 60                       ;
                                                                                ;
@@ -2107,11 +2107,11 @@ bank1_code12:                                                                   
     STA      $0F                       ; 0x5735 $9725 85 0F                    ;
     LDY      $97,x                     ; 0x5737 $9727 B4 97                    ;
     LDA      $30,x                     ; 0x5739 $9729 B5 30                    ; projectile Y position (display)
-    STA      $0200,y                   ; 0x573b $972B 99 00 02                 ;
+    STA      bss_0200,y                   ; 0x573b $972B 99 00 02                 ;
     STA      L0000                     ; 0x573e $972E 85 00                    ;
     LDA      $CE                       ; 0x5740 $9730 A5 CE                    ; projectile X position (display)
     STA      $01                       ; 0x5742 $9732 85 01                    ;
-    STA      $0203,y                   ; 0x5744 $9734 99 03 02                 ;
+    STA      bss_0203,y                   ; 0x5744 $9734 99 03 02                 ;
     PLA                                ; 0x5747 $9737 68                       ;
     TAY                                ; 0x5748 $9738 A8                       ;
     LDA      $6EAD,y                   ; 0x5749 $9739 B9 AD 6E                 ;
@@ -2122,9 +2122,9 @@ bank1_code12:                                                                   
     STY      $02                       ; 0x5754 $9744 84 02                    ;
     ORA      L9715,y                   ; 0x5756 $9746 19 15 97                 ;
     LDY      $97,x                     ; 0x5759 $9749 B4 97                    ;
-    STA      $0202,y                   ; 0x575b $974B 99 02 02                 ;
+    STA      bss_0202,y                   ; 0x575b $974B 99 02 02                 ;
     PLA                                ; 0x575e $974E 68                       ;
-    STA      $0201,y                   ; 0x575f $974F 99 01 02                 ;
+    STA      bss_0201,y                   ; 0x575f $974F 99 01 02                 ;
     JMP      (L000E)                   ; 0x5762 $9752 6C 0E 00                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2140,9 +2140,9 @@ Projectiles_Routines_Desert_Rock:                                               
     LSR                                ; 0x5770 $9760 4A                       ; A becomes .... ..xx (frame number 0-2)
     TAX                                ; 0x5771 $9761 AA                       ;
 L9764     = * + $0002                                                          ;
-    LDA      $0200,y                   ; 0x5772 $9762 B9 00 02                 ;
+    LDA      bss_0200,y                   ; 0x5772 $9762 B9 00 02                 ;
     ADC      bank1_Table_for_relative_Y_display_of_Desert_Rocks,x; 0x5775 $9765 7D 55 97; refer to table at $5755
-    STA      $0200,y                   ; 0x5778 $9768 99 00 02                 ;
+    STA      bss_0200,y                   ; 0x5778 $9768 99 00 02                 ;
     LDX      $10                       ; 0x577b $976B A6 10                    ;; used as monster x register ;draw boss hp bar
 Projectiles_Routines_Octorok_Rock_or_Flame:                                     ;
     LDA      $12                       ; 0x577d $976D A5 12                    ;; Frame Counter (ascending)
@@ -2152,7 +2152,7 @@ Projectiles_Routines_Octorok_Rock_or_Flame:                                     
     ASL                                ; 0x5782 $9772 0A                       ;
     ASL                                ; 0x5783 $9773 0A                       ;
     AND      #$80                      ; 0x5784 $9774 29 80                    ; keep bits x... ....
-    ORA      $0202,y                   ; 0x5786 $9776 19 02 02                 ;
+    ORA      bss_0202,y                   ; 0x5786 $9776 19 02 02                 ;
     BNE      L9785                     ; 0x5789 $9779 D0 0A                    ;
 Projectiles_Routines_Raising_Bubble:                                            ;
     LDA      $12                       ; 0x578b $977B A5 12                    ;; Frame Counter (ascending)
@@ -2164,7 +2164,7 @@ Projectiles_Routines_Raising_Bubble:                                            
     ASL                                ; 0x5792 $9782 0A                       ;
     AND      #$43                      ; 0x5793 $9783 29 43                    ; keep bits .x.. ..xx
 L9785:                                                                          ;
-    STA      $0202,y                   ; 0x5795 $9785 99 02 02                 ;
+    STA      bss_0202,y                   ; 0x5795 $9785 99 02 02                 ;
     RTS                                ; 0x5798 $9788 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2201,7 +2201,7 @@ L97B6:                                                                          
     TAY                                ; 0x57c6 $97B6 A8                       ;
     LDA      bank1_Table_for_Boomerang_mirroring_attributes,y; 0x57c7 $97B7 B9 A5 97; refer to table at $57A5
     LDY      $97,x                     ; 0x57ca $97BA B4 97                    ;
-    STA      $0202,y                   ; 0x57cc $97BC 99 02 02                 ;
+    STA      bss_0202,y                   ; 0x57cc $97BC 99 02 02                 ;
     RTS                                ; 0x57cf $97BF 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2212,7 +2212,7 @@ Projectiles_Routines_Red_Daria_Axe:                                             
     LDA      #$F6                      ; 0x57d6 $97C6 A9 F6                    ; A = F6 (tile mapping for Red Daria's axe)
     CLC                                ; 0x57d8 $97C8 18                       ;
     ADC      L0000                     ; 0x57d9 $97C9 65 00                    ;
-    STA      $0201,y                   ; 0x57db $97CB 99 01 02                 ;
+    STA      bss_0201,y                   ; 0x57db $97CB 99 01 02                 ;
     LDX      #$02                      ; 0x57de $97CE A2 02                    ; X = 02 (palette for axe's frame)
     LDA      $12                       ; 0x57e0 $97D0 A5 12                    ;; Frame Counter (ascending)
     AND      #$08                      ; 0x57e2 $97D2 29 08                    ; keep bits .... x...
@@ -2229,7 +2229,7 @@ L97D8:                                                                          
     STA      L0000                     ; 0x57f6 $97E6 85 00                    ;
 L97E8:                                                                          ;
     LDA      L0000                     ; 0x57f8 $97E8 A5 00                    ;
-    STA      $0202,y                   ; 0x57fa $97EA 99 02 02                 ;
+    STA      bss_0202,y                   ; 0x57fa $97EA 99 02 02                 ;
 L97ED:                                                                          ;
     RTS                                ; 0x57fd $97ED 60                       ;
                                                                                ;
@@ -3078,9 +3078,9 @@ L9D2C:                                                                          
     INY                                ; 0x5d5e $9D4E C8                       ;
     INY                                ; 0x5d5f $9D4F C8                       ;
 L9D50:                                                                          ;
-    ADC      $01FB,y                   ; 0x5d60 $9D50 79 FB 01                 ;
+    ADC      bss_01FB,y                   ; 0x5d60 $9D50 79 FB 01                 ;
 L9D54     = * + $0001                                                          ;
-    STA      $01FB,y                   ; 0x5d63 $9D53 99 FB 01                 ;
+    STA      bss_01FB,y                   ; 0x5d63 $9D53 99 FB 01                 ;
 L9D56:                                                                          ;
     LDX      $10                       ; 0x5d66 $9D56 A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x5d68 $9D58 60                       ;
@@ -3151,8 +3151,8 @@ L9DBC:                                                                          
     LDX      L000E                     ; 0x5dd5 $9DC5 A6 0E                    ;
     CLC                                ; 0x5dd7 $9DC7 18                       ;
     ADC      L9D5C,x                   ; 0x5dd8 $9DC8 7D 5C 9D                 ; refer to table at $5D59 (offset +3)
-    STA      $01F8,y                   ; 0x5ddb $9DCB 99 F8 01                 ;
-    STA      $01FC,y                   ; 0x5dde $9DCE 99 FC 01                 ;
+    STA      bss_01F8,y                   ; 0x5ddb $9DCB 99 F8 01                 ;
+    STA      bss_01FC,y                   ; 0x5dde $9DCE 99 FC 01                 ;
     LDA      $D9                       ; 0x5de1 $9DD1 A5 D9                    ;; Thunder Spell modifier ?
     LSR                                ; 0x5de3 $9DD3 4A                       ;
     BCC      L9DDB                     ; 0x5de4 $9DD4 90 05                    ;
@@ -3164,12 +3164,12 @@ L9DDB:                                                                          
     LDA      L9D5F,x                   ; 0x5deb $9DDB BD 5F 9D                 ; refer to table at $5D59 (offset +6)
     PHA                                ; 0x5dee $9DDE 48                       ;
     CLC                                ; 0x5def $9DDF 18                       ;
-    ADC      $01FB,y                   ; 0x5df0 $9DE0 79 FB 01                 ;
-    STA      $01FB,y                   ; 0x5df3 $9DE3 99 FB 01                 ;
+    ADC      bss_01FB,y                   ; 0x5df0 $9DE0 79 FB 01                 ;
+    STA      bss_01FB,y                   ; 0x5df3 $9DE3 99 FB 01                 ;
     PLA                                ; 0x5df6 $9DE6 68                       ;
     CLC                                ; 0x5df7 $9DE7 18                       ;
-    ADC      $01FF,y                   ; 0x5df8 $9DE8 79 FF 01                 ;
-    STA      $01FF,y                   ; 0x5dfb $9DEB 99 FF 01                 ;
+    ADC      bss_01FF,y                   ; 0x5df8 $9DE8 79 FF 01                 ;
+    STA      bss_01FF,y                   ; 0x5dfb $9DEB 99 FF 01                 ;
 L9DEE:                                                                          ;
     LDX      $10                       ; 0x5dfe $9DEE A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x5e00 $9DF0 60                       ;
@@ -3235,9 +3235,9 @@ bank1_Geldarm_head:                                                             
     ADC      #$14                      ; 0x5e48 $9E38 69 14                    ;
     STA      $0F                       ; 0x5e4a $9E3A 85 0F                    ;
     LDA      $2A,x                     ; 0x5e4c $9E3C B5 2A                    ; Enemy Y position
-    STA      $0200,y                   ; 0x5e4e $9E3E 99 00 02                 ;
+    STA      bss_0200,y                   ; 0x5e4e $9E3E 99 00 02                 ;
     LDA      #$62                      ; 0x5e51 $9E41 A9 62                    ; A = 62 (Geldarm head tile code)
-    STA      $0201,y                   ; 0x5e53 $9E43 99 01 02                 ;
+    STA      bss_0201,y                   ; 0x5e53 $9E43 99 01 02                 ;
     LDA      $02                       ; 0x5e56 $9E46 A5 02                    ;
     BNE      bank1_Geldarm_body_Tile_Mapping; 0x5e58 $9E48 D0 09                   ;
     TYA                                ; 0x5e5a $9E4A 98                       ;
@@ -3248,31 +3248,31 @@ bank1_Geldarm_head:                                                             
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Geldarm_body_Tile_Mapping:                                                ;
-    LDA      $0200,y                   ; 0x5e63 $9E53 B9 00 02                 ;
+    LDA      bss_0200,y                   ; 0x5e63 $9E53 B9 00 02                 ;
     CLC                                ; 0x5e66 $9E56 18                       ;
     ADC      L0000                     ; 0x5e67 $9E57 65 00                    ;
-    STA      $0204,y                   ; 0x5e69 $9E59 99 04 02                 ;
+    STA      bss_0204,y                   ; 0x5e69 $9E59 99 04 02                 ;
     LDA      $01                       ; 0x5e6c $9E5C A5 01                    ;
     BEQ      L9E6B                     ; 0x5e6e $9E5E F0 0B                    ;
     DEC      $01                       ; 0x5e70 $9E60 C6 01                    ;
-    LDA      $0204,y                   ; 0x5e72 $9E62 B9 04 02                 ;
+    LDA      bss_0204,y                   ; 0x5e72 $9E62 B9 04 02                 ;
     CLC                                ; 0x5e75 $9E65 18                       ;
     ADC      #$01                      ; 0x5e76 $9E66 69 01                    ;
-    STA      $0204,y                   ; 0x5e78 $9E68 99 04 02                 ;
+    STA      bss_0204,y                   ; 0x5e78 $9E68 99 04 02                 ;
 L9E6B:                                                                          ;
     LDA      #$64                      ; 0x5e7b $9E6B A9 64                    ; A = 64
-    STA      $0205,y                   ; 0x5e7d $9E6D 99 05 02                 ;
+    STA      bss_0205,y                   ; 0x5e7d $9E6D 99 05 02                 ;
 L9E70:                                                                          ;
     LDA      $12                       ; 0x5e80 $9E70 A5 12                    ;; Frame Counter (ascending)
     AND      #$10                      ; 0x5e82 $9E72 29 10                    ; keep bits ...x ....
     ASL                                ; 0x5e84 $9E74 0A                       ;
     ASL                                ; 0x5e85 $9E75 0A                       ;
     ORA      $03                       ; 0x5e86 $9E76 05 03                    ;
-    STA      $0202,y                   ; 0x5e88 $9E78 99 02 02                 ;
-    STA      $0206,y                   ; 0x5e8b $9E7B 99 06 02                 ;
+    STA      bss_0202,y                   ; 0x5e88 $9E78 99 02 02                 ;
+    STA      bss_0206,y                   ; 0x5e8b $9E7B 99 06 02                 ;
     LDA      $CD                       ; 0x5e8e $9E7E A5 CD                    ;
-    STA      $0203,y                   ; 0x5e90 $9E80 99 03 02                 ;
-    STA      $0207,y                   ; 0x5e93 $9E83 99 07 02                 ;
+    STA      bss_0203,y                   ; 0x5e90 $9E80 99 03 02                 ;
+    STA      bss_0207,y                   ; 0x5e93 $9E83 99 07 02                 ;
     INY                                ; 0x5e96 $9E86 C8                       ;
     INY                                ; 0x5e97 $9E87 C8                       ;
     INY                                ; 0x5e98 $9E88 C8                       ;
@@ -3290,13 +3290,13 @@ L9E70:                                                                          
     LSR                                ; 0x5eab $9E9B 4A                       ;
     LSR                                ; 0x5eac $9E9C 4A                       ;
     TAX                                ; 0x5ead $9E9D AA                       ;
-    LDA      $0203,y                   ; 0x5eae $9E9E B9 03 02                 ;
+    LDA      bss_0203,y                   ; 0x5eae $9E9E B9 03 02                 ;
     CLC                                ; 0x5eb1 $9EA1 18                       ;
     ADC      bank1_table12,x           ; 0x5eb2 $9EA2 7D 0A 9E                 ; refer to table at $5E0A
-    STA      $0207,y                   ; 0x5eb5 $9EA5 99 07 02                 ;
+    STA      bss_0207,y                   ; 0x5eb5 $9EA5 99 07 02                 ;
     CLC                                ; 0x5eb8 $9EA8 18                       ;
     ADC      bank1_table12,x           ; 0x5eb9 $9EA9 7D 0A 9E                 ; refer to table at $5E0A
-    STA      $0203,y                   ; 0x5ebc $9EAC 99 03 02                 ;
+    STA      bss_0203,y                   ; 0x5ebc $9EAC 99 03 02                 ;
 L9EAF:                                                                          ;
     LDX      $10                       ; 0x5ebf $9EAF A6 10                    ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x5ec1 $9EB1 60                       ;

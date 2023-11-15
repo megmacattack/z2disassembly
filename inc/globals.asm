@@ -643,7 +643,6 @@ title_event := game_event
 
 ; bank 1 exports
 .global bank1_Transform_completed_palaces_into_stone
-.global bank1_Check_for_Hidden_Palace_spot
 
 ; bank 3 exports
 .global bank3_B082

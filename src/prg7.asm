@@ -4812,7 +4812,7 @@ bank7_Overworld_Boundaries__Mountain_or_Water_Bank_1:                           
 ; ---------------------------------------------------------------------------- ;
 bank7_Check_for_Hidden_Palace_spot_Bank_1:                                      ;
     JSR      SwapToSavedPRG; 0x1e008 $DFF8 20 C9 FF                ; Load Bank $0769
-    JSR      bank1_Check_for_Hidden_Palace_spot                     ; 0x1e00b $DFFB 20 68 83                ;
+    JSR      Check_for_Hidden_Palace_Spot_Function                     ; 0x1e00b $DFFB 20 68 83                ;
     JMP      SwapToPRG0; 0x1e00e $DFFE 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

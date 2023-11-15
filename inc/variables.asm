@@ -101,4 +101,6 @@ Sidescroll_Palettes = $800E
 Sidescroll_Collision_Function = $850C
 Sidescroll_Collision_Table = $851A
 
-; Address of an unknown function that's in bank 1 or 2
+; Address of the function used to check for the hidden palace spot
+; in banks 1 or 2
+Check_for_Hidden_Palace_Spot_Function := $8368

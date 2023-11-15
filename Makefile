@@ -8,7 +8,7 @@ Zelda2Reassembled.nes: bin/header.bin prg.bin chr.bin
 	cat $+ > .$@.new
 	mv .$@.new $@
 
-obj/%.o: src/%.asm inc/mmc1.asm inc/nes.asm inc/macros.asm inc/globals.asm inc/variables.asm src/prg7/reset.asm src/prg7/vector.asm
+obj/%.o: src/%.asm inc/mmc1.asm inc/nes.asm inc/macros.asm inc/globals.asm inc/variables.asm src/prg7/reset.asm src/prg7/vector.asm src/shared/death_maze_key_areas.asm
 	mkdir -p obj
 	${AS65} -g -I inc -o $@ $<
 

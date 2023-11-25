@@ -907,7 +907,7 @@ setpos $8b50
 bank5_routines_related_to_Ending_sequence:                                      ;
     LDA      #$05                      ; 0x14b60 $8B50 A9 05                   ; A = 05
     STA      PRG_bank                     ; 0x14b62 $8B52 8D 69 07                ; Bank to switch to
-    LDA      #$05                      ; 0x14b65 $8B55 A9 05                   ; A = 05
+    LDA      #world_number::great_palace                      ; 0x14b65 $8B55 A9 05                   ; A = 05
     STA      world_number                     ; 0x14b67 $8B57 8D 07 07                ; Current World
     LDA      #$3E                      ; 0x14b6a $8B5A A9 3E                   ; A = 3E
     LDY      bss_0761                     ; 0x14b6c $8B5C AC 61 07                ;
@@ -923,7 +923,7 @@ bank5_8B69:                                                                     
     BNE      L8B77                     ; 0x14b7c $8B6C D0 09                   ;
     LDX      #$04                      ; 0x14b7e $8B6E A2 04                   ; X = 04
     STX      $EB                       ; 0x14b80 $8B70 86 EB                   ; Music
-    LDA      #$06                      ; 0x14b82 $8B72 A9 06                   ; A = 06
+    LDA      #world_number::maybe_ending_sequence                      ; 0x14b82 $8B72 A9 06                   ; A = 06
     STA      world_number                     ; 0x14b84 $8B74 8D 07 07                ; Current World
 L8B77:                                                                          ;
     LDA      $2002                     ; 0x14b87 $8B77 AD 02 20                ;

@@ -3896,7 +3896,7 @@ LB5D0:                                                                          
     LDA      bank3_related_to_dialog_indexes2,y; 0xf5f4 $B5E4 B9 9C A2             ;
 LB5E7:                                                                          ;
     LDX      world_number                     ; 0xf5f7 $B5E7 AE 07 07                 ; Current World
-    CPX      #$02                      ; 0xf5fa $B5EA E0 02                    ; 02 = Towns in East Hyrule
+    CPX      #world_number::east_towns                      ; 0xf5fa $B5EA E0 02                    ; 02 = Towns in East Hyrule
     BNE      bank3_At_this_point_A_is_the_dialog_index; 0xf5fc $B5EC D0 0A         ;
     LDA      bank3_related_to_dialog_indexes3,y; 0xf5fe $B5EE B9 DC A2             ;
     LDX      $05                       ; 0xf601 $B5F1 A6 05                    ;

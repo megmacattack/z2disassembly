@@ -82,6 +82,22 @@ title_event := game_event
     player_select                           = $01
     start_game                              = $02
 .endenum
+.global region_number
+.enum region_number
+    west_hyrule                             = $00
+    subworld                                = $01
+    east_hyrule                             = $02
+.endenum
+.global world_number
+.enum world_number
+    overworld                               = $00
+    west_towns                              = $01
+    east_towns                              = $02
+    palaces_125                             = $03
+    palaces_346                             = $04
+    great_palace                            = $05
+    maybe_ending_sequence                   = $06
+.endenum
 
 .global rng_base
 .global rng_out
@@ -91,8 +107,6 @@ title_event := game_event
 .global town_code
 .global palace_code
 .global lives_remaining
-.global region_number
-.global world_number
 .global PRG_bank
 .global PPU_macro_select
 .global player_magic

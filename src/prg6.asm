@@ -2205,7 +2205,7 @@ Play_Music:                                                                     
 ; ---------------------------------------------------------------------------- ;
 Next_Song:                                                                          ;
     LDA      world_number                     ; 0x19b34 $9B24 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
-    CMP      #$05                      ; 0x19b37 $9B27 C9 05                   ;
+    CMP      #world_number::great_palace                      ; 0x19b37 $9B27 C9 05                   ;
     BNE      L9B34                     ; 0x19b39 $9B29 D0 09                   ;
     LDA      bss_07FB                     ; 0x19b3b $9B2B AD FB 07                ;
     AND      #$5F                      ; 0x19b3e $9B2E 29 5F                   ;;Keep Bits:0101_1111
@@ -2286,9 +2286,9 @@ Load_Song_Data:                                                                 
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9BBC:                                                                          ;
-    CMP      #$01                      ; 0x19bcc $9BBC C9 01                   ;
+    CMP      #world_number::west_towns                      ; 0x19bcc $9BBC C9 01                   ;
     BEQ      L9BC4                     ; 0x19bce $9BBE F0 04                   ;
-    CMP      #$02                      ; 0x19bd0 $9BC0 C9 02                   ;
+    CMP      #world_number::east_towns                      ; 0x19bd0 $9BC0 C9 02                   ;
     BNE      L9BFB                     ; 0x19bd2 $9BC2 D0 37                   ;
 L9BC4:                                                                          ;
     LDY      $E2                       ; 0x19bd4 $9BC4 A4 E2                   ;
@@ -2317,9 +2317,9 @@ L9BC4:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9BFB:                                                                          ;
-    CMP      #$03                      ; 0x19c0b $9BFB C9 03                   ;
+    CMP      #world_number::palaces_125                      ; 0x19c0b $9BFB C9 03                   ;
     BEQ      L9C03                     ; 0x19c0d $9BFD F0 04                   ;
-    CMP      #$04                      ; 0x19c0f $9BFF C9 04                   ;
+    CMP      #world_number::palaces_346                      ; 0x19c0f $9BFF C9 04                   ;
     BNE      L9C40                     ; 0x19c11 $9C01 D0 3D                   ;
 L9C03:                                                                          ;
     LDY      $E2                       ; 0x19c13 $9C03 A4 E2                   ;

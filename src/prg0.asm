@@ -2215,7 +2215,7 @@ L8E6F:                                                                          
 Spell_Spell:                                                                    ;
     LDA      world_number                     ; 0xe83 $8E73 AD 07 07                  ; Current World
     BEQ      L8E8A                     ; 0xe86 $8E76 F0 12                     ;
-    CMP      #$03                      ; 0xe88 $8E78 C9 03                     ;
+    CMP      #world_number::palaces_125                      ; 0xe88 $8E78 C9 03                     ;
     BCS      L8E8A                     ; 0xe8a $8E7A B0 0E                     ;
     LDA      area_code                     ; 0xe8c $8E7C AD 61 05                  ; Area Code
     CMP      #$14                      ; 0xe8f $8E7F C9 14                     ;
@@ -2935,7 +2935,7 @@ L9341:                                                                          
     LDA      world_number                     ; 0x1369 $9359 AD 07 07                 ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     BEQ      L9364                     ; 0x136c $935C F0 06                    ;
     INY                                ; 0x136e $935E C8                       ;
-    CMP      #$03                      ; 0x136f $935F C9 03                    ;
+    CMP      #world_number::palaces_125                      ; 0x136f $935F C9 03                    ;
     BCC      L9364                     ; 0x1371 $9361 90 01                    ;
     INY                                ; 0x1373 $9363 C8                       ;
 L9364:                                                                          ;

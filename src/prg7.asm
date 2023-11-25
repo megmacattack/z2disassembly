@@ -633,7 +633,7 @@ bank7_code11:                                                                   
     LDA      #$02                      ; 0x1c433 $C423 A9 02                   ; A = 02
     LDY      world_number                     ; 0x1c435 $C425 AC 07 07                ; Current World
     BEQ      LC435                     ; 0x1c438 $C428 F0 0B                   ;
-    CPY      #$03                      ; 0x1c43a $C42A C0 03                   ;
+    CPY      #world_number::palaces_125                      ; 0x1c43a $C42A C0 03                   ;
     BCS      LC436                     ; 0x1c43c $C42C B0 08                   ;
     LDY      town_code                     ; 0x1c43e $C42E AC 6B 05                ;; Town Code	;used by wise man to pick magic to give?
     CPY      #$07                      ; 0x1c441 $C431 C0 07                   ;
@@ -1172,6 +1172,8 @@ bank7_Set_Addy_for_Area_Layer_Tiles__using_10C:                                 
     LDA      world_number                     ; 0x1c829 $C819 AD 07 07                ; Current World
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c82c $C81C 20 85 D3;
 bank7_pointer_table9:                                                           ;
+; TODO: these can be renamed to refer to the 'worlds' they're from, but care should be
+; taken to refer to them properly if they exist in multiple banks.
 .word    Main_World_Build_Pointer_for_Layer_Tiles                         ; 0x1c82f $C81F A3 81                   ; World 0 - Bank 1 and 2
 .word    bank3_Build_a_pointer_with_86_and_a_value_from_C643                         ; 0x1c831 $C821 47 86                   ; World 1 - Bank 3
 .word    bank3_Build_a_pointer_with_86_and_a_value_from_C643                         ; 0x1c833 $C823 47 86                   ; World 2 - Bank 3

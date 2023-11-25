@@ -1,4 +1,5 @@
 ; globals in the zero page
+.globalzp frame_counter
 .globalzp joy_pressed
 .globalzp joy1_pressed
 .globalzp joy2_pressed

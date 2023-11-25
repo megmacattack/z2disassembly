@@ -212,7 +212,7 @@ bank7_NMI_Entry_Point:                                                         ;
         :                                                                              ;
         DEX                                ; 0x1c18f $C17F CA                      ;
         BPL      :--                        ; 0x1c190 $C180 10 F5                   ;
-    INC      a:$12                     ; 0x1c192 $C182 EE 12 00                ;
+    INC      a:frame_counter                     ; 0x1c192 $C182 EE 12 00                ;
     LDX      #$00                      ; 0x1c195 $C185 A2 00                   ; X = 00
     LDY      #$09                      ; 0x1c197 $C187 A0 09                   ; Y = 09
     LDA      rng_base                     ; 0x1c199 $C189 AD 1A 05                ;
@@ -1463,7 +1463,7 @@ bank7_code15:                                                                   
     LDA      #$0A                      ; 0x1ca01 $C9F1 A9 0A                   ; A = 0A
     STA      $80                       ; 0x1ca03 $C9F3 85 80                   ; Current Animation Frame for Link (OW and SS)
     JSR      bank7_Links_Display_Routine; 0x1ca05 $C9F5 20 F0 EB                ;
-    LDA      $12                       ; 0x1ca08 $C9F8 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1ca08 $C9F8 A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x1ca0a $C9FA 29 03                   ; keep bits .... ..xx
     TAX                                ; 0x1ca0c $C9FC AA                      ;
     LDA      bank7_table11,x           ; 0x1ca0d $C9FD BD EA C9                ;
@@ -2994,7 +2994,7 @@ game_mode_side_view_main:                                       ;
 LD3E9:                                                                          ;
     JSR      SwapToPRG0; 0x1d3f9 $D3E9 20 C5 FF                ; Load Bank 0
     JSR      Spell_Casting_Routine     ; 0x1d3fc $D3EC 20 C3 8D                ; Spell Casting Routine
-    LDA      $12                       ; 0x1d3ff $D3EF A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1d3ff $D3EF A5 12                   ;; Frame Counter (ascending)
     AND      #$01                      ; 0x1d401 $D3F1 29 01                   ; keep bits .... ...x
     TAX                                ; 0x1d403 $D3F3 AA                      ;
     LDA      bss_070C,x                   ; 0x1d404 $D3F4 BD 0C 07                ; Magic/Life to be added to Magic Meter
@@ -3144,7 +3144,7 @@ LD51F:                                                                          
     BEQ      LD52D                     ; 0x1d532 $D522 F0 09                   ;
     CMP      #$03                      ; 0x1d534 $D524 C9 03                   ;
     BCS      LD52D                     ; 0x1d536 $D526 B0 05                   ;
-    LDA      $12                       ; 0x1d538 $D528 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1d538 $D528 A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1d53a $D52A 4A                      ;
     BCS      LD538                     ; 0x1d53b $D52B B0 0B                   ;
 LD52D:                                                                          ;
@@ -3523,7 +3523,7 @@ LD78D:                                                                          
 .byt    $20,$E0                        ; 0x1d79d $D78D 20 E0                   ;20 = X Velocity while in mid-air, facing right	;E0 = X Velocity while in mid-air, facing left
 ; ---------------------------------------------------------------------------- ;
 bank7_Enemy_Routines1_Bago_Bago_Generator:                                      ;
-    LDA      $12                       ; 0x1d79f $D78F A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1d79f $D78F A5 12                   ;; Frame Counter (ascending)
     AND      #$7F                      ; 0x1d7a1 $D791 29 7F                   ; keep bits .xxx xxxx
     BNE      LD79E                     ; 0x1d7a3 $D793 D0 09                   ; delay before next Bago Bago is spawned
     LDX      #$05                      ; 0x1d7a5 $D795 A2 05                   ; X = 05
@@ -3919,7 +3919,7 @@ bank7_Enemy_Routines1_Bit:                                                      
     ASL                                ; 0x1da41 $DA31 0A                      ;
     ASL                                ; 0x1da42 $DA32 0A                      ;
     ASL                                ; 0x1da43 $DA33 0A                      ;
-    ORA      $12                       ; 0x1da44 $DA34 05 12                   ;; Frame Counter (ascending)
+    ORA      frame_counter                       ; 0x1da44 $DA34 05 12                   ;; Frame Counter (ascending)
     CMP      #$C0                      ; 0x1da46 $DA36 C9 C0                   ; affects Bit's movement (slow vs fast)
     BCC      bank7_Enemy_Routines1_Myu ; 0x1da48 $DA38 90 0D                   ;
     LDA      #$40                      ; 0x1da4a $DA3A A9 40                   ; Bit/Bot fast movement, facing right
@@ -4245,7 +4245,7 @@ bank7_Table_for_Rocks_possible_Y_Positions_:                                    
 .byt    $03,$13,$F3,$E3,$D3,$C3,$03,$13; 0x1dc57 $DC47 03 13 F3 E3 D3 C3 03 13 ;
 ; ---------------------------------------------------------------------------- ;
 bank7_Desert_Rocks_initialization_routine:                                      ;
-    LDA      $12                       ; 0x1dc5f $DC4F A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1dc5f $DC4F A5 12                   ;; Frame Counter (ascending)
     AND      #$1F                      ; 0x1dc61 $DC51 29 1F                   ; 1F = delay before next rock appears
     BNE      LDC90                     ; 0x1dc63 $DC53 D0 3B                   ;
     JSR      bank7_spawn_new_bubble_or_rock; 0x1dc65 $DC55 20 FB DB                ; spawn new rock
@@ -4423,7 +4423,7 @@ bank7_code30:                                                                   
     LDA      #$01                      ; 0x1dd97 $DD87 A9 01                   ; A = 01
     STA      bss_0202,y                   ; 0x1dd99 $DD89 99 02 02                ;
     STA      bss_0206,y                   ; 0x1dd9c $DD8C 99 06 02                ;
-    LDA      $12                       ; 0x1dd9f $DD8F A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1dd9f $DD8F A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1dda1 $DD91 4A                      ;
     BCC      LDD96                     ; 0x1dda2 $DD92 90 02                   ;
     DEC      $2A,x                     ; 0x1dda4 $DD94 D6 2A                   ; Enemy Y Position
@@ -5383,7 +5383,7 @@ LE3B8:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_E3B9:
-    LDA      $12                       ; 0x1e3c9 $E3B9 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1e3c9 $E3B9 A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1e3cb $E3BB 4A                      ;
     TXA                                ; 0x1e3cc $E3BC 8A                      ;
     AND      #$01                      ; 0x1e3cd $E3BD 29 01                   ; keep bits .... ...x
@@ -5569,7 +5569,7 @@ bank7_E4D9:                                                                     
     DEY                                ; 0x1e4f2 $E4E2 88                      ;
     CPY      #$02                      ; 0x1e4f3 $E4E3 C0 02                   ;
     BCC      LE4F7                     ; 0x1e4f5 $E4E5 90 10                   ;
-    LDA      $12                       ; 0x1e4f7 $E4E7 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1e4f7 $E4E7 A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1e4f9 $E4E9 4A                      ;
     TXA                                ; 0x1e4fa $E4EA 8A                      ;
     AND      #$01                      ; 0x1e4fb $E4EB 29 01                   ; keep bits .... ...x
@@ -6494,7 +6494,7 @@ bank7_code47:                                                                   
     LDA      $C8                       ; 0x1ebc8 $EBB8 A5 C8                   ;; go outside: set $c8 to 3
     AND      #$06                      ; 0x1ebca $EBBA 29 06                   ; keep bits .... .xx.
     BNE      LEBEF                     ; 0x1ebcc $EBBC D0 31                   ; if not Swamp, skip
-    LDA      $12                       ; 0x1ebce $EBBE A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1ebce $EBBE A5 12                   ;; Frame Counter (ascending)
     AND      #$38                      ; 0x1ebd0 $EBC0 29 38                   ; keep bits ..xx x...
     LSR                                ; 0x1ebd2 $EBC2 4A                      ;
     LSR                                ; 0x1ebd3 $EBC3 4A                      ;
@@ -6507,7 +6507,7 @@ bank7_code47:                                                                   
     LDA      $CC                       ; 0x1ebe0 $EBD0 A5 CC                   ;; Link's X Position on Screen; Player X On Screen; Link's X Position on Screen
     ADC      #$0C                      ; 0x1ebe2 $EBD2 69 0C                   ;
     STA      bss_020B                     ; 0x1ebe4 $EBD4 8D 0B 02                ;
-    LDA      $12                       ; 0x1ebe7 $EBD7 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1ebe7 $EBD7 A5 12                   ;; Frame Counter (ascending)
     AND      #$04                      ; 0x1ebe9 $EBD9 29 04                   ; keep bits .... .x..
     LSR                                ; 0x1ebeb $EBDB 4A                      ;
     ADC      #$68                      ; 0x1ebec $EBDC 69 68                   ;
@@ -6556,7 +6556,7 @@ LEC17:                                                                          
     BPL      LEC40                     ; 0x1ec39 $EC29 10 15                   ;
     LDA      $70                       ; 0x1ec3b $EC2B A5 70                   ; Link's Walking Velocity
     BEQ      LEC40                     ; 0x1ec3d $EC2D F0 11                   ;
-    LDA      $12                       ; 0x1ec3f $EC2F A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1ec3f $EC2F A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1ec41 $EC31 4A                      ;
     LSR                                ; 0x1ec42 $EC32 4A                      ;
     LSR                                ; 0x1ec43 $EC33 4A                      ;
@@ -7025,7 +7025,7 @@ LEF9F:                                                                          
     LDY      $10                       ; 0x1efb4 $EFA4 A4 10                   ;; used as monster x register ;draw boss hp bar
     LDA      $AF,y                     ; 0x1efb6 $EFA6 B9 AF 00                ;
     BEQ      LEFB7                     ; 0x1efb9 $EFA9 F0 0C                   ;
-    LDA      $12                       ; 0x1efbb $EFAB A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1efbb $EFAB A5 12                   ;; Frame Counter (ascending)
     AND      #$04                      ; 0x1efbd $EFAD 29 04                   ; keep bits .... .x..
     BNE      LEFB7                     ; 0x1efbf $EFAF D0 06                   ;
     INC      bss_01FB,x                   ; 0x1efc1 $EFB1 FE FB 01                ;
@@ -7083,7 +7083,7 @@ bank7_Enemy_Routines2_Moa:                                                      
     INC      $02                       ; 0x1f00a $EFFA E6 02                   ;
 LEFFC:                                                                          ;
     LDX      #$1E                      ; 0x1f00c $EFFC A2 1E                   ; X = 1E
-    LDA      $12                       ; 0x1f00e $EFFE A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1f00e $EFFE A5 12                   ;; Frame Counter (ascending)
     AND      #$10                      ; 0x1f010 $F000 29 10                   ; keep bits ...x ....
     BNE      LF00A                     ; 0x1f012 $F002 D0 06                   ;
     LDA      $03                       ; 0x1f014 $F004 A5 03                   ;
@@ -7121,7 +7121,7 @@ LF02F:                                                                          
 LF037:                                                                          ;
     STA      $03                       ; 0x1f047 $F037 85 03                   ;
     LDY      $91,x                     ; 0x1f049 $F039 B4 91                   ;
-    LDA      $12                       ; 0x1f04b $F03B A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1f04b $F03B A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1f04d $F03D 4A                      ;
     LSR                                ; 0x1f04e $F03E 4A                      ;
     LSR                                ; 0x1f04f $F03F 4A                      ;
@@ -7149,7 +7149,7 @@ LF061:                                                                          
     BPL      LF061                     ; 0x1f075 $F065 10 FA                   ;
     STY      $00                       ; 0x1f077 $F067 84 00                   ;
     LDY      $91,x                     ; 0x1f079 $F069 B4 91                   ;
-    LDA      $12                       ; 0x1f07b $F06B A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1f07b $F06B A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x1f07d $F06D 4A                      ;
     LDA      $00                       ; 0x1f07e $F06E A5 00                   ;
     BCC      LF074                     ; 0x1f080 $F070 90 02                   ;
@@ -7193,7 +7193,7 @@ bank7_Enemy_Routines2_BagoBago:                                                 
     LDA      #$0C                      ; 0x1f0c9 $F0B9 A9 0C                   ; A = 0C
 LF0BB:                                                                          ;
     STA      $05                       ; 0x1f0cb $F0BB 85 05                   ;
-    LDA      $12                       ; 0x1f0cd $F0BD A5 12                   ; Permanent Frame Counter
+    LDA      frame_counter                       ; 0x1f0cd $F0BD A5 12                   ; Permanent Frame Counter
     AND      #$08                      ; 0x1f0cf $F0BF 29 08                   ; keep bits .... x...
     LSR                                ; 0x1f0d1 $F0C1 4A                      ;
     LSR                                ; 0x1f0d2 $F0C2 4A                      ;
@@ -7207,7 +7207,7 @@ bank7_F0C6:                                                                     
 ; ---------------------------------------------------------------------------- ;
 bank7_F0CC:
     STA      $05                       ; 0x1f0dc $F0CC 85 05                   ;
-    LDA      $12                       ; 0x1f0de $F0CE A5 12                   ; Permanent Frame Counter
+    LDA      frame_counter                       ; 0x1f0de $F0CE A5 12                   ; Permanent Frame Counter
     AND      #$08                      ; 0x1f0e0 $F0D0 29 08                   ; keep bits .... x...
     LSR                                ; 0x1f0e2 $F0D2 4A                      ;
     LSR                                ; 0x1f0e3 $F0D3 4A                      ;
@@ -7223,7 +7223,7 @@ bank7_Enemy_Routines2_Fairy:                                                    
     LDA      $C9                       ; 0x1f0ed $F0DD A5 C9                   ;
     AND      #$08                      ; 0x1f0ef $F0DF 29 08                   ; keep bits .... x...
     BNE      LF10B                     ; 0x1f0f1 $F0E1 D0 28                   ;
-    LDA      $12                       ; 0x1f0f3 $F0E3 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1f0f3 $F0E3 A5 12                   ;; Frame Counter (ascending)
     AND      #$38                      ; 0x1f0f5 $F0E5 29 38                   ; keep bits ..xx x...
     LSR                                ; 0x1f0f7 $F0E7 4A                      ;
     LSR                                ; 0x1f0f8 $F0E8 4A                      ;
@@ -7239,7 +7239,7 @@ bank7_Enemy_Routines2_Fairy:                                                    
 LF0FC:                                                                          ;
     LDA      #$01                      ; 0x1f10c $F0FC A9 01                   ; A = 01
     STA      bss_0202,y                   ; 0x1f10e $F0FE 99 02 02                ;
-    LDA      $12                       ; 0x1f111 $F101 A5 12                   ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1f111 $F101 A5 12                   ;; Frame Counter (ascending)
     AND      #$04                      ; 0x1f113 $F103 29 04                   ; keep bits .... .x..
     LSR                                ; 0x1f115 $F105 4A                      ;
     ADC      #$68                      ; 0x1f116 $F106 69 68                   ;

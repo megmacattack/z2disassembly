@@ -171,7 +171,7 @@ L80F2:                                                                          
     STA      bss_0250,x                   ; 0x105 $80F5 9D 50 02                  ;
     DEX                                ; 0x108 $80F8 CA                        ;
     BPL      L80F2                     ; 0x109 $80F9 10 F7                     ; loop
-    LDA      $12                       ; 0x10b $80FB A5 12                     ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x10b $80FB A5 12                     ;; Frame Counter (ascending)
     AND      #$04                      ; 0x10d $80FD 29 04                     ; keep bits .... .x..
     BNE      L8109                     ; 0x10f $80FF D0 08                     ;
     LDA      #$41                      ; 0x111 $8101 A9 41                     ; A = 41
@@ -346,7 +346,7 @@ L8221:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8222:                                                                          ;
-    LDA      $12                       ; 0x232 $8222 A5 12                     ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x232 $8222 A5 12                     ;; Frame Counter (ascending)
     AND      #$0F                      ; 0x234 $8224 29 0F                     ; keep bits .... xxxx
     BNE      L8221                     ; 0x236 $8226 D0 F9                     ; stupid branching
     RTS                                ; 0x238 $8228 60                        ;
@@ -569,7 +569,7 @@ L8368:                                                                          
     STA      bss_0287,y                   ; 0x37a $836A 99 87 02                  ;
     TXA                                ; 0x37d $836D 8A                        ;
     PHA                                ; 0x37e $836E 48                        ;
-    LDA      $12                       ; 0x37f $836F A5 12                     ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x37f $836F A5 12                     ;; Frame Counter (ascending)
     AND      #$08                      ; 0x381 $8371 29 08                     ; keep bits .... x...
     LSR                                ; 0x383 $8373 4A                        ;
     LSR                                ; 0x384 $8374 4A                        ;
@@ -673,7 +673,7 @@ L841A:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L841B:                                                                          ;
-    LDA      $12                       ; 0x42b $841B A5 12                     ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x42b $841B A5 12                     ;; Frame Counter (ascending)
     AND      #$0F                      ; 0x42d $841D 29 0F                     ; keep bits .... xxxx
     BNE      L8432                     ; 0x42f $841F D0 11                     ;
     LDX      #$07                      ; 0x431 $8421 A2 07                     ; X = 07
@@ -694,7 +694,7 @@ L8435:                                                                          
     LDA      $82,x                     ; 0x445 $8435 B5 82                     ;; Demon Type (1 = Weak, 2 = Strong, 3 = Fairy) (OW)
     CMP      #$03                      ; 0x447 $8437 C9 03                     ;
     BCS      L8488                     ; 0x449 $8439 B0 4D                     ;
-    LDA      $12                       ; 0x44b $843B A5 12                     ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x44b $843B A5 12                     ;; Frame Counter (ascending)
     CMP      #$40                      ; 0x44d $843D C9 40                     ;
     BCC      L8488                     ; 0x44f $843F 90 47                     ;
     LDA      #$70                      ; 0x451 $8441 A9 70                     ; A = 70
@@ -1072,7 +1072,7 @@ L86AF:                                                                          
     LDA      bss_0563                     ; 0x6bf $86AF AD 63 05                  ; Type of terrain Link is facing
     CMP      #$07                      ; 0x6c2 $86B2 C9 07                     ; check if terrain is Swamp
     BNE      L86BB                     ; 0x6c4 $86B4 D0 05                     ;
-    LDA      $12                       ; 0x6c6 $86B6 A5 12                     ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x6c6 $86B6 A5 12                     ;; Frame Counter (ascending)
     LSR                                ; 0x6c8 $86B8 4A                        ; modify speed in swamp
     BCC      L869E                     ; 0x6c9 $86B9 90 E3                     ; skip each other frame
 L86BB:                                                                          ;
@@ -2298,7 +2298,7 @@ L8EEB:                                                                          
 L8EF7:                                                                          ;
     LDA      #$54                      ; 0xf07 $8EF7 A9 54                     ; A = 54
     STA      $60BD                     ; 0xf09 $8EF9 8D BD 60                  ;
-    LDA      $12                       ; 0xf0c $8EFC A5 12                     ; Permanent Frame Counter
+    LDA      frame_counter                       ; 0xf0c $8EFC A5 12                     ; Permanent Frame Counter
     AND      #$0F                      ; 0xf0e $8EFE 29 0F                     ; keep bits .... xxxx
     BNE      L8F57                     ; 0xf10 $8F00 D0 55                     ;
     LDA      #$23                      ; 0xf12 $8F02 A9 23                     ; A = 23
@@ -2445,7 +2445,7 @@ bank0_game_mode_vertical_exit_main:                                             
     LDX      #$00                      ; 0xffa $8FEA A2 00                     ; X = 00
     STX      $11                       ; 0xffc $8FEC 86 11                     ;
     JSR      bank7_EC02                     ; 0xffe $8FEE 20 02 EC                  ;
-    LDA       a:$12                     ; 0x1001 $8FF1 AD 12 00                 ;
+    LDA       a:frame_counter                     ; 0x1001 $8FF1 AD 12 00                 ;
 ;LDA $0012                                                                     ;
     AND      #$01                      ; 0x1004 $8FF4 29 01                    ; keep bits .... ...x
     BNE      L9039                     ; 0x1006 $8FF6 D0 41                    ;
@@ -3395,7 +3395,7 @@ L960F:                                                                          
 bank0_goto__1610:                                                               ;
     LDA      bss_0752                     ; 0x1620 $9610 AD 52 07                 ;
     BEQ      L9626                     ; 0x1623 $9613 F0 11                    ;
-    LDA      $12                       ; 0x1625 $9615 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x1625 $9615 A5 12                    ;; Frame Counter (ascending)
     LSR                                ; 0x1627 $9617 4A                       ;
     BCC      L962D                     ; 0x1628 $9618 90 13                    ;
     AND      #$03                      ; 0x162a $961A 29 03                    ; keep bits .... ..xx
@@ -3831,7 +3831,7 @@ L98C0:                                                                          
     ROR                                ; 0x18dc $98CC 6A                       ;
     ROR                                ; 0x18dd $98CD 6A                       ;
     STA      $00                       ; 0x18de $98CE 85 00                    ;
-    LDA      $12                       ; 0x18e0 $98D0 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x18e0 $98D0 A5 12                    ;; Frame Counter (ascending)
     ASL                                ; 0x18e2 $98D2 0A                       ;
     ASL                                ; 0x18e3 $98D3 0A                       ;
     ASL                                ; 0x18e4 $98D4 0A                       ;
@@ -3847,7 +3847,7 @@ L98C0:                                                                          
     BEQ      L98FB                     ; 0x18f8 $98E8 F0 11                    ;
     LDA      #$32                      ; 0x18fa $98EA A9 32                    ; A = 32
     STA      bss_0201,y                   ; 0x18fc $98EC 99 01 02                 ; Flying Blade Tile Mapping
-    LDA      $12                       ; 0x18ff $98EF A5 12                    ; Flying Blade Palette
+    LDA      frame_counter                       ; 0x18ff $98EF A5 12                    ; Flying Blade Palette
     AND      #$03                      ; 0x1901 $98F1 29 03                    ; keep bits .... ..xx
     ORA      bss_0202,y                   ; 0x1903 $98F3 19 02 02                 ;
     AND      #$7F                      ; 0x1906 $98F6 29 7F                    ; keep bits .xxx xxxx
@@ -5937,8 +5937,8 @@ LA7C1:                                                                          
     STA      $2000                     ; 0x27d4 $A7C4 8D 00 20                 ;
     STX      $2005                     ; 0x27d7 $A7C7 8E 05 20                 ;
     STY      $2005                     ; 0x27da $A7CA 8C 05 20                 ;
-    INC       a:$12                     ; 0x27dd $A7CD EE 12 00                 ;
-    LDA       a:$12                     ; 0x27e0 $A7D0 AD 12 00                 ;
+    INC       a:frame_counter                     ; 0x27dd $A7CD EE 12 00                 ;
+    LDA       a:frame_counter                     ; 0x27e0 $A7D0 AD 12 00                 ;
     AND      #$07                      ; 0x27e3 $A7D3 29 07                    ; keep bits .... .xxx
     BNE      LA829                     ; 0x27e5 $A7D5 D0 52                    ;
     LDY      #$09                      ; 0x27e7 $A7D7 A0 09                    ; Y = 09

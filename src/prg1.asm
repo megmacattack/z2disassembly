@@ -1225,7 +1225,7 @@ L9662:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank1_code11:                                                                   ;
     JSR      L96EB                     ; 0x5674 $9664 20 EB 96                 ; goto $56EB
-    LDA      $12                       ; 0x5677 $9667 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5677 $9667 A5 12                    ;; Frame Counter (ascending)
     LSR                                ; 0x5679 $9669 4A                       ;
     BCC      L9680                     ; 0x567a $966A 90 14                    ;
     LDA      #$80                      ; 0x567c $966C A9 80                    ; A = 80 (boomerang sound)
@@ -1373,7 +1373,7 @@ bank1_Table_for_relative_Y_display_of_Desert_Rocks:                             
 .byt    $00,$02,$00,$FE                ; 0x5765 $9755 00 02 00 FE              ;
 ; ---------------------------------------------------------------------------- ;
 Projectiles_Routines_Desert_Rock:                                               ;
-    LDA      $12                       ; 0x5769 $9759 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5769 $9759 A5 12                    ;; Frame Counter (ascending)
     AND      #$30                      ; 0x576b $975B 29 30                    ; keep bits ..xx ....
     LSR                                ; 0x576d $975D 4A                       ; shift
     LSR                                ; 0x576e $975E 4A                       ; right
@@ -1386,7 +1386,7 @@ L9764     = * + $0002                                                          ;
     STA      bss_0200,y                   ; 0x5778 $9768 99 00 02                 ;
     LDX      $10                       ; 0x577b $976B A6 10                    ;; used as monster x register ;draw boss hp bar
 Projectiles_Routines_Octorok_Rock_or_Flame:                                     ;
-    LDA      $12                       ; 0x577d $976D A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x577d $976D A5 12                    ;; Frame Counter (ascending)
     ASL                                ; 0x577f $976F 0A                       ;
     ASL                                ; 0x5780 $9770 0A                       ;
     ASL                                ; 0x5781 $9771 0A                       ;
@@ -1396,7 +1396,7 @@ Projectiles_Routines_Octorok_Rock_or_Flame:                                     
     ORA      bss_0202,y                   ; 0x5786 $9776 19 02 02                 ;
     BNE      L9785                     ; 0x5789 $9779 D0 0A                    ;
 Projectiles_Routines_Raising_Bubble:                                            ;
-    LDA      $12                       ; 0x578b $977B A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x578b $977B A5 12                    ;; Frame Counter (ascending)
     ASL                                ; 0x578d $977D 0A                       ;
     ASL                                ; 0x578e $977E 0A                       ;
     ASL                                ; 0x578f $977F 0A                       ;
@@ -1430,7 +1430,7 @@ bank1_Table_for_Boomerang_mirroring_attributes:                                 
 .byt    $02,$82,$C2,$42                ; 0x57b5 $97A5 02 82 C2 42              ;
 ; ---------------------------------------------------------------------------- ;
 Projectiles_Routines_Boomerang:                                                 ;
-    LDA      $12                       ; 0x57b9 $97A9 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x57b9 $97A9 A5 12                    ;; Frame Counter (ascending)
     LSR                                ; 0x57bb $97AB 4A                       ;
     LSR                                ; 0x57bc $97AC 4A                       ;
     AND      #$03                      ; 0x57bd $97AD 29 03                    ; keep bits .... ..xx
@@ -1447,7 +1447,7 @@ L97B6:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Projectiles_Routines_Red_Daria_Axe:                                             ;
-    LDA      $12                       ; 0x57d0 $97C0 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x57d0 $97C0 A5 12                    ;; Frame Counter (ascending)
     AND      #$04                      ; 0x57d2 $97C2 29 04                    ; keep bits .... .x..
     STA      L0000                     ; 0x57d4 $97C4 85 00                    ;
     LDA      #$F6                      ; 0x57d6 $97C6 A9 F6                    ; A = F6 (tile mapping for Red Daria's axe)
@@ -1455,7 +1455,7 @@ Projectiles_Routines_Red_Daria_Axe:                                             
     ADC      L0000                     ; 0x57d9 $97C9 65 00                    ;
     STA      bss_0201,y                   ; 0x57db $97CB 99 01 02                 ;
     LDX      #$02                      ; 0x57de $97CE A2 02                    ; X = 02 (palette for axe's frame)
-    LDA      $12                       ; 0x57e0 $97D0 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x57e0 $97D0 A5 12                    ;; Frame Counter (ascending)
     AND      #$08                      ; 0x57e2 $97D2 29 08                    ; keep bits .... x...
     BNE      L97D8                     ; 0x57e4 $97D4 D0 02                    ;
     LDX      #$C2                      ; 0x57e6 $97D6 A2 C2                    ; X = C2
@@ -1912,7 +1912,7 @@ L9AB8:                                                                          
     BNE      L9AC9                     ; 0x5acc $9ABC D0 0B                    ;
 L9ABE:                                                                          ;
     LDY      #$04                      ; 0x5ace $9ABE A0 04                    ; Y = 04 (0000 0100)
-    LDA      $12                       ; 0x5ad0 $9AC0 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5ad0 $9AC0 A5 12                    ;; Frame Counter (ascending)
     AND      #$40                      ; 0x5ad2 $9AC2 29 40                    ; keep bits .x.. ....
     BNE      L9AC8                     ; 0x5ad4 $9AC4 D0 02                    ;
     LDY      #$FC                      ; 0x5ad6 $9AC6 A0 FC                    ; Y = FC (1111 1100) (-4)
@@ -2000,7 +2000,7 @@ L9B2D:                                                                          
 .byt    $30,$D0,$00,$F8                ; 0x5b3d $9B2D 30 D0 00 F8              ;
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines1_Generators:                                               ;
-    LDA      $12                       ; 0x5b41 $9B31 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5b41 $9B31 A5 12                    ;; Frame Counter (ascending)
     AND      #$7F                      ; 0x5b43 $9B33 29 7F                    ; keep bits .xxx xxxx
     BNE      L9B44                     ; 0x5b45 $9B35 D0 0D                    ;
     LDA      $A1,x                     ; 0x5b47 $9B37 B5 A1                    ; Enemy Code
@@ -2162,7 +2162,7 @@ L9C3D:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank1_Enemy_Routines2_DumbMoblin:                                               ;
 ;Related to Dumb Moblin animation                                              ;
-    LDA      $12                       ; 0x5c53 $9C43 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5c53 $9C43 A5 12                    ;; Frame Counter (ascending)
     AND      #$10                      ; 0x5c55 $9C45 29 10                    ; keep bits ...x ....
     LSR                                ; 0x5c57 $9C47 4A                       ;
     LSR                                ; 0x5c58 $9C48 4A                       ;
@@ -2181,7 +2181,7 @@ bank1_Enemy_Routines2_DumbMoblin:                                               
     LDA      $CD                       ; 0x5c6e $9C5E A5 CD                    ;
     STA      $01                       ; 0x5c70 $9C60 85 01                    ;
     LDX      #$38                      ; 0x5c72 $9C62 A2 38                    ; X = 38
-    LDA      $12                       ; 0x5c74 $9C64 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5c74 $9C64 A5 12                    ;; Frame Counter (ascending)
     AND      #$08                      ; 0x5c76 $9C66 29 08                    ; keep bits .... x...
     BNE      L9C6C                     ; 0x5c78 $9C68 D0 02                    ;
     LDX      #$4A                      ; 0x5c7a $9C6A A2 4A                    ; X = 4A
@@ -2201,7 +2201,7 @@ L9C7D:                                                                          
     LDY      #$00                      ; 0x5c8d $9C7D A0 00                    ; Y = 00
     LDA      $71,x                     ; 0x5c8f $9C7F B5 71                    ;; Enemy X Velocity
     BEQ      L9C8B                     ; 0x5c91 $9C81 F0 08                    ;
-    LDA      $12                       ; 0x5c93 $9C83 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5c93 $9C83 A5 12                    ;; Frame Counter (ascending)
     AND      #$08                      ; 0x5c95 $9C85 29 08                    ; keep bits .... x...
     BEQ      L9C8B                     ; 0x5c97 $9C87 F0 02                    ;
     LDY      #$04                      ; 0x5c99 $9C89 A0 04                    ; Y = 04
@@ -2241,7 +2241,7 @@ L9CB8:                                                                          
     LDY      $71,x                     ; 0x5cd5 $9CC5 B4 71                    ; Enemy X Velocity
     BEQ      L9CD4                     ; 0x5cd7 $9CC7 F0 0B                    ;
     LDY      #$24                      ; 0x5cd9 $9CC9 A0 24                    ; Y = 24
-    LDA      $12                       ; 0x5cdb $9CCB A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5cdb $9CCB A5 12                    ;; Frame Counter (ascending)
     AND      #$08                      ; 0x5cdd $9CCD 29 08                    ; keep bits .... x...
     BEQ      L9CD3                     ; 0x5cdf $9CCF F0 02                    ;
     LDY      #$1E                      ; 0x5ce1 $9CD1 A0 1E                    ; Y = 1E
@@ -2358,7 +2358,7 @@ L9D6B:                                                                          
     BCC      L9D8B                     ; 0x5d98 $9D88 90 01                    ; skip  to $5D8B
     LSR                                ; 0x5d9a $9D8A 4A                       ;
 L9D8B:                                                                          ;
-    AND      $12                       ; 0x5d9b $9D8B 25 12                    ;; Frame Counter (ascending)
+    AND      frame_counter                       ; 0x5d9b $9D8B 25 12                    ;; Frame Counter (ascending)
     BNE      L9D91                     ; 0x5d9d $9D8D D0 02                    ;
     INC      $0D                       ; 0x5d9f $9D8F E6 0D                    ;
 L9D91:                                                                          ;
@@ -2504,7 +2504,7 @@ L9E6B:                                                                          
     LDA      #$64                      ; 0x5e7b $9E6B A9 64                    ; A = 64
     STA      bss_0205,y                   ; 0x5e7d $9E6D 99 05 02                 ;
 L9E70:                                                                          ;
-    LDA      $12                       ; 0x5e80 $9E70 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5e80 $9E70 A5 12                    ;; Frame Counter (ascending)
     AND      #$10                      ; 0x5e82 $9E72 29 10                    ; keep bits ...x ....
     ASL                                ; 0x5e84 $9E74 0A                       ;
     ASL                                ; 0x5e85 $9E75 0A                       ;
@@ -2523,7 +2523,7 @@ L9E70:                                                                          
     LDY      $91,x                     ; 0x5e9e $9E8E B4 91                    ;
     LDA      $AF,x                     ; 0x5ea0 $9E90 B5 AF                    ;; Various enemy state variables
     BEQ      L9EAF                     ; 0x5ea2 $9E92 F0 1B                    ;
-    LDA      $12                       ; 0x5ea4 $9E94 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0x5ea4 $9E94 A5 12                    ;; Frame Counter (ascending)
     AND      #$20                      ; 0x5ea6 $9E96 29 20                    ; keep bits ..x. ....
     LSR                                ; 0x5ea8 $9E98 4A                       ;
     LSR                                ; 0x5ea9 $9E99 4A                       ;

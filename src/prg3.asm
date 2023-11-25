@@ -1456,10 +1456,10 @@ bank3_table9:                                                                   
 .byt    $10,$00                        ; 0xd791 $9781 10 00                    ;
 ; ---------------------------------------------------------------------------- ;
 bank3_code16:                                                                   ;
-    LDA      $12                       ; 0xd793 $9783 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0xd793 $9783 A5 12                    ;; Frame Counter (ascending)
     AND      #$80                      ; 0xd795 $9785 29 80                    ; keep bits x... ....
     BNE      L9791                     ; 0xd797 $9787 D0 08                    ;
-    LDA      $12                       ; 0xd799 $9789 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0xd799 $9789 A5 12                    ;; Frame Counter (ascending)
     AND      #$18                      ; 0xd79b $978B 29 18                    ; keep bits ...x x...
     STA      $81,x                     ; 0xd79d $978D 95 81                    ; Current Animation Frame for Enemy
     LDA      #$00                      ; 0xd79f $978F A9 00                    ; A = 00
@@ -1468,7 +1468,7 @@ L9791:                                                                          
 L9793:                                                                          ;
     JSR      bank3_code17              ; 0xd7a3 $9793 20 9B 9A                 ;
     JSR      L9A8D                     ; 0xd7a6 $9796 20 8D 9A                 ;
-    LDA      $12                       ; 0xd7a9 $9799 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0xd7a9 $9799 A5 12                    ;; Frame Counter (ascending)
     AND      #$3F                      ; 0xd7ab $979B 29 3F                    ; keep bits ..xx xxxx
     BNE      L97A2                     ; 0xd7ad $979D D0 03                    ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0xd7af $979F 20 91 DC; Determine Enemy Facing Direction
@@ -1574,7 +1574,7 @@ L983F:                                                                          
     LDA      $2A,x                     ; 0xd84f $983F B5 2A                    ; Enemy Y Position
     CMP      #$B0                      ; 0xd851 $9841 C9 B0                    ;
     BCS      L9851                     ; 0xd853 $9843 B0 0C                    ;
-    LDA      $12                       ; 0xd855 $9845 A5 12                    ;; Frame Counter (ascending)
+    LDA      frame_counter                       ; 0xd855 $9845 A5 12                    ;; Frame Counter (ascending)
 L9847:                                                                          ;
     AND      #$0F                      ; 0xd857 $9847 29 0F                    ; keep bits .... xxxx
     BNE      L9851                     ; 0xd859 $9849 D0 06                    ;
@@ -2011,7 +2011,7 @@ L9B2B:                                                                          
     BCS      L9B33                     ; 0xdb40 $9B30 B0 01                    ;
     ASL                                ; 0xdb42 $9B32 0A                       ;
 L9B33:                                                                          ;
-    AND      $12                       ; 0xdb43 $9B33 25 12                    ;; Frame Counter (ascending)
+    AND      frame_counter                       ; 0xdb43 $9B33 25 12                    ;; Frame Counter (ascending)
     BNE      L9B3B                     ; 0xdb45 $9B35 D0 04                    ;
 L9B37:                                                                          ;
     INX                                ; 0xdb47 $9B37 E8                       ;

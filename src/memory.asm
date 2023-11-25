@@ -6,6 +6,8 @@
 
 .segment "ZEROPAGE"
 .org $00
+setpos $12
+frame_counter: .res 1
 
 setpos $F5
 joy_pressed: .res 2 ; the buttons on controllers that were *just* pressed this frame, one byte for each controller

@@ -208,7 +208,7 @@ L813F:                                                                          
 bank0_unknown1:                                                                 ;
     LDA      #$05                      ; 0x150 $8140 A9 05                     ; A = 05
     STA      PPU_macro_select                     ; 0x152 $8142 8D 25 07                  ;; PPU Macro Selector
-    INC      bss_073D                     ; 0x155 $8145 EE 3D 07                  ;; Routine Index
+    INC      saved_routine_index                     ; 0x155 $8145 EE 3D 07                  ;; Routine Index
     RTS                                ; 0x158 $8148 60                        ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5986,7 +5986,7 @@ LA829:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank0_game_mode_vertical_exit_tile_setup:                                                                          ;
-    LDA      bss_073D                     ; 0x283a $A82A AD 3D 07                 ;; Routine Index
+    LDA      saved_routine_index                     ; 0x283a $A82A AD 3D 07                 ;; Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x283d $A82D 20 85 D3;
 bank0_unknown40:                                                                ;
 .word    bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0; 0x2840 $A830 66 D2  ;Pointer table for ? (3 * 2 = 6 bytes)
@@ -6004,7 +6004,7 @@ bank0_unknown41:                                                                
     JSR      bank7_Remove_All_Sprites  ; 0x286a $A85A 20 4C D2                 ;
     LDA      #$06                      ; 0x286d $A85D A9 06                    ; A = 06
     STA      PPU_macro_select                     ; 0x286f $A85F 8D 25 07                 ;; PPU Macro Selector
-    INC      bss_073D                     ; 0x2872 $A862 EE 3D 07                 ;; Routine Index
+    INC      saved_routine_index                     ; 0x2872 $A862 EE 3D 07                 ;; Routine Index
     RTS                                ; 0x2875 $A865 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

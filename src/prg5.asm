@@ -4583,7 +4583,7 @@ title_event_title_screen_animation:                                             
     JSR      bank5_Animation_of_Glints_in_Water; 0x1670a $A6FA 20 18 A9            ; Animation of Glints in Water
     LDA      #$00                      ; 0x1670d $A6FD A9 00                   ; A = 00
 LA6FF:                                                                          ;
-    JSR      bank7_D168                     ; 0x1670f $A6FF 20 68 D1                ;
+    JSR      bank7_start_mode_if_changed                     ; 0x1670f $A6FF 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x16712 $A702 20 85 D3;
 bank5_pointer_table3:                                                           ;
 .word    bank5_code20                  ; 0x16715 $A705 0F A7                   ;
@@ -5412,7 +5412,7 @@ LAF19:
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAF1F:                                                                          ;
-    LDA      bss_073D                     ; 0x16f2f $AF1F AD 3D 07                ;; Routine Index
+    LDA      saved_routine_index                     ; 0x16f2f $AF1F AD 3D 07                ;; Routine Index
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x16f32 $AF22 20 85 D3;
 .word bank7_Erase_Name_Tables_0and1__set_scroll_to_0_0; 0x16f35 $AF25 66 D2                   ;
 .word LAF2B                         ; 0x16f37 $AF27 2B AF                   ;
@@ -5420,7 +5420,7 @@ LAF1F:                                                                          
 LAF2B:
     LDA      #$01                      ; 0x16f3b $AF2B A9 01                   ;;A = #$01 0000_0001
     STA      PPU_macro_select                     ; 0x16f3d $AF2D 8D 25 07                ;; PPU Macro Selector
-    INC      bss_073D                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
+    INC      saved_routine_index                     ; 0x16f40 $AF30 EE 3D 07                ;; Routine Index
     RTS                                ; 0x16f43 $AF33 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5531,7 +5531,7 @@ LB082:                                                                          
 ; ---------------------------------------------------------------------------- ;
 title_event_player_select:
     JSR      bank7_Remove_All_Sprites  ; 0x1723d $B22D 20 4C D2                ;
-    JSR      bank7_D168                     ; 0x17240 $B230 20 68 D1                ;
+    JSR      bank7_start_mode_if_changed                     ; 0x17240 $B230 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x17243 $B233 20 85 D3;
 bank5_table_B236:                                                               ;
 .word LB242                            ; 0x17246 $B236 42 B2

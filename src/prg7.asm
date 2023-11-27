@@ -436,7 +436,7 @@ bank7_pointer_table_game_events:                                                
 .word    game_event_unknown                         ; 0x1c2f4 $C2E4 10 C4                   ;
 ; ---------------------------------------------------------------------------- ;
 game_event_no_event:                                                                    ;
-    JSR      bank7_D168                     ; 0x1c2f6 $C2E6 20 68 D1                ;
+    JSR      bank7_start_mode_if_changed                     ; 0x1c2f6 $C2E6 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c2f9 $C2E9 20 85 D3;
 bank7_pointer_table__game_mode:                                                 ;
 ;Probably Bank 0 for addresses in the 8000-BFFF range                          ;
@@ -467,7 +467,7 @@ bank7_pointer_table__game_mode:                                                 
 .word    bank0_game_mode_raft_travel_main                ; 0x1c32c $C31C 07 82                   ; 18	Raft Travel
 ; ---------------------------------------------------------------------------- ;
 game_event_game_over:                                                                    ;
-    JSR      bank7_D168                     ; 0x1c32e $C31E 20 68 D1                ;
+    JSR      bank7_start_mode_if_changed                     ; 0x1c32e $C31E 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c331 $C321 20 85 D3;
 bank7_pointer_table4:                                                           ;
 .word    bank7_C722                         ; 0x1c334 $C324 22 C7                   ;
@@ -508,7 +508,7 @@ LC360:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 game_event_roll_credits:                                                                          ;
-    JSR      bank7_D168                     ; 0x1c374 $C364 20 68 D1                ;
+    JSR      bank7_start_mode_if_changed                     ; 0x1c374 $C364 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c377 $C367 20 85 D3;
 bank7_pointer_table5:                                                           ;
 .word    bank7_code8                   ; 0x1c37a $C36A 76 C3                   ;
@@ -539,7 +539,7 @@ LC388:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 game_event_restart_scene_with_lives:                                                                          ;
-    JSR      bank7_D168                     ; 0x1c39d $C38D 20 68 D1                ;
+    JSR      bank7_start_mode_if_changed                     ; 0x1c39d $C38D 20 68 D1                ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1c3a0 $C390 20 85 D3;
 bank7_pointer_table6:                                                           ;
 .word    LCD19                         ; 0x1c3a3 $C393 19 CD                   ;
@@ -1035,7 +1035,7 @@ flashing_effect__length__when_link_dies:                                        
 ; ---------------------------------------------------------------------------- ;
 bank7_C722:                                                                          ;
     LDA      #$00                      ; 0x1c732 $C722 A9 00                   ; A = 00
-    STA      bss_073D                     ; 0x1c734 $C724 8D 3D 07                ; Routine Index
+    STA      saved_routine_index                     ; 0x1c734 $C724 8D 3D 07                ; Routine Index
     INC      bss_0726                     ; 0x1c737 $C727 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
     JMP      bank7_CF05                     ; 0x1c73a $C72A 4C 05 CF                ;
                                                                                ;
@@ -1513,7 +1513,7 @@ LCA3E:                                                                          
         LDA      #$F0                      ; 0x1ca5d $CA4D A9 F0                   ; A = F0 (delay to show Ganon's Return)
         STA      bss_0501                     ; 0x1ca5f $CA4F 8D 01 05                ;; Timer
         INC      bss_0726                     ; 0x1ca62 $CA52 EE 26 07                ;;?which is the black transition screen when loading a battle scene.  It hides the loading gfx.; Dialog Box Drawing Flag (00-01) Toggles while a dialog box is being drawn.
-        INC      bss_073D                     ; 0x1ca65 $CA55 EE 3D 07                ;; Routine Index
+        INC      saved_routine_index                     ; 0x1ca65 $CA55 EE 3D 07                ;; Routine Index
         LDA      #$09                      ; 0x1ca68 $CA58 A9 09                   ; A = 09
         JSR      LCA17                     ; 0x1ca6a $CA5A 20 17 CA                ;
         LDA      #$00                      ; 0x1ca6d $CA5D A9 00                   ; A = 00
@@ -2473,7 +2473,7 @@ LD0A3:                                                                          
     STY      bss_0304                     ; 0x1d0bc $D0AC 8C 04 03                ;; Text memory offset?
     LDA      #$FF                      ; 0x1d0bf $D0AF A9 FF                   ; A = FF
     STA      bss_0305,y                   ; 0x1d0c1 $D0B1 99 05 03                ;
-    INC      bss_073D                     ; 0x1d0c4 $D0B4 EE 3D 07                ; Routine Index
+    INC      saved_routine_index                     ; 0x1d0c4 $D0B4 EE 3D 07                ; Routine Index
     RTS                                ; 0x1d0c7 $D0B7 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2524,7 +2524,7 @@ bank7_code19:                                                                   
     JSR      bank0_96A8                     ; 0x1d125 $D115 20 A8 96                ;
     LDA      #$07                      ; 0x1d128 $D118 A9 07                   ; A = 07
 LD11A:                                                                          ;
-    INC      bss_073D                     ; 0x1d12a $D11A EE 3D 07                ;; Routine Index
+    INC      saved_routine_index                     ; 0x1d12a $D11A EE 3D 07                ;; Routine Index
     JMP      LD158                     ; 0x1d12d $D11D 4C 58 D1                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2572,14 +2572,14 @@ LD15C:                                                                          
     LDA      bss_0738                     ; 0x1d16c $D15C AD 38 07                ;
     CMP      bss_0739                     ; 0x1d16f $D15F CD 39 07                ;
     STA      bss_0739                     ; 0x1d172 $D162 8D 39 07                ;
-    BNE      LD195                     ; 0x1d175 $D165 D0 2E                   ;
+    BNE      clear_saved_routine_index                     ; 0x1d175 $D165 D0 2E                   ;
     RTS                                ; 0x1d177 $D167 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_D168:                                                                          ;
+bank7_start_mode_if_changed:                                                                          ;
     LDA      game_mode                     ; 0x1d178 $D168 AD 36 07                ; Game Mode
-    CMP      bss_0737                     ; 0x1d17b $D16B CD 37 07                ;
-    STA      bss_0737                     ; 0x1d17e $D16E 8D 37 07                ;
+    CMP      game_running_mode                     ; 0x1d17b $D16B CD 37 07                ;
+    STA      game_running_mode                     ; 0x1d17e $D16E 8D 37 07                ;
     BNE      LD18D                     ; 0x1d181 $D171 D0 1A                   ;
     RTS                                ; 0x1d183 $D173 60                      ;
                                                                                ;
@@ -2598,9 +2598,9 @@ LD18D:                                                                          
     LDY      #$00                      ; 0x1d19d $D18D A0 00                   ; Y = 00
     STY      bss_073B                     ; 0x1d19f $D18F 8C 3B 07                ;
     STY      bss_0738                     ; 0x1d1a2 $D192 8C 38 07                ;
-LD195:                                                                          ;
+clear_saved_routine_index:                                                                          ;
     LDY      #$00                      ; 0x1d1a5 $D195 A0 00                   ; Y = 00
-    STY      bss_073D                     ; 0x1d1a7 $D197 8C 3D 07                ; Routine Index
+    STY      saved_routine_index                     ; 0x1d1a7 $D197 8C 3D 07                ; Routine Index
 LD19A:                                                                          ;
     RTS                                ; 0x1d1aa $D19A 60                      ;
                                                                                ;
@@ -2755,7 +2755,7 @@ LD269:                                                                          
     STA      $2005                     ; 0x1d287 $D277 8D 05 20                ; Screen Scroll Register (V)
     STA      $2005                     ; 0x1d28a $D27A 8D 05 20                ; Screen Scroll Register (H)
 LD27D:                                                                          ;
-    INC      bss_073D                     ; 0x1d28d $D27D EE 3D 07                ; Routine Index
+    INC      saved_routine_index                     ; 0x1d28d $D27D EE 3D 07                ; Routine Index
     RTS                                ; 0x1d290 $D280 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2952,7 +2952,7 @@ LD330:                                                                         ;
 .endproc                                                                               ;
 ; ---------------------------------------------------------------------------- ;
 bank7_JmpToRoutine_at_Index_073D_in_Table_Address_from_the_top_of_the_Stack_The_Pointer_Table_immediately_follows_the_JSR_to_D382: ;
-    LDA      bss_073D                     ; 0x1d392 $D382 AD 3D 07                ;; Routine Index
+    LDA      saved_routine_index                     ; 0x1d392 $D382 AD 3D 07                ;; Routine Index
 bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP:                  ;
     ASL                                ; 0x1d395 $D385 0A                      ;multiply by 2 because table entry is 2 bytes per entry
     TAY                                ; 0x1d396 $D386 A8                      ;transfer A to Y

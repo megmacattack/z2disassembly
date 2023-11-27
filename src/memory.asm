@@ -830,14 +830,14 @@ bss_0733: .res 1 ; unknown size
 bss_0734: .res 1 ; unknown size
 bss_0735: .res 1 ; unknown size
 game_mode: .res 1; the current game or title mode
-bss_0737: .res 1 ; unknown size
+game_running_mode: .res 1 ; the actively running game or title mode
 bss_0738: .res 1 ; unknown size
 bss_0739: .res 1 ; unknown size
 
 setpos $073B
 bss_073B: .res 1 ; unknown size
 bss_073C: .res 1 ; unknown size
-bss_073D: .res 1 ; unknown size
+saved_routine_index: .res 1 ; a routine to be run by jump table index
 bss_073E: .res 1 ; unknown size
 bss_073F: .res 1 ; unknown size
 bss_0740: .res 1 ; unknown size

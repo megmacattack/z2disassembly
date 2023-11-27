@@ -203,6 +203,7 @@
 ; These two values share the same address, and are
 ; used depending on the current nmi_mode.
 .global game_mode
+.global game_running_mode
 .enum game_mode
     load_rom_bank_data                      = $00
     go_outside                              = $01
@@ -271,6 +272,7 @@ title_event := game_event
     great_palace                            = $05
     maybe_ending_sequence                   = $06
 .endenum
+.global saved_routine_index
 
 .global rng_base
 .global rng_out
@@ -690,12 +692,10 @@ title_event := game_event
 .global bss_0733
 .global bss_0734
 .global bss_0735
-.global bss_0737
 .global bss_0738
 .global bss_0739
 .global bss_073B
 .global bss_073C
-.global bss_073D
 .global bss_073E
 .global bss_073F
 .global bss_0740
@@ -995,7 +995,7 @@ title_event := game_event
 .global bank7_F0C6 ; banks 4 5
 .global bank7_C722 ; banks 5
 .global bank7_CF05 ; banks 5
-.global bank7_D168 ; banks 5
+.global bank7_start_mode_if_changed ; banks 5
 .global bank7_start_event_if_changed ; banks 5
 .global bank7_D293 ; banks 5
 .global bank7_E5B2 ; banks 5

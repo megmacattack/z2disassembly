@@ -31,8 +31,8 @@ bank6_Title_Music_Tick:                                                         
     JSR      L821B                     ; 0x1801a $800A 20 1B 82                ;
     JSR      L826A                     ; 0x1801d $800D 20 6A 82                ;
     LDA      #$00                      ; 0x18020 $8010 A9 00                   ;;A = #$00 0000_0000
-    STA      $EB                       ; 0x18022 $8012 85 EB                   ;; Music; Music
-    STA      $EA                       ; 0x18024 $8014 85 EA                   ;;Global Sound Switch (0 = Sound On)
+    STA      zp_EB                       ; 0x18022 $8012 85 EB                   ;; Music; Music
+    STA      zp_EA                       ; 0x18024 $8014 85 EA                   ;;Global Sound Switch (0 = Sound On)
     RTS                                ; 0x18026 $8016 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -136,19 +136,19 @@ L814F:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L815A:                                                                          ;
-    LDA      $E6                       ; 0x1816a $815A A5 E6                   ;; Music Note Pitch
+    LDA      zp_E6                       ; 0x1816a $815A A5 E6                   ;; Music Note Pitch
     BNE      L8160                     ; 0x1816c $815C D0 02                   ;
 L815E:                                                                          ;
-    LDA      $ED                       ; 0x1816e $815E A5 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LDA      zp_ED                       ; 0x1816e $815E A5 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
 L8160:                                                                          ;
     LDX      #$00                      ; 0x18170 $8160 A2 00                   ;;X = #$00 0000_0000
     LDY      bss_07F4                     ; 0x18172 $8162 AC F4 07                ;
     BNE      L8172                     ; 0x18175 $8165 D0 0B                   ;
 L8167:                                                                          ;
-    LDA      $E6                       ; 0x18177 $8167 A5 E6                   ;; Music Note Pitch
+    LDA      zp_E6                       ; 0x18177 $8167 A5 E6                   ;; Music Note Pitch
     BNE      L816D                     ; 0x18179 $8169 D0 02                   ;
 L816B:                                                                          ;
-    LDA      $EC                       ; 0x1817b $816B A5 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LDA      zp_EC                       ; 0x1817b $816B A5 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
 L816D:                                                                          ;
     LDX      #$04                      ; 0x1817d $816D A2 04                   ;;X = #$04 0000_0100
     LDY      bss_07F3                     ; 0x1817f $816F AC F3 07                ;
@@ -172,8 +172,8 @@ L8188:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L818C:                                                                          ;
-    STY      $E9                       ; 0x1819c $818C 84 E9                   ;
-    STA      $E6                       ; 0x1819e $818E 85 E6                   ;; Music Note Pitch
+    STY      zp_E9                       ; 0x1819c $818C 84 E9                   ;
+    STA      zp_E6                       ; 0x1819e $818E 85 E6                   ;; Music Note Pitch
     LDA      #$00                      ; 0x181a0 $8190 A9 00                   ;;A = #$00 0000_0000
     STA      bss_07FB                     ; 0x181a2 $8192 8D FB 07                ;
     STA      bss_07FA                     ; 0x181a5 $8195 8D FA 07                ;
@@ -191,7 +191,7 @@ L819C:                                                                          
     LDA      #$56                      ; 0x181bb $81AB A9 56                   ;;A = #$56 0101_0110
     BNE      L81BF                     ; 0x181bd $81AD D0 10                   ;
 L81AF:                                                                          ;
-    LDA      $E6                       ; 0x181bf $81AF A5 E6                   ;; Music Note Pitch
+    LDA      zp_E6                       ; 0x181bf $81AF A5 E6                   ;; Music Note Pitch
     CMP      #$08                      ; 0x181c1 $81B1 C9 08                   ;
     BNE      L81B9                     ; 0x181c3 $81B3 D0 04                   ;
     LDA      #$5E                      ; 0x181c5 $81B5 A9 5E                   ;;A = #$5e 0101_1110
@@ -237,10 +237,10 @@ L81FE:                                                                          
     JSR      L815A                     ; 0x1820e $81FE 20 5A 81                ;
     JSR      L8167                     ; 0x18211 $8201 20 67 81                ;
 L8204:                                                                          ;
-    DEC      $E6                       ; 0x18214 $8204 C6 E6                   ;; Music Note Pitch
+    DEC      zp_E6                       ; 0x18214 $8204 C6 E6                   ;; Music Note Pitch
     BNE      L8214                     ; 0x18216 $8206 D0 0C                   ;
     LDA      #$00                      ; 0x18218 $8208 A9 00                   ;;A = #$00 0000_0000
-    STA      $E9                       ; 0x1821a $820A 85 E9                   ;
+    STA      zp_E9                       ; 0x1821a $820A 85 E9                   ;
     LDA      #$10                      ; 0x1821c $820C A9 10                   ;;A = #$10 0001_0000
     STA      $4000                     ; 0x1821e $820E 8D 00 40                ;
     STA      $4004                     ; 0x18221 $8211 8D 04 40                ;
@@ -257,21 +257,21 @@ L8218:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L821B:                                                                          ;
-    LDY      $EB                       ; 0x1822b $821B A4 EB                   ;; Music; Music
-    LDA      $E9                       ; 0x1822d $821D A5 E9                   ;
-    LSR      $EB                       ; 0x1822f $821F 46 EB                   ;; Music; Music
+    LDY      zp_EB                       ; 0x1822b $821B A4 EB                   ;; Music; Music
+    LDA      zp_E9                       ; 0x1822d $821D A5 E9                   ;
+    LSR      zp_EB                       ; 0x1822f $821F 46 EB                   ;; Music; Music
     BCS      L8215                     ; 0x18231 $8221 B0 F2                   ;
     LSR                                ; 0x18233 $8223 4A                      ;
     BCS      L8218                     ; 0x18234 $8224 B0 F2                   ;
-    LSR      $EB                       ; 0x18236 $8226 46 EB                   ;; Music; Music
+    LSR      zp_EB                       ; 0x18236 $8226 46 EB                   ;; Music; Music
     BCS      L81C9                     ; 0x18238 $8228 B0 9F                   ;
     LSR                                ; 0x1823a $822A 4A                      ;
     BCS      L81FE                     ; 0x1823b $822B B0 D1                   ;
-    LSR      $EB                       ; 0x1823d $822D 46 EB                   ;; Music; Music
+    LSR      zp_EB                       ; 0x1823d $822D 46 EB                   ;; Music; Music
     BCS      L81D6                     ; 0x1823f $822F B0 A5                   ;
     LSR                                ; 0x18241 $8231 4A                      ;
     BCS      L81FE                     ; 0x18242 $8232 B0 CA                   ;
-    LSR      $EB                       ; 0x18244 $8234 46 EB                   ;; Music; Music
+    LSR      zp_EB                       ; 0x18244 $8234 46 EB                   ;; Music; Music
     BCS      L823C                     ; 0x18246 $8236 B0 04                   ;
     LSR                                ; 0x18248 $8238 4A                      ;
     BCS      L8249                     ; 0x18249 $8239 B0 0E                   ;
@@ -285,7 +285,7 @@ L823C:                                                                          
     STA      $4001                     ; 0x18253 $8243 8D 01 40                ;
     STA      $4005                     ; 0x18256 $8246 8D 05 40                ;
 L8249:                                                                          ;
-    LDA      $E6                       ; 0x18259 $8249 A5 E6                   ;; Music Note Pitch
+    LDA      zp_E6                       ; 0x18259 $8249 A5 E6                   ;; Music Note Pitch
     LSR                                ; 0x1825b $824B 4A                      ;
     TAY                                ; 0x1825c $824C A8                      ;
     LDA      L8074,y                   ; 0x1825d $824D B9 74 80                ;
@@ -302,10 +302,10 @@ L8249:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L826A:                                                                          ;
-    LDA      $EA                       ; 0x1827a $826A A5 EA                   ;;Global Sound Switch (0 = Sound On)
+    LDA      zp_EA                       ; 0x1827a $826A A5 EA                   ;;Global Sound Switch (0 = Sound On)
     AND      #$01                      ; 0x1827c $826C 29 01                   ;;Keep Bits:0000_0001
     BNE      L8277                     ; 0x1827e $826E D0 07                   ;
-    LDA      $EA                       ; 0x18280 $8270 A5 EA                   ;;Global Sound Switch (0 = Sound On)
+    LDA      zp_EA                       ; 0x18280 $8270 A5 EA                   ;;Global Sound Switch (0 = Sound On)
     BEQ      L8282                     ; 0x18282 $8272 F0 0E                   ;
     JMP      L82CF                     ; 0x18284 $8274 4C CF 82                ;
                                                                                ;
@@ -318,17 +318,17 @@ L8277:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8282:                                                                          ;
-    LDA      $E8                       ; 0x18292 $8282 A5 E8                   ;; Music Note Pitch
+    LDA      zp_E8                       ; 0x18292 $8282 A5 E8                   ;; Music Note Pitch
     BEQ      L82AC                     ; 0x18294 $8284 F0 26                   ;
     JMP      L8347                     ; 0x18296 $8286 4C 47 83                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L8289:                                                                          ;
-    LDA      $E8                       ; 0x18299 $8289 A5 E8                   ;; Music Note Pitch
+    LDA      zp_E8                       ; 0x18299 $8289 A5 E8                   ;; Music Note Pitch
     AND      #$1F                      ; 0x1829b $828B 29 1F                   ;;Keep Bits:0001_1111
     BNE      L82AD                     ; 0x1829d $828D D0 1E                   ;
     LDX      #$00                      ; 0x1829f $828F A2 00                   ;;X = #$00 0000_0000
-    STX      $E8                       ; 0x182a1 $8291 86 E8                   ;; Music Note Pitch
+    STX      zp_E8                       ; 0x182a1 $8291 86 E8                   ;; Music Note Pitch
 L8293:                                                                          ;
     LDX      #$00                      ; 0x182a3 $8293 A2 00                   ;;X = #$00 0000_0000
     STX      bss_07FB                     ; 0x182a5 $8295 8E FB 07                ;
@@ -366,7 +366,7 @@ L82C5:                                                                          
 L82CD:                                                                          ;
     LDA      #$02                      ; 0x182dd $82CD A9 02                   ;;A = #$02 0000_0010
 L82CF:                                                                          ;
-    STA      $E8                       ; 0x182df $82CF 85 E8                   ;; Music Note Pitch
+    STA      zp_E8                       ; 0x182df $82CF 85 E8                   ;; Music Note Pitch
     JSR      L8293                     ; 0x182e1 $82D1 20 93 82                ;
     TAX                                ; 0x182e4 $82D4 AA                      ;
     AND      #$01                      ; 0x182e5 $82D5 29 01                   ;;Keep Bits:0000_0001
@@ -398,28 +398,28 @@ L82EF:                                                                          
     LDA      Index_Table_0,y           ; 0x18313 $8303 B9 DA 84                ;
     STA      bss_07F5                     ; 0x18316 $8306 8D F5 07                ;
     LDA      L84DB,y                   ; 0x18319 $8309 B9 DB 84                ;
-    STA      $E0                       ; 0x1831c $830C 85 E0                   ;; Music Part Offset
+    STA      zp_E0                       ; 0x1831c $830C 85 E0                   ;; Music Part Offset
     LDA      L84DC,y                   ; 0x1831e $830E B9 DC 84                ;
-    STA      $E1                       ; 0x18321 $8311 85 E1                   ;
+    STA      zp_E1                       ; 0x18321 $8311 85 E1                   ;
     LDA      L84DD,y                   ; 0x18323 $8313 B9 DD 84                ;
-    STA      $E4                       ; 0x18326 $8316 85 E4                   ;
+    STA      zp_E4                       ; 0x18326 $8316 85 E4                   ;
     LDA      L84DE,y                   ; 0x18328 $8318 B9 DE 84                ;
-    STA      $E3                       ; 0x1832b $831B 85 E3                   ;
+    STA      zp_E3                       ; 0x1832b $831B 85 E3                   ;
     LDA      L84DF,y                   ; 0x1832d $831D B9 DF 84                ;
-    STA      $E5                       ; 0x18330 $8320 85 E5                   ;
+    STA      zp_E5                       ; 0x18330 $8320 85 E5                   ;
     STA      bss_07F6                     ; 0x18332 $8322 8D F6 07                ;
     LDA      L84E0,y                   ; 0x18335 $8325 B9 E0 84                ;
     STA      bss_07F1                     ; 0x18338 $8328 8D F1 07                ;
     LDA      L84E1,y                   ; 0x1833b $832B B9 E1 84                ;
     STA      bss_07F0                     ; 0x1833e $832E 8D F0 07                ;
     LDA      #$00                      ; 0x18341 $8331 A9 00                   ;;A = #$00 0000_0000
-    STA      $E2                       ; 0x18343 $8333 85 E2                   ;
+    STA      zp_E2                       ; 0x18343 $8333 85 E2                   ;
     STA      bss_07FA                     ; 0x18345 $8335 8D FA 07                ;
     LDA      #$01                      ; 0x18348 $8338 A9 01                   ;;A = #$01 0000_0001
-    STA      $EC                       ; 0x1834a $833A 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
-    STA      $ED                       ; 0x1834c $833C 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
-    STA      $EE                       ; 0x1834e $833E 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
-    STA      $EF                       ; 0x18350 $8340 85 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    STA      zp_EC                       ; 0x1834a $833A 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    STA      zp_ED                       ; 0x1834c $833C 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    STA      zp_EE                       ; 0x1834e $833E 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    STA      zp_EF                       ; 0x18350 $8340 85 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BNE      L8347                     ; 0x18352 $8342 D0 03                   ;
 L8344:                                                                          ;
     JMP      L82EF                     ; 0x18354 $8344 4C EF 82                ;
@@ -428,7 +428,7 @@ L8344:                                                                          
 L8347:                                                                          ;
     LDA      bss_07EE                     ; 0x18357 $8347 AD EE 07                ;
     BEQ      L837F                     ; 0x1835a $834A F0 33                   ;
-    LDA      $E9                       ; 0x1835c $834C A5 E9                   ;
+    LDA      zp_E9                       ; 0x1835c $834C A5 E9                   ;
     BNE      L837F                     ; 0x1835e $834E D0 2F                   ;
     INC      bss_07ED                     ; 0x18360 $8350 EE ED 07                ;
     LDA      bss_07ED                     ; 0x18363 $8353 AD ED 07                ;
@@ -437,7 +437,7 @@ L8347:                                                                          
     LDA      bss_07EC                     ; 0x1836a $835A AD EC 07                ;
     JSR      L8120                     ; 0x1836d $835D 20 20 81                ;
     BEQ      L837F                     ; 0x18370 $8360 F0 1D                   ;
-    LDA      $E8                       ; 0x18372 $8362 A5 E8                   ;; Music Note Pitch
+    LDA      zp_E8                       ; 0x18372 $8362 A5 E8                   ;; Music Note Pitch
     AND      #$01                      ; 0x18374 $8364 29 01                   ;;Keep Bits:0000_0001
     BEQ      L837A                     ; 0x18376 $8366 F0 12                   ;
     LDA      bss_07EA                     ; 0x18378 $8368 AD EA 07                ;; Pulse 2
@@ -452,7 +452,7 @@ L837A:                                                                          
 L837C:                                                                          ;
     STA      bss_07FA                     ; 0x1838c $837C 8D FA 07                ;
 L837F:                                                                          ;
-    DEC      $EC                       ; 0x1838f $837F C6 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    DEC      zp_EC                       ; 0x1838f $837F C6 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BNE      L83CF                     ; 0x18391 $8381 D0 4C                   ;
     LDA      #$00                      ; 0x18393 $8383 A9 00                   ;;A = #$00 0000_0000
     STA      bss_07ED                     ; 0x18395 $8385 8D ED 07                ;
@@ -461,9 +461,9 @@ L838A:                                                                          
     JSR      L814F                     ; 0x1839a $838A 20 4F 81                ;
     STA      bss_07FF                     ; 0x1839d $838D 8D FF 07                ;
 L8390:                                                                          ;
-    LDY      $E2                       ; 0x183a0 $8390 A4 E2                   ;
-    INC      $E2                       ; 0x183a2 $8392 E6 E2                   ;
-    LDA      ($E0),y                   ; 0x183a4 $8394 B1 E0                   ;
+    LDY      zp_E2                       ; 0x183a0 $8390 A4 E2                   ;
+    INC      zp_E2                       ; 0x183a2 $8392 E6 E2                   ;
+    LDA      (zp_E0),y                   ; 0x183a4 $8394 B1 E0                   ;
     BEQ      L8344                     ; 0x183a6 $8396 F0 AC                   ;
     BMI      L838A                     ; 0x183a8 $8398 30 F0                   ;
     CMP      #$02                      ; 0x183aa $839A C9 02                   ;
@@ -472,11 +472,11 @@ L8390:                                                                          
     ADC      #$04                      ; 0x183af $839F 69 04                   ;
 L83A1:                                                                          ;
     STA      bss_07EC                     ; 0x183b1 $83A1 8D EC 07                ;
-    LDY      $E9                       ; 0x183b4 $83A4 A4 E9                   ;
+    LDY      zp_E9                       ; 0x183b4 $83A4 A4 E9                   ;
     BNE      L83CA                     ; 0x183b6 $83A6 D0 22                   ;
     JSR      L8147                     ; 0x183b8 $83A8 20 47 81                ;
     BEQ      L83CA                     ; 0x183bb $83AB F0 1D                   ;
-    LDA      $E8                       ; 0x183bd $83AD A5 E8                   ;; Music Note Pitch
+    LDA      zp_E8                       ; 0x183bd $83AD A5 E8                   ;; Music Note Pitch
     AND      #$01                      ; 0x183bf $83AF 29 01                   ;;Keep Bits:0000_0001
     BEQ      L83C5                     ; 0x183c1 $83B1 F0 12                   ;
     LDA      bss_07EA                     ; 0x183c3 $83B3 AD EA 07                ;; Pulse 2
@@ -492,11 +492,11 @@ L83C7:                                                                          
     STA      bss_07FB                     ; 0x183d7 $83C7 8D FB 07                ;
 L83CA:                                                                          ;
     LDA      bss_07FF                     ; 0x183da $83CA AD FF 07                ;
-    STA      $EC                       ; 0x183dd $83CD 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    STA      zp_EC                       ; 0x183dd $83CD 85 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
 L83CF:                                                                          ;
-    LDA      $E9                       ; 0x183df $83CF A5 E9                   ;
+    LDA      zp_E9                       ; 0x183df $83CF A5 E9                   ;
     BNE      L840A                     ; 0x183e1 $83D1 D0 37                   ;
-    LDA      $E8                       ; 0x183e3 $83D3 A5 E8                   ;; Music Note Pitch
+    LDA      zp_E8                       ; 0x183e3 $83D3 A5 E8                   ;; Music Note Pitch
     AND      #$01                      ; 0x183e5 $83D5 29 01                   ;;Keep Bits:0000_0001
     BNE      L83DC                     ; 0x183e7 $83D7 D0 03                   ;
     JSR      L816B                     ; 0x183e9 $83D9 20 6B 81                ;
@@ -516,7 +516,7 @@ L83E6:                                                                          
     JSR      L8116                     ; 0x18401 $83F1 20 16 81                ;
     LDA      bss_07EE                     ; 0x18404 $83F4 AD EE 07                ;
     BEQ      L840A                     ; 0x18407 $83F7 F0 11                   ;
-    LDA      $E9                       ; 0x18409 $83F9 A5 E9                   ;
+    LDA      zp_E9                       ; 0x18409 $83F9 A5 E9                   ;
     BNE      L840A                     ; 0x1840b $83FB D0 0D                   ;
     LDA      bss_07FA                     ; 0x1840d $83FD AD FA 07                ;
     BEQ      L8407                     ; 0x18410 $8400 F0 05                   ;
@@ -528,25 +528,25 @@ L8407:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L840A:                                                                          ;
-    LDA      $E3                       ; 0x1841a $840A A5 E3                   ;
+    LDA      zp_E3                       ; 0x1841a $840A A5 E3                   ;
     BEQ      L845B                     ; 0x1841c $840C F0 4D                   ;
-    DEC      $ED                       ; 0x1841e $840E C6 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    DEC      zp_ED                       ; 0x1841e $840E C6 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BNE      L843C                     ; 0x18420 $8410 D0 2A                   ;
     BEQ      L841A                     ; 0x18422 $8412 F0 06                   ;
 L8414:                                                                          ;
     JSR      L814F                     ; 0x18424 $8414 20 4F 81                ;
     STA      bss_07FE                     ; 0x18427 $8417 8D FE 07                ;
 L841A:                                                                          ;
-    LDY      $E3                       ; 0x1842a $841A A4 E3                   ;
-    INC      $E3                       ; 0x1842c $841C E6 E3                   ;
-    LDA      ($E0),y                   ; 0x1842e $841E B1 E0                   ;
+    LDY      zp_E3                       ; 0x1842a $841A A4 E3                   ;
+    INC      zp_E3                       ; 0x1842c $841C E6 E3                   ;
+    LDA      (zp_E0),y                   ; 0x1842e $841E B1 E0                   ;
     BMI      L8414                     ; 0x18430 $8420 30 F2                   ;
     CMP      #$02                      ; 0x18432 $8422 C9 02                   ;
     BEQ      L8429                     ; 0x18434 $8424 F0 03                   ;
     CLC                                ; 0x18436 $8426 18                      ;
     ADC      #$04                      ; 0x18437 $8427 69 04                   ;
 L8429:                                                                          ;
-    LDY      $E9                       ; 0x18439 $8429 A4 E9                   ;
+    LDY      zp_E9                       ; 0x18439 $8429 A4 E9                   ;
     BNE      L8437                     ; 0x1843b $842B D0 0A                   ;
     JSR      L8120                     ; 0x1843d $842D 20 20 81                ;
     BEQ      L8437                     ; 0x18440 $8430 F0 05                   ;
@@ -554,9 +554,9 @@ L8429:                                                                          
     STA      bss_07F9                     ; 0x18444 $8434 8D F9 07                ;
 L8437:                                                                          ;
     LDA      bss_07FE                     ; 0x18447 $8437 AD FE 07                ;
-    STA      $ED                       ; 0x1844a $843A 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    STA      zp_ED                       ; 0x1844a $843A 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
 L843C:                                                                          ;
-    LDA      $E9                       ; 0x1844c $843C A5 E9                   ;
+    LDA      zp_E9                       ; 0x1844c $843C A5 E9                   ;
     BNE      L845B                     ; 0x1844e $843E D0 1B                   ;
     JSR      L815E                     ; 0x18450 $8440 20 5E 81                ;
     LDA      bss_07F9                     ; 0x18453 $8443 AD F9 07                ;
@@ -573,18 +573,18 @@ L844D:                                                                          
     LDY      #$7F                      ; 0x18466 $8456 A0 7F                   ;;Y = #$7f 0111_1111
     JSR      Bank6__Code_1             ; 0x18468 $8458 20 0F 81                ;
 L845B:                                                                          ;
-    LDY      $E4                       ; 0x1846b $845B A4 E4                   ;
+    LDY      zp_E4                       ; 0x1846b $845B A4 E4                   ;
     BEQ      L8496                     ; 0x1846d $845D F0 37                   ;
-    DEC      $EE                       ; 0x1846f $845F C6 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    DEC      zp_EE                       ; 0x1846f $845F C6 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BEQ      L846B                     ; 0x18471 $8461 F0 08                   ;
     BNE      L8490                     ; 0x18473 $8463 D0 2B                   ;
 L8465:                                                                          ;
     JSR      L814F                     ; 0x18475 $8465 20 4F 81                ;
     STA      bss_07FD                     ; 0x18478 $8468 8D FD 07                ;
 L846B:                                                                          ;
-    LDY      $E4                       ; 0x1847b $846B A4 E4                   ;
-    INC      $E4                       ; 0x1847d $846D E6 E4                   ;
-    LDA      ($E0),y                   ; 0x1847f $846F B1 E0                   ;
+    LDY      zp_E4                       ; 0x1847b $846B A4 E4                   ;
+    INC      zp_E4                       ; 0x1847d $846D E6 E4                   ;
+    LDA      (zp_E0),y                   ; 0x1847f $846F B1 E0                   ;
     BMI      L8465                     ; 0x18481 $8471 30 F2                   ;
     CMP      #$02                      ; 0x18483 $8473 C9 02                   ;
     BEQ      L847A                     ; 0x18485 $8475 F0 03                   ;
@@ -601,31 +601,31 @@ L8486:                                                                          
     STA      $4008                     ; 0x18498 $8488 8D 08 40                ;
 L848B:                                                                          ;
     LDA      bss_07FD                     ; 0x1849b $848B AD FD 07                ;
-    STA      $EE                       ; 0x1849e $848E 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    STA      zp_EE                       ; 0x1849e $848E 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
 L8490:                                                                          ;
-    LDA      $EE                       ; 0x184a0 $8490 A5 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LDA      zp_EE                       ; 0x184a0 $8490 A5 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     CMP      #$04                      ; 0x184a2 $8492 C9 04                   ;
     BNE      L849B                     ; 0x184a4 $8494 D0 05                   ;
 L8496:                                                                          ;
     LDA      #$00                      ; 0x184a6 $8496 A9 00                   ;;A = #$00 0000_0000
     STA      $4008                     ; 0x184a8 $8498 8D 08 40                ;
 L849B:                                                                          ;
-    LDA      $E5                       ; 0x184ab $849B A5 E5                   ;
+    LDA      zp_E5                       ; 0x184ab $849B A5 E5                   ;
     BEQ      L84D9                     ; 0x184ad $849D F0 3A                   ;
-    DEC      $EF                       ; 0x184af $849F C6 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    DEC      zp_EF                       ; 0x184af $849F C6 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BEQ      L84AB                     ; 0x184b1 $84A1 F0 08                   ;
     BNE      L84D9                     ; 0x184b3 $84A3 D0 34                   ;
 L84A5:                                                                          ;
     JSR      L814F                     ; 0x184b5 $84A5 20 4F 81                ;
     STA      bss_07FC                     ; 0x184b8 $84A8 8D FC 07                ;
 L84AB:                                                                          ;
-    LDY      $E5                       ; 0x184bb $84AB A4 E5                   ;
-    INC      $E5                       ; 0x184bd $84AD E6 E5                   ;
-    LDA      ($E0),y                   ; 0x184bf $84AF B1 E0                   ;
+    LDY      zp_E5                       ; 0x184bb $84AB A4 E5                   ;
+    INC      zp_E5                       ; 0x184bd $84AD E6 E5                   ;
+    LDA      (zp_E0),y                   ; 0x184bf $84AF B1 E0                   ;
     BMI      L84A5                     ; 0x184c1 $84B1 30 F2                   ;
     BNE      L84BC                     ; 0x184c3 $84B3 D0 07                   ;
     LDA      bss_07F6                     ; 0x184c5 $84B5 AD F6 07                ;
-    STA      $E5                       ; 0x184c8 $84B8 85 E5                   ;
+    STA      zp_E5                       ; 0x184c8 $84B8 85 E5                   ;
     BNE      L84AB                     ; 0x184ca $84BA D0 EF                   ;
 L84BC:                                                                          ;
     LDY      bss_07EB                     ; 0x184cc $84BC AC EB 07                ;; Pulse 1
@@ -639,7 +639,7 @@ L84BC:                                                                          
     STA      $400F                     ; 0x184e1 $84D1 8D 0F 40                ;
 L84D4:                                                                          ;
     LDA      bss_07FC                     ; 0x184e4 $84D4 AD FC 07                ;
-    STA      $EF                       ; 0x184e7 $84D7 85 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    STA      zp_EF                       ; 0x184e7 $84D7 85 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
 L84D9:                                                                          ;
     RTS                                ; 0x184e9 $84D9 60                      ;
                                                                                ;
@@ -779,7 +779,7 @@ Song_Data_0__Square1__00:                                                       
 ; ---------------------------------------------------------------------------- ;
 setpos $9000
 .proc bank6_Game_Music_Tick                                                                    ;
-    LDA      $EA                       ; 0x19010 $9000 A5 EA                   ; Global Sound Switch (0 = Sound On)
+    LDA      zp_EA                       ; 0x19010 $9000 A5 EA                   ; Global Sound Switch (0 = Sound On)
     BEQ      @Cont                     ; 0x19012 $9002 F0 07                   ;
     LDA      #$00                      ; 0x19014 $9004 A9 00                   ; A = #$00 0000_0000
     STA      SND_CHN                   ; 0x19016 $9006 8D 15 40                ; Sound Channel Switch
@@ -794,12 +794,12 @@ setpos $9000
     JSR      Play_SFX_In_ED                     ; 0x1902c $901C 20 A7 95                ;
     JSR      Play_Music                     ; 0x1902f $901F 20 18 9B                ;
     LDA      #$00                      ; 0x19032 $9022 A9 00                   ; A = #$00 0000_0000
-    STA      $EF                       ; 0x19034 $9024 85 EF                   ; Sound Effects Type 4; Sound Effects Type 4
-    STA      $EE                       ; 0x19036 $9026 85 EE                   ; Sound Effects Type 3; Sound Effects Type 3
-    STA      $ED                       ; 0x19038 $9028 85 ED                   ; Sound Effects Type 2; Sound Effects Type 2
-    STA      $EC                       ; 0x1903a $902A 85 EC                   ; Sound Effects Type 1; Sound Effects Type 1
-    STA      $EB                       ; 0x1903c $902C 85 EB                   ; Music; Music
-    STA      $E9                       ; 0x1903e $902E 85 E9                   ;
+    STA      zp_EF                       ; 0x19034 $9024 85 EF                   ; Sound Effects Type 4; Sound Effects Type 4
+    STA      zp_EE                       ; 0x19036 $9026 85 EE                   ; Sound Effects Type 3; Sound Effects Type 3
+    STA      zp_ED                       ; 0x19038 $9028 85 ED                   ; Sound Effects Type 2; Sound Effects Type 2
+    STA      zp_EC                       ; 0x1903a $902A 85 EC                   ; Sound Effects Type 1; Sound Effects Type 1
+    STA      zp_EB                       ; 0x1903c $902C 85 EB                   ; Music; Music
+    STA      zp_E9                       ; 0x1903e $902E 85 E9                   ;
 @Ret:                                                                          ;
     RTS                                ; 0x19040 $9030 60                      ;
 .endproc
@@ -828,12 +828,12 @@ Play_Note:                                                                      
     STA      $4002,x                   ; 0x1905a $904A 9D 02 40                ;
     CPX      #$00                      ; 0x1905d $904D E0 00                   ;
     BNE      @IfNonZero                     ; 0x1905f $904F D0 04                   ;
-    STA      $E6                       ; 0x19061 $9051 85 E6                   ;; Music Note Pitch
+    STA      zp_E6                       ; 0x19061 $9051 85 E6                   ;; Music Note Pitch
     BNE      @EndIf                     ; 0x19063 $9053 D0 06                   ;
 @IfNonZero:                                                                          ;
     CPX      #$04                      ; 0x19065 $9055 E0 04                   ;
     BNE      @EndIf                     ; 0x19067 $9057 D0 02                   ;
-    STA      $E7                       ; 0x19069 $9059 85 E7                   ;; Music Note Pitch
+    STA      zp_E7                       ; 0x19069 $9059 85 E7                   ;; Music Note Pitch
 @EndIf:                                                                          ;
     LDA      L918F,y                   ; 0x1906b $905B B9 8F 91                ;
     ORA      #$08                      ; 0x1906e $905E 09 08                   ;;Set Bits:0000_1000
@@ -859,7 +859,7 @@ Get_Note_Duration:                                                              
     ROL                                ; 0x19084 $9074 2A                      ;
     AND      #$07                      ; 0x19085 $9075 29 07                   ;;Keep Bits:0000_0111
     CLC                                ; 0x19087 $9077 18                      ;
-    ADC      $E5                       ; 0x19088 $9078 65 E5                   ;
+    ADC      zp_E5                       ; 0x19088 $9078 65 E5                   ;
     TAY                                ; 0x1908a $907A A8                      ;
     LDA      L914D,y                   ; 0x1908b $907B B9 4D 91                ;
     RTS                                ; 0x1908e $907E 60                      ;
@@ -874,7 +874,7 @@ Vibrato_On_Pulse1:                                                              
     LDA      bss_07E6                     ; 0x19099 $9089 AD E6 07                ;
 L908C:                                                                          ;
     LDX      #$00                      ; 0x1909c $908C A2 00                   ;;X = #$00 0000_0000
-    LDY      $E6                       ; 0x1909e $908E A4 E6                   ;; Music Note Pitch
+    LDY      zp_E6                       ; 0x1909e $908E A4 E6                   ;; Music Note Pitch
     BNE      Vibrato                     ; 0x190a0 $9090 D0 0C                   ;
     LDA      bss_07F7                     ; 0x190a2 $9092 AD F7 07                ;
     BNE      L909A                     ; 0x190a5 $9095 D0 03                   ;
@@ -882,21 +882,21 @@ Vibrato_On_Pulse2:                                                              
     LDA      bss_07E7                     ; 0x190a7 $9097 AD E7 07                ;
 L909A:                                                                          ;
     LDX      #$04                      ; 0x190aa $909A A2 04                   ;;X = #$04 0000_0100
-    LDY      $E7                       ; 0x190ac $909C A4 E7                   ;; Music Note Pitch
+    LDY      zp_E7                       ; 0x190ac $909C A4 E7                   ;; Music Note Pitch
 Vibrato:                                                                          ;
-    STY      $E8                       ; 0x190ae $909E 84 E8                   ;; Music Note Pitch
+    STY      zp_E8                       ; 0x190ae $909E 84 E8                   ;; Music Note Pitch
     LSR                                ; 0x190b0 $90A0 4A                      ;
     LSR                                ; 0x190b1 $90A1 4A                      ;
     LSR                                ; 0x190b2 $90A2 4A                      ;
     BCS      L90AC                     ; 0x190b3 $90A3 B0 07                   ;
     LDA      #$FE                      ; 0x190b5 $90A5 A9 FE                   ;;A = #$fe 1111_1110
     CLC                                ; 0x190b7 $90A7 18                      ;
-    ADC      $E8                       ; 0x190b8 $90A8 65 E8                   ;; Music Note Pitch
+    ADC      zp_E8                       ; 0x190b8 $90A8 65 E8                   ;; Music Note Pitch
     BNE      L90B1                     ; 0x190ba $90AA D0 05                   ;
 L90AC:                                                                          ;
     LDA      #$02                      ; 0x190bc $90AC A9 02                   ;;A = #$02 0000_0010
     CLC                                ; 0x190be $90AE 18                      ;
-    ADC      $E8                       ; 0x190bf $90AF 65 E8                   ;; Music Note Pitch
+    ADC      zp_E8                       ; 0x190bf $90AF 65 E8                   ;; Music Note Pitch
 L90B1:                                                                          ;
     STA      $4002,x                   ; 0x190c1 $90B1 9D 02 40                ;
     RTS                                ; 0x190c4 $90B4 60                      ;
@@ -998,11 +998,11 @@ L9190:                                                                          
 .byt    $1C,$00,$1A                    ; 0x19218 $9208 1C 00 1A                ;
 ; ---------------------------------------------------------------------------- ;
 Bank6__Code_3:                                                                  ;
-    LDY      $E9                       ; 0x1921b $920B A4 E9                   ;
+    LDY      zp_E9                       ; 0x1921b $920B A4 E9                   ;
     LDA      bss_07FA                     ; 0x1921d $920D AD FA 07                ;
-    LSR      $E9                       ; 0x19220 $9210 46 E9                   ;
+    LSR      zp_E9                       ; 0x19220 $9210 46 E9                   ;
     BCS      L9221                     ; 0x19222 $9212 B0 0D                   ;
-    LSR      $E9                       ; 0x19224 $9214 46 E9                   ;
+    LSR      zp_E9                       ; 0x19224 $9214 46 E9                   ;
     BCS      L9230                     ; 0x19226 $9216 B0 18                   ;
     LSR                                ; 0x19228 $9218 4A                      ;
     BCS      L9264                     ; 0x19229 $9219 B0 49                   ;
@@ -1079,7 +1079,7 @@ L9296:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L929C:                                                                          ;
     LDX      #$00                      ; 0x192ac $929C A2 00                   ;;X = #$00 0000_0000
-    STX      $EC                       ; 0x192ae $929E 86 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    STX      zp_EC                       ; 0x192ae $929E 86 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     STX      bss_07FC                     ; 0x192b0 $92A0 8E FC 07                ;
     STX      bss_07E1                     ; 0x192b3 $92A3 8E E1 07                ;
     STX      bss_07FA                     ; 0x192b6 $92A6 8E FA 07                ;
@@ -1123,9 +1123,9 @@ L92E6:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Play_SFX_In_EF:                                                                          ;
-    LDY      $EF                       ; 0x19304 $92F4 A4 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LDY      zp_EF                       ; 0x19304 $92F4 A4 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     LDA      bss_07FF                     ; 0x19306 $92F6 AD FF 07                ;
-    LSR      $EF                       ; 0x19309 $92F9 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x19309 $92F9 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L929C                     ; 0x1930b $92FB B0 9F                   ;
 L92FD:                                                                          ;
     LDX      bss_07DF                     ; 0x1930d $92FD AE DF 07                ;
@@ -1139,27 +1139,27 @@ L9308:                                                                          
     LSR                                ; 0x19318 $9308 4A                      ;
     LSR                                ; 0x19319 $9309 4A                      ;
     BCS      L92CF                     ; 0x1931a $930A B0 C3                   ;
-    LSR      $EF                       ; 0x1931c $930C 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x1931c $930C 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L92BE                     ; 0x1931e $930E B0 AE                   ;
-    LSR      $EF                       ; 0x19320 $9310 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x19320 $9310 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L9334                     ; 0x19322 $9312 B0 20                   ;
     LSR                                ; 0x19324 $9314 4A                      ;
     BCS      L934C                     ; 0x19325 $9315 B0 35                   ;
-    LSR      $EF                       ; 0x19327 $9317 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x19327 $9317 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L9334                     ; 0x19329 $9319 B0 19                   ;
     LSR                                ; 0x1932b $931B 4A                      ;
     BCS      L934C                     ; 0x1932c $931C B0 2E                   ;
     LSR                                ; 0x1932e $931E 4A                      ;
     BCS      L92E6                     ; 0x1932f $931F B0 C5                   ;
-    LSR      $EF                       ; 0x19331 $9321 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x19331 $9321 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L92DE                     ; 0x19333 $9323 B0 B9                   ;
     LSR                                ; 0x19335 $9325 4A                      ;
     BCS      L9389                     ; 0x19336 $9326 B0 61                   ;
-    LSR      $EF                       ; 0x19338 $9328 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x19338 $9328 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L937A                     ; 0x1933a $932A B0 4E                   ;
     LSR                                ; 0x1933c $932C 4A                      ;
     BCS      L939E                     ; 0x1933d $932D B0 6F                   ;
-    LSR      $EF                       ; 0x1933f $932F 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
+    LSR      zp_EF                       ; 0x1933f $932F 46 EF                   ;; Sound Effects Type 4; Sound Effects Type 4
     BCS      L93AE                     ; 0x19341 $9331 B0 7B                   ;
     RTS                                ; 0x19343 $9333 60                      ;
                                                                                ;
@@ -1281,17 +1281,17 @@ L9405:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Play_SFX_In_EE:                                                                          ;
-    LDY      $EE                       ; 0x19418 $9408 A4 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LDY      zp_EE                       ; 0x19418 $9408 A4 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     LDA      bss_07FE                     ; 0x1941a $940A AD FE 07                ;
-    LSR      $EE                       ; 0x1941d $940D 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LSR      zp_EE                       ; 0x1941d $940D 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L93E5                     ; 0x1941f $940F B0 D4                   ;
     LSR                                ; 0x19421 $9411 4A                      ;
     BCS      L93F9                     ; 0x19422 $9412 B0 E5                   ;
-    LSR      $EE                       ; 0x19424 $9414 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LSR      zp_EE                       ; 0x19424 $9414 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L942B                     ; 0x19426 $9416 B0 13                   ;
     LSR                                ; 0x19428 $9418 4A                      ;
     BCS      L9447                     ; 0x19429 $9419 B0 2C                   ;
-    LSR      $EE                       ; 0x1942b $941B 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LSR      zp_EE                       ; 0x1942b $941B 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L9425                     ; 0x1942d $941D B0 06                   ;
     LSR                                ; 0x1942f $941F 4A                      ;
     BCS      L9428                     ; 0x19430 $9420 B0 06                   ;
@@ -1349,7 +1349,7 @@ L9453:                                                                          
     BNE      L948D                     ; 0x19494 $9484 D0 07                   ;
     JSR      L9B43                     ; 0x19496 $9486 20 43 9B                ;
     LDA      #$04                      ; 0x19499 $9489 A9 04                   ;;A = #$04 0000_0100
-    STA      $EB                       ; 0x1949b $948B 85 EB                   ;; Music; Music
+    STA      zp_EB                       ; 0x1949b $948B 85 EB                   ;; Music; Music
 L948D:                                                                          ;
     JMP      L953C                     ; 0x1949d $948D 4C 3C 95                ;
                                                                                ;
@@ -1426,15 +1426,15 @@ L9512:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9515:                                                                          ;
-    LSR      $EE                       ; 0x19525 $9515 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LSR      zp_EE                       ; 0x19525 $9515 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L94ED                     ; 0x19527 $9517 B0 D4                   ;
     LSR                                ; 0x19529 $9519 4A                      ;
     BCS      L94FE                     ; 0x1952a $951A B0 E2                   ;
-    LSR      $EE                       ; 0x1952c $951C 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LSR      zp_EE                       ; 0x1952c $951C 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L952B                     ; 0x1952e $951E B0 0B                   ;
     LSR                                ; 0x19530 $9520 4A                      ;
     BCS      L953C                     ; 0x19531 $9521 B0 19                   ;
-    LSR      $EE                       ; 0x19533 $9523 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    LSR      zp_EE                       ; 0x19533 $9523 46 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     BCS      L954C                     ; 0x19535 $9525 B0 25                   ;
     LSR                                ; 0x19537 $9527 4A                      ;
     BCS      L953C                     ; 0x19538 $9528 B0 12                   ;
@@ -1520,34 +1520,34 @@ Play_SFX_In_ED:                                                                 
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L95B2:                                                                          ;
-    LDY      $ED                       ; 0x195c2 $95B2 A4 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LDY      zp_ED                       ; 0x195c2 $95B2 A4 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     LDA      bss_07FD                     ; 0x195c4 $95B4 AD FD 07                ;
-    LSR      $ED                       ; 0x195c7 $95B7 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195c7 $95B7 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     LSR                                ; 0x195c9 $95B9 4A                      ;
-    LSR      $ED                       ; 0x195ca $95BA 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195ca $95BA 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BCS      Play_Crumble_Bridge_Sound                     ; 0x195cc $95BC B0 AE                   ;
     LSR                                ; 0x195ce $95BE 4A                      ;
     BCS      Count_Down_Noise                     ; 0x195cf $95BF B0 C6                   ;
-    LSR      $ED                       ; 0x195d1 $95C1 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195d1 $95C1 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BCS      Play_Crumble_Bridge_Or_Enemy_Hurt                     ; 0x195d3 $95C3 B0 21                   ;
     LSR                                ; 0x195d5 $95C5 4A                      ;
     BCS      L95EE                     ; 0x195d6 $95C6 B0 26                   ;
-    LSR      $ED                       ; 0x195d8 $95C8 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195d8 $95C8 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     LSR                                ; 0x195da $95CA 4A                      ;
-    LSR      $ED                       ; 0x195db $95CB 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195db $95CB 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BCS      Play_Crumble_Bridge_Or_Enemy_Hurt                     ; 0x195dd $95CD B0 17                   ;
     LSR                                ; 0x195df $95CF 4A                      ;
     BCS      L95EE                     ; 0x195e0 $95D0 B0 1C                   ;
-    LSR      $ED                       ; 0x195e2 $95D2 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195e2 $95D2 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BCS      Play_Sword_Strike                     ; 0x195e4 $95D4 B0 2E                   ;
     LSR                                ; 0x195e6 $95D6 4A                      ;
     BCS      L960C                     ; 0x195e7 $95D7 B0 33                   ;
-    LSR      $ED                       ; 0x195e9 $95D9 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195e9 $95D9 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BCS      L9597                     ; 0x195eb $95DB B0 BA                   ;
     LSR                                ; 0x195ed $95DD 4A                      ;
     LSR                                ; 0x195ee $95DE 4A                      ;
     BCS      L960C                     ; 0x195ef $95DF B0 2B                   ;
-    LSR      $ED                       ; 0x195f1 $95E1 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LSR      zp_ED                       ; 0x195f1 $95E1 46 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     BCS      Play_Sword_Strike                     ; 0x195f3 $95E3 B0 1F                   ;
     RTS                                ; 0x195f5 $95E5 60                      ;
                                                                                ;
@@ -1878,27 +1878,27 @@ Play_SFX_In_EC:                                                                 
 L9915:                                                                          ;
     DEC      bss_07DD                     ; 0x19925 $9915 CE DD 07                ;; Dialog Counter
 L9918:                                                                          ;
-    LDY      $EC                       ; 0x19928 $9918 A4 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LDY      zp_EC                       ; 0x19928 $9918 A4 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     LDA      bss_07E1                     ; 0x1992a $991A AD E1 07                ;
     CPY      #$C0                      ; 0x1992d $991D C0 C0                   ;
     BEQ      L997E                     ; 0x1992f $991F F0 5D                   ;
     CPY      #$60                      ; 0x19931 $9921 C0 60                   ;
     BEQ      L9981                     ; 0x19933 $9923 F0 5C                   ;
-    LSR      $EC                       ; 0x19935 $9925 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x19935 $9925 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L9966                     ; 0x19937 $9927 B0 3D                   ;
-    LSR      $EC                       ; 0x19939 $9929 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x19939 $9929 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L9969                     ; 0x1993b $992B B0 3C                   ;
-    LSR      $EC                       ; 0x1993d $992D 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x1993d $992D 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L996C                     ; 0x1993f $992F B0 3B                   ;
-    LSR      $EC                       ; 0x19941 $9931 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x19941 $9931 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L996F                     ; 0x19943 $9933 B0 3A                   ;
-    LSR      $EC                       ; 0x19945 $9935 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x19945 $9935 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L9972                     ; 0x19947 $9937 B0 39                   ;
-    LSR      $EC                       ; 0x19949 $9939 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x19949 $9939 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L9975                     ; 0x1994b $993B B0 38                   ;
-    LSR      $EC                       ; 0x1994d $993D 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x1994d $993D 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L9978                     ; 0x1994f $993F B0 37                   ;
-    LSR      $EC                       ; 0x19951 $9941 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
+    LSR      zp_EC                       ; 0x19951 $9941 46 EC                   ;; Sound Effects Type 1; Sound Effects Type 1
     BCS      L997B                     ; 0x19953 $9943 B0 36                   ;
     CMP      #$C0                      ; 0x19955 $9945 C9 C0                   ;
     BEQ      L999C                     ; 0x19957 $9947 F0 53                   ;
@@ -2196,7 +2196,7 @@ L9AF5:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 Play_Music:                                                                          ;
-    LDA      $EB                       ; 0x19b28 $9B18 A5 EB                   ;; Music; Music
+    LDA      zp_EB                       ; 0x19b28 $9B18 A5 EB                   ;; Music; Music
     BNE      Load_Song                     ; 0x19b2a $9B1A D0 45                   ;
     LDA      bss_07FB                     ; 0x19b2c $9B1C AD FB 07                ;
     BEQ      L9B4E                     ; 0x19b2f $9B1F F0 2D                   ;
@@ -2251,37 +2251,37 @@ L9B70:                                                                          
     BEQ      Stop_And_Mute_All_Channels                     ; 0x19b81 $9B71 F0 C8                   ;
     STA      bss_07FB                     ; 0x19b83 $9B73 8D FB 07                ;
     LDY      #$00                      ; 0x19b86 $9B76 A0 00                   ;;Y = #$00 0000_0000
-    STY      $E3                       ; 0x19b88 $9B78 84 E3                   ;
+    STY      zp_E3                       ; 0x19b88 $9B78 84 E3                   ;
 L9B7A:                                                                          ;
     INY                                ; 0x19b8a $9B7A C8                      ;
     LSR                                ; 0x19b8b $9B7B 4A                      ;
     BCC      L9B7A                     ; 0x19b8c $9B7C 90 FC                   ;
-    STY      $E2                       ; 0x19b8e $9B7E 84 E2                   ;
+    STY      zp_E2                       ; 0x19b8e $9B7E 84 E2                   ;
 Load_Song_Data:                                                                          ;
     LDA      world_number                     ; 0x19b90 $9B80 AD 07 07                ;; "world" (0=caves, enemy encounters...; 1=west hyrule towns; 2=east hyrule towns; 3=palace 1,2,5 ; 4=palace 3,4,6 ; 5=great palace)
     BNE      L9BBC                     ; 0x19b93 $9B83 D0 37                   ;
-    LDY      $E2                       ; 0x19b95 $9B85 A4 E2                   ;
+    LDY      zp_E2                       ; 0x19b95 $9B85 A4 E2                   ;
     LDA      L9FFF,y                   ; 0x19b97 $9B87 B9 FF 9F                ;
     CLC                                ; 0x19b9a $9B8A 18                      ;
-    ADC      $E3                       ; 0x19b9b $9B8B 65 E3                   ;
-    INC      $E3                       ; 0x19b9d $9B8D E6 E3                   ;
+    ADC      zp_E3                       ; 0x19b9b $9B8B 65 E3                   ;
+    INC      zp_E3                       ; 0x19b9d $9B8D E6 E3                   ;
     TAY                                ; 0x19b9f $9B8F A8                      ;
     LDA      Index_Table_1,y           ; 0x19ba0 $9B90 B9 00 A0                ;
     TAY                                ; 0x19ba3 $9B93 A8                      ;
     BEQ      Next_Song                     ; 0x19ba4 $9B94 F0 8E                   ;
     LDA      Index_Table_1,y           ; 0x19ba6 $9B96 B9 00 A0                ;
-    STA      $E5                       ; 0x19ba9 $9B99 85 E5                   ;
+    STA      zp_E5                       ; 0x19ba9 $9B99 85 E5                   ;
     LDA      LA001,y                   ; 0x19bab $9B9B B9 01 A0                ;
-    STA      $E0                       ; 0x19bae $9B9E 85 E0                   ;; Music Part Offset
+    STA      zp_E0                       ; 0x19bae $9B9E 85 E0                   ;; Music Part Offset
     LDA      LA002,y                   ; 0x19bb0 $9BA0 B9 02 A0                ;
-    STA      $E1                       ; 0x19bb3 $9BA3 85 E1                   ;
+    STA      zp_E1                       ; 0x19bb3 $9BA3 85 E1                   ;
     LDA      LA003,y                   ; 0x19bb5 $9BA5 B9 03 A0                ;
     STA      bss_07E9                     ; 0x19bb8 $9BA8 8D E9 07                ;; Triangle
     LDA      LA004,y                   ; 0x19bbb $9BAB B9 04 A0                ;
     STA      bss_07EA                     ; 0x19bbe $9BAE 8D EA 07                ;; Pulse 2
     LDA      LA005,y                   ; 0x19bc1 $9BB1 B9 05 A0                ;
     STA      bss_07E8                     ; 0x19bc4 $9BB4 8D E8 07                ;; Noise
-    STA      $E4                       ; 0x19bc7 $9BB7 85 E4                   ;
+    STA      zp_E4                       ; 0x19bc7 $9BB7 85 E4                   ;
     JMP      L9C74                     ; 0x19bc9 $9BB9 4C 74 9C                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2291,28 +2291,28 @@ L9BBC:                                                                          
     CMP      #world_number::east_towns                      ; 0x19bd0 $9BC0 C9 02                   ;
     BNE      L9BFB                     ; 0x19bd2 $9BC2 D0 37                   ;
 L9BC4:                                                                          ;
-    LDY      $E2                       ; 0x19bd4 $9BC4 A4 E2                   ;
+    LDY      zp_E2                       ; 0x19bd4 $9BC4 A4 E2                   ;
     LDA      LA3C9,y                   ; 0x19bd6 $9BC6 B9 C9 A3                ;
     CLC                                ; 0x19bd9 $9BC9 18                      ;
-    ADC      $E3                       ; 0x19bda $9BCA 65 E3                   ;
-    INC      $E3                       ; 0x19bdc $9BCC E6 E3                   ;
+    ADC      zp_E3                       ; 0x19bda $9BCA 65 E3                   ;
+    INC      zp_E3                       ; 0x19bdc $9BCC E6 E3                   ;
     TAY                                ; 0x19bde $9BCE A8                      ;
     LDA      Index_Table_2,y           ; 0x19bdf $9BCF B9 CA A3                ;
     TAY                                ; 0x19be2 $9BD2 A8                      ;
     BEQ      L9C3A                     ; 0x19be3 $9BD3 F0 65                   ;
     LDA      Index_Table_2,y           ; 0x19be5 $9BD5 B9 CA A3                ;
-    STA      $E5                       ; 0x19be8 $9BD8 85 E5                   ;
+    STA      zp_E5                       ; 0x19be8 $9BD8 85 E5                   ;
     LDA      LA3CB,y                   ; 0x19bea $9BDA B9 CB A3                ;
-    STA      $E0                       ; 0x19bed $9BDD 85 E0                   ;; Music Part Offset
+    STA      zp_E0                       ; 0x19bed $9BDD 85 E0                   ;; Music Part Offset
     LDA      LA3CC,y                   ; 0x19bef $9BDF B9 CC A3                ;
-    STA      $E1                       ; 0x19bf2 $9BE2 85 E1                   ;
+    STA      zp_E1                       ; 0x19bf2 $9BE2 85 E1                   ;
     LDA      LA3CD,y                   ; 0x19bf4 $9BE4 B9 CD A3                ;
     STA      bss_07E9                     ; 0x19bf7 $9BE7 8D E9 07                ;; Triangle
     LDA      LA3CE,y                   ; 0x19bfa $9BEA B9 CE A3                ;
     STA      bss_07EA                     ; 0x19bfd $9BED 8D EA 07                ;; Pulse 2
     LDA      LA3CF,y                   ; 0x19c00 $9BF0 B9 CF A3                ;
     STA      bss_07E8                     ; 0x19c03 $9BF3 8D E8 07                ;; Noise
-    STA      $E4                       ; 0x19c06 $9BF6 85 E4                   ;
+    STA      zp_E4                       ; 0x19c06 $9BF6 85 E4                   ;
     JMP      L9C74                     ; 0x19c08 $9BF8 4C 74 9C                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2322,28 +2322,28 @@ L9BFB:                                                                          
     CMP      #world_number::palaces_346                      ; 0x19c0f $9BFF C9 04                   ;
     BNE      L9C40                     ; 0x19c11 $9C01 D0 3D                   ;
 L9C03:                                                                          ;
-    LDY      $E2                       ; 0x19c13 $9C03 A4 E2                   ;
+    LDY      zp_E2                       ; 0x19c13 $9C03 A4 E2                   ;
     LDA      LA62E,y                   ; 0x19c15 $9C05 B9 2E A6                ;
     CLC                                ; 0x19c18 $9C08 18                      ;
-    ADC      $E3                       ; 0x19c19 $9C09 65 E3                   ;
-    INC      $E3                       ; 0x19c1b $9C0B E6 E3                   ;
+    ADC      zp_E3                       ; 0x19c19 $9C09 65 E3                   ;
+    INC      zp_E3                       ; 0x19c1b $9C0B E6 E3                   ;
     TAY                                ; 0x19c1d $9C0D A8                      ;
     LDA      Index_Table_3,y           ; 0x19c1e $9C0E B9 2F A6                ;
     TAY                                ; 0x19c21 $9C11 A8                      ;
     BEQ      L9C3A                     ; 0x19c22 $9C12 F0 26                   ;
     LDA      Index_Table_3,y           ; 0x19c24 $9C14 B9 2F A6                ;
-    STA      $E5                       ; 0x19c27 $9C17 85 E5                   ;
+    STA      zp_E5                       ; 0x19c27 $9C17 85 E5                   ;
     LDA      LA630,y                   ; 0x19c29 $9C19 B9 30 A6                ;
-    STA      $E0                       ; 0x19c2c $9C1C 85 E0                   ;; Music Part Offset
+    STA      zp_E0                       ; 0x19c2c $9C1C 85 E0                   ;; Music Part Offset
     LDA      LA631,y                   ; 0x19c2e $9C1E B9 31 A6                ;
-    STA      $E1                       ; 0x19c31 $9C21 85 E1                   ;
+    STA      zp_E1                       ; 0x19c31 $9C21 85 E1                   ;
     LDA      LA632,y                   ; 0x19c33 $9C23 B9 32 A6                ;
     STA      bss_07E9                     ; 0x19c36 $9C26 8D E9 07                ;; Triangle
     LDA      LA633,y                   ; 0x19c39 $9C29 B9 33 A6                ;
     STA      bss_07EA                     ; 0x19c3c $9C2C 8D EA 07                ;; Pulse 2
     LDA      LA634,y                   ; 0x19c3f $9C2F B9 34 A6                ;
     STA      bss_07E8                     ; 0x19c42 $9C32 8D E8 07                ;; Noise
-    STA      $E4                       ; 0x19c45 $9C35 85 E4                   ;
+    STA      zp_E4                       ; 0x19c45 $9C35 85 E4                   ;
     JMP      L9C74                     ; 0x19c47 $9C37 4C 74 9C                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2356,28 +2356,28 @@ L9C3D:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9C40:                                                                          ;
-    LDY      $E2                       ; 0x19c50 $9C40 A4 E2                   ;
+    LDY      zp_E2                       ; 0x19c50 $9C40 A4 E2                   ;
     LDA      LA935,y                   ; 0x19c52 $9C42 B9 35 A9                ;
     CLC                                ; 0x19c55 $9C45 18                      ;
-    ADC      $E3                       ; 0x19c56 $9C46 65 E3                   ;
-    INC      $E3                       ; 0x19c58 $9C48 E6 E3                   ;
+    ADC      zp_E3                       ; 0x19c56 $9C46 65 E3                   ;
+    INC      zp_E3                       ; 0x19c58 $9C48 E6 E3                   ;
     TAY                                ; 0x19c5a $9C4A A8                      ;
     LDA      Index_Table_4,y           ; 0x19c5b $9C4B B9 36 A9                ;
     TAY                                ; 0x19c5e $9C4E A8                      ;
     BEQ      L9C3A                     ; 0x19c5f $9C4F F0 E9                   ;
     LDA      Index_Table_4,y           ; 0x19c61 $9C51 B9 36 A9                ;
-    STA      $E5                       ; 0x19c64 $9C54 85 E5                   ;
+    STA      zp_E5                       ; 0x19c64 $9C54 85 E5                   ;
     LDA      LA937,y                   ; 0x19c66 $9C56 B9 37 A9                ;
-    STA      $E0                       ; 0x19c69 $9C59 85 E0                   ;; Music Part Offset
+    STA      zp_E0                       ; 0x19c69 $9C59 85 E0                   ;; Music Part Offset
     LDA      LA938,y                   ; 0x19c6b $9C5B B9 38 A9                ;
-    STA      $E1                       ; 0x19c6e $9C5E 85 E1                   ;
+    STA      zp_E1                       ; 0x19c6e $9C5E 85 E1                   ;
     LDA      LA939,y                   ; 0x19c70 $9C60 B9 39 A9                ;
     STA      bss_07E9                     ; 0x19c73 $9C63 8D E9 07                ;; Triangle
     LDA      LA93A,y                   ; 0x19c76 $9C66 B9 3A A9                ;
     STA      bss_07EA                     ; 0x19c79 $9C69 8D EA 07                ;; Pulse 2
     LDA      LA93B,y                   ; 0x19c7c $9C6C B9 3B A9                ;
     STA      bss_07E8                     ; 0x19c7f $9C6F 8D E8 07                ;; Noise
-    STA      $E4                       ; 0x19c82 $9C72 85 E4                   ;
+    STA      zp_E4                       ; 0x19c82 $9C72 85 E4                   ;
 L9C74:                                                                          ;
     LDA      #$00                      ; 0x19c84 $9C74 A9 00                   ;;A = #$00 0000_0000
     STA      bss_07EB                     ; 0x19c86 $9C76 8D EB 07                ;; Pulse 1
@@ -2396,7 +2396,7 @@ L9C91:                                                                          
     BNE      L9CC3                     ; 0x19ca4 $9C94 D0 2D                   ;
     LDY      bss_07EB                     ; 0x19ca6 $9C96 AC EB 07                ;; Pulse 1
     INC      bss_07EB                     ; 0x19ca9 $9C99 EE EB 07                ;; Pulse 1
-    LDA      ($E0),y                   ; 0x19cac $9C9C B1 E0                   ;
+    LDA      (zp_E0),y                   ; 0x19cac $9C9C B1 E0                   ;
     BEQ      L9C3D                     ; 0x19cae $9C9E F0 9D                   ;
     JSR      Get_Note_Duration                     ; 0x19cb0 $9CA0 20 6F 90                ;
     STA      bss_07E7                     ; 0x19cb3 $9CA3 8D E7 07                ;
@@ -2440,7 +2440,7 @@ L9CEB:                                                                          
     BNE      L9D1E                     ; 0x19cfe $9CEE D0 2E                   ;
     LDY      bss_07EA                     ; 0x19d00 $9CF0 AC EA 07                ;; Pulse 2
     INC      bss_07EA                     ; 0x19d03 $9CF3 EE EA 07                ;; Pulse 2
-    LDA      ($E0),y                   ; 0x19d06 $9CF6 B1 E0                   ;
+    LDA      (zp_E0),y                   ; 0x19d06 $9CF6 B1 E0                   ;
     JSR      Get_Note_Duration                     ; 0x19d08 $9CF8 20 6F 90                ;
     STA      bss_07E6                     ; 0x19d0b $9CFB 8D E6 07                ;
     LDA      bss_07FF                     ; 0x19d0e $9CFE AD FF 07                ;
@@ -2479,7 +2479,7 @@ L9D3C:                                                                          
     BNE      L9D6C                     ; 0x19d4f $9D3F D0 2B                   ;
     LDY      bss_07E9                     ; 0x19d51 $9D41 AC E9 07                ;; Triangle
     INC      bss_07E9                     ; 0x19d54 $9D44 EE E9 07                ;; Triangle
-    LDA      ($E0),y                   ; 0x19d57 $9D47 B1 E0                   ;
+    LDA      (zp_E0),y                   ; 0x19d57 $9D47 B1 E0                   ;
     JSR      Get_Note_Duration                     ; 0x19d59 $9D49 20 6F 90                ;
     STA      bss_07E5                     ; 0x19d5c $9D4C 8D E5 07                ;
     LDA      bss_07FD                     ; 0x19d5f $9D4F AD FD 07                ;
@@ -2505,9 +2505,9 @@ L9D6C:                                                                          
 L9D76:                                                                          ;
     LDY      bss_07E8                     ; 0x19d86 $9D76 AC E8 07                ;; Noise
     INC      bss_07E8                     ; 0x19d89 $9D79 EE E8 07                ;; Noise
-    LDA      ($E0),y                   ; 0x19d8c $9D7C B1 E0                   ;
+    LDA      (zp_E0),y                   ; 0x19d8c $9D7C B1 E0                   ;
     BNE      L9D87                     ; 0x19d8e $9D7E D0 07                   ;
-    LDA      $E4                       ; 0x19d90 $9D80 A5 E4                   ;
+    LDA      zp_E4                       ; 0x19d90 $9D80 A5 E4                   ;
     STA      bss_07E8                     ; 0x19d92 $9D82 8D E8 07                ;; Noise
     BNE      L9D76                     ; 0x19d95 $9D85 D0 EF                   ;
 L9D87:                                                                          ;

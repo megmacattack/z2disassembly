@@ -6,18 +6,218 @@
 
 .segment "ZEROPAGE"
 .org $00
-zp_00: .res 2 ; unknown size
+zp_00: .res 1 ; unknown size
+zp_01: .res 1 ; unknown size
 zp_02: .res 1 ; unknown size
-
-setpos $0E
+zp_03: .res 1 ; unknown size
+zp_04: .res 1 ; unknown size
+zp_05: .res 1 ; unknown size
+zp_06: .res 1 ; unknown size
+zp_07: .res 1 ; unknown size
+zp_08: .res 1 ; unknown size
+zp_09: .res 1 ; unknown size
+zp_0A: .res 1 ; unknown size
+zp_0B: .res 1 ; unknown size
+zp_0C: .res 1 ; unknown size
+zp_0D: .res 1 ; unknown size
 zp_0E: .res 1 ; unknown size
-
-setpos $12
+zp_0F: .res 1 ; unknown size
+zp_10: .res 1 ; unknown size
+zp_11: .res 1 ; unknown size
 frame_counter: .res 1
+zp_13: .res 1 ; unknown size
+zp_14: .res 1 ; unknown size
+zp_15: .res 2 ; unknown size
+zp_17: .res 1 ; unknown size
+zp_18: .res 1 ; unknown size
+zp_19: .res 1 ; unknown size
+zp_1A: .res 1 ; unknown size
+zp_1B: .res 1 ; unknown size
+zp_1C: .res 1 ; unknown size
+zp_1D: .res 1 ; unknown size
+zp_1E: .res 1 ; unknown size
+zp_1F: .res 1 ; unknown size
+zp_20: .res 1 ; unknown size
+zp_21: .res 1 ; unknown size
+zp_22: .res 1 ; unknown size
+zp_23: .res 1 ; unknown size
+zp_24: .res 1 ; unknown size
+zp_25: .res 1 ; unknown size
+zp_26: .res 1 ; unknown size
+zp_27: .res 1 ; unknown size
+zp_28: .res 1 ; unknown size
+zp_29: .res 1 ; unknown size
+zp_2A: .res 1 ; unknown size
+zp_2B: .res 1 ; unknown size
+zp_2C: .res 1 ; unknown size
+zp_2D: .res 1 ; unknown size
+zp_2E: .res 1 ; unknown size
+zp_2F: .res 1 ; unknown size
+zp_30: .res 1 ; unknown size
+zp_31: .res 1 ; unknown size
+zp_32: .res 1 ; unknown size
+zp_33: .res 1 ; unknown size
+zp_34: .res 1 ; unknown size
+zp_35: .res 1 ; unknown size
+zp_36: .res 1 ; unknown size
+zp_37: .res 1 ; unknown size
+zp_38: .res 1 ; unknown size
+zp_39: .res 2 ; unknown size
+zp_3B: .res 1 ; unknown size
+zp_3C: .res 1 ; unknown size
+zp_3D: .res 1 ; unknown size
+zp_3E: .res 1 ; unknown size
+zp_3F: .res 1 ; unknown size
+
+setpos $42
+zp_42: .res 1 ; unknown size
+
+setpos $48
+zp_48: .res 1 ; unknown size
+
+setpos $4B
+zp_4B: .res 1 ; unknown size
+
+setpos $4D
+zp_4D: .res 1 ; unknown size
+zp_4E: .res 1 ; unknown size
+zp_4F: .res 2 ; unknown size
+zp_51: .res 3 ; unknown size
+zp_54: .res 1 ; unknown size
+zp_55: .res 1 ; unknown size
+
+setpos $5A
+zp_5A: .res 1 ; unknown size
+
+setpos $5D
+zp_5D: .res 2 ; unknown size
+zp_5F: .res 1 ; unknown size
+zp_60: .res 1 ; unknown size
+zp_61: .res 1 ; unknown size
+zp_62: .res 1 ; unknown size
+zp_63: .res 1 ; unknown size
+zp_64: .res 2 ; unknown size
+zp_66: .res 1 ; unknown size
+
+setpos $6D
+zp_6D: .res 1 ; unknown size
+
+setpos $70
+zp_70: .res 1 ; unknown size
+zp_71: .res 1 ; unknown size
+zp_72: .res 1 ; unknown size
+zp_73: .res 1 ; unknown size
+zp_74: .res 1 ; unknown size
+zp_75: .res 1 ; unknown size
+zp_76: .res 1 ; unknown size
+zp_77: .res 2 ; unknown size
+zp_79: .res 1 ; unknown size
+zp_7A: .res 1 ; unknown size
+zp_7B: .res 1 ; unknown size
+zp_7C: .res 1 ; unknown size
+zp_7D: .res 1 ; unknown size
+zp_7E: .res 1 ; unknown size
+zp_7F: .res 1 ; unknown size
+zp_80: .res 1 ; unknown size
+zp_81: .res 1 ; unknown size
+zp_82: .res 2 ; unknown size
+zp_84: .res 1 ; unknown size
+
+setpos $87
+zp_87: .res 1 ; unknown size
+
+setpos $8D
+zp_8D: .res 1 ; unknown size
+
+setpos $90
+zp_90: .res 1 ; unknown size
+zp_91: .res 1 ; unknown size
+
+setpos $97
+zp_97: .res 1 ; unknown size
+
+setpos $9D
+zp_9D: .res 2 ; unknown size
+zp_9F: .res 1 ; unknown size
+zp_A0: .res 1 ; unknown size
+zp_A1: .res 1 ; unknown size
+zp_A2: .res 2 ; unknown size
+zp_A4: .res 1 ; unknown size
+
+setpos $A7
+zp_A7: .res 1 ; unknown size
+zp_A8: .res 1 ; unknown size
+
+setpos $AE
+zp_AE: .res 1 ; unknown size
+zp_AF: .res 1 ; unknown size
+zp_B0: .res 1 ; unknown size
+
+setpos $B5
+zp_B5: .res 1 ; unknown size
+zp_B6: .res 1 ; unknown size
+zp_B7: .res 1 ; unknown size
+zp_B8: .res 1 ; unknown size
+zp_B9: .res 1 ; unknown size
+zp_BA: .res 1 ; unknown size
+zp_BB: .res 1 ; unknown size
+zp_BC: .res 1 ; unknown size
+zp_BD: .res 2 ; unknown size
+zp_BF: .res 1 ; unknown size
+
+setpos $C2
+zp_C2: .res 1 ; unknown size
+zp_C3: .res 2 ; unknown size
+zp_C5: .res 1 ; unknown size
+
+setpos $C8
+zp_C8: .res 1 ; unknown size
+zp_C9: .res 1 ; unknown size
+zp_CA: .res 1 ; unknown size
+zp_CB: .res 1 ; unknown size
+zp_CC: .res 1 ; unknown size
+zp_CD: .res 1 ; unknown size
+zp_CE: .res 1 ; unknown size
+zp_CF: .res 1 ; unknown size
+zp_D0: .res 1 ; unknown size
+zp_D1: .res 3 ; unknown size
+zp_D4: .res 1 ; unknown size
+zp_D5: .res 1 ; unknown size
+zp_D6: .res 1 ; unknown size
+zp_D7: .res 2 ; unknown size
+zp_D9: .res 1 ; unknown size
+zp_DA: .res 1 ; unknown size
+zp_DB: .res 1 ; unknown size
+zp_DC: .res 1 ; unknown size
+zp_DD: .res 1 ; unknown size
+zp_DE: .res 1 ; unknown size
+zp_DF: .res 1 ; unknown size
+zp_E0: .res 1 ; unknown size
+zp_E1: .res 1 ; unknown size
+zp_E2: .res 1 ; unknown size
+zp_E3: .res 1 ; unknown size
+zp_E4: .res 1 ; unknown size
+zp_E5: .res 1 ; unknown size
+zp_E6: .res 1 ; unknown size
+zp_E7: .res 1 ; unknown size
+zp_E8: .res 1 ; unknown size
+zp_E9: .res 1 ; unknown size
+zp_EA: .res 1 ; unknown size
+zp_EB: .res 1 ; unknown size
+zp_EC: .res 1 ; unknown size
+zp_ED: .res 1 ; unknown size
+zp_EE: .res 1 ; unknown size
+zp_EF: .res 1 ; unknown size
 
 setpos $F5
 joy_pressed: .res 2 ; the buttons on controllers that were *just* pressed this frame, one byte for each controller
 joy_held: .res 2 ; the buttons on controller that were pressed this frame, including those pressed last frame too, one byte for each controller
+
+setpos $FC
+zp_FC: .res 1 ; unknown size
+zp_FD: .res 1 ; unknown size
+zp_FE: .res 1 ; unknown size
+zp_FF: .res 1 ; unknown size
 
 .segment "BSS"
 .org $100

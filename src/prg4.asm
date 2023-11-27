@@ -264,11 +264,11 @@ bank4_Table_for_Level_Layers_Data_pointers:                                     
 bank4_Build_a_pointer_with_81_and_a_value_from_10165:                           ;
     LDX      bss_010C                     ; 0x10177 $8167 AE 0C 01                ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
     LDA      bank4_Table_for_Level_Layers_Data_pointers,x; 0x1017a $816A BD 65 81  ;
-    STA      $0C                       ; 0x1017d $816D 85 0C                   ;
+    STA      zp_0C                       ; 0x1017d $816D 85 0C                   ;
     LDA      #$81                      ; 0x1017f $816F A9 81                   ; A = 81
-    STA      $0D                       ; 0x10181 $8171 85 0D                   ;
+    STA      zp_0D                       ; 0x10181 $8171 85 0D                   ;
     LDY      #$08                      ; 0x10183 $8173 A0 08                   ; Y = 08
-    LDA      ($0C),y                   ; 0x10185 $8175 B1 0C                   ;
+    LDA      (zp_0C),y                   ; 0x10185 $8175 B1 0C                   ;
     STA      bss_010D                     ; 0x10187 $8177 8D 0D 01                ;; Area Bottom Row Tile Code
     RTS                                ; 0x1018a $817A 60                      ;
                                                                                ;
@@ -367,7 +367,7 @@ bank4_Get_Tile_Codes_for_Object:                                                
     ASL                                ; 0x10201 $81F1 0A                      ;
     TAX                                ; 0x10202 $81F2 AA                      ;
     LDY      #$01                      ; 0x10203 $81F3 A0 01                   ; Y = 01
-    LDA      ($D4),y                   ; 0x10205 $81F5 B1 D4                   ;
+    LDA      (zp_D4),y                   ; 0x10205 $81F5 B1 D4                   ;
     ASL                                ; 0x10207 $81F7 0A                      ;
     LDA      bank4_Objects_Construction_Routines_Object_1_high_X_wide,x; 0x10208 $81F8 BD 99 81; ???
     BCS      L8200                     ; 0x1020b $81FB B0 03                   ;
@@ -1362,31 +1362,31 @@ L9657:                                                                          
 .byt    $37,$0A,$F2                    ; 0x11667 $9657 37 0A F2                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Stalfos:                                                   ;
-    LDA      $AF,x                     ; 0x1166a $965A B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1166a $965A B5 AF                   ;; Various enemy state variables
     BNE      L966B                     ; 0x1166c $965C D0 0D                   ;
-    LDA      $C9                       ; 0x1166e $965E A5 C9                   ;
+    LDA      zp_C9                       ; 0x1166e $965E A5 C9                   ;
     BEQ      L966B                     ; 0x11670 $9660 F0 09                   ;
     LDA      #$40                      ; 0x11672 $9662 A9 40                   ; A = 40 (Stalfos appearing Y Position)
-    STA      $2A,x                     ; 0x11674 $9664 95 2A                   ; Enemy Y Position
+    STA      zp_2A,x                     ; 0x11674 $9664 95 2A                   ; Enemy Y Position
     LDA      #$00                      ; 0x11676 $9666 A9 00                   ; A = 00 (Stalfos initial X Velocity)
-    STA      $71,x                     ; 0x11678 $9668 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x11678 $9668 95 71                   ; Enemy X Velocity
     RTS                                ; 0x1167a $966A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L966B:                                                                          ;
     LDA      #$01                      ; 0x1167b $966B A9 01                   ; A = 01
     STA      bss_0444,x                   ; 0x1167d $966D 9D 44 04                ; Enemy Vulnerability
-    STA      $AF,x                     ; 0x11680 $9670 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x11680 $9670 95 AF                   ;; Various enemy state variables
     JSR      bank7_Display             ; 0x11682 $9672 20 11 EF                ; Display
     JSR      bank7_E617                     ; 0x11685 $9675 20 17 E6                ; Relative to Shield Hit
-    LDA      $81,x                     ; 0x11688 $9678 B5 81                   ; Current Animation Frame for Enemy
+    LDA      zp_81,x                     ; 0x11688 $9678 B5 81                   ; Current Animation Frame for Enemy
     BEQ      L9695                     ; 0x1168a $967A F0 19                   ;
     LDY      bss_0504,x                   ; 0x1168c $967C BC 04 05                ; Timer for Enemy
     BNE      L9695                     ; 0x1168f $967F D0 14                   ;
     CMP      #$02                      ; 0x11691 $9681 C9 02                   ;
     BNE      L968C                     ; 0x11693 $9683 D0 07                   ;
     LDA      #$FF                      ; 0x11695 $9685 A9 FF                   ; A = FF
-    STA      $81,x                     ; 0x11697 $9687 95 81                   ; Current Animation Frame for Enemy
+    STA      zp_81,x                     ; 0x11697 $9687 95 81                   ; Current Animation Frame for Enemy
     JMP      bank4_increase_animation_frame__and_set_timer_for_next_AI__maybe; 0x11699 $9689 4C 23 BC;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1396,7 +1396,7 @@ L968D     = * + $0001                                                          ;
     JSR      bank7_Display             ; 0x1169f $968F 20 11 EF                ; Display
     JSR      bank7_E563                     ; 0x116a2 $9692 20 63 E5                ;
 L9695:                                                                          ;
-    LDA      $80                       ; 0x116a5 $9695 A5 80                   ; Current Animation Frame for Link
+    LDA      zp_80                       ; 0x116a5 $9695 A5 80                   ; Current Animation Frame for Link
     CMP      #$08                      ; 0x116a7 $9697 C9 08                   ; 08 = Up Stab
     BNE      L96A0                     ; 0x116a9 $9699 D0 05                   ;
     LDA      #$F8                      ; 0x116ab $969B A9 F8                   ; A = F8
@@ -1405,21 +1405,21 @@ L96A0:                                                                          
     LDY      #$01                      ; 0x116b0 $96A0 A0 01                   ; Y = 01
     INX                                ; 0x116b2 $96A2 E8                      ;
     JSR      bank7_code51              ; 0x116b3 $96A3 20 7D F2                ;
-    LDX      $10                       ; 0x116b6 $96A6 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x116b6 $96A6 A6 10                   ;; used as monster x register ;draw boss hp bar
 L96A8:                                                                          ;
-    LDA      $1A,x                     ; 0x116b8 $96A8 B5 1A                   ;
+    LDA      zp_1A,x                     ; 0x116b8 $96A8 B5 1A                   ;
     CMP      #$02                      ; 0x116ba $96AA C9 02                   ;
     BCC      L96B1                     ; 0x116bc $96AC 90 03                   ;
     JMP      bank7_DD3D                     ; 0x116be $96AE 4C 3D DD                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L96B1:                                                                          ;
-    LDA      $C9                       ; 0x116c1 $96B1 A5 C9                   ;
+    LDA      zp_C9                       ; 0x116c1 $96B1 A5 C9                   ;
     AND      #$FC                      ; 0x116c3 $96B3 29 FC                   ; keep bits xxxx xx..
     BEQ      L96C0                     ; 0x116c5 $96B5 F0 09                   ;
-    LDA      $A8,x                     ; 0x116c7 $96B7 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x116c7 $96B7 B5 A8                   ;; Enemy State
     AND      #$0F                      ; 0x116c9 $96B9 29 0F                   ; keep bits .... xxxx
-    STA      $A8,x                     ; 0x116cb $96BB 95 A8                   ;; Enemy State
+    STA      zp_A8,x                     ; 0x116cb $96BB 95 A8                   ;; Enemy State
     JMP      bank7_DE6C                     ; 0x116cd $96BD 4C 6C DE                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1431,27 +1431,27 @@ L96C0:                                                                          
     JSR      bank7_EA32                     ; 0x116dc $96CC 20 32 EA                ;
     JSR      bank7_Link_Collision_Detection; 0x116df $96CF 20 C1 D6                ; Link Collision Detection
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x116e2 $96D2 20 91 DC; Determine Enemy Facing Direction
-    LDA      $A8,x                     ; 0x116e5 $96D5 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x116e5 $96D5 B5 A8                   ; Enemy State ?
     AND      #$08                      ; 0x116e7 $96D7 29 08                   ; keep bits .... x...
     BEQ      L96E0                     ; 0x116e9 $96D9 F0 05                   ;
     LDA      #$02                      ; 0x116eb $96DB A9 02                   ; A = 02
     STA      bss_057E,x                   ; 0x116ed $96DD 9D 7E 05                ; Enemy Y Velocity
 L96E0:                                                                          ;
-    LDA      $A8,x                     ; 0x116f0 $96E0 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x116f0 $96E0 B5 A8                   ; Enemy State ?
     AND      #$04                      ; 0x116f2 $96E2 29 04                   ; keep bits .... .x..
     BEQ      L9701                     ; 0x116f4 $96E4 F0 1B                   ;
     STA      bss_04A0,x                   ; 0x116f6 $96E6 9D A0 04                ;
     JSR      L9E17                     ; 0x116f9 $96E9 20 17 9E                ;
     JSR      bank7_Floor_Y_Position    ; 0x116fc $96EC 20 C1 DA                ; Floor Enemy Y Position
-    STA      $71,x                     ; 0x116ff $96EF 95 71                   ; Enemy X Velocity
-    LDA      $0F                       ; 0x11701 $96F1 A5 0F                   ;
+    STA      zp_71,x                     ; 0x116ff $96EF 95 71                   ; Enemy X Velocity
+    LDA      zp_0F                       ; 0x11701 $96F1 A5 0F                   ;
     ADC      #$1E                      ; 0x11703 $96F3 69 1E                   ;
     CMP      #$3C                      ; 0x11705 $96F5 C9 3C                   ;
     BCC      L9704                     ; 0x11707 $96F7 90 0B                   ;
 L96F9:                                                                          ;
-    LDY      $60,x                     ; 0x11709 $96F9 B4 60                   ; Enemy facing direction
+    LDY      zp_60,x                     ; 0x11709 $96F9 B4 60                   ; Enemy facing direction
     LDA      L9657,y                   ; 0x1170b $96FB B9 57 96                ;
-    STA      $71,x                     ; 0x1170e $96FE 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x1170e $96FE 95 71                   ; Enemy X Velocity
 L9700:                                                                          ;
     RTS                                ; 0x11710 $9700 60                      ;
                                                                                ;
@@ -1463,12 +1463,12 @@ L9701:                                                                          
 L9704:                                                                          ;
     LDA      bss_057E,x                   ; 0x11714 $9704 BD 7E 05                ; Enemy Y Velocity
     ORA      bss_0504,x                   ; 0x11717 $9707 1D 04 05                ; Timer for Enemy AI
-    ORA      $81,x                     ; 0x1171a $970A 15 81                   ; Current Animation Frame for Enemy
+    ORA      zp_81,x                     ; 0x1171a $970A 15 81                   ; Current Animation Frame for Enemy
     BNE      L9700                     ; 0x1171c $970C D0 F2                   ;
     LDA      rng_out,x                   ; 0x1171e $970E BD 1B 05                ; Randomizer
     AND      #$03                      ; 0x11721 $9711 29 03                   ;;Keep Bits:0000_0011
     BNE      L9723                     ; 0x11723 $9713 D0 0E                   ;
-    LDY      $A1,x                     ; 0x11725 $9715 B4 A1                   ; Enemy Code
+    LDY      zp_A1,x                     ; 0x11725 $9715 B4 A1                   ; Enemy Code
     CPY      #$23                      ; 0x11727 $9717 C0 23                   ; 23 = Blue Stalfos
     BNE      L9723                     ; 0x11729 $9719 D0 08                   ;
     LDA      #$CD                      ; 0x1172b $971B A9 CD                   ; Initial Y Velocity when Stalfos jumps
@@ -1480,7 +1480,7 @@ L9723:                                                                          
     CMP      #$03                      ; 0x11733 $9723 C9 03                   ;
     BNE      L972B                     ; 0x11735 $9725 D0 04                   ;
     LDA      #$FF                      ; 0x11737 $9727 A9 FF                   ; A = FF
-    STA      $81,x                     ; 0x11739 $9729 95 81                   ; Current Animation Frame for Enemy
+    STA      zp_81,x                     ; 0x11739 $9729 95 81                   ; Current Animation Frame for Enemy
 L972B:                                                                          ;
     JMP      bank4_increase_animation_frame__and_set_timer_for_next_AI__maybe; 0x1173b $972B 4C 23 BC;
                                                                                ;
@@ -1491,28 +1491,28 @@ L972B:                                                                          
     BEQ      L9738                     ; 0x11744 $9734 F0 02                   ;
     LDY      #$FC                      ; 0x11746 $9736 A0 FC                   ;;Y = #$fc 1111_1100
 L9738:                                                                          ;
-    STY      $77,x                     ; 0x11748 $9738 94 77                   ;; Projectile X Velocity
+    STY      zp_77,x                     ; 0x11748 $9738 94 77                   ;; Projectile X Velocity
     JMP      L9943                     ; 0x1174a $973A 4C 43 99                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L973D:                                                                          ;
     LDY      #$02                      ; 0x1174d $973D A0 02                   ; Y = 02
-    LDA      $77,x                     ; 0x1174f $973F B5 77                   ; Projectile X Velocity
+    LDA      zp_77,x                     ; 0x1174f $973F B5 77                   ; Projectile X Velocity
     BMI      L9744                     ; 0x11751 $9741 30 01                   ;
     DEY                                ; 0x11753 $9743 88                      ;
 L9744:                                                                          ;
     TYA                                ; 0x11754 $9744 98                      ;
-    CMP      $66,x                     ; 0x11755 $9745 D5 66                   ; Projectile facing direction
+    CMP      zp_66,x                     ; 0x11755 $9745 D5 66                   ; Projectile facing direction
     BNE      L9761                     ; 0x11757 $9747 D0 18                   ;
     BEQ      L975C                     ; 0x11759 $9749 F0 11                   ;
 L974B:                                                                          ;
     JSR      LBEF6                     ; 0x1175b $974B 20 F6 BE                ;
 L974E:                                                                          ;
-    LDA      $30,x                     ; 0x1175e $974E B5 30                   ; Projectile Y Position
+    LDA      zp_30,x                     ; 0x1175e $974E B5 30                   ; Projectile Y Position
     CMP      #$C5                      ; 0x11760 $9750 C9 C5                   ;
     BCC      L9759                     ; 0x11762 $9752 90 05                   ;
     LDA      #$F4                      ; 0x11764 $9754 A9 F4                   ; A = F4
-    STA      $87,x                     ; 0x11766 $9756 95 87                   ; Projectile Type
+    STA      zp_87,x                     ; 0x11766 $9756 95 87                   ; Projectile Type
     RTS                                ; 0x11768 $9758 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1530,25 +1530,25 @@ L9764:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9767:                                                                          ;
-    DEC      $77,x                     ; 0x11777 $9767 D6 77                   ; Projectile X Velocity
+    DEC      zp_77,x                     ; 0x11777 $9767 D6 77                   ; Projectile X Velocity
     BNE      L976E                     ; 0x11779 $9769 D0 03                   ;
     JMP      L995A                     ; 0x1177b $976B 4C 5A 99                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L976E:                                                                          ;
-    LDY      $97,x                     ; 0x1177e $976E B4 97                   ;
-    LDA      $30,x                     ; 0x11780 $9770 B5 30                   ; Projectile Y Position
+    LDY      zp_97,x                     ; 0x1177e $976E B4 97                   ;
+    LDA      zp_30,x                     ; 0x11780 $9770 B5 30                   ; Projectile Y Position
     STA      zp_00                     ; 0x11782 $9772 85 00                   ;
     LDA      #$02                      ; 0x11784 $9774 A9 02                   ; A = 02
-    STA      $02                       ; 0x11786 $9776 85 02                   ;
+    STA      zp_02                       ; 0x11786 $9776 85 02                   ;
     LSR                                ; 0x11788 $9778 4A                      ;
-    STA      $03                       ; 0x11789 $9779 85 03                   ;
+    STA      zp_03                       ; 0x11789 $9779 85 03                   ;
     LSR                                ; 0x1178b $977B 4A                      ;
-    STA      $C9                       ; 0x1178c $977C 85 C9                   ;
-    LDA      $54,x                     ; 0x1178e $977E B5 54                   ; Projectile X Position (low byte)
+    STA      zp_C9                       ; 0x1178c $977C 85 C9                   ;
+    LDA      zp_54,x                     ; 0x1178e $977E B5 54                   ; Projectile X Position (low byte)
     SBC      bss_072C                     ; 0x11790 $9780 ED 2C 07                ; Scrolling Offset Low Byte
-    STA      $01                       ; 0x11793 $9783 85 01                   ;
-    LDA      $77,x                     ; 0x11795 $9785 B5 77                   ; Projectile X Velocity
+    STA      zp_01                       ; 0x11793 $9783 85 01                   ;
+    LDA      zp_77,x                     ; 0x11795 $9785 B5 77                   ; Projectile X Velocity
     LDX      #$00                      ; 0x11797 $9787 A2 00                   ; X = 00
     CMP      #$08                      ; 0x11799 $9789 C9 08                   ;
     BCS      L978F                     ; 0x1179b $978B B0 02                   ;
@@ -1590,21 +1590,21 @@ bank4_code4:                                                                    
     LSR                                ; 0x117c7 $97B7 4A                      ;
     LSR                                ; 0x117c8 $97B8 4A                      ;
     AND      #$03                      ; 0x117c9 $97B9 29 03                   ; keep bits .... ..xx
-    LDY      $66,x                     ; 0x117cb $97BB B4 66                   ;; Projectile facing direction
+    LDY      zp_66,x                     ; 0x117cb $97BB B4 66                   ;; Projectile facing direction
     DEY                                ; 0x117cd $97BD 88                      ;
     BNE      L97C2                     ; 0x117ce $97BE D0 02                   ;
     EOR      #$03                      ; 0x117d0 $97C0 49 03                   ; flip bits .... ..xx
 L97C2:                                                                          ;
     TAY                                ; 0x117d2 $97C2 A8                      ;
     LDA      bank4_related_to_Guma,y   ; 0x117d3 $97C3 B9 B1 97                ; refer to table at $117B1
-    LDY      $97,x                     ; 0x117d6 $97C6 B4 97                   ;
+    LDY      zp_97,x                     ; 0x117d6 $97C6 B4 97                   ;
     STA      bss_0202,y                   ; 0x117d8 $97C8 99 02 02                ;
     RTS                                ; 0x117db $97CB 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Tinsuit:                                                  ;
     INC      zp_00                     ; 0x117dc $97CC E6 00                   ;
-    LDA      $AF,x                     ; 0x117de $97CE B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x117de $97CE B5 AF                   ;; Various enemy state variables
     LDX      #$7A                      ; 0x117e0 $97D0 A2 7A                   ; X = 7A
     LSR                                ; 0x117e2 $97D2 4A                      ;
     BCC      L97D7                     ; 0x117e3 $97D3 90 02                   ;
@@ -1619,7 +1619,7 @@ bank4_Table_for_Guma:                                                           
 .byt    $F4,$0C,$40,$00                ; 0x117ed $97DD F4 0C 40 00             ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Guma:                                                     ;
-    LDA      $A8,x                     ; 0x117f1 $97E1 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x117f1 $97E1 B5 A8                   ; Enemy State ?
     LDX      #$22                      ; 0x117f3 $97E3 A2 22                   ; X = 22
     AND      #$04                      ; 0x117f5 $97E5 29 04                   ; keep bits .... .x..
     BEQ      L97F1                     ; 0x117f7 $97E7 F0 08                   ;
@@ -1632,16 +1632,16 @@ L97F1:                                                                          
     JSR      bank7_F0D7                     ; 0x11804 $97F4 20 D7 F0                ;
     LDA      bss_0504,x                   ; 0x11807 $97F7 BD 04 05                ; Timer for Enemy
     BEQ      L9814                     ; 0x1180a $97FA F0 18                   ;
-    LDA      $C9                       ; 0x1180c $97FC A5 C9                   ;
+    LDA      zp_C9                       ; 0x1180c $97FC A5 C9                   ;
     BNE      L9814                     ; 0x1180e $97FE D0 14                   ;
-    LDA      $2A,x                     ; 0x11810 $9800 B5 2A                   ; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x11810 $9800 B5 2A                   ; Enemy Y Position
     STA      zp_00                     ; 0x11812 $9802 85 00                   ;
-    LDA      $60,x                     ; 0x11814 $9804 B5 60                   ; Enemy facing direction
+    LDA      zp_60,x                     ; 0x11814 $9804 B5 60                   ; Enemy facing direction
     TAX                                ; 0x11816 $9806 AA                      ;
-    LDA      $CD                       ; 0x11817 $9807 A5 CD                   ;
+    LDA      zp_CD                       ; 0x11817 $9807 A5 CD                   ;
     CLC                                ; 0x11819 $9809 18                      ;
     ADC      L97DC,x                   ; 0x1181a $980A 7D DC 97                ;
-    STA      $01                       ; 0x1181d $980D 85 01                   ;
+    STA      zp_01                       ; 0x1181d $980D 85 01                   ;
     LDX      #$2A                      ; 0x1181f $980F A2 2A                   ; X = 2A
     JSR      bank7_F0D7                     ; 0x11821 $9811 20 D7 F0                ;
 L9814:                                                                          ;
@@ -1657,7 +1657,7 @@ L981A:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Horsehead:                                                ;
     LDY      #$50                      ; 0x1182d $981D A0 50                   ; Y = 50
-    LDA      $AF,x                     ; 0x1182f $981F B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1182f $981F B5 AF                   ;; Various enemy state variables
     LDX      #$58                      ; 0x11831 $9821 A2 58                   ; X = 58
     AND      #$7F                      ; 0x11833 $9823 29 7F                   ; keep bits .xxx xxxx
     BEQ      L9832                     ; 0x11835 $9825 F0 0B                   ;
@@ -1671,11 +1671,11 @@ L9832:                                                                          
     JSR      bank7_F1F4                     ; 0x11842 $9832 20 F4 F1                ;
     JSR      bank7_F1F4                     ; 0x11845 $9835 20 F4 F1                ;
     JSR      bank7_F0D7                     ; 0x11848 $9838 20 D7 F0                ;
-    LDA      $C9                       ; 0x1184b $983B A5 C9                   ;
+    LDA      zp_C9                       ; 0x1184b $983B A5 C9                   ;
     BNE      L9870                     ; 0x1184d $983D D0 31                   ;
-    LDY      $81,x                     ; 0x1184f $983F B4 81                   ; Current Animation Frame for Enemy
+    LDY      zp_81,x                     ; 0x1184f $983F B4 81                   ; Current Animation Frame for Enemy
     BEQ      L9870                     ; 0x11851 $9841 F0 2D                   ;
-    LDA      $2A,x                     ; 0x11853 $9843 B5 2A                   ; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x11853 $9843 B5 2A                   ; Enemy Y Position
     CLC                                ; 0x11855 $9845 18                      ;
 L9847     = * + $0001                                                          ;
     ADC      #$10                      ; 0x11856 $9846 69 10                   ;
@@ -1684,20 +1684,20 @@ L9847     = * + $0001                                                          ;
     LDX      L9814,y                   ; 0x1185b $984B BE 14 98                ;
     LDY      #$58                      ; 0x1185e $984E A0 58                   ; Y = 58
     JSR      bank7_F1F4                     ; 0x11860 $9850 20 F4 F1                ;
-    STX      $D9                       ; 0x11863 $9853 86 D9                   ;; Thunder Spell modifier ?
-    LDX      $10                       ; 0x11865 $9855 A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDA      $60,x                     ; 0x11867 $9857 B5 60                   ; Enemy facing direction
+    STX      zp_D9                       ; 0x11863 $9853 86 D9                   ;; Thunder Spell modifier ?
+    LDX      zp_10                       ; 0x11865 $9855 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_60,x                     ; 0x11867 $9857 B5 60                   ; Enemy facing direction
     LSR                                ; 0x11869 $9859 4A                      ;
     ASL                                ; 0x1186a $985A 0A                      ;
-    ADC      $81,x                     ; 0x1186b $985B 75 81                   ; Current Animation Frame for Enemy
+    ADC      zp_81,x                     ; 0x1186b $985B 75 81                   ; Current Animation Frame for Enemy
     TAY                                ; 0x1186d $985D A8                      ;
     PLA                                ; 0x1186e $985E 68                      ;
     STA      zp_00                     ; 0x1186f $985F 85 00                   ;
-    LDA      $CD                       ; 0x11871 $9861 A5 CD                   ;
+    LDA      zp_CD                       ; 0x11871 $9861 A5 CD                   ;
     CLC                                ; 0x11873 $9863 18                      ;
     ADC      L9816,y                   ; 0x11874 $9864 79 16 98                ;
     BANk4_table4 = * + $0001                                                   ;
-    STA      $01                       ; 0x11877 $9867 85 01                   ;
+    STA      zp_01                       ; 0x11877 $9867 85 01                   ;
 .byt    $A6                            ; 0x11879 $9869 A6                      ;
 ; ---------------------------------------------------------------------------- ;
 bank4_code6:                                                                    ;
@@ -1705,17 +1705,17 @@ bank4_code6:                                                                    
     JSR      bank7_F0D7                     ; 0x1187d $986D 20 D7 F0                ;
 L9870:                                                                          ;
     LDA      #$58                      ; 0x11880 $9870 A9 58                   ; A = 58
-    STA      $91,x                     ; 0x11882 $9872 95 91                   ;
+    STA      zp_91,x                     ; 0x11882 $9872 95 91                   ;
     LDA      $6E3D                     ; 0x11884 $9874 AD 3D 6E                ;
     BMI      L98A9                     ; 0x11887 $9877 30 30                   ;
-    LDA      $60,x                     ; 0x11889 $9879 B5 60                   ; Enemy facing direction
+    LDA      zp_60,x                     ; 0x11889 $9879 B5 60                   ; Enemy facing direction
     PHA                                ; 0x1188b $987B 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x1188c $987C 20 91 DC; Determine Enemy Facing Direction
     PLA                                ; 0x1188f $987F 68                      ;
-    STA      $60,x                     ; 0x11890 $9880 95 60                   ; Enemy facing direction
+    STA      zp_60,x                     ; 0x11890 $9880 95 60                   ; Enemy facing direction
     INY                                ; 0x11892 $9882 C8                      ;
     TYA                                ; 0x11893 $9883 98                      ;
-    CMP      $60,x                     ; 0x11894 $9884 D5 60                   ;; Enemy facing direction
+    CMP      zp_60,x                     ; 0x11894 $9884 D5 60                   ;; Enemy facing direction
     BEQ      L98A9                     ; 0x11896 $9886 F0 21                   ;
     LDA      bss_0253                     ; 0x11898 $9888 AD 53 02                ;
     PHA                                ; 0x1189b $988B 48                      ;
@@ -1741,13 +1741,13 @@ bank4_Enemy_Init_Routines_Bubble__Slow:                                         
 bank4_Enemy_Init_Routines_Bubble__Fast:                                         ;
     LDA      #$E0                      ; 0x118be $98AE A9 E0                   ; A = E0 (Fast Bubble Velocity)
 L98B0:                                                                          ;
-    STA      $71,x                     ; 0x118c0 $98B0 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x118c0 $98B0 95 71                   ; Enemy X Velocity
     STA      bss_057E,x                   ; 0x118c2 $98B2 9D 7E 05                ; Enemy Y Velocity
     RTS                                ; 0x118c5 $98B5 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Init_Routines_Tinsuit:                                              ;
-    ASL      $71,x                     ; 0x118c6 $98B6 16 71                   ; Enemy X Velocity
+    ASL      zp_71,x                     ; 0x118c6 $98B6 16 71                   ; Enemy X Velocity
     RTS                                ; 0x118c8 $98B8 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1764,19 +1764,19 @@ L98C6:                                                                          
 L98C9:                                                                          ;
     AND      #$07                      ; 0x118d9 $98C9 29 07                   ; keep bits .... .xxx
     BNE      L98D9                     ; 0x118db $98CB D0 0C                   ;
-    LDA      $77,x                     ; 0x118dd $98CD B5 77                   ; Projectile X Velocity
+    LDA      zp_77,x                     ; 0x118dd $98CD B5 77                   ; Projectile X Velocity
     BEQ      L98D9                     ; 0x118df $98CF F0 08                   ;
     BPL      L98D7                     ; 0x118e1 $98D1 10 04                   ;
-    INC      $77,x                     ; 0x118e3 $98D3 F6 77                   ; Projectile X Velocity
-    INC      $77,x                     ; 0x118e5 $98D5 F6 77                   ;; Projectile X Velocity
+    INC      zp_77,x                     ; 0x118e3 $98D3 F6 77                   ; Projectile X Velocity
+    INC      zp_77,x                     ; 0x118e5 $98D5 F6 77                   ;; Projectile X Velocity
 L98D7:                                                                          ;
-    DEC      $77,x                     ; 0x118e7 $98D7 D6 77                   ;; Projectile X Velocity
+    DEC      zp_77,x                     ; 0x118e7 $98D7 D6 77                   ;; Projectile X Velocity
 L98D9:                                                                          ;
     JSR      bank7_EA14                     ; 0x118e9 $98D9 20 14 EA                ;
     BCC      L98E9                     ; 0x118ec $98DC 90 0B                   ;
-    LDA      $30,x                     ; 0x118ee $98DE B5 30                   ; Projectile Y Position
+    LDA      zp_30,x                     ; 0x118ee $98DE B5 30                   ; Projectile Y Position
     AND      #$F0                      ; 0x118f0 $98E0 29 F0                   ; keep bits xxxx ....
-    STA      $30,x                     ; 0x118f2 $98E2 95 30                   ;; Projectile Y Position
+    STA      zp_30,x                     ; 0x118f2 $98E2 95 30                   ;; Projectile Y Position
     LDA      #$FF                      ; 0x118f4 $98E4 A9 FF                   ; A = FF
     STA      bss_0584,x                   ; 0x118f6 $98E6 9D 84 05                ; Projectile Y Velocity
 L98E9:                                                                          ;
@@ -1806,24 +1806,24 @@ L9903:                                                                          
     JSR      LB869                     ; 0x1191b $990B 20 69 B8                ;
     BCS      L993C                     ; 0x1191e $990E B0 2C                   ;
     LDX      zp_00                     ; 0x11920 $9910 A6 00                   ;
-    LDY      $10                       ; 0x11922 $9912 A4 10                   ;; used as monster x register ;draw boss hp bar
-    ASL      $C2,x                     ; 0x11924 $9914 16 C2                   ; Double HP
+    LDY      zp_10                       ; 0x11922 $9912 A4 10                   ;; used as monster x register ;draw boss hp bar
+    ASL      zp_C2,x                     ; 0x11924 $9914 16 C2                   ; Double HP
     LDA      #$04                      ; 0x11926 $9916 A9 04                   ; A = 04				;SPAWN BOT FROM DRIPPING COLUMN
-    STA      $A1,x                     ; 0x11928 $9918 95 A1                   ;; Enemy Code
-    LDA      $30,y                     ; 0x1192a $991A B9 30 00                ;
+    STA      zp_A1,x                     ; 0x11928 $9918 95 A1                   ;; Enemy Code
+    LDA      zp_30,y                     ; 0x1192a $991A B9 30 00                ;
     AND      #$F0                      ; 0x1192d $991D 29 F0                   ; keep bits xxxx ....
-    STA      $2A,x                     ; 0x1192f $991F 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x1192f $991F 95 2A                   ;; Enemy Y Position
     LDA      #$E0                      ; 0x11931 $9921 A9 E0                   ; A = E0
 L9925     = * + $0002                                                          ;
     STA      bss_057E,x                   ; 0x11933 $9923 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
-    LDA      $54,y                     ; 0x11936 $9926 B9 54 00                ;
-    STA      $4E,x                     ; 0x11939 $9929 95 4E                   ;; Enemy X Position (low byte)
-    LDA      $42,y                     ; 0x1193b $992B B9 42 00                ;
-    STA      $3C,x                     ; 0x1193e $992E 95 3C                   ;; Enemy X Position (high byte)
+    LDA      zp_54,y                     ; 0x11936 $9926 B9 54 00                ;
+    STA      zp_4E,x                     ; 0x11939 $9929 95 4E                   ;; Enemy X Position (low byte)
+    LDA      zp_42,y                     ; 0x1193b $992B B9 42 00                ;
+    STA      zp_3C,x                     ; 0x1193e $992E 95 3C                   ;; Enemy X Position (high byte)
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x11940 $9930 20 91 DC;
     LDA      L9C80,y                   ; 0x11943 $9933 B9 80 9C                ; refer to table at $11C80
-    STA      $71,x                     ; 0x11946 $9936 95 71                   ;; Enemy X Velocity
-    LDX      $10                       ; 0x11948 $9938 A6 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_71,x                     ; 0x11946 $9936 95 71                   ;; Enemy X Velocity
+    LDX      zp_10                       ; 0x11948 $9938 A6 10                   ;; used as monster x register ;draw boss hp bar
     BPL      L995A                     ; 0x1194a $993A 10 1E                   ;
 L993C:                                                                          ;
     LDA      #$F2                      ; 0x1194c $993C A9 F2                   ; A = F2
@@ -1832,12 +1832,12 @@ L9940:                                                                          
     INC      bss_0584,x                   ; 0x11950 $9940 FE 84 05                ; Projectile Y Velocity
 L9943:                                                                          ;
     JSR      bank7_DED4                     ; 0x11953 $9943 20 D4 DE                ;
-    LDA      $CA                       ; 0x11956 $9946 A5 CA                   ;
+    LDA      zp_CA                       ; 0x11956 $9946 A5 CA                   ;
     AND      #$FC                      ; 0x11958 $9948 29 FC                   ; keep bits xxxx xx..
     BEQ      L995F                     ; 0x1195a $994A F0 13                   ;
     AND      #$F0                      ; 0x1195c $994C 29 F0                   ; keep bits xxxx ....
     BNE      L995A                     ; 0x1195e $994E D0 0A                   ;
-    LDY      $87,x                     ; 0x11960 $9950 B4 87                   ;; Projectile Type
+    LDY      zp_87,x                     ; 0x11960 $9950 B4 87                   ;; Projectile Type
     CPY      #$06                      ; 0x11962 $9952 C0 06                   ;
     BEQ      L995E                     ; 0x11964 $9954 F0 08                   ;
     CPY      #$08                      ; 0x11966 $9956 C0 08                   ;
@@ -1845,7 +1845,7 @@ L9943:                                                                          
 L995A:                                                                          ;
     LDA      #$00                      ; 0x1196a $995A A9 00                   ; A = 00
 L995C:                                                                          ;
-    STA      $87,x                     ; 0x1196c $995C 95 87                   ;; Projectile Type
+    STA      zp_87,x                     ; 0x1196c $995C 95 87                   ;; Projectile Type
 L995E:                                                                          ;
     RTS                                ; 0x1196e $995E 60                      ;
                                                                                ;
@@ -1861,27 +1861,27 @@ bank4_table16:                                                                  
 .byt    $40,$00                        ; 0x11978 $9968 40 00                   ;
 ; ---------------------------------------------------------------------------- ;
 bank4_code_996A:                                                                ;
-    LDA      $87,x                     ; 0x1197a $996A B5 87                   ;; Projectile Type
+    LDA      zp_87,x                     ; 0x1197a $996A B5 87                   ;; Projectile Type
     PHA                                ; 0x1197c $996C 48                      ;
     ASL                                ; 0x1197d $996D 0A                      ;
     TAY                                ; 0x1197e $996E A8                      ;
     LDA      $6EC0,y                   ; 0x1197f $996F B9 C0 6E                ;
     STA      zp_0E                     ; 0x11982 $9972 85 0E                   ;
     LDA      $6EC1,y                   ; 0x11984 $9974 B9 C1 6E                ;
-    STA      $0F                       ; 0x11987 $9977 85 0F                   ;
-    LDY      $97,x                     ; 0x11989 $9979 B4 97                   ;
-    LDA      $30,x                     ; 0x1198b $997B B5 30                   ;; Projectile Y Position
+    STA      zp_0F                       ; 0x11987 $9977 85 0F                   ;
+    LDY      zp_97,x                     ; 0x11989 $9979 B4 97                   ;
+    LDA      zp_30,x                     ; 0x1198b $997B B5 30                   ;; Projectile Y Position
     STA      bss_0200,y                   ; 0x1198d $997D 99 00 02                ;
-    LDA      $CE                       ; 0x11990 $9980 A5 CE                   ;
+    LDA      zp_CE                       ; 0x11990 $9980 A5 CE                   ;
     STA      bss_0203,y                   ; 0x11992 $9982 99 03 02                ;
     PLA                                ; 0x11995 $9985 68                      ;
     TAY                                ; 0x11996 $9986 A8                      ;
     LDA      $6EAD,y                   ; 0x11997 $9987 B9 AD 6E                ;
     PHA                                ; 0x1199a $998A 48                      ;
     LDA      $6EB6,y                   ; 0x1199b $998B B9 B6 6E                ;
-    LDY      $66,x                     ; 0x1199e $998E B4 66                   ;; Projectile facing direction
+    LDY      zp_66,x                     ; 0x1199e $998E B4 66                   ;; Projectile facing direction
     ORA      L9967,y                   ; 0x119a0 $9990 19 67 99                ;
-    LDY      $97,x                     ; 0x119a3 $9993 B4 97                   ;
+    LDY      zp_97,x                     ; 0x119a3 $9993 B4 97                   ;
     STA      bss_0202,y                   ; 0x119a5 $9995 99 02 02                ;
     PLA                                ; 0x119a8 $9998 68                      ;
     STA      bss_0201,y                   ; 0x119a9 $9999 99 01 02                ;
@@ -1903,14 +1903,14 @@ L99AD:                                                                          
 L99B2:                                                                          ;
     AND      frame_counter                       ; 0x119c2 $99B2 25 12                   ;; Frame Counter (ascending)
     BEQ      L99BE                     ; 0x119c4 $99B4 F0 08                   ;
-    LDY      $97,x                     ; 0x119c6 $99B6 B4 97                   ;
+    LDY      zp_97,x                     ; 0x119c6 $99B6 B4 97                   ;
     LDA      #$F8                      ; 0x119c8 $99B8 A9 F8                   ; A = F8
     STA      bss_0200,y                   ; 0x119ca $99BA 99 00 02                ;
     RTS                                ; 0x119cd $99BD 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L99BE:                                                                          ;
-    LDY      $97,x                     ; 0x119ce $99BE B4 97                   ;
+    LDY      zp_97,x                     ; 0x119ce $99BE B4 97                   ;
     LDX      #$01                      ; 0x119d0 $99C0 A2 01                   ; X = 01
     LDA      frame_counter                       ; 0x119d2 $99C2 A5 12                   ;; Frame Counter (ascending)
     AND      #$04                      ; 0x119d4 $99C4 29 04                   ; keep bits .... .x..
@@ -1919,7 +1919,7 @@ L99BE:                                                                          
 L99CA:                                                                          ;
     TXA                                ; 0x119da $99CA 8A                      ;
     STA      bss_0202,y                   ; 0x119db $99CB 99 02 02                ;
-    LDX      $10                       ; 0x119de $99CE A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x119de $99CE A6 10                   ;; used as monster x register ;draw boss hp bar
 L99D0:                                                                          ;
     RTS                                ; 0x119e0 $99D0 60                      ;
                                                                                ;
@@ -1929,7 +1929,7 @@ bank4_Enemy_Routines_Bubble__Slow_Fast:                                         
     JSR      bank7_Simple_Horizontal_Movement; 0x119e4 $99D4 20 B8 DE              ; Enemy Horizontal Movement
     JSR      bank7_Simple_Vertical_Movement; 0x119e7 $99D7 20 C8 DE                ; Enemy Vertical Movement
     JSR      bank7_DE3D                     ; 0x119ea $99DA 20 3D DE                ; Enemy Display ?
-    LDA      $A8,x                     ; 0x119ed $99DD B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x119ed $99DD B5 A8                   ; Enemy State ?
     AND      #$10                      ; 0x119ef $99DF 29 10                   ; keep bits ...x ....
     BEQ      L99F0                     ; 0x119f1 $99E1 F0 0D                   ; if Not 0, skip magic stealing
     LDA      player_magic                     ; 0x119f3 $99E3 AD 73 07                ; Current Magic left in meter
@@ -1945,10 +1945,10 @@ L99F0:                                                                          
     ORA      #$80                      ; 0x11a03 $99F3 09 80                   ; set bits  x... ....
     STA      bss_074F                     ; 0x11a05 $99F5 8D 4F 07                ;; Related to Pause Pane
     JSR      bank7_Link_Collision_Detection; 0x11a08 $99F8 20 C1 D6                ; Link Collision Detection
-    LDA      $C9                       ; 0x11a0b $99FB A5 C9                   ;
+    LDA      zp_C9                       ; 0x11a0b $99FB A5 C9                   ;
     AND      #$0C                      ; 0x11a0d $99FD 29 0C                   ; keep bits .... xx..
     BNE      L9A07                     ; 0x11a0f $99FF D0 06                   ;
-    LDA      $A8,x                     ; 0x11a11 $9A01 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x11a11 $9A01 B5 A8                   ; Enemy State ?
 L9A04     = * + $0001                                                          ;
     AND      #$03                      ; 0x11a13 $9A03 29 03                   ; keep bits .... ..xx
     BEQ      L9A0D                     ; 0x11a15 $9A05 F0 06                   ;
@@ -1956,10 +1956,10 @@ L9A07:                                                                          
     JSR      bank7_Change_Enemy_Facing_Direction_and_X_Velocity; 0x11a17 $9A07 20 EB E8;
     JSR      bank7_Simple_Horizontal_Movement; 0x11a1a $9A0A 20 B8 DE              ;
 L9A0D:                                                                          ;
-    LDA      $C9                       ; 0x11a1d $9A0D A5 C9                   ;
+    LDA      zp_C9                       ; 0x11a1d $9A0D A5 C9                   ;
     AND      #$F0                      ; 0x11a1f $9A0F 29 F0                   ; keep bits xxxx ....
     BNE      L9A19                     ; 0x11a21 $9A11 D0 06                   ;
-    LDA      $A8,x                     ; 0x11a23 $9A13 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x11a23 $9A13 B5 A8                   ;; Enemy State
     AND      #$0C                      ; 0x11a25 $9A15 29 0C                   ; keep bits .... xx..
     BEQ      L9A27                     ; 0x11a27 $9A17 F0 0E                   ;
 L9A19:                                                                          ;
@@ -1976,12 +1976,12 @@ L9A27:                                                                          
 bank4_Enemy_Init_Routines_Generator:                                            ;
     LDY      #$05                      ; 0x11a38 $9A28 A0 05                   ; Y = 05
 L9A2A:                                                                          ;
-    CPY      $10                       ; 0x11a3a $9A2A C4 10                   ;; used as monster x register ;draw boss hp bar
+    CPY      zp_10                       ; 0x11a3a $9A2A C4 10                   ;; used as monster x register ;draw boss hp bar
     BEQ      L9A3A                     ; 0x11a3c $9A2C F0 0C                   ;
-    LDA      $B6,y                     ; 0x11a3e $9A2E B9 B6 00                ; Generated Enemy Slot
+    LDA      zp_B6,y                     ; 0x11a3e $9A2E B9 B6 00                ; Generated Enemy Slot
     BEQ      L9A3A                     ; 0x11a41 $9A31 F0 07                   ;
-    LDA      $A1,y                     ; 0x11a43 $9A33 B9 A1 00                ; Enemy Code
-    CMP      $A1,x                     ; 0x11a46 $9A36 D5 A1                   ;; Enemy Code
+    LDA      zp_A1,y                     ; 0x11a43 $9A33 B9 A1 00                ; Enemy Code
+    CMP      zp_A1,x                     ; 0x11a46 $9A36 D5 A1                   ;; Enemy Code
     BEQ      L9A3E                     ; 0x11a48 $9A38 F0 04                   ;
 L9A3A:                                                                          ;
     DEY                                ; 0x11a4a $9A3A 88                      ;
@@ -1993,7 +1993,7 @@ L9A3E:                                                                          
     TYA                                ; 0x11a4e $9A3E 98                      ;
     TAX                                ; 0x11a4f $9A3F AA                      ;
     JSR      bank7_DD3D                     ; 0x11a50 $9A40 20 3D DD                ;
-    LDX      $10                       ; 0x11a53 $9A43 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x11a53 $9A43 A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x11a55 $9A45 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2004,19 +2004,19 @@ bank4_9A46:                                                                     
     JSR      bank7_Spawn_New_Projectile; 0x11a5b $9A4B 20 CE DB                ; Spawn New Projectile
     BCS      L9A72                     ; 0x11a5e $9A4E B0 22                   ;
     LDA      #$0C                      ; 0x11a60 $9A50 A9 0C                   ; A = 0C
-    STA      $87,y                     ; 0x11a62 $9A52 99 87 00                ; Projectile Type
+    STA      zp_87,y                     ; 0x11a62 $9A52 99 87 00                ; Projectile Type
     LDA      rng_out,x                   ; 0x11a65 $9A55 BD 1B 05                ; Randomizer
     AND      #$1F                      ; 0x11a68 $9A58 29 1F                   ; keep bits ...x xxxx
-    ADC      $2A,x                     ; 0x11a6a $9A5A 75 2A                   ; Enemy Y Position
+    ADC      zp_2A,x                     ; 0x11a6a $9A5A 75 2A                   ; Enemy Y Position
     SBC      #$06                      ; 0x11a6c $9A5C E9 06                   ;
-    STA      $30,y                     ; 0x11a6e $9A5E 99 30 00                ; Projectile Y Position
+    STA      zp_30,y                     ; 0x11a6e $9A5E 99 30 00                ; Projectile Y Position
     LDA      rng_alt,x                   ; 0x11a71 $9A61 BD 1C 05                ; Randomizer
     AND      #$0F                      ; 0x11a74 $9A64 29 0F                   ; keep bits .... xxxx
     SBC      #$08                      ; 0x11a76 $9A66 E9 08                   ;
-    ADC      $4E,x                     ; 0x11a78 $9A68 75 4E                   ; Enemy X Position (low byte)
-    STA      $54,y                     ; 0x11a7a $9A6A 99 54 00                ; Projectile X Position (low byte)
+    ADC      zp_4E,x                     ; 0x11a78 $9A68 75 4E                   ; Enemy X Position (low byte)
+    STA      zp_54,y                     ; 0x11a7a $9A6A 99 54 00                ; Projectile X Position (low byte)
     LDA      #$10                      ; 0x11a7d $9A6D A9 10                   ; A = 10
-    STA      $77,y                     ; 0x11a7f $9A6F 99 77 00                ; Projectile X Velocity
+    STA      zp_77,y                     ; 0x11a7f $9A6F 99 77 00                ; Projectile X Velocity
 L9A72:                                                                          ;
     RTS                                ; 0x11a82 $9A72 60                      ;
                                                                                ;
@@ -2024,32 +2024,32 @@ L9A72:                                                                          
 bank4_Enemy_Init_Routines_Crystal_Slot_and_Crystal:                             ;
     LDX      #$03                      ; 0x11a83 $9A73 A2 03                   ; X = 03
     JSR      bank7_C2A6                     ; 0x11a85 $9A75 20 A6 C2                ;
-    LDX      $10                       ; 0x11a88 $9A78 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x11a88 $9A78 A6 10                   ;; used as monster x register ;draw boss hp bar
     CMP      #$00                      ; 0x11a8a $9A7A C9 00                   ;
     BNE      L9A82                     ; 0x11a8c $9A7C D0 04                   ;
     LDA      #$15                      ; 0x11a8e $9A7E A9 15                   ; A = 15
-    STA      $A1,x                     ; 0x11a90 $9A80 95 A1                   ;; Enemy Code
+    STA      zp_A1,x                     ; 0x11a90 $9A80 95 A1                   ;; Enemy Code
 L9A82:                                                                          ;
     LDA      #$62                      ; 0x11a92 $9A82 A9 62                   ; A = 62
-    STA      $2A,x                     ; 0x11a94 $9A84 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x11a94 $9A84 95 2A                   ;; Enemy Y Position
     LDA      #$7C                      ; 0x11a96 $9A86 A9 7C                   ; A = 7C
-    STA      $4E,x                     ; 0x11a98 $9A88 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x11a98 $9A88 95 4E                   ;; Enemy X Position (low byte)
     RTS                                ; 0x11a9a $9A8A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Crystal:                                                   ;
-    LDA      $C9                       ; 0x11a9b $9A8B A5 C9                   ;
+    LDA      zp_C9                       ; 0x11a9b $9A8B A5 C9                   ;
     AND      #$08                      ; 0x11a9d $9A8D 29 08                   ; keep bits .... x...
     BNE      L9AA9                     ; 0x11a9f $9A8F D0 18                   ;
-    LDY      $91,x                     ; 0x11aa1 $9A91 B4 91                   ;
-    LDA      $2A,x                     ; 0x11aa3 $9A93 B5 2A                   ; Enemy Y Position
+    LDY      zp_91,x                     ; 0x11aa1 $9A91 B4 91                   ;
+    LDA      zp_2A,x                     ; 0x11aa3 $9A93 B5 2A                   ; Enemy Y Position
     STA      bss_0200,y                   ; 0x11aa5 $9A95 99 00 02                ;
     LDA      #$3D                      ; 0x11aa8 $9A98 A9 3D                   ; A = 3D
     STA      bss_0201,y                   ; 0x11aaa $9A9A 99 01 02                ;
     LDA      frame_counter                       ; 0x11aad $9A9D A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x11aaf $9A9F 29 03                   ; keep bits .... ..xx
     STA      bss_0202,y                   ; 0x11ab1 $9AA1 99 02 02                ;
-    LDA      $CD                       ; 0x11ab4 $9AA4 A5 CD                   ;
+    LDA      zp_CD                       ; 0x11ab4 $9AA4 A5 CD                   ;
     STA      bss_0203,y                   ; 0x11ab6 $9AA6 99 03 02                ;
 L9AA9:                                                                          ;
     RTS                                ; 0x11ab9 $9AA9 60                      ;
@@ -2065,11 +2065,11 @@ bank4_table5:                                                                   
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Crystal_Slot:                                              ;
     JSR      bank4_code8               ; 0x11ae4 $9AD4 20 95 9B                ;
-    LDA      $81,x                     ; 0x11ae7 $9AD7 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x11ae7 $9AD7 B5 81                   ;; Current Animation Frame for Enemys
     BEQ      L9ADE                     ; 0x11ae9 $9AD9 F0 03                   ;
     JSR      bank4_Enemy_Routines_Crystal; 0x11aeb $9ADB 20 8B 9A                ;
 L9ADE:                                                                          ;
-    LDA      $AF,x                     ; 0x11aee $9ADE B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x11aee $9ADE B5 AF                   ;; Various enemy state variables
     BANk4_Pointer_table_for_Crystal_Placement_Animation_Routines = * + $0001   ;
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x11af0 $9AE0 20 85 D3;
 .word    bank4_Related_to_placing_crystal_onto_statue; 0x11af3 $9AE3 EB 9A     ;
@@ -2078,28 +2078,28 @@ L9ADE:                                                                          
 .word    L9B56                         ; 0x11af9 $9AE9 56 9B                   ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Related_to_placing_crystal_onto_statue:                                   ;
-    LDA      $C9                       ; 0x11afb $9AEB A5 C9                   ;
+    LDA      zp_C9                       ; 0x11afb $9AEB A5 C9                   ;
     BNE      L9B2A                     ; 0x11afd $9AED D0 3B                   ;
     LDA      player_gems_remain                     ; 0x11aff $9AEF AD 94 07                ; Number of Crystals left
     BEQ      L9B2A                     ; 0x11b02 $9AF2 F0 36                   ;
     JSR      bank7_E4D9                     ; 0x11b04 $9AF4 20 D9 E4                ;
-    LDA      $A8,x                     ; 0x11b07 $9AF7 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x11b07 $9AF7 B5 A8                   ; Enemy State ?
     AND      #$10                      ; 0x11b09 $9AF9 29 10                   ; keep bits ...x ....
     BEQ      L9B2A                     ; 0x11b0b $9AFB F0 2D                   ;
-    LDA      $A7                       ; 0x11b0d $9AFD A5 A7                   ; Link State
+    LDA      zp_A7                       ; 0x11b0d $9AFD A5 A7                   ; Link State
     AND      #$04                      ; 0x11b0f $9AFF 29 04                   ; keep bits .... .x..
     BEQ      L9B2A                     ; 0x11b11 $9B01 F0 27                   ;
-    INC      $AF,x                     ; 0x11b13 $9B03 F6 AF                   ; Various enemy state variables
-    INC      $DE                       ; 0x11b15 $9B05 E6 DE                   ; Spell Spell modifier (and more)
+    INC      zp_AF,x                     ; 0x11b13 $9B03 F6 AF                   ; Various enemy state variables
+    INC      zp_DE                       ; 0x11b15 $9B05 E6 DE                   ; Spell Spell modifier (and more)
     LDA      #$03                      ; 0x11b17 $9B07 A9 03                   ; A = 03
-    STA      $80                       ; 0x11b19 $9B09 85 80                   ; Current Animation Frame for Link (OW and SS)
+    STA      zp_80                       ; 0x11b19 $9B09 85 80                   ; Current Animation Frame for Link (OW and SS)
     LDA      #$A0                      ; 0x11b1b $9B0B A9 A0                   ; A = A0
-    STA      $2A,x                     ; 0x11b1d $9B0D 95 2A                   ; Enemy Y Position
+    STA      zp_2A,x                     ; 0x11b1d $9B0D 95 2A                   ; Enemy Y Position
     DEC      player_gems_remain                     ; 0x11b1f $9B0F CE 94 07                ; Number of Crystals left
     LDA      #$08                      ; 0x11b22 $9B12 A9 08                   ; A = 08 (sound of crystal)
-    STA      $EF                       ; 0x11b24 $9B14 85 EF                   ; Sound Effects Type 4
+    STA      zp_EF                       ; 0x11b24 $9B14 85 EF                   ; Sound Effects Type 4
     LDA      #$80                      ; 0x11b26 $9B16 A9 80                   ; A = 80
-    STA      $EB                       ; 0x11b28 $9B18 85 EB                   ; Music
+    STA      zp_EB                       ; 0x11b28 $9B18 85 EB                   ; Music
     LDA      region_number                     ; 0x11b2a $9B1A AD 06 07                ; Current Region
     BEQ      L9B22                     ; 0x11b2d $9B1D F0 03                   ;
     CLC                                ; 0x11b2f $9B1F 18                      ;
@@ -2114,19 +2114,19 @@ L9B2A:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Crystal_Flying_Up:                                                        ;
-    DEC      $2A,x                     ; 0x11b3b $9B2B D6 2A                   ; Enemy Y Position
-    LDA      $2A,x                     ; 0x11b3d $9B2D B5 2A                   ;; Enemy Y Position
-    STA      $81,x                     ; 0x11b3f $9B2F 95 81                   ; Current Animation Frame for Enemy
+    DEC      zp_2A,x                     ; 0x11b3b $9B2B D6 2A                   ; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x11b3d $9B2D B5 2A                   ;; Enemy Y Position
+    STA      zp_81,x                     ; 0x11b3f $9B2F 95 81                   ; Current Animation Frame for Enemy
     CMP      #$62                      ; 0x11b41 $9B31 C9 62                   ;
     BNE      L9B46                     ; 0x11b43 $9B33 D0 11                   ;
     STA      bss_0767                     ; 0x11b45 $9B35 8D 67 07                ;; Related to Crystal Placement
-    INC      $AF,x                     ; 0x11b48 $9B38 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x11b48 $9B38 F6 AF                   ;; Various enemy state variables
     LDA      #$40                      ; 0x11b4a $9B3A A9 40                   ; A = 40 (crystal placed fanfare)
-    STA      $EB                       ; 0x11b4c $9B3C 85 EB                   ; Music
+    STA      zp_EB                       ; 0x11b4c $9B3C 85 EB                   ; Music
     LDA      #$02                      ; 0x11b4e $9B3E A9 02                   ; A = 02
-    STA      $EC                       ; 0x11b50 $9B40 85 EC                   ; Sound Effects Type 1
+    STA      zp_EC                       ; 0x11b50 $9B40 85 EC                   ; Sound Effects Type 1
     LDA      #$00                      ; 0x11b52 $9B42 A9 00                   ; A = 00
-    STA      $70                       ; 0x11b54 $9B44 85 70                   ; Link's X Velocity
+    STA      zp_70                       ; 0x11b54 $9B44 85 70                   ; Link's X Velocity
 L9B46:                                                                          ;
     RTS                                ; 0x11b56 $9B46 60                      ;
                                                                                ;
@@ -2137,7 +2137,7 @@ L9B47:                                                                          
     DEY                                ; 0x11b5c $9B4C 88                      ;
     STY      bss_070C                     ; 0x11b5d $9B4D 8C 0C 07                ; Magic to be added to Magic Meter
     STY      bss_070D                     ; 0x11b60 $9B50 8C 0D 07                ; Life to be added to Life Meter
-    INC      $AF,x                     ; 0x11b63 $9B53 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x11b63 $9B53 F6 AF                   ;; Various enemy state variables
 L9B55:                                                                          ;
     RTS                                ; 0x11b65 $9B55 60                      ;
                                                                                ;
@@ -2146,7 +2146,7 @@ L9B56:                                                                          
     LDA      bss_070C                     ; 0x11b66 $9B56 AD 0C 07                ; Magic to be added to Magic Meter
     ORA      bss_070D                     ; 0x11b69 $9B59 0D 0D 07                ; Life to be added to Life Meter
     BNE      L9B88                     ; 0x11b6c $9B5C D0 2A                   ;
-    STA      $DE                       ; 0x11b6e $9B5E 85 DE                   ; Spell Spell modifier (and more)
+    STA      zp_DE                       ; 0x11b6e $9B5E 85 DE                   ; Spell Spell modifier (and more)
     LDA      player_next_lvl+1                     ; 0x11b70 $9B60 AD 71 07                ; Exp. needed for Next Level (low byte)
     SEC                                ; 0x11b73 $9B63 38                      ;
     SBC      player_exp+1                     ; 0x11b74 $9B64 ED 76 07                ; Current Experience (low byte)
@@ -2154,18 +2154,18 @@ L9B56:                                                                          
     LDA      player_next_lvl                     ; 0x11b7a $9B6A AD 70 07                ; Exp. needed for Next Level (high byte)
     SBC      player_exp                     ; 0x11b7d $9B6D ED 75 07                ; Current Experience (high byte)
     STA      player_exp_add                     ; 0x11b80 $9B70 8D 55 07                ; Experience to be added (high byte)
-    LDY      $BC,x                     ; 0x11b83 $9B73 B4 BC                   ;; Generated Enemy Y Position ?
+    LDY      zp_BC,x                     ; 0x11b83 $9B73 B4 BC                   ;; Generated Enemy Y Position ?
     INY                                ; 0x11b85 $9B75 C8                      ;
     LDA      #$D5                      ; 0x11b86 $9B76 A9 D5                   ; A = D5
-    STA      ($D6),y                   ; 0x11b88 $9B78 91 D6                   ;
+    STA      (zp_D6),y                   ; 0x11b88 $9B78 91 D6                   ;
     LDA      #$15                      ; 0x11b8a $9B7A A9 15                   ; A = 15
-    STA      $A1,x                     ; 0x11b8c $9B7C 95 A1                   ; Enemy Code
+    STA      zp_A1,x                     ; 0x11b8c $9B7C 95 A1                   ; Enemy Code
     LDX      #$02                      ; 0x11b8e $9B7E A2 02                   ; X = 02
-    STX      $EB                       ; 0x11b90 $9B80 86 EB                   ; Music
+    STX      zp_EB                       ; 0x11b90 $9B80 86 EB                   ; Music
     INX                                ; 0x11b92 $9B82 E8                      ;
     JSR      Set_Item_RAM_bit_to_0__Bits_0_3; 0x11b93 $9B83 20 95 C2               ;
 L9B86:                                                                          ;
-    LDX      $10                       ; 0x11b96 $9B86 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x11b96 $9B86 A6 10                   ;; used as monster x register ;draw boss hp bar
 L9B88:                                                                          ;
     RTS                                ; 0x11b98 $9B88 60                      ;
                                                                                ;
@@ -2214,24 +2214,24 @@ L9BD5:                                                                          
 bank4_Enemy_Routines_Energy_Ball_Shooter__Left_Right:                           ;
     LDA      frame_counter                       ; 0x11bed $9BDD A5 12                   ; Permanent Frame Counter
     AND      #$1F                      ; 0x11bef $9BDF 29 1F                   ; keep bits ...x xxxx
-    ORA      $C9                       ; 0x11bf1 $9BE1 05 C9                   ;
+    ORA      zp_C9                       ; 0x11bf1 $9BE1 05 C9                   ;
     BNE      L9C3E                     ; 0x11bf3 $9BE3 D0 59                   ;
 L9BE5:                                                                          ;
     JSR      bank7_Spawn_New_Projectile; 0x11bf5 $9BE5 20 CE DB                ; Spawn New Projectile
     BCS      L9C3E                     ; 0x11bf8 $9BE8 B0 54                   ;
-    STY      $05                       ; 0x11bfa $9BEA 84 05                   ;
-    LDA      $60,x                     ; 0x11bfc $9BEC B5 60                   ; Enemy facing direction
+    STY      zp_05                       ; 0x11bfa $9BEA 84 05                   ;
+    LDA      zp_60,x                     ; 0x11bfc $9BEC B5 60                   ; Enemy facing direction
     PHA                                ; 0x11bfe $9BEE 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x11bff $9BEF 20 91 DC; Determine Enemy Facing Direction
     PLA                                ; 0x11c02 $9BF2 68                      ;
-    STA      $60,x                     ; 0x11c03 $9BF3 95 60                   ; Enemy facing direction
+    STA      zp_60,x                     ; 0x11c03 $9BF3 95 60                   ; Enemy facing direction
     INY                                ; 0x11c05 $9BF5 C8                      ;
     TYA                                ; 0x11c06 $9BF6 98                      ;
-    LDY      $05                       ; 0x11c07 $9BF7 A4 05                   ;
-    CMP      $60,x                     ; 0x11c09 $9BF9 D5 60                   ;; Enemy facing direction
+    LDY      zp_05                       ; 0x11c07 $9BF7 A4 05                   ;
+    CMP      zp_60,x                     ; 0x11c09 $9BF9 D5 60                   ;; Enemy facing direction
     BNE      L9C3F                     ; 0x11c0b $9BFB D0 42                   ;
-    STA      $66,y                     ; 0x11c0d $9BFD 99 66 00                ; Projectile facing direction
-    LDA      $0F                       ; 0x11c10 $9C00 A5 0F                   ;
+    STA      zp_66,y                     ; 0x11c0d $9BFD 99 66 00                ; Projectile facing direction
+    LDA      zp_0F                       ; 0x11c10 $9C00 A5 0F                   ;
     BPL      L9C06                     ; 0x11c12 $9C02 10 02                   ;
     EOR      #$FF                      ; 0x11c14 $9C04 49 FF                   ; flip all bits
 L9C06:                                                                          ;
@@ -2246,37 +2246,37 @@ L9C06:                                                                          
     LDA      L9BD5,x                   ; 0x11c21 $9C11 BD D5 9B                ;
     STA      bss_0584,y                   ; 0x11c24 $9C14 99 84 05                ; Projectile Y Velocity
     LDA      bank4_table6,x            ; 0x11c27 $9C17 BD CD 9B                ;
-    LDX      $66,y                     ; 0x11c2a $9C1A B6 66                   ; Projectile facing direction
+    LDX      zp_66,y                     ; 0x11c2a $9C1A B6 66                   ; Projectile facing direction
     DEX                                ; 0x11c2c $9C1C CA                      ;
     BEQ      L9C21                     ; 0x11c2d $9C1D F0 02                   ;
     EOR      #$FF                      ; 0x11c2f $9C1F 49 FF                   ; flip all bits
 L9C21:                                                                          ;
-    STA      $77,y                     ; 0x11c31 $9C21 99 77 00                ; Projectile X Velocity
-    LDX      $10                       ; 0x11c34 $9C24 A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDA      $2A,x                     ; 0x11c36 $9C26 B5 2A                   ; Enemy Y Position
+    STA      zp_77,y                     ; 0x11c31 $9C21 99 77 00                ; Projectile X Velocity
+    LDX      zp_10                       ; 0x11c34 $9C24 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_2A,x                     ; 0x11c36 $9C26 B5 2A                   ; Enemy Y Position
     ADC      #$05                      ; 0x11c38 $9C28 69 05                   ;
-    STA      $30,y                     ; 0x11c3a $9C2A 99 30 00                ; Projectile Y Position
-    LDA      $4E,x                     ; 0x11c3d $9C2D B5 4E                   ; Enemy X Position (low byte)
+    STA      zp_30,y                     ; 0x11c3a $9C2A 99 30 00                ; Projectile Y Position
+    LDA      zp_4E,x                     ; 0x11c3d $9C2D B5 4E                   ; Enemy X Position (low byte)
     ADC      #$04                      ; 0x11c3f $9C2F 69 04                   ;
-    STA      $54,y                     ; 0x11c41 $9C31 99 54 00                ; Projectile X Position (low byte)
-    LDA      $3C,x                     ; 0x11c44 $9C34 B5 3C                   ; Enemy X Position (high byte)
-    STA      $42,y                     ; 0x11c46 $9C36 99 42 00                ; Projectile X Position (high byte)
+    STA      zp_54,y                     ; 0x11c41 $9C31 99 54 00                ; Projectile X Position (low byte)
+    LDA      zp_3C,x                     ; 0x11c44 $9C34 B5 3C                   ; Enemy X Position (high byte)
+    STA      zp_42,y                     ; 0x11c46 $9C36 99 42 00                ; Projectile X Position (high byte)
     LDA      #$01                      ; 0x11c49 $9C39 A9 01                   ; A = 01
-    STA      $87,y                     ; 0x11c4b $9C3B 99 87 00                ; Projectile Type
+    STA      zp_87,y                     ; 0x11c4b $9C3B 99 87 00                ; Projectile Type
 L9C3E:                                                                          ;
     RTS                                ; 0x11c4e $9C3E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9C3F:                                                                          ;
     LDA      #$00                      ; 0x11c4f $9C3F A9 00                   ; A = 00
-    STA      $87,y                     ; 0x11c51 $9C41 99 87 00                ; Projectile Type
+    STA      zp_87,y                     ; 0x11c51 $9C41 99 87 00                ; Projectile Type
     RTS                                ; 0x11c54 $9C44 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9C45:                                                                          ;
     STA      zp_00                     ; 0x11c55 $9C45 85 00                   ;04:9C45		459C
     LDY      #$00                      ; 0x11c57 $9C47 A0 00                   ; Y = 00
-    LDA      $C2,x                     ; 0x11c59 $9C49 B5 C2                   ; Enemy Current HP
+    LDA      zp_C2,x                     ; 0x11c59 $9C49 B5 C2                   ; Enemy Current HP
     CLC                                ; 0x11c5b $9C4B 18                      ;
 L9C4C:                                                                          ;
     SBC      zp_00                     ; 0x11c5c $9C4C E5 00                   ;
@@ -2308,7 +2308,7 @@ L9C70:                                                                          
     DEX                                ; 0x11c86 $9C76 CA                      ;
     DEX                                ; 0x11c87 $9C77 CA                      ;
     BPL      L9C57                     ; 0x11c88 $9C78 10 DD                   ;
-    LDX      $10                       ; 0x11c8a $9C7A A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x11c8a $9C7A A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x11c8c $9C7C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2344,39 +2344,39 @@ L9C82:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Iron_Knuckle:                                              ;
     JSR      bank7_Display             ; 0x11c9c $9C8C 20 11 EF                ; Display
-    LDA      $A1,x                     ; 0x11c9f $9C8F B5 A1                   ; Enemy Code
+    LDA      zp_A1,x                     ; 0x11c9f $9C8F B5 A1                   ; Enemy Code
     CMP      #$18                      ; 0x11ca1 $9C91 C9 18                   ; 18 = Orange Ironknuckle
     BCS      L9C97                     ; 0x11ca3 $9C93 B0 02                   ;
     LDA      #$1A                      ; 0x11ca5 $9C95 A9 1A                   ; A = 1A
 L9C97:                                                                          ;
-    STA      $DF                       ; 0x11ca7 $9C97 85 DF                   ; Enemy Code (temporary storage)
-    LDA      $81,x                     ; 0x11ca9 $9C99 B5 81                   ; Current Animation Frame for Enemy
+    STA      zp_DF                       ; 0x11ca7 $9C97 85 DF                   ; Enemy Code (temporary storage)
+    LDA      zp_81,x                     ; 0x11ca9 $9C99 B5 81                   ; Current Animation Frame for Enemy
     BEQ      L9CE3                     ; 0x11cab $9C9B F0 46                   ;
     AND      #$01                      ; 0x11cad $9C9D 29 01                   ; keep bits .... ...x
     BNE      L9CC6                     ; 0x11caf $9C9F D0 25                   ;
-    LDA      $DF                       ; 0x11cb1 $9CA1 A5 DF                   ; Enemy Code (temporary storage)
+    LDA      zp_DF                       ; 0x11cb1 $9CA1 A5 DF                   ; Enemy Code (temporary storage)
     CMP      #$1A                      ; 0x11cb3 $9CA3 C9 1A                   ; 1A = Blue Ironknuckle
     BNE      L9CC3                     ; 0x11cb5 $9CA5 D0 1C                   ;
     JSR      bank7_Spawn_New_Projectile; 0x11cb7 $9CA7 20 CE DB                ; Spawn New Projectile
     BCS      L9CC3                     ; 0x11cba $9CAA B0 17                   ;
     LDA      #$05                      ; 0x11cbc $9CAC A9 05                   ; A = 05 (flying blade projectile type)
-    STA      $87,y                     ; 0x11cbe $9CAE 99 87 00                ; Projectile Type
-    LDA      $81,x                     ; 0x11cc1 $9CB1 B5 81                   ; Current Animation Frame for Enemy
+    STA      zp_87,y                     ; 0x11cbe $9CAE 99 87 00                ; Projectile Type
+    LDA      zp_81,x                     ; 0x11cc1 $9CB1 B5 81                   ; Current Animation Frame for Enemy
     LSR                                ; 0x11cc3 $9CB3 4A                      ;
     AND      #$01                      ; 0x11cc4 $9CB4 29 01                   ; keep bits .... ...x
     TAX                                ; 0x11cc6 $9CB6 AA                      ;
     LDA      L9C82,x                   ; 0x11cc7 $9CB7 BD 82 9C                ;
-    LDX      $10                       ; 0x11cca $9CBA A6 10                   ;; used as monster x register ;draw boss hp bar
-    ADC      $2A,x                     ; 0x11ccc $9CBC 75 2A                   ; Enemy Y Position
-    STA      $30,y                     ; 0x11cce $9CBE 99 30 00                ; Projectile Y Position
+    LDX      zp_10                       ; 0x11cca $9CBA A6 10                   ;; used as monster x register ;draw boss hp bar
+    ADC      zp_2A,x                     ; 0x11ccc $9CBC 75 2A                   ; Enemy Y Position
+    STA      zp_30,y                     ; 0x11cce $9CBE 99 30 00                ; Projectile Y Position
     BNE      L9CDF                     ; 0x11cd1 $9CC1 D0 1C                   ;
 L9CC3:                                                                          ;
     JSR      bank7_E563                     ; 0x11cd3 $9CC3 20 63 E5                ; check if shield protects from sword hit
 L9CC6:                                                                          ;
     LDA      bss_0504,x                   ; 0x11cd6 $9CC6 BD 04 05                ; Timer for Sword in middle swing
     BNE      L9CDC                     ; 0x11cd9 $9CC9 D0 11                   ;
-    INC      $81,x                     ; 0x11cdb $9CCB F6 81                   ; Current Animation Frame for Enemy
-    LDA      $81,x                     ; 0x11cdd $9CCD B5 81                   ;; Current Animation Frame for Enemys
+    INC      zp_81,x                     ; 0x11cdb $9CCB F6 81                   ; Current Animation Frame for Enemy
+    LDA      zp_81,x                     ; 0x11cdd $9CCD B5 81                   ;; Current Animation Frame for Enemys
     CMP      #$03                      ; 0x11cdf $9CCF C9 03                   ; if (step == 3)
     BEQ      L9CDF                     ; 0x11ce1 $9CD1 F0 0C                   ; skip to $11CDF
     CMP      #$05                      ; 0x11ce3 $9CD3 C9 05                   ; if (step >= 5)
@@ -2389,27 +2389,27 @@ L9CDC:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9CDF:                                                                          ;
     LDA      #$00                      ; 0x11cef $9CDF A9 00                   ; A = 00
-    STA      $81,x                     ; 0x11cf1 $9CE1 95 81                   ; Current Animation Frame for Enemy
+    STA      zp_81,x                     ; 0x11cf1 $9CE1 95 81                   ; Current Animation Frame for Enemy
 L9CE3:                                                                          ;
     JSR      bank7_E617                     ; 0x11cf3 $9CE3 20 17 E6                ;
     JSR      bank7_EA32                     ; 0x11cf6 $9CE6 20 32 EA                ;
     LDY      #$01                      ; 0x11cf9 $9CE9 A0 01                   ; Y = 01
     INX                                ; 0x11cfb $9CEB E8                      ;
     JSR      bank7_code51              ; 0x11cfc $9CEC 20 7D F2                ;
-    LDX      $10                       ; 0x11cff $9CEF A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDA      $1A,x                     ; 0x11d01 $9CF1 B5 1A                   ; Enemy Code
+    LDX      zp_10                       ; 0x11cff $9CEF A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_1A,x                     ; 0x11d01 $9CF1 B5 1A                   ; Enemy Code
     CMP      #$02                      ; 0x11d03 $9CF3 C9 02                   ; 02 = Locked Door
     BCC      L9CFA                     ; 0x11d05 $9CF5 90 03                   ;
     JMP      bank7_DD3D                     ; 0x11d07 $9CF7 4C 3D DD                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9CFA:                                                                          ;
-    LDA      $C9                       ; 0x11d0a $9CFA A5 C9                   ;
+    LDA      zp_C9                       ; 0x11d0a $9CFA A5 C9                   ;
     AND      #$FC                      ; 0x11d0c $9CFC 29 FC                   ; keep bits xxxx xx..
     BEQ      L9D0C                     ; 0x11d0e $9CFE F0 0C                   ;
-    LDA      $A8,x                     ; 0x11d10 $9D00 B5 A8                   ; Enemy State
+    LDA      zp_A8,x                     ; 0x11d10 $9D00 B5 A8                   ; Enemy State
     AND      #$0F                      ; 0x11d12 $9D02 29 0F                   ; keep bits .... xxxx
-    STA      $A8,x                     ; 0x11d14 $9D04 95 A8                   ;; Enemy State
+    STA      zp_A8,x                     ; 0x11d14 $9D04 95 A8                   ;; Enemy State
     JSR      bank7_DE6C                     ; 0x11d16 $9D06 20 6C DE                ;
     JMP      L9D15                     ; 0x11d19 $9D09 4C 15 9D                ;
                                                                                ;
@@ -2421,7 +2421,7 @@ L9D0C:                                                                          
 L9D15:                                                                          ;
     JSR      bank7_Link_Collision_Detection; 0x11d25 $9D15 20 C1 D6                ; Link Collision Detection
     JSR      bank7_Gravity             ; 0x11d28 $9D18 20 BE DE                ; Gravity
-    LDA      $A8,x                     ; 0x11d2b $9D1B B5 A8                   ; Enemy State
+    LDA      zp_A8,x                     ; 0x11d2b $9D1B B5 A8                   ; Enemy State
     AND      #$04                      ; 0x11d2d $9D1D 29 04                   ; keep bits .... .x..
     BEQ      L9D24                     ; 0x11d2f $9D1F F0 03                   ;
     JSR      bank7_Floor_Y_Position    ; 0x11d31 $9D21 20 C1 DA                ; Floor Enemy Y Position
@@ -2435,16 +2435,16 @@ L9D24:                                                                          
     ORA      #$04                      ; 0x11d43 $9D33 09 04                   ; set bits  .... .x..
     STA      bss_0401,x                   ; 0x11d45 $9D35 9D 01 04                ;
 L9D38:                                                                          ;
-    LDA      $A1,x                     ; 0x11d48 $9D38 B5 A1                   ; Enemy Code
+    LDA      zp_A1,x                     ; 0x11d48 $9D38 B5 A1                   ; Enemy Code
     CMP      #$18                      ; 0x11d4a $9D3A C9 18                   ; 18 = Orange Ironknuckle
     BCC      L9D44                     ; 0x11d4c $9D3C 90 06                   ;
-    LDA      $C9                       ; 0x11d4e $9D3E A5 C9                   ;
+    LDA      zp_C9                       ; 0x11d4e $9D3E A5 C9                   ;
     AND      #$0C                      ; 0x11d50 $9D40 29 0C                   ; keep bits .... xx..
     BNE      L9D4F                     ; 0x11d52 $9D42 D0 0B                   ;
 L9D44:                                                                          ;
-    LDA      $2A,x                     ; 0x11d54 $9D44 B5 2A                   ; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x11d54 $9D44 B5 2A                   ; Enemy Y Position
     SEC                                ; 0x11d56 $9D46 38                      ;
-    SBC      $29                       ; 0x11d57 $9D47 E5 29                   ; Link's Y Position
+    SBC      zp_29                       ; 0x11d57 $9D47 E5 29                   ; Link's Y Position
     BCC      L9D4F                     ; 0x11d59 $9D49 90 04                   ;
     CMP      #$2A                      ; 0x11d5b $9D4B C9 2A                   ;
     BCC      L9D52                     ; 0x11d5d $9D4D 90 03                   ;
@@ -2457,21 +2457,21 @@ L9D52:                                                                          
 L9D54:                                                                          ;
     AND      #$40                      ; 0x11d64 $9D54 29 40                   ; check if B is pressed
     BEQ      L9D67                     ; 0x11d66 $9D56 F0 0F                   ; if B is NOT pressed, skip to $11D67
-    LDY      $DF                       ; 0x11d68 $9D58 A4 DF                   ; Enemy Code (temporary storage)
+    LDY      zp_DF                       ; 0x11d68 $9D58 A4 DF                   ; Enemy Code (temporary storage)
     LDA      rng_out,x                   ; 0x11d6a $9D5A BD 1B 05                ; Randomizer
     AND      L9C65,y                   ; 0x11d6d $9D5D 39 65 9C                ; Probability to change shield's position
     BEQ      L9D67                     ; 0x11d70 $9D60 F0 05                   ;
-    LDA      $17                       ; 0x11d72 $9D62 A5 17                   ; Link's Shield Position
+    LDA      zp_17                       ; 0x11d72 $9D62 A5 17                   ; Link's Shield Position
     STA      bss_0444,x                   ; 0x11d74 $9D64 9D 44 04                ; Enemy Vulnerability
 L9D67:                                                                          ;
-    LDA      $29                       ; 0x11d77 $9D67 A5 29                   ; Link's Y Position
-    CMP      $2A,x                     ; 0x11d79 $9D69 D5 2A                   ; Enemy Y Position
+    LDA      zp_29                       ; 0x11d77 $9D67 A5 29                   ; Link's Y Position
+    CMP      zp_2A,x                     ; 0x11d79 $9D69 D5 2A                   ; Enemy Y Position
     BEQ      L9D7B                     ; 0x11d7b $9D6B F0 0E                   ; if Link & Enemy at same level, skip to $11D7B
     LDY      #$01                      ; 0x11d7d $9D6D A0 01                   ; Y = 01
     CLC                                ; 0x11d7f $9D6F 18                      ;
     ADC      #$0A                      ; 0x11d80 $9D70 69 0A                   ;
 ;set this to a lower value (even 0) to prevent the jump-and-slash trick        ;
-    CMP      $2A,x                     ; 0x11d82 $9D72 D5 2A                   ; Enemy Y Position
+    CMP      zp_2A,x                     ; 0x11d82 $9D72 D5 2A                   ; Enemy Y Position
     BCC      L9D77                     ; 0x11d84 $9D74 90 01                   ;
     DEY                                ; 0x11d86 $9D76 88                      ;IronKnuckle: this DEY only occurs when in proper height for jump/slash attack
 L9D77:                                                                          ;
@@ -2481,9 +2481,9 @@ L9D7B:                                                                          
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x11d8b $9D7B 20 91 DC; Determine Enemy Facing Direction
     LDA      L9C80,y                   ; 0x11d8e $9D7E B9 80 9C                ; refer to table at $11C80
     ASL                                ; 0x11d91 $9D81 0A                      ;
-    STA      $71,x                     ; 0x11d92 $9D82 95 71                   ; Enemy X Velocity
-    LDY      $DF                       ; 0x11d94 $9D84 A4 DF                   ; Enemy Code (temporary storage)
-    LDA      $0F                       ; 0x11d96 $9D86 A5 0F                   ;
+    STA      zp_71,x                     ; 0x11d92 $9D82 95 71                   ; Enemy X Velocity
+    LDY      zp_DF                       ; 0x11d94 $9D84 A4 DF                   ; Enemy Code (temporary storage)
+    LDA      zp_0F                       ; 0x11d96 $9D86 A5 0F                   ;
     ADC      L9C6C,y                   ; 0x11d98 $9D88 79 6C 9C                ;
     CMP      L9C70,y                   ; 0x11d9b $9D8B D9 70 9C                ;
     BCC      L9D91                     ; 0x11d9e $9D8E 90 01                   ;
@@ -2491,7 +2491,7 @@ L9D7B:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9D91:                                                                          ;
-    LDY      $70                       ; 0x11da1 $9D91 A4 70                   ; Link's X Velocity
+    LDY      zp_70                       ; 0x11da1 $9D91 A4 70                   ; Link's X Velocity
     BNE      L9D9F                     ; 0x11da3 $9D93 D0 0A                   ;
     LDY      #$08                      ; 0x11da5 $9D95 A0 08                   ; Y = 08
     LDA      frame_counter                       ; 0x11da7 $9D97 A5 12                   ;; Frame Counter (ascending)
@@ -2499,18 +2499,18 @@ L9D91:                                                                          
     BNE      L9D9F                     ; 0x11dab $9D9B D0 02                   ;
     LDY      #$F8                      ; 0x11dad $9D9D A0 F8                   ; Y = F8
 L9D9F:                                                                          ;
-    STY      $71,x                     ; 0x11daf $9D9F 94 71                   ; Enemy X Velocity
+    STY      zp_71,x                     ; 0x11daf $9D9F 94 71                   ; Enemy X Velocity
     TYA                                ; 0x11db1 $9DA1 98                      ;
-    LDY      $DF                       ; 0x11db2 $9DA2 A4 DF                   ; Enemy Code (temporary storage)
+    LDY      zp_DF                       ; 0x11db2 $9DA2 A4 DF                   ; Enemy Code (temporary storage)
     CPY      #$1A                      ; 0x11db4 $9DA4 C0 1A                   ; 1A = Blue Ironknuckle
     BEQ      L9DAD                     ; 0x11db6 $9DA6 F0 05                   ;
     LDY      bss_0479                     ; 0x11db8 $9DA8 AC 79 04                ; Link is in mid-air ? (1 = mid-air)
     BNE      L9DB0                     ; 0x11dbb $9DAB D0 03                   ;
 L9DAD:                                                                          ;
     ASL                                ; 0x11dbd $9DAD 0A                      ;
-    ROR      $71,x                     ; 0x11dbe $9DAE 76 71                   ; Enemy X Velocity
+    ROR      zp_71,x                     ; 0x11dbe $9DAE 76 71                   ; Enemy X Velocity
 L9DB0:                                                                          ;
-    LDA      $81,x                     ; 0x11dc0 $9DB0 B5 81                   ; Current Animation Frame for Enemy
+    LDA      zp_81,x                     ; 0x11dc0 $9DB0 B5 81                   ; Current Animation Frame for Enemy
     BNE      L9DED                     ; 0x11dc2 $9DB2 D0 39                   ;
     LDA      bss_0401,x                   ; 0x11dc4 $9DB4 BD 01 04                ;
     BEQ      L9DBF                     ; 0x11dc7 $9DB7 F0 06                   ;
@@ -2520,14 +2520,14 @@ L9DB0:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L9DBF:                                                                          ;
     LDA      #$3F                      ; 0x11dcf $9DBF A9 3F                   ; A = 3F
-    INC      $AF,x                     ; 0x11dd1 $9DC1 F6 AF                   ;; Various enemy state variables
-    AND      $AF,x                     ; 0x11dd3 $9DC3 35 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x11dd1 $9DC1 F6 AF                   ;; Various enemy state variables
+    AND      zp_AF,x                     ; 0x11dd3 $9DC3 35 AF                   ;; Various enemy state variables
     BNE      L9DED                     ; 0x11dd5 $9DC5 D0 26                   ;
     LDA      rng_out,x                   ; 0x11dd7 $9DC7 BD 1B 05                ; Randomizer
     AND      #$0F                      ; 0x11dda $9DCA 29 0F                   ; keep bits .... xxxx
     BNE      L9DD2                     ; 0x11ddc $9DCC D0 04                   ;
     LDA      #$E0                      ; 0x11dde $9DCE A9 E0                   ; A = E0
-    STA      $AF,x                     ; 0x11de0 $9DD0 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x11de0 $9DD0 95 AF                   ;; Various enemy state variables
 L9DD2:                                                                          ;
     LDY      #$01                      ; 0x11de2 $9DD2 A0 01                   ; Y = 01
     LDA      rng_out,x                   ; 0x11de4 $9DD4 BD 1B 05                ; Randomizer
@@ -2538,12 +2538,12 @@ L9DD2:                                                                          
     INY                                ; 0x11ded $9DDD C8                      ;
     BNE      L9DE6                     ; 0x11dee $9DDE D0 06                   ;
 L9DE0:                                                                          ;
-    LDA      $17                       ; 0x11df0 $9DE0 A5 17                   ; Link's Shield Position (0 = Link ducked)
+    LDA      zp_17                       ; 0x11df0 $9DE0 A5 17                   ; Link's Shield Position (0 = Link ducked)
     BNE      L9DE6                     ; 0x11df2 $9DE2 D0 02                   ;
     INY                                ; 0x11df4 $9DE4 C8                      ;
     INY                                ; 0x11df5 $9DE5 C8                      ;
 L9DE6:                                                                          ;
-    STY      $81,x                     ; 0x11df6 $9DE6 94 81                   ; Current Animation Frame for Enemy
+    STY      zp_81,x                     ; 0x11df6 $9DE6 94 81                   ; Current Animation Frame for Enemy
     LDA      #$18                      ; 0x11df8 $9DE8 A9 18                   ; A = 18 (delay for sword backswing)	;18 -> 08	Ironknuckle Ultra Fast Sword Swings ! Mega difficulty !
     STA      bss_0504,x                   ; 0x11dfa $9DEA 9D 04 05                ; Timer for Enemy AI
 L9DED:                                                                          ;
@@ -2551,29 +2551,29 @@ L9DED:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9DEE:                                                                          ;
-    LDA      $AF,x                     ; 0x11dfe $9DEE B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x11dfe $9DEE B5 AF                   ;; Various enemy state variables
     LSR                                ; 0x11e00 $9DF0 4A                      ;
     BCS      L9E03                     ; 0x11e01 $9DF1 B0 10                   ;
     LDA      bss_0504,x                   ; 0x11e03 $9DF3 BD 04 05                ; Timer for Enemy AI
     BNE      L9DFB                     ; 0x11e06 $9DF6 D0 03                   ;
     JSR      L9E0F                     ; 0x11e08 $9DF8 20 0F 9E                ;
 L9DFB:                                                                          ;
-    LDY      $60,x                     ; 0x11e0b $9DFB B4 60                   ; Enemy facing direction
+    LDY      zp_60,x                     ; 0x11e0b $9DFB B4 60                   ; Enemy facing direction
     LDA      L9C7F,y                   ; 0x11e0d $9DFD B9 7F 9C                ; 08 or F8
-    STA      $71,x                     ; 0x11e10 $9E00 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x11e10 $9E00 95 71                   ; Enemy X Velocity
     RTS                                ; 0x11e12 $9E02 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L9E03:                                                                          ;
     LDA      #$00                      ; 0x11e13 $9E03 A9 00                   ; A = 00
-    STA      $71,x                     ; 0x11e15 $9E05 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x11e15 $9E05 95 71                   ; Enemy X Velocity
     LDA      bss_0504,x                   ; 0x11e17 $9E07 BD 04 05                ; Timer for Enemy AI
     BNE      L9E16                     ; 0x11e1a $9E0A D0 0A                   ;
     JSR      bank7_Change_Enemy_Facing_Direction_and_X_Velocity; 0x11e1c $9E0C 20 EB E8;
 L9E0F:                                                                          ;
     LDA      #$50                      ; 0x11e1f $9E0F A9 50                   ; A = 50 (Ironknuckle waiting time when idle)
     STA      bss_0504,x                   ; 0x11e21 $9E11 9D 04 05                ; Timer for Enemy AI
-    INC      $AF,x                     ; 0x11e24 $9E14 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x11e24 $9E14 F6 AF                   ;; Various enemy state variables
 L9E16:                                                                          ;
     RTS                                ; 0x11e26 $9E16 60                      ;
                                                                                ;
@@ -2586,10 +2586,10 @@ L9E17:                                                                          
     INC      bss_043E,x                   ; 0x11e31 $9E21 FE 3E 04                ;
     INC      bss_043E,x                   ; 0x11e34 $9E24 FE 3E 04                ;
 L9E27:                                                                          ;
-    STA      $71,x                     ; 0x11e37 $9E27 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x11e37 $9E27 95 71                   ; Enemy X Velocity
     JSR      bank7_EA32                     ; 0x11e39 $9E29 20 32 EA                ;
 L9E2C:                                                                          ;
-    LDA      $A8,x                     ; 0x11e3c $9E2C B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x11e3c $9E2C B5 A8                   ; Enemy State ?
     AND      #$03                      ; 0x11e3e $9E2E 29 03                   ; keep bits .... ..xx
     BNE      L9E16                     ; 0x11e40 $9E30 D0 E4                   ;
 L9E34     = * + $0002                                                          ;
@@ -2610,10 +2610,10 @@ bank4_Enemy_Routines1_Iron_Knuckle:                                             
     BNE      L9E4F                     ; 0x11e5b $9E4B D0 02                   ;
     LDY      #$08                      ; 0x11e5d $9E4D A0 08                   ; Y = 08
 L9E4F:                                                                          ;
-    LDA      $A8,x                     ; 0x11e5f $9E4F B5 A8                   ; Enemy State
+    LDA      zp_A8,x                     ; 0x11e5f $9E4F B5 A8                   ; Enemy State
     AND      #$04                      ; 0x11e61 $9E51 29 04                   ; keep bits .... .x..
     BEQ      L9E6C                     ; 0x11e63 $9E53 F0 17                   ;
-    LDA      $71,x                     ; 0x11e65 $9E55 B5 71                   ; Enemy X Velocity
+    LDA      zp_71,x                     ; 0x11e65 $9E55 B5 71                   ; Enemy X Velocity
     BEQ      L9E6C                     ; 0x11e67 $9E57 F0 13                   ;
     BPL      L9E5D                     ; 0x11e69 $9E59 10 02                   ;
     EOR      #$FF                      ; 0x11e6b $9E5B 49 FF                   ; flip all bits
@@ -2631,20 +2631,20 @@ L9E64:                                                                          
     INY                                ; 0x11e7b $9E6B C8                      ;
 L9E6C:                                                                          ;
     TYA                                ; 0x11e7c $9E6C 98                      ;
-    LDY      $91,x                     ; 0x11e7d $9E6D B4 91                   ;
+    LDY      zp_91,x                     ; 0x11e7d $9E6D B4 91                   ;
     TAX                                ; 0x11e7f $9E6F AA                      ;
     JSR      bank7_F1F4                     ; 0x11e80 $9E70 20 F4 F1                ;
     JSR      bank7_F0D7                     ; 0x11e83 $9E73 20 D7 F0                ;
-    LDA      $C9                       ; 0x11e86 $9E76 A5 C9                   ;
+    LDA      zp_C9                       ; 0x11e86 $9E76 A5 C9                   ;
     BNE      L9E16                     ; 0x11e88 $9E78 D0 9C                   ;
-    LDA      $81,x                     ; 0x11e8a $9E7A B5 81                   ; Current Animation Frame for Enemy
+    LDA      zp_81,x                     ; 0x11e8a $9E7A B5 81                   ; Current Animation Frame for Enemy
     BEQ      L9E16                     ; 0x11e8c $9E7C F0 98                   ;
-    STA      $06                       ; 0x11e8e $9E7E 85 06                   ;
+    STA      zp_06                       ; 0x11e8e $9E7E 85 06                   ;
     TAX                                ; 0x11e90 $9E80 AA                      ;
     LDA      zp_00                     ; 0x11e91 $9E81 A5 00                   ;
     ADC      L9E40,x                   ; 0x11e93 $9E83 7D 40 9E                ;
     STA      zp_00                     ; 0x11e96 $9E86 85 00                   ;
-    LDA      $02                       ; 0x11e98 $9E88 A5 02                   ;
+    LDA      zp_02                       ; 0x11e98 $9E88 A5 02                   ;
     LSR                                ; 0x11e9a $9E8A 4A                      ;
     BCC      L9E91                     ; 0x11e9b $9E8B 90 04                   ;
     INX                                ; 0x11e9d $9E8D E8                      ;
@@ -2653,8 +2653,8 @@ L9E6C:                                                                          
     INX                                ; 0x11ea0 $9E90 E8                      ;
 L9E91:                                                                          ;
     LDA      L9E38,x                   ; 0x11ea1 $9E91 BD 38 9E                ;
-    LDX      $10                       ; 0x11ea4 $9E94 A6 10                   ;; used as monster x register ;draw boss hp bar
-    STY      $07                       ; 0x11ea6 $9E96 84 07                   ;
+    LDX      zp_10                       ; 0x11ea4 $9E94 A6 10                   ;; used as monster x register ;draw boss hp bar
+    STY      zp_07                       ; 0x11ea6 $9E96 84 07                   ;
     LDY      bss_0504,x                   ; 0x11ea8 $9E98 BC 04 05                ; Timer for Enemy AI
     CPY      #$03                      ; 0x11eab $9E9B C0 03                   ;
     BCC      L9EA4                     ; 0x11ead $9E9D 90 05                   ;
@@ -2662,15 +2662,15 @@ L9E91:                                                                          
     BCS      L9EA4                     ; 0x11eb1 $9EA1 B0 01                   ;
     ASL                                ; 0x11eb3 $9EA3 0A                      ;
 L9EA4:                                                                          ;
-    ADC      $01                       ; 0x11eb4 $9EA4 65 01                   ;
-    STA      $01                       ; 0x11eb6 $9EA6 85 01                   ;
-    LDY      $07                       ; 0x11eb8 $9EA8 A4 07                   ;
-    LDX      $06                       ; 0x11eba $9EAA A6 06                   ;
+    ADC      zp_01                       ; 0x11eb4 $9EA4 65 01                   ;
+    STA      zp_01                       ; 0x11eb6 $9EA6 85 01                   ;
+    LDY      zp_07                       ; 0x11eb8 $9EA8 A4 07                   ;
+    LDX      zp_06                       ; 0x11eba $9EAA A6 06                   ;
     CPX      #$04                      ; 0x11ebc $9EAC E0 04                   ;
     BNE      L9EB6                     ; 0x11ebe $9EAE D0 06                   ;
-    LDA      $03                       ; 0x11ec0 $9EB0 A5 03                   ;
+    LDA      zp_03                       ; 0x11ec0 $9EB0 A5 03                   ;
     ORA      #$80                      ; 0x11ec2 $9EB2 09 80                   ; set  bits x... ....
-    STA      $03                       ; 0x11ec4 $9EB4 85 03                   ;
+    STA      zp_03                       ; 0x11ec4 $9EB4 85 03                   ;
 L9EB6:                                                                          ;
     LDA      L9E34,x                   ; 0x11ec6 $9EB6 BD 34 9E                ;
     TAX                                ; 0x11ec9 $9EB9 AA                      ;
@@ -2686,16 +2686,16 @@ bank4_Enemy_Routines_Tinsuit_Generator:                                         
     BCS      L9EDF                     ; 0x11ed4 $9EC4 B0 19                   ;
     LDX      zp_00                     ; 0x11ed6 $9EC6 A6 00                   ;
     LDA      #$B0                      ; 0x11ed8 $9EC8 A9 B0                   ; A = B0
-    STA      $2A,x                     ; 0x11eda $9ECA 95 2A                   ; Enemy Y Position
+    STA      zp_2A,x                     ; 0x11eda $9ECA 95 2A                   ; Enemy Y Position
     LDA      #$0C                      ; 0x11edc $9ECC A9 0C                   ; A = 0C
-    STA      $A1,x                     ; 0x11ede $9ECE 95 A1                   ; 0C = Tinsuit
+    STA      zp_A1,x                     ; 0x11ede $9ECE 95 A1                   ; 0C = Tinsuit
     LDA      rng_out,x                   ; 0x11ee0 $9ED0 BD 1B 05                ;; Randomizer
     AND      #$02                      ; 0x11ee3 $9ED3 29 02                   ; keep bits .... ..x.
-    ADC      $60,x                     ; 0x11ee5 $9ED5 75 60                   ;; Enemy facing direction
+    ADC      zp_60,x                     ; 0x11ee5 $9ED5 75 60                   ;; Enemy facing direction
     TAY                                ; 0x11ee7 $9ED7 A8                      ;
     LDA      bank4_table8,y            ; 0x11ee8 $9ED8 B9 BC 9E                ;
-    STA      $71,x                     ; 0x11eeb $9EDB 95 71                   ;; Enemy X Velocity
-    LDX      $10                       ; 0x11eed $9EDD A6 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_71,x                     ; 0x11eeb $9EDB 95 71                   ;; Enemy X Velocity
+    LDX      zp_10                       ; 0x11eed $9EDD A6 10                   ;; used as monster x register ;draw boss hp bar
 L9EDF:                                                                          ;
     RTS                                ; 0x11eef $9EDF 60                      ;
                                                                                ;
@@ -3284,16 +3284,16 @@ bank4_table11:                                                                  
 .byt    $35,$37,$52,$F5                ; 0x12ba4 $AB94 35 37 52 F5             ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Falling_Block_Generator:                                   ;
-    LDA      $C9                       ; 0x12ba8 $AB98 A5 C9                   ;
+    LDA      zp_C9                       ; 0x12ba8 $AB98 A5 C9                   ;
     BNE      LABE8                     ; 0x12baa $AB9A D0 4C                   ;
-    LDA      $10                       ; 0x12bac $AB9C A5 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_10                       ; 0x12bac $AB9C A5 10                   ;; used as monster x register ;draw boss hp bar
     PHA                                ; 0x12bae $AB9E 48                      ;
     LDA      frame_counter                       ; 0x12baf $AB9F A5 12                   ;; Frame Counter (ascending)
     AND      #$0F                      ; 0x12bb1 $ABA1 29 0F                   ; keep bits .... xxxx
     BNE      LABE4                     ; 0x12bb3 $ABA3 D0 3F                   ;
     LDX      #$05                      ; 0x12bb5 $ABA5 A2 05                   ; X = 05
 LABA7:                                                                          ;
-    LDA      $B6,x                     ; 0x12bb7 $ABA7 B5 B6                   ;; Generated Enemy Slot
+    LDA      zp_B6,x                     ; 0x12bb7 $ABA7 B5 B6                   ;; Generated Enemy Slot
     BEQ      LABB0                     ; 0x12bb9 $ABA9 F0 05                   ;
 LABAB:                                                                          ;
     DEX                                ; 0x12bbb $ABAB CA                      ;
@@ -3304,29 +3304,29 @@ LABB0:                                                                          
     AND      #$F0                      ; 0x12bc3 $ABB3 29 F0                   ; keep bits xxxx ....
     CMP      #$60                      ; 0x12bc5 $ABB5 C9 60                   ;
     BCC      LABAB                     ; 0x12bc7 $ABB7 90 F2                   ;
-    STA      $4E,x                     ; 0x12bc9 $ABB9 95 4E                   ;; Enemy X Position (low byte)
-    INC      $B6,x                     ; 0x12bcb $ABBB F6 B6                   ;; Generated Enemy Slot
+    STA      zp_4E,x                     ; 0x12bc9 $ABB9 95 4E                   ;; Enemy X Position (low byte)
+    INC      zp_B6,x                     ; 0x12bcb $ABBB F6 B6                   ;; Generated Enemy Slot
     LDA      #$09                      ; 0x12bcd $ABBD A9 09                   ; A = 09
-    STA      $A1,x                     ; 0x12bcf $ABBF 95 A1                   ; 09 = Falling Block
+    STA      zp_A1,x                     ; 0x12bcf $ABBF 95 A1                   ; 09 = Falling Block
     LDA      #$FF                      ; 0x12bd1 $ABC1 A9 FF                   ; A = FF
-    STA      $BC,x                     ; 0x12bd3 $ABC3 95 BC                   ;; Generated Enemy Y Position ?
-    STA      $C2,x                     ; 0x12bd5 $ABC5 95 C2                   ;; Enemy Current HP
+    STA      zp_BC,x                     ; 0x12bd3 $ABC3 95 BC                   ;; Generated Enemy Y Position ?
+    STA      zp_C2,x                     ; 0x12bd5 $ABC5 95 C2                   ;; Enemy Current HP
     LDA      #$1F                      ; 0x12bd7 $ABC7 A9 1F                   ; A = 1F
-    STA      $2A,x                     ; 0x12bd9 $ABC9 95 2A                   ; Enemy Position
+    STA      zp_2A,x                     ; 0x12bd9 $ABC9 95 2A                   ; Enemy Position
     LDA      #$01                      ; 0x12bdb $ABCB A9 01                   ; A = 01
-    STA      $1A,x                     ; 0x12bdd $ABCD 95 1A                   ;
-    STA      $3C,x                     ; 0x12bdf $ABCF 95 3C                   ;; Enemy X Position (high byte)
+    STA      zp_1A,x                     ; 0x12bdd $ABCD 95 1A                   ;
+    STA      zp_3C,x                     ; 0x12bdf $ABCF 95 3C                   ;; Enemy X Position (high byte)
     JSR      bank7_DAC7                     ; 0x12be1 $ABD1 20 C7 DA                ; Set Enemy Y Velocity to 0
-    STA      $AF,x                     ; 0x12be4 $ABD4 95 AF                   ;; Various enemy state variables
-    STX      $10                       ; 0x12be6 $ABD6 86 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_AF,x                     ; 0x12be4 $ABD4 95 AF                   ;; Various enemy state variables
+    STX      zp_10                       ; 0x12be6 $ABD6 86 10                   ;; used as monster x register ;draw boss hp bar
     JSR      bank7_EA32                     ; 0x12be8 $ABD8 20 32 EA                ;
-    LDA      $A8,x                     ; 0x12beb $ABDB B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x12beb $ABDB B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x12bed $ABDD 29 04                   ; keep bits .... .x..
     BEQ      LABE4                     ; 0x12bef $ABDF F0 03                   ;
     JSR      bank7_DD3D                     ; 0x12bf1 $ABE1 20 3D DD                ;
 LABE4:                                                                          ;
     PLA                                ; 0x12bf4 $ABE4 68                      ;
-    STA      $10                       ; 0x12bf5 $ABE5 85 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_10                       ; 0x12bf5 $ABE5 85 10                   ;; used as monster x register ;draw boss hp bar
     TAX                                ; 0x12bf7 $ABE7 AA                      ;
 LABE8:                                                                          ;
     RTS                                ; 0x12bf8 $ABE8 60                      ;
@@ -3335,10 +3335,10 @@ LABE8:                                                                          
 bank4_Enemy_Routines_Falling_Block:                                             ;
     LDA      #$00                      ; 0x12bf9 $ABE9 A9 00                   ; A = 00
     STA      bss_040E,x                   ; 0x12bfb $ABEB 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
-    LDA      $AF,x                     ; 0x12bfe $ABEE B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x12bfe $ABEE B5 AF                   ;; Various enemy state variables
     BEQ      bank4_Related_to_Falling_Blocks; 0x12c00 $ABF0 F0 0E                  ;
-    INC      $2A,x                     ; 0x12c02 $ABF2 F6 2A                   ;; Enemy Y Position
-    INC      $AF,x                     ; 0x12c04 $ABF4 F6 AF                   ;; Various enemy state variables
+    INC      zp_2A,x                     ; 0x12c02 $ABF2 F6 2A                   ;; Enemy Y Position
+    INC      zp_AF,x                     ; 0x12c04 $ABF4 F6 AF                   ;; Various enemy state variables
     CMP      #$10                      ; 0x12c06 $ABF6 C9 10                   ;
     BNE      LABFD                     ; 0x12c08 $ABF8 D0 03                   ;
     JMP      bank7_remove_enemy_or_item; 0x12c0a $ABFA 4C 47 DD                ; Remove Enemy/Item
@@ -3353,48 +3353,48 @@ bank4_Related_to_Falling_Blocks:                                                
     JSR      bank7_EA32                     ; 0x12c13 $AC03 20 32 EA                ;
     JSR      bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least; 0x12c16 $AC06 20 77 E6;
     JSR      bank7_E4D9                     ; 0x12c19 $AC09 20 D9 E4                ;
-    LDA      $A8,x                     ; 0x12c1c $AC0C B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x12c1c $AC0C B5 A8                   ;; Enemy State
     AND      #$30                      ; 0x12c1e $AC0E 29 30                   ; keep bits ..xx ....
     BEQ      LAC1F                     ; 0x12c20 $AC10 F0 0D                   ;
     AND      #$10                      ; 0x12c22 $AC12 29 10                   ; keep bits ...x ....
     BEQ      LAC19                     ; 0x12c24 $AC14 F0 03                   ;
     JSR      bank7_Link_Hit_Routine    ; 0x12c26 $AC16 20 EF E2                ;
 LAC19:                                                                          ;
-    INC      $AF,x                     ; 0x12c29 $AC19 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x12c29 $AC19 F6 AF                   ;; Various enemy state variables
     LDA      #$04                      ; 0x12c2b $AC1B A9 04                   ; A = 04
-    STA      $ED                       ; 0x12c2d $AC1D 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    STA      zp_ED                       ; 0x12c2d $AC1D 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
 LAC1F:                                                                          ;
-    LDA      $A8,x                     ; 0x12c2f $AC1F B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x12c2f $AC1F B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x12c31 $AC21 29 04                   ; keep bits .... .x..
     BEQ      LABFD                     ; 0x12c33 $AC23 F0 D8                   ;
     LDA      #$02                      ; 0x12c35 $AC25 A9 02                   ; A = 02
-    STA      $ED                       ; 0x12c37 $AC27 85 ED                   ; Sound Effects Type 2
+    STA      zp_ED                       ; 0x12c37 $AC27 85 ED                   ; Sound Effects Type 2
     JSR      bank7_remove_enemy_or_item; 0x12c39 $AC29 20 47 DD                ; Remove Enemy/Item
     LDY      bss_044B                     ; 0x12c3c $AC2C AC 4B 04                ;
     LDA      L851E                     ; 0x12c3f $AC2F AD 1E 85                ;
-    STA      ($DA),y                   ; 0x12c42 $AC32 91 DA                   ;
-    LDA      $2A,x                     ; 0x12c44 $AC34 B5 2A                   ;; Enemy Y Position
+    STA      (zp_DA),y                   ; 0x12c42 $AC32 91 DA                   ;
+    LDA      zp_2A,x                     ; 0x12c44 $AC34 B5 2A                   ;; Enemy Y Position
     AND      #$F8                      ; 0x12c46 $AC36 29 F8                   ; keep bits xxxx x...
-    STA      $02                       ; 0x12c48 $AC38 85 02                   ;
-    LDA      $4E,x                     ; 0x12c4a $AC3A B5 4E                   ;; Enemy X Position (low byte)
-    STA      $03                       ; 0x12c4c $AC3C 85 03                   ;
+    STA      zp_02                       ; 0x12c48 $AC38 85 02                   ;
+    LDA      zp_4E,x                     ; 0x12c4a $AC3A B5 4E                   ;; Enemy X Position (low byte)
+    STA      zp_03                       ; 0x12c4c $AC3C 85 03                   ;
     LDA      #$08                      ; 0x12c4e $AC3E A9 08                   ; A = 08
     STA      zp_00                     ; 0x12c50 $AC40 85 00                   ;
-    LDA      $02                       ; 0x12c52 $AC42 A5 02                   ;
+    LDA      zp_02                       ; 0x12c52 $AC42 A5 02                   ;
     ASL                                ; 0x12c54 $AC44 0A                      ;
     ROL      zp_00                     ; 0x12c55 $AC45 26 00                   ;
     ASL                                ; 0x12c57 $AC47 0A                      ;
     ROL      zp_00                     ; 0x12c58 $AC48 26 00                   ;
     AND      #$E0                      ; 0x12c5a $AC4A 29 E0                   ; keep bits xxx. ....
-    STA      $01                       ; 0x12c5c $AC4C 85 01                   ;
-    LDA      $03                       ; 0x12c5e $AC4E A5 03                   ;
+    STA      zp_01                       ; 0x12c5c $AC4C 85 01                   ;
+    LDA      zp_03                       ; 0x12c5e $AC4E A5 03                   ;
     LSR                                ; 0x12c60 $AC50 4A                      ;
     LSR                                ; 0x12c61 $AC51 4A                      ;
     LSR                                ; 0x12c62 $AC52 4A                      ;
-    ORA      $01                       ; 0x12c63 $AC53 05 01                   ;
-    STA      $01                       ; 0x12c65 $AC55 85 01                   ;
-    LDX      $10                       ; 0x12c67 $AC57 A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDA      $3C,x                     ; 0x12c69 $AC59 B5 3C                   ;; Enemy X Position (high byte)
+    ORA      zp_01                       ; 0x12c63 $AC53 05 01                   ;
+    STA      zp_01                       ; 0x12c65 $AC55 85 01                   ;
+    LDX      zp_10                       ; 0x12c67 $AC57 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_3C,x                     ; 0x12c69 $AC59 B5 3C                   ;; Enemy X Position (high byte)
     AND      #$01                      ; 0x12c6b $AC5B 29 01                   ; keep bits .... ...x
     ASL                                ; 0x12c6d $AC5D 0A                      ;
     ASL                                ; 0x12c6e $AC5E 0A                      ;
@@ -3402,7 +3402,7 @@ LAC1F:                                                                          
     LDX      bss_0301                     ; 0x12c71 $AC61 AE 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
     STA      bss_0302,x                   ; 0x12c74 $AC64 9D 02 03                ;
     PHA                                ; 0x12c77 $AC67 48                      ;
-    LDA      $01                       ; 0x12c78 $AC68 A5 01                   ;
+    LDA      zp_01                       ; 0x12c78 $AC68 A5 01                   ;
     STA      bss_0303,x                   ; 0x12c7a $AC6A 9D 03 03                ;
     ADC      #$20                      ; 0x12c7d $AC6D 69 20                   ;
     STA      bss_0308,x                   ; 0x12c7f $AC6F 9D 08 03                ;
@@ -3425,33 +3425,33 @@ LAC1F:                                                                          
     TXA                                ; 0x12ca9 $AC99 8A                      ;
     ADC      #$0A                      ; 0x12caa $AC9A 69 0A                   ;
     STA      bss_0301                     ; 0x12cac $AC9C 8D 01 03                ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
-    LDX      $10                       ; 0x12caf $AC9F A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x12caf $AC9F A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x12cb1 $ACA1 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LACA2:                                                                          ;
     LDX      #$C0                      ; 0x12cb2 $ACA2 A2 C0                   ; X = C0
-    LDA      $02                       ; 0x12cb4 $ACA4 A5 02                   ;
+    LDA      zp_02                       ; 0x12cb4 $ACA4 A5 02                   ;
     EOR      #$03                      ; 0x12cb6 $ACA6 49 03                   ; flip bits .... ..xx
-    STA      $02                       ; 0x12cb8 $ACA8 85 02                   ;
+    STA      zp_02                       ; 0x12cb8 $ACA8 85 02                   ;
     JMP      bank7_F0D7                     ; 0x12cba $ACAA 4C D7 F0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LACAD:                                                                          ;
-    LDA      $29                       ; 0x12cbd $ACAD A5 29                   ; Link's Y Position
+    LDA      zp_29                       ; 0x12cbd $ACAD A5 29                   ; Link's Y Position
     SBC      #$24                      ; 0x12cbf $ACAF E9 24                   ;
-    STA      $2A,x                     ; 0x12cc1 $ACB1 95 2A                   ; Enemy Y Position
-    LDY      $5F                       ; 0x12cc3 $ACB3 A4 5F                   ; Link's facing direction
+    STA      zp_2A,x                     ; 0x12cc1 $ACB1 95 2A                   ; Enemy Y Position
+    LDY      zp_5F                       ; 0x12cc3 $ACB3 A4 5F                   ; Link's facing direction
     LDA      bss_072C                     ; 0x12cc5 $ACB5 AD 2C 07                ; Scrolling Offset Low Byte
     ADC      bank4_table12,y           ; 0x12cc8 $ACB8 79 D0 AC                ;
-    STA      $4E,x                     ; 0x12ccb $ACBB 95 4E                   ; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x12ccb $ACBB 95 4E                   ; Enemy X Position (low byte)
     LDA      bss_072A                     ; 0x12ccd $ACBD AD 2A 07                ; Scrolling Offset High Byte
     ADC      #$00                      ; 0x12cd0 $ACC0 69 00                   ;
-    STA      $3C,x                     ; 0x12cd2 $ACC2 95 3C                   ; Enemy X Position (high byte)
+    STA      zp_3C,x                     ; 0x12cd2 $ACC2 95 3C                   ; Enemy X Position (high byte)
     LDA      LACD2,y                   ; 0x12cd4 $ACC4 B9 D2 AC                ;
-    STA      $71,x                     ; 0x12cd7 $ACC7 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x12cd7 $ACC7 95 71                   ; Enemy X Velocity
     JSR      bank7_DAC7                     ; 0x12cd9 $ACC9 20 C7 DA                ; Set Enemy Y Velocity to 0
-    STA      $AF,x                     ; 0x12cdc $ACCC 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x12cdc $ACCC 95 AF                   ;; Various enemy state variables
 bank4_table12 = * + $0002                                                  ;
     JMP      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x12cde $ACCE 4C 91 DC; Determine Enemy Facing Direction
                                                                                ;
@@ -3469,7 +3469,7 @@ bank4_code13:                                                                   
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LACDA:                                                                          ;
-    LDA      $C9                       ; 0x12cea $ACDA A5 C9                   ;
+    LDA      zp_C9                       ; 0x12cea $ACDA A5 C9                   ;
     AND      #$0C                      ; 0x12cec $ACDC 29 0C                   ; keep bits .... xx..
     BEQ      LACE8                     ; 0x12cee $ACDE F0 08                   ;
     LDA      bss_05C9                     ; 0x12cf0 $ACE0 AD C9 05                ;
@@ -3477,7 +3477,7 @@ LACDA:                                                                          
     JSR      LACAD                     ; 0x12cf5 $ACE5 20 AD AC                ;
 LACE8:                                                                          ;
     JSR      bank7_Enemy_Stops_when_Hit; 0x12cf8 $ACE8 20 02 DA                ; Enemy Stops when Hit
-    LDA      $AF,x                     ; 0x12cfb $ACEB B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x12cfb $ACEB B5 AF                   ;; Various enemy state variables
     AND      #$01                      ; 0x12cfd $ACED 29 01                   ; keep bits .... ...x
     TAY                                ; 0x12cff $ACEF A8                      ;
     LDA      bss_057E,x                   ; 0x12d00 $ACF0 BD 7E 05                ; Enemy Y Velocity
@@ -3486,7 +3486,7 @@ LACE8:                                                                          
     STA      bss_057E,x                   ; 0x12d07 $ACF7 9D 7E 05                ; Enemy Y Velocity
     CMP      LACD7,y                   ; 0x12d0a $ACFA D9 D7 AC                ;
     BNE      LAD01                     ; 0x12d0d $ACFD D0 02                   ;
-    INC      $AF,x                     ; 0x12d0f $ACFF F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x12d0f $ACFF F6 AF                   ;; Various enemy state variables
 LAD01:                                                                          ;
     JSR      bank7_Simple_Vertical_Movement; 0x12d11 $AD01 20 C8 DE                ;
     JSR      bank7_Simple_Horizontal_Movement; 0x12d14 $AD04 20 B8 DE              ;
@@ -3505,7 +3505,7 @@ LAD17:                                                                          
     ADC      #$06                      ; 0x12d29 $AD19 69 06                   ;
     TAX                                ; 0x12d2b $AD1B AA                      ;
     JSR      bank7_Change_Enemy_Facing_Direction_and_X_Velocity; 0x12d2c $AD1C 20 EB E8;
-    LDX      $10                       ; 0x12d2f $AD1F A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x12d2f $AD1F A6 10                   ;; used as monster x register ;draw boss hp bar
     LDA      #$80                      ; 0x12d31 $AD21 A9 80                   ; A = 80
     STA      bss_044C,x                   ; 0x12d33 $AD23 9D 4C 04                ;
     JMP      bank4_Related_to_Helmethead_maybe1; 0x12d36 $AD26 4C 90 AD            ;
@@ -3516,56 +3516,56 @@ bank4_Related_to_Helmethead_maybe0:                                             
     BNE      bank4_Related_to_Helmethead_maybe1; 0x12d3c $AD2C D0 62               ;
     LDA      bss_045E,x                   ; 0x12d3e $AD2E BD 5E 04                ;
     TAX                                ; 0x12d41 $AD31 AA                      ;
-    STX      $11                       ; 0x12d42 $AD32 86 11                   ;
-    LDA      $81,x                     ; 0x12d44 $AD34 B5 81                   ;; Current Animation Frame for Enemys
+    STX      zp_11                       ; 0x12d42 $AD32 86 11                   ;
+    LDA      zp_81,x                     ; 0x12d44 $AD34 B5 81                   ;; Current Animation Frame for Enemys
     BEQ      bank4_Related_to_Helmethead_maybe1; 0x12d46 $AD36 F0 58               ;
-    LDA      $B6,x                     ; 0x12d48 $AD38 B5 B6                   ;; Generated Enemy Slot
+    LDA      zp_B6,x                     ; 0x12d48 $AD38 B5 B6                   ;; Generated Enemy Slot
     CMP      #$01                      ; 0x12d4a $AD3A C9 01                   ;
     BNE      bank4_Related_to_Helmethead_maybe1; 0x12d4c $AD3C D0 52               ;
-    LDA      $4E,x                     ; 0x12d4e $AD3E B5 4E                   ;; Enemy X Position (low byte)
+    LDA      zp_4E,x                     ; 0x12d4e $AD3E B5 4E                   ;; Enemy X Position (low byte)
     SBC      bss_072C                     ; 0x12d50 $AD40 ED 2C 07                ;; Scrolling Offset Low Byte
-    STA      $CD                       ; 0x12d53 $AD43 85 CD                   ;
+    STA      zp_CD                       ; 0x12d53 $AD43 85 CD                   ;
     JSR      bank7_E942                     ; 0x12d55 $AD45 20 42 E9                ;
     LDY      #$03                      ; 0x12d58 $AD48 A0 03                   ; Y = 03
 LAD4A:                                                                          ;
-    LDA      $04,y                     ; 0x12d5a $AD4A B9 04 00                ;
+    LDA      zp_04,y                     ; 0x12d5a $AD4A B9 04 00                ;
     STA      zp_00,y                   ; 0x12d5d $AD4D 99 00 00                ;
     DEY                                ; 0x12d60 $AD50 88                      ;
     BPL      LAD4A                     ; 0x12d61 $AD51 10 F7                   ;
-    LDX      $10                       ; 0x12d63 $AD53 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x12d63 $AD53 A6 10                   ;; used as monster x register ;draw boss hp bar
     JSR      bank7_E469                     ; 0x12d65 $AD55 20 69 E4                ;
     JSR      bank7_idem__maybe         ; 0x12d68 $AD58 20 F9 E9                ;
     BCC      bank4_Related_to_Helmethead_maybe1; 0x12d6b $AD5B 90 33               ;
     JSR      LADA4                     ; 0x12d6d $AD5D 20 A4 AD                ;
-    LDA      $10                       ; 0x12d70 $AD60 A5 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_10                       ; 0x12d70 $AD60 A5 10                   ;; used as monster x register ;draw boss hp bar
     PHA                                ; 0x12d72 $AD62 48                      ;
-    LDX      $11                       ; 0x12d73 $AD63 A6 11                   ;
-    STX      $10                       ; 0x12d75 $AD65 86 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_11                       ; 0x12d73 $AD63 A6 11                   ;
+    STX      zp_10                       ; 0x12d75 $AD65 86 10                   ;; used as monster x register ;draw boss hp bar
     LDY      #$01                      ; 0x12d77 $AD67 A0 01                   ; Y = 01
-    STY      $0B                       ; 0x12d79 $AD69 84 0B                   ;
+    STY      zp_0B                       ; 0x12d79 $AD69 84 0B                   ;
     JSR      bank7_E726                     ; 0x12d7b $AD6B 20 26 E7                ;
     PLA                                ; 0x12d7e $AD6E 68                      ;
-    STA      $10                       ; 0x12d7f $AD6F 85 10                   ;; used as monster x register ;draw boss hp bar
-    LDX      $11                       ; 0x12d81 $AD71 A6 11                   ;
-    LDA      $A1,x                     ; 0x12d83 $AD73 B5 A1                   ; Enemy Code
+    STA      zp_10                       ; 0x12d7f $AD6F 85 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_11                       ; 0x12d81 $AD71 A6 11                   ;
+    LDA      zp_A1,x                     ; 0x12d83 $AD73 B5 A1                   ; Enemy Code
     CMP      #$22                      ; 0x12d85 $AD75 C9 22                   ; 22 = Floating Helmet
     BNE      LAD8D                     ; 0x12d87 $AD77 D0 14                   ;
     LDA      #$01                      ; 0x12d89 $AD79 A9 01                   ; A = 01
-    CMP      $B6,x                     ; 0x12d8b $AD7B D5 B6                   ;; Generated Enemy Slot
+    CMP      zp_B6,x                     ; 0x12d8b $AD7B D5 B6                   ;; Generated Enemy Slot
     BEQ      LAD8D                     ; 0x12d8d $AD7D F0 0E                   ;
-    STA      $B6,x                     ; 0x12d8f $AD7F 95 B6                   ;; Generated Enemy Slot
+    STA      zp_B6,x                     ; 0x12d8f $AD7F 95 B6                   ;; Generated Enemy Slot
     LDA      #$FF                      ; 0x12d91 $AD81 A9 FF                   ; A = FF
     STA      $6E3F                     ; 0x12d93 $AD83 8D 3F 6E                ;
     STA      bss_0504,x                   ; 0x12d96 $AD86 9D 04 05                ;; Timer for Enemy
     LSR                                ; 0x12d99 $AD89 4A                      ; A -> 7F
     STA      bss_040E,x                   ; 0x12d9a $AD8A 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
 LAD8D:                                                                          ;
-    LDX      $10                       ; 0x12d9d $AD8D A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x12d9d $AD8D A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x12d9f $AD8F 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Related_to_Helmethead_maybe1:                                             ;
-    LDX      $10                       ; 0x12da0 $AD90 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x12da0 $AD90 A6 10                   ;; used as monster x register ;draw boss hp bar
     BPL      LADB4                     ; 0x12da2 $AD92 10 20                   ;
 LAD94:                                                                          ;
     JSR      LBEF6                     ; 0x12da4 $AD94 20 F6 BE                ;
@@ -3573,7 +3573,7 @@ LAD94:                                                                          
     BCS      LADA4                     ; 0x12daa $AD9A B0 08                   ;
     BCC      LADBF                     ; 0x12dac $AD9C 90 21                   ;
 LAD9E:                                                                          ;
-    LDA      $30,x                     ; 0x12dae $AD9E B5 30                   ;; Projectile Y Position
+    LDA      zp_30,x                     ; 0x12dae $AD9E B5 30                   ;; Projectile Y Position
     CMP      #$C5                      ; 0x12db0 $ADA0 C9 C5                   ;
     BCC      LADBF                     ; 0x12db2 $ADA2 90 1B                   ;
 LADA4:                                                                          ;
@@ -3581,12 +3581,12 @@ LADA4:                                                                          
     BNE      LADD4                     ; 0x12db6 $ADA6 D0 2C                   ;
 LADA8:                                                                          ;
     LDY      #$02                      ; 0x12db8 $ADA8 A0 02                   ; Y = 02
-    LDA      $77,x                     ; 0x12dba $ADAA B5 77                   ;; Projectile X Velocity
+    LDA      zp_77,x                     ; 0x12dba $ADAA B5 77                   ;; Projectile X Velocity
     BMI      LADAF                     ; 0x12dbc $ADAC 30 01                   ;
     DEY                                ; 0x12dbe $ADAE 88                      ;
 LADAF:                                                                          ;
     TYA                                ; 0x12dbf $ADAF 98                      ;
-    CMP      $66,x                     ; 0x12dc0 $ADB0 D5 66                   ;; Projectile facing direction
+    CMP      zp_66,x                     ; 0x12dc0 $ADB0 D5 66                   ;; Projectile facing direction
     BNE      LADB9                     ; 0x12dc2 $ADB2 D0 05                   ;
 LADB4:                                                                          ;
     LDA      #$FE                      ; 0x12dc4 $ADB4 A9 FE                   ; A = FE
@@ -3596,18 +3596,18 @@ LADB9:                                                                          
     INC      bss_0584,x                   ; 0x12dcc $ADBC FE 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
 LADBF:                                                                          ;
     JSR      bank7_DED4                     ; 0x12dcf $ADBF 20 D4 DE                ;
-    LDA      $CA                       ; 0x12dd2 $ADC2 A5 CA                   ;
+    LDA      zp_CA                       ; 0x12dd2 $ADC2 A5 CA                   ;
     AND      #$FC                      ; 0x12dd4 $ADC4 29 FC                   ; keep bits xxxx xx..
     BEQ      LADD7                     ; 0x12dd6 $ADC6 F0 0F                   ;
     AND      #$F0                      ; 0x12dd8 $ADC8 29 F0                   ; keep bits xxxx ....
     BNE      LADD2                     ; 0x12dda $ADCA D0 06                   ;
-    LDA      $87,x                     ; 0x12ddc $ADCC B5 87                   ;; Projectile Type
+    LDA      zp_87,x                     ; 0x12ddc $ADCC B5 87                   ;; Projectile Type
     CMP      #$08                      ; 0x12dde $ADCE C9 08                   ;
     BEQ      LADD6                     ; 0x12de0 $ADD0 F0 04                   ;
 LADD2:                                                                          ;
     LDA      #$00                      ; 0x12de2 $ADD2 A9 00                   ; A = 00
 LADD4:                                                                          ;
-    STA      $87,x                     ; 0x12de4 $ADD4 95 87                   ;; Projectile Type
+    STA      zp_87,x                     ; 0x12de4 $ADD4 95 87                   ;; Projectile Type
 LADD6:                                                                          ;
     RTS                                ; 0x12de6 $ADD6 60                      ;
                                                                                ;
@@ -3619,25 +3619,25 @@ LADD7:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LADE0:                                                                          ;
-    DEC      $77,x                     ; 0x12df0 $ADE0 D6 77                   ;; Projectile X Velocity
+    DEC      zp_77,x                     ; 0x12df0 $ADE0 D6 77                   ;; Projectile X Velocity
     BNE      LADE7                     ; 0x12df2 $ADE2 D0 03                   ;
     JMP      LADD2                     ; 0x12df4 $ADE4 4C D2 AD                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LADE7:                                                                          ;
-    LDY      $97,x                     ; 0x12df7 $ADE7 B4 97                   ;
-    LDA      $30,x                     ; 0x12df9 $ADE9 B5 30                   ;; Projectile Y Position
+    LDY      zp_97,x                     ; 0x12df7 $ADE7 B4 97                   ;
+    LDA      zp_30,x                     ; 0x12df9 $ADE9 B5 30                   ;; Projectile Y Position
     STA      zp_00                     ; 0x12dfb $ADEB 85 00                   ;
     LDA      #$02                      ; 0x12dfd $ADED A9 02                   ;;A = #$02 0000_0010
-    STA      $02                       ; 0x12dff $ADEF 85 02                   ;
+    STA      zp_02                       ; 0x12dff $ADEF 85 02                   ;
     LSR                                ; 0x12e01 $ADF1 4A                      ;
-    STA      $03                       ; 0x12e02 $ADF2 85 03                   ;
+    STA      zp_03                       ; 0x12e02 $ADF2 85 03                   ;
     LSR                                ; 0x12e04 $ADF4 4A                      ;
-    STA      $C9                       ; 0x12e05 $ADF5 85 C9                   ;
-    LDA      $54,x                     ; 0x12e07 $ADF7 B5 54                   ;; Projectile X Position (low byte)
+    STA      zp_C9                       ; 0x12e05 $ADF5 85 C9                   ;
+    LDA      zp_54,x                     ; 0x12e07 $ADF7 B5 54                   ;; Projectile X Position (low byte)
     SBC      bss_072C                     ; 0x12e09 $ADF9 ED 2C 07                ;; Scrolling Offset Low Byte
-    STA      $01                       ; 0x12e0c $ADFC 85 01                   ;
-    LDA      $77,x                     ; 0x12e0e $ADFE B5 77                   ;; Projectile X Velocity
+    STA      zp_01                       ; 0x12e0c $ADFC 85 01                   ;
+    LDA      zp_77,x                     ; 0x12e0e $ADFE B5 77                   ;; Projectile X Velocity
     LDX      #$00                      ; 0x12e10 $AE00 A2 00                   ;;X = #$00 0000_0000
     CMP      #$08                      ; 0x12e12 $AE02 C9 08                   ;
     BCS      LAE08                     ; 0x12e14 $AE04 B0 02                   ;
@@ -3653,11 +3653,11 @@ LAE10:                                                                          
 LAE11:                                                                          ;
     LDA      frame_counter                       ; 0x12e21 $AE11 A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x12e23 $AE13 29 03                   ;;Keep Bits:0000_0011
-    LDY      $77,x                     ; 0x12e25 $AE15 B4 77                   ;; Projectile X Velocity
+    LDY      zp_77,x                     ; 0x12e25 $AE15 B4 77                   ;; Projectile X Velocity
     BMI      LAE1B                     ; 0x12e27 $AE17 30 02                   ;
     ORA      #$40                      ; 0x12e29 $AE19 09 40                   ;;Set Bits:0100_0000
 LAE1B:                                                                          ;
-    LDY       a:$97,x                   ; 0x12e2b $AE1B BC 97 00                ;
+    LDY       a:zp_97,x                   ; 0x12e2b $AE1B BC 97 00                ;
     BNE      LAE43                     ; 0x12e2e $AE1E D0 23                   ;
 LAE20:                                                                          ;
     LDA      frame_counter                       ; 0x12e30 $AE20 A5 12                   ;; Frame Counter (ascending)
@@ -3677,14 +3677,14 @@ LAE30:                                                                          
     LSR                                ; 0x12e42 $AE32 4A                      ;
     LSR                                ; 0x12e43 $AE33 4A                      ;
     AND      #$03                      ; 0x12e44 $AE34 29 03                   ;;Keep Bits:0000_0011
-    LDY      $66,x                     ; 0x12e46 $AE36 B4 66                   ;; Projectile facing direction
+    LDY      zp_66,x                     ; 0x12e46 $AE36 B4 66                   ;; Projectile facing direction
     DEY                                ; 0x12e48 $AE38 88                      ;
     BNE      LAE3D                     ; 0x12e49 $AE39 D0 02                   ;
     EOR      #$03                      ; 0x12e4b $AE3B 49 03                   ;;Flip Bits:0000_0011
 LAE3D:                                                                          ;
     TAY                                ; 0x12e4d $AE3D A8                      ;
     LDA      bank4_table_AE2C,y        ; 0x12e4e $AE3E B9 2C AE                ;
-    LDY      $97,x                     ; 0x12e51 $AE41 B4 97                   ;
+    LDY      zp_97,x                     ; 0x12e51 $AE41 B4 97                   ;
 LAE43:                                                                          ;
     STA      bss_0202,y                   ; 0x12e53 $AE43 99 02 02                ;
 LAE46:                                                                          ;
@@ -3700,10 +3700,10 @@ LAE4C:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LAE4F:                                                                          ;
     LDA      #$00                      ; 0x12e5f $AE4F A9 00                   ;;A = #$00 0000_0000
-    STA      $81,x                     ; 0x12e61 $AE51 95 81                   ;; Current Animation Frame for Enemys
+    STA      zp_81,x                     ; 0x12e61 $AE51 95 81                   ;; Current Animation Frame for Enemys
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x12e63 $AE53 20 91 DC;
-    DEC      $AF,x                     ; 0x12e66 $AE56 D6 AF                   ;; Various enemy state variables
-    LDA      $AF,x                     ; 0x12e68 $AE58 B5 AF                   ;; Various enemy state variables
+    DEC      zp_AF,x                     ; 0x12e66 $AE56 D6 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x12e68 $AE58 B5 AF                   ;; Various enemy state variables
     CMP      #$C0                      ; 0x12e6a $AE5A C9 C0                   ;
     BCC      LAE64                     ; 0x12e6c $AE5C 90 06                   ;
     LSR                                ; 0x12e6e $AE5E 4A                      ;
@@ -3717,7 +3717,7 @@ LAE64:                                                                          
     LDA      #$00                      ; 0x12e78 $AE68 A9 00                   ;;A = #$00 0000_0000
     JSR      LAED3                     ; 0x12e7a $AE6A 20 D3 AE                ;
 LAE6D:                                                                          ;
-    LDA      $AF,x                     ; 0x12e7d $AE6D B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x12e7d $AE6D B5 AF                   ;; Various enemy state variables
     CMP      #$40                      ; 0x12e7f $AE6F C9 40                   ;
     BCC      LAEBD                     ; 0x12e81 $AE71 90 4A                   ;
     CMP      #$80                      ; 0x12e83 $AE73 C9 80                   ;
@@ -3733,10 +3733,10 @@ LAE7B:                                                                          
     LDA      #$02                      ; 0x12e91 $AE81 A9 02                   ;;A = #$02 0000_0010
     JSR      L9C45                     ; 0x12e93 $AE83 20 45 9C                ;
     LDA      #$00                      ; 0x12e96 $AE86 A9 00                   ;;A = #$00 0000_0000
-    STA      $81,x                     ; 0x12e98 $AE88 95 81                   ;; Current Animation Frame for Enemys
+    STA      zp_81,x                     ; 0x12e98 $AE88 95 81                   ;; Current Animation Frame for Enemys
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x12e9a $AE8A 20 91 DC;
-    DEC      $AF,x                     ; 0x12e9d $AE8D D6 AF                   ;; Various enemy state variables
-    LDA      $AF,x                     ; 0x12e9f $AE8F B5 AF                   ;; Various enemy state variables
+    DEC      zp_AF,x                     ; 0x12e9d $AE8D D6 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x12e9f $AE8F B5 AF                   ;; Various enemy state variables
     CMP      #$F0                      ; 0x12ea1 $AE91 C9 F0                   ;
     BCC      LAE9B                     ; 0x12ea3 $AE93 90 06                   ;
     LSR                                ; 0x12ea5 $AE95 4A                      ;
@@ -3750,7 +3750,7 @@ LAE9B:                                                                          
     LDA      #$02                      ; 0x12eaf $AE9F A9 02                   ;;A = #$02 0000_0010
     JSR      LAED3                     ; 0x12eb1 $AEA1 20 D3 AE                ;
 LAEA4:                                                                          ;
-    LDA      $AF,x                     ; 0x12eb4 $AEA4 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x12eb4 $AEA4 B5 AF                   ;; Various enemy state variables
     CMP      #$D0                      ; 0x12eb6 $AEA6 C9 D0                   ;
     BCC      LAEBD                     ; 0x12eb8 $AEA8 90 13                   ;
     CMP      #$E0                      ; 0x12eba $AEAA C9 E0                   ;
@@ -3761,7 +3761,7 @@ LAEA4:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAEB2:                                                                          ;
-    INC      $81,x                     ; 0x12ec2 $AEB2 F6 81                   ;; Current Animation Frame for Enemys
+    INC      zp_81,x                     ; 0x12ec2 $AEB2 F6 81                   ;; Current Animation Frame for Enemys
     JSR      bank7_E4D9                     ; 0x12ec4 $AEB4 20 D9 E4                ;
     JSR      bank7_Link_Collision_Detection; 0x12ec7 $AEB7 20 C1 D6                ;
 LAEBA:                                                                          ;
@@ -3771,43 +3771,43 @@ LAEBA:                                                                          
 LAEBD:                                                                          ;
     LDA      #$00                      ; 0x12ecd $AEBD A9 00                   ;;A = #$00 0000_0000
     STA      bss_040E,x                   ; 0x12ecf $AEBF 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
-    STA      $AF,x                     ; 0x12ed2 $AEC2 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x12ed2 $AEC2 95 AF                   ;; Various enemy state variables
     LDA      rng_out,x                   ; 0x12ed4 $AEC4 BD 1B 05                ;; Randomizer
     CMP      #$E0                      ; 0x12ed7 $AEC7 C9 E0                   ;
     BCC      LAECC                     ; 0x12ed9 $AEC9 90 01                   ;
     LSR                                ; 0x12edb $AECB 4A                      ;
 LAECC:                                                                          ;
-    STA      $4E,x                     ; 0x12edc $AECC 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x12edc $AECC 95 4E                   ;; Enemy X Position (low byte)
     LDA      #$01                      ; 0x12ede $AECE A9 01                   ;;A = #$01 0000_0001
-    STA      $3C,x                     ; 0x12ee0 $AED0 95 3C                   ;; Enemy X Position (high byte)
+    STA      zp_3C,x                     ; 0x12ee0 $AED0 95 3C                   ;; Enemy X Position (high byte)
     RTS                                ; 0x12ee2 $AED2 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAED3:                                                                          ;
     STA      zp_00                     ; 0x12ee3 $AED3 85 00                   ;
-    LDA      $C9                       ; 0x12ee5 $AED5 A5 C9                   ;
+    LDA      zp_C9                       ; 0x12ee5 $AED5 A5 C9                   ;
     BNE      LAF11                     ; 0x12ee7 $AED7 D0 38                   ;
     JSR      bank7_Spawn_New_Projectile; 0x12ee9 $AED9 20 CE DB                ;
     LDA      zp_00                     ; 0x12eec $AEDC A5 00                   ;
     BCS      LAF11                     ; 0x12eee $AEDE B0 31                   ;
-    ADC      $66,y                     ; 0x12ef0 $AEE0 79 66 00                ;
+    ADC      zp_66,y                     ; 0x12ef0 $AEE0 79 66 00                ;
     TAX                                ; 0x12ef3 $AEE3 AA                      ;
     STA      bss_044C,y                   ; 0x12ef4 $AEE4 99 4C 04                ;
     LDA      LAE46,x                   ; 0x12ef7 $AEE7 BD 46 AE                ;
-    LDX      $10                       ; 0x12efa $AEEA A6 10                   ;; used as monster x register ;draw boss hp bar
-    ADC      $4E,x                     ; 0x12efc $AEEC 75 4E                   ;; Enemy X Position (low byte)
-    STA      $54,y                     ; 0x12efe $AEEE 99 54 00                ;
-    LDA      $3C,x                     ; 0x12f01 $AEF1 B5 3C                   ;; Enemy X Position (high byte)
-    LDX      $66,y                     ; 0x12f03 $AEF3 B6 66                   ;
+    LDX      zp_10                       ; 0x12efa $AEEA A6 10                   ;; used as monster x register ;draw boss hp bar
+    ADC      zp_4E,x                     ; 0x12efc $AEEC 75 4E                   ;; Enemy X Position (low byte)
+    STA      zp_54,y                     ; 0x12efe $AEEE 99 54 00                ;
+    LDA      zp_3C,x                     ; 0x12f01 $AEF1 B5 3C                   ;; Enemy X Position (high byte)
+    LDX      zp_66,y                     ; 0x12f03 $AEF3 B6 66                   ;
     ADC      LAE4A,x                   ; 0x12f05 $AEF5 7D 4A AE                ;
-    STA      $42,y                     ; 0x12f08 $AEF8 99 42 00                ;
+    STA      zp_42,y                     ; 0x12f08 $AEF8 99 42 00                ;
     LDA      LAE4C,x                   ; 0x12f0b $AEFB BD 4C AE                ;
-    STA      $77,y                     ; 0x12f0e $AEFE 99 77 00                ;
+    STA      zp_77,y                     ; 0x12f0e $AEFE 99 77 00                ;
     LDA      #$09                      ; 0x12f11 $AF01 A9 09                   ;;A = #$09 0000_1001
-    STA      $87,y                     ; 0x12f13 $AF03 99 87 00                ;
+    STA      zp_87,y                     ; 0x12f13 $AF03 99 87 00                ;
     LDA      #$C0                      ; 0x12f16 $AF06 A9 C0                   ;;A = #$c0 1100_0000
-    STA      $30,y                     ; 0x12f18 $AF08 99 30 00                ;
-    LDX      $10                       ; 0x12f1b $AF0B A6 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_30,y                     ; 0x12f18 $AF08 99 30 00                ;
+    LDX      zp_10                       ; 0x12f1b $AF0B A6 10                   ;; used as monster x register ;draw boss hp bar
     TXA                                ; 0x12f1d $AF0D 8A                      ;
     STA      bss_045E,y                   ; 0x12f1e $AF0E 99 5E 04                ;
 LAF11:                                                                          ;
@@ -3816,11 +3816,11 @@ LAF11:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LAF12:                                                                          ;
     LDY      #$80                      ; 0x12f22 $AF12 A0 80                   ;;Y = #$80 1000_0000
-    STY      $91,x                     ; 0x12f24 $AF14 94 91                   ;
+    STY      zp_91,x                     ; 0x12f24 $AF14 94 91                   ;
     LDA      $6E27                     ; 0x12f26 $AF16 AD 27 6E                ;
     BPL      LAF1F                     ; 0x12f29 $AF19 10 04                   ;
     LDA      #$00                      ; 0x12f2b $AF1B A9 00                   ;;A = #$00 0000_0000
-    STA      $71,x                     ; 0x12f2d $AF1D 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x12f2d $AF1D 95 71                   ;; Enemy X Velocity
 LAF1F:                                                                          ;
 .byt    $4C                            ; 0x12f2f $AF1F 4C                      ;
 .byt    $45                            ; 0x12f30 $AF20 45                      ;
@@ -3833,7 +3833,7 @@ LAF21:                                                                          
 ; ---------------------------------------------------------------------------- ;
     BRK                                ; 0x12f35 $AF25 00                      ;
 LAF26:                                                                          ;
-    LDA      $A8,x                     ; 0x12f36 $AF26 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x12f36 $AF26 B5 A8                   ;; Enemy State
     LDX      #$22                      ; 0x12f38 $AF28 A2 22                   ;;X = #$22 0010_0010
     AND      #$04                      ; 0x12f3a $AF2A 29 04                   ;;Keep Bits:0000_0100
     BEQ      LAF36                     ; 0x12f3c $AF2C F0 08                   ;
@@ -3845,15 +3845,15 @@ LAF36:                                                                          
     JSR      LB477                     ; 0x12f46 $AF36 20 77 B4                ;
     LDA      bss_0504,x                   ; 0x12f49 $AF39 BD 04 05                ;; Timer for Enemy
     BEQ      LAF11                     ; 0x12f4c $AF3C F0 D3                   ;
-    LDA      $C9                       ; 0x12f4e $AF3E A5 C9                   ;
+    LDA      zp_C9                       ; 0x12f4e $AF3E A5 C9                   ;
     BNE      LAF11                     ; 0x12f50 $AF40 D0 CF                   ;
-    LDA      $2A,x                     ; 0x12f52 $AF42 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x12f52 $AF42 B5 2A                   ;; Enemy Y Position
     STA      zp_00                     ; 0x12f54 $AF44 85 00                   ;
-    LDA      $60,x                     ; 0x12f56 $AF46 B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x12f56 $AF46 B5 60                   ;; Enemy facing direction
     TAX                                ; 0x12f58 $AF48 AA                      ;
-    LDA      $CD                       ; 0x12f59 $AF49 A5 CD                   ;
+    LDA      zp_CD                       ; 0x12f59 $AF49 A5 CD                   ;
     ADC      LAF21,x                   ; 0x12f5b $AF4B 7D 21 AF                ;
-    STA      $01                       ; 0x12f5e $AF4E 85 01                   ;
+    STA      zp_01                       ; 0x12f5e $AF4E 85 01                   ;
     LDX      #$2A                      ; 0x12f60 $AF50 A2 2A                   ;;X = #$2a 0010_1010
     JMP      bank7_F0D7                     ; 0x12f62 $AF52 4C D7 F0                ;
                                                                                ;
@@ -3864,36 +3864,36 @@ LAF55:                                                                          
 LAF59:                                                                          ;
     LDA      #$E0                      ; 0x12f69 $AF59 A9 E0                   ;;A = #$e0 1110_0000
 LAF5B:                                                                          ;
-    STA      $71,x                     ; 0x12f6b $AF5B 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x12f6b $AF5B 95 71                   ;; Enemy X Velocity
     STA      bss_057E,x                   ; 0x12f6d $AF5D 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     RTS                                ; 0x12f70 $AF60 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAF61:                                                                          ;
-    LDA      $C9                       ; 0x12f71 $AF61 A5 C9                   ;
+    LDA      zp_C9                       ; 0x12f71 $AF61 A5 C9                   ;
     BNE      LAF90                     ; 0x12f73 $AF63 D0 2B                   ;
     JSR      bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least; 0x12f75 $AF65 20 77 E6;
-    LDA      $A8,x                     ; 0x12f78 $AF68 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x12f78 $AF68 B5 A8                   ;; Enemy State
     AND      #$20                      ; 0x12f7a $AF6A 29 20                   ;;Keep Bits:0010_0000
     BEQ      LAF90                     ; 0x12f7c $AF6C F0 22                   ;
     LDA      #$11                      ; 0x12f7e $AF6E A9 11                   ;;A = #$11 0001_0001
-    STA      $AF,x                     ; 0x12f80 $AF70 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x12f80 $AF70 95 AF                   ;; Various enemy state variables
     LDA      #$00                      ; 0x12f82 $AF72 A9 00                   ;;A = #$00 0000_0000
-    STA      $C2,x                     ; 0x12f84 $AF74 95 C2                   ;; Enemy Current HP
+    STA      zp_C2,x                     ; 0x12f84 $AF74 95 C2                   ;; Enemy Current HP
     LDY      #$01                      ; 0x12f86 $AF76 A0 01                   ;;Y = #$01 0000_0001
     LDA      rng_out,x                   ; 0x12f88 $AF78 BD 1B 05                ;; Randomizer
     BPL      LAF83                     ; 0x12f8b $AF7B 10 06                   ;
     LDA      #$18                      ; 0x12f8d $AF7D A9 18                   ;;A = #$18 0001_1000
-    STA      $C2,x                     ; 0x12f8f $AF7F 95 C2                   ;; Enemy Current HP
+    STA      zp_C2,x                     ; 0x12f8f $AF7F 95 C2                   ;; Enemy Current HP
     LDY      #$19                      ; 0x12f91 $AF81 A0 19                   ;;Y = #$19 0001_1001
 LAF83:                                                                          ;
-    STY      $A1,x                     ; 0x12f93 $AF83 94 A1                   ;; Enemy Code
+    STY      zp_A1,x                     ; 0x12f93 $AF83 94 A1                   ;; Enemy Code
     LDA      #$08                      ; 0x12f95 $AF85 A9 08                   ;;A = #$08 0000_1000
     STA      bss_040E,x                   ; 0x12f97 $AF87 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
-    LDA      $4E,x                     ; 0x12f9a $AF8A B5 4E                   ;; Enemy X Position (low byte)
+    LDA      zp_4E,x                     ; 0x12f9a $AF8A B5 4E                   ;; Enemy X Position (low byte)
 LAF8C:                                                                          ;
     ADC      #$03                      ; 0x12f9c $AF8C 69 03                   ;
-    STA      $4E,x                     ; 0x12f9e $AF8E 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x12f9e $AF8E 95 4E                   ;; Enemy X Position (low byte)
 LAF90:                                                                          ;
     RTS                                ; 0x12fa0 $AF90 60                      ;
                                                                                ;
@@ -3901,23 +3901,23 @@ LAF90:                                                                          
 LAF91:                                                                          ;
     LDX      #$01                      ; 0x12fa1 $AF91 A2 01                   ;;X = #$01 0000_0001
     JSR      bank7_C2A6                     ; 0x12fa3 $AF93 20 A6 C2                ;
-    LDX      $10                       ; 0x12fa6 $AF96 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x12fa6 $AF96 A6 10                   ;; used as monster x register ;draw boss hp bar
     CMP      #$00                      ; 0x12fa8 $AF98 C9 00                   ;
     BNE      LAF9F                     ; 0x12faa $AF9A D0 03                   ;
-    STA      $B6,x                     ; 0x12fac $AF9C 95 B6                   ;; Generated Enemy Slot
+    STA      zp_B6,x                     ; 0x12fac $AF9C 95 B6                   ;; Generated Enemy Slot
     RTS                                ; 0x12fae $AF9E 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LAF9F:                                                                          ;
     LDA      #$AC                      ; 0x12faf $AF9F A9 AC                   ;;A = #$ac 1010_1100
-    STA      $2A,x                     ; 0x12fb1 $AFA1 95 2A                   ;; Enemy Y Position
-    LDA      $80                       ; 0x12fb3 $AFA3 A5 80                   ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
+    STA      zp_2A,x                     ; 0x12fb1 $AFA1 95 2A                   ;; Enemy Y Position
+    LDA      zp_80                       ; 0x12fb3 $AFA3 A5 80                   ;; Controller 1 Last Poll; Current Animation Frame for Link (OW and SS)	;animation frame, powerful: can cause link to attack
     STA      $6E27                     ; 0x12fb5 $AFA5 8D 27 6E                ;
     STA      bss_0504,x                   ; 0x12fb8 $AFA8 9D 04 05                ;; Timer for Enemy
     LDA      #$02                      ; 0x12fbb $AFAB A9 02                   ;;A = #$02 0000_0010
-    STA      $3C,x                     ; 0x12fbd $AFAD 95 3C                   ;; Enemy X Position (high byte)
+    STA      zp_3C,x                     ; 0x12fbd $AFAD 95 3C                   ;; Enemy X Position (high byte)
     LDA      #$20                      ; 0x12fbf $AFAF A9 20                   ;;A = #$20 0010_0000
-    STA      $4E,x                     ; 0x12fc1 $AFB1 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x12fc1 $AFB1 95 4E                   ;; Enemy X Position (low byte)
 LAFB3:                                                                          ;
     RTS                                ; 0x12fc3 $AFB3 60                      ;
                                                                                ;
@@ -3956,17 +3956,17 @@ LAFC6:                                                                          
     LSR                                ; 0x12ff2 $AFE2 4A                      ;
     LSR                                ; 0x12ff3 $AFE3 4A                      ;
     TAY                                ; 0x12ff4 $AFE4 A8                      ;
-    LDA      $2A,x                     ; 0x12ff5 $AFE5 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x12ff5 $AFE5 B5 2A                   ;; Enemy Y Position
     ADC      LAFB8,y                   ; 0x12ff7 $AFE7 79 B8 AF                ;
-    STA      $2A,x                     ; 0x12ffa $AFEA 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x12ffa $AFEA 95 2A                   ;; Enemy Y Position
 LAFEC:                                                                          ;
     JSR      LB20D                     ; 0x12ffc $AFEC 20 0D B2                ;
     JSR      bank7_Simple_Horizontal_Movement; 0x12fff $AFEF 20 B8 DE              ;
-    LDA      $81,x                     ; 0x13002 $AFF2 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13002 $AFF2 B5 81                   ;; Current Animation Frame for Enemys
     BEQ      Blue_IronKnuckleBoss_related_knocked_off; 0x13004 $AFF4 F0 0D         ;
     LDA      #$01                      ; 0x13006 $AFF6 A9 01                   ;;A = #$01 0000_0001
-    STA      $B6,x                     ; 0x13008 $AFF8 95 B6                   ;; Generated Enemy Slot
-    LDA      $C9                       ; 0x1300a $AFFA A5 C9                   ;
+    STA      zp_B6,x                     ; 0x13008 $AFF8 95 B6                   ;; Generated Enemy Slot
+    LDA      zp_C9                       ; 0x1300a $AFFA A5 C9                   ;
     CMP      #$0F                      ; 0x1300c $AFFC C9 0F                   ;
     BNE      LB04C                     ; 0x1300e $AFFE D0 4C                   ;
     JMP      bank7_DD3D                     ; 0x13010 $B000 4C 3D DD                ;
@@ -3975,68 +3975,68 @@ LAFEC:                                                                          
 Blue_IronKnuckleBoss_related_knocked_off:                                       ;
     JSR      LB1E3                     ; 0x13013 $B003 20 E3 B1                ;
     JSR      bank7_E579                     ; 0x13016 $B006 20 79 E5                ;
-    LDA      $C2,x                     ; 0x13019 $B009 B5 C2                   ;; Enemy Current HP
+    LDA      zp_C2,x                     ; 0x13019 $B009 B5 C2                   ;; Enemy Current HP
     CMP      #$24                      ; 0x1301b $B00B C9 24                   ;
     BCS      LB04D                     ; 0x1301d $B00D B0 3E                   ;
-    INC      $81,x                     ; 0x1301f $B00F F6 81                   ;; Current Animation Frame for Enemys
-    LDA      $4E,x                     ; 0x13021 $B011 B5 4E                   ;; Enemy X Position (low byte)
+    INC      zp_81,x                     ; 0x1301f $B00F F6 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_4E,x                     ; 0x13021 $B011 B5 4E                   ;; Enemy X Position (low byte)
     ADC      #$18                      ; 0x13023 $B013 69 18                   ;
-    STA      $51                       ; 0x13025 $B015 85 51                   ;
-    LDA      $3C,x                     ; 0x13027 $B017 B5 3C                   ;; Enemy X Position (high byte)
+    STA      zp_51                       ; 0x13025 $B015 85 51                   ;
+    LDA      zp_3C,x                     ; 0x13027 $B017 B5 3C                   ;; Enemy X Position (high byte)
     ADC      #$00                      ; 0x13029 $B019 69 00                   ;
-    STA      $3F                       ; 0x1302b $B01B 85 3F                   ;
-    LDA      $2A,x                     ; 0x1302d $B01D B5 2A                   ;; Enemy Y Position
-    STA      $2D                       ; 0x1302f $B01F 85 2D                   ;
-    LDA      $1A,x                     ; 0x13031 $B021 B5 1A                   ;
-    STA      $1D                       ; 0x13033 $B023 85 1D                   ;
+    STA      zp_3F                       ; 0x1302b $B01B 85 3F                   ;
+    LDA      zp_2A,x                     ; 0x1302d $B01D B5 2A                   ;; Enemy Y Position
+    STA      zp_2D                       ; 0x1302f $B01F 85 2D                   ;
+    LDA      zp_1A,x                     ; 0x13031 $B021 B5 1A                   ;
+    STA      zp_1D                       ; 0x13033 $B023 85 1D                   ;
     LDA      #$0A                      ; 0x13035 $B025 A9 0A                   ;;A = #$0a 0000_1010
-    STA      $A4                       ; 0x13037 $B027 85 A4                   ;
+    STA      zp_A4                       ; 0x13037 $B027 85 A4                   ;
     LDA      #$01                      ; 0x13039 $B029 A9 01                   ;;A = #$01 0000_0001
-    STA      $B9                       ; 0x1303b $B02B 85 B9                   ;;? makes link hold up the last ? item he got
+    STA      zp_B9                       ; 0x1303b $B02B 85 B9                   ;;? makes link hold up the last ? item he got
     STA      bss_0447                     ; 0x1303d $B02D 8D 47 04                ;
     LDA      #$30                      ; 0x13040 $B030 A9 30                   ;;A = #$30 0011_0000
-    STA      $C5                       ; 0x13042 $B032 85 C5                   ;
+    STA      zp_C5                       ; 0x13042 $B032 85 C5                   ;
     LDA      #$FF                      ; 0x13044 $B034 A9 FF                   ;;A = #$ff 1111_1111
-    STA      $BF                       ; 0x13046 $B036 85 BF                   ;
+    STA      zp_BF                       ; 0x13046 $B036 85 BF                   ;
     LDA      #$EA                      ; 0x13048 $B038 A9 EA                   ;;A = #$ea 1110_1010
     STA      bss_0581                     ; 0x1304a $B03A 8D 81 05                ;
-    LDY      $60,x                     ; 0x1304d $B03D B4 60                   ;; Enemy facing direction
+    LDY      zp_60,x                     ; 0x1304d $B03D B4 60                   ;; Enemy facing direction
     LDA      LAFB3,y                   ; 0x1304f $B03F B9 B3 AF                ;
-    STA      $71,x                     ; 0x13052 $B042 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13052 $B042 95 71                   ;; Enemy X Velocity
     EOR      #$FF                      ; 0x13054 $B044 49 FF                   ;;Flip Bits:1111_1111
     ASL                                ; 0x13056 $B046 0A                      ;
-    STA      $74                       ; 0x13057 $B047 85 74                   ;; Overworld X; X Position on OW (square unit)
+    STA      zp_74                       ; 0x13057 $B047 85 74                   ;; Overworld X; X Position on OW (square unit)
     ASL      bss_057D                     ; 0x13059 $B049 0E 7D 05                ;;vspeed (Link's vertical velocity, negative is up.); Link's Y Velocity; Player Y Delta; Link's Y Velocity
 LB04C:                                                                          ;
     RTS                                ; 0x1305c $B04C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB04D:                                                                          ;
-    LDA      $AF,x                     ; 0x1305d $B04D B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1305d $B04D B5 AF                   ;; Various enemy state variables
     BEQ      LB05A                     ; 0x1305f $B04F F0 09                   ;
-    DEC      $AF,x                     ; 0x13061 $B051 D6 AF                   ;; Various enemy state variables
+    DEC      zp_AF,x                     ; 0x13061 $B051 D6 AF                   ;; Various enemy state variables
     CMP      #$10                      ; 0x13063 $B053 C9 10                   ;
     BNE      LB05A                     ; 0x13065 $B055 D0 03                   ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13067 $B057 20 91 DC;
 LB05A:                                                                          ;
-    LDA      $60,x                     ; 0x1306a $B05A B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x1306a $B05A B5 60                   ;; Enemy facing direction
     PHA                                ; 0x1306c $B05C 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x1306d $B05D 20 91 DC;
     PLA                                ; 0x13070 $B060 68                      ;
-    STA      $60,x                     ; 0x13071 $B061 95 60                   ;; Enemy facing direction
+    STA      zp_60,x                     ; 0x13071 $B061 95 60                   ;; Enemy facing direction
     INY                                ; 0x13073 $B063 C8                      ;
     TYA                                ; 0x13074 $B064 98                      ;
-    CMP      $60,x                     ; 0x13075 $B065 D5 60                   ;; Enemy facing direction
+    CMP      zp_60,x                     ; 0x13075 $B065 D5 60                   ;; Enemy facing direction
     BEQ      LB07A                     ; 0x13077 $B067 F0 11                   ;
-    LDA      $71,x                     ; 0x13079 $B069 B5 71                   ;; Enemy X Velocity
+    LDA      zp_71,x                     ; 0x13079 $B069 B5 71                   ;; Enemy X Velocity
     CLC                                ; 0x1307b $B06B 18                      ;
     ADC      #$08                      ; 0x1307c $B06C 69 08                   ;
     CMP      #$11                      ; 0x1307e $B06E C9 11                   ;
     BCS      LB07A                     ; 0x13080 $B070 B0 08                   ;
-    LDA      $AF,x                     ; 0x13082 $B072 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13082 $B072 B5 AF                   ;; Various enemy state variables
     BNE      LB07A                     ; 0x13084 $B074 D0 04                   ;
     LDA      #$1F                      ; 0x13086 $B076 A9 1F                   ;;A = #$1f 0001_1111
-    STA      $AF,x                     ; 0x13088 $B078 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x13088 $B078 95 AF                   ;; Various enemy state variables
 LB07A:                                                                          ;
     LDA      bss_0504,x                   ; 0x1308a $B07A BD 04 05                ;; Timer for Enemy
     BEQ      LB08D                     ; 0x1308d $B07D F0 0E                   ;
@@ -4048,7 +4048,7 @@ LB082:                                                                          
     ROL                                ; 0x13095 $B085 2A                      ;
     TAY                                ; 0x13096 $B086 A8                      ;
     LDA      LAFB6,y                   ; 0x13097 $B087 B9 B6 AF                ;
-    STA      $71,x                     ; 0x1309a $B08A 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x1309a $B08A 95 71                   ;; Enemy X Velocity
     RTS                                ; 0x1309c $B08C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4056,13 +4056,13 @@ LB08D:                                                                          
     LDA      frame_counter                       ; 0x1309d $B08D A5 12                   ;; Frame Counter (ascending)
     AND      #$01                      ; 0x1309f $B08F 29 01                   ;;Keep Bits:0000_0001
     BNE      LB0A9                     ; 0x130a1 $B091 D0 16                   ;
-    LDA      $71,x                     ; 0x130a3 $B093 B5 71                   ;; Enemy X Velocity
+    LDA      zp_71,x                     ; 0x130a3 $B093 B5 71                   ;; Enemy X Velocity
     CMP      LAFB9,y                   ; 0x130a5 $B095 D9 B9 AF                ;
     BEQ      LB0A9                     ; 0x130a8 $B098 F0 0F                   ;
-    LDA      $71,x                     ; 0x130aa $B09A B5 71                   ;; Enemy X Velocity
+    LDA      zp_71,x                     ; 0x130aa $B09A B5 71                   ;; Enemy X Velocity
     CLC                                ; 0x130ac $B09C 18                      ;
     ADC      LAFB7,y                   ; 0x130ad $B09D 79 B7 AF                ;
-    STA      $71,x                     ; 0x130b0 $B0A0 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x130b0 $B0A0 95 71                   ;; Enemy X Velocity
     BNE      LB0A9                     ; 0x130b2 $B0A2 D0 05                   ;
     LDA      #$53                      ; 0x130b4 $B0A4 A9 53                   ;;A = #$53 0101_0011
     STA      bss_0504,x                   ; 0x130b6 $B0A6 9D 04 05                ;; Timer for Enemy
@@ -4080,7 +4080,7 @@ LB0AD:                                                                          
     LDA      #$D0                      ; 0x130c1 $B0B1 A9 D0                   ;;A = #$d0 1101_0000
     STA      bss_057E,x                   ; 0x130c3 $B0B3 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 LB0B6:                                                                          ;
-    LDA      $AF,x                     ; 0x130c6 $B0B6 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x130c6 $B0B6 B5 AF                   ;; Various enemy state variables
     AND      #$7F                      ; 0x130c8 $B0B8 29 7F                   ;;Keep Bits:0111_1111
     BNE      LB0C1                     ; 0x130ca $B0BA D0 05                   ;
     LDA      #$10                      ; 0x130cc $B0BC A9 10                   ;;A = #$10 0001_0000
@@ -4092,27 +4092,27 @@ LB0C1:                                                                          
     JSR      bank7_Spawn_New_Projectile; 0x130d8 $B0C8 20 CE DB                ;
     BCS      LB0D7                     ; 0x130db $B0CB B0 0A                   ;
     LDA      #$06                      ; 0x130dd $B0CD A9 06                   ;;A = #$06 0000_0110
-    STA      $87,y                     ; 0x130df $B0CF 99 87 00                ;
+    STA      zp_87,y                     ; 0x130df $B0CF 99 87 00                ;
     LDA      #$40                      ; 0x130e2 $B0D2 A9 40                   ;;A = #$40 0100_0000
     STA      bss_044C,y                   ; 0x130e4 $B0D4 99 4C 04                ;
 LB0D7:                                                                          ;
-    LDA      $AF,x                     ; 0x130e7 $B0D7 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x130e7 $B0D7 B5 AF                   ;; Various enemy state variables
     ASL                                ; 0x130e9 $B0D9 0A                      ;
     ASL                                ; 0x130ea $B0DA 0A                      ;
     LDA      #$00                      ; 0x130eb $B0DB A9 00                   ;;A = #$00 0000_0000
     ROL                                ; 0x130ed $B0DD 2A                      ;
     TAY                                ; 0x130ee $B0DE A8                      ;
     LDA      LB0AA,y                   ; 0x130ef $B0DF B9 AA B0                ;
-    STA      $71,x                     ; 0x130f2 $B0E2 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x130f2 $B0E2 95 71                   ;; Enemy X Velocity
     JSR      bank7_Gravity             ; 0x130f4 $B0E4 20 BE DE                ;
     JSR      L9E17                     ; 0x130f7 $B0E7 20 17 9E                ;
     JSR      bank7_DE3D                     ; 0x130fa $B0EA 20 3D DE                ;
     JSR      bank7_Link_Collision_Detection; 0x130fd $B0ED 20 C1 D6                ;
-    LDA      $A8,x                     ; 0x13100 $B0F0 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x13100 $B0F0 B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x13102 $B0F2 29 04                   ;;Keep Bits:0000_0100
     BEQ      LB0FB                     ; 0x13104 $B0F4 F0 05                   ;
     JSR      bank7_Floor_Y_Position    ; 0x13106 $B0F6 20 C1 DA                ;
-    INC      $AF,x                     ; 0x13109 $B0F9 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13109 $B0F9 F6 AF                   ;; Various enemy state variables
 LB0FB:                                                                          ;
     JMP      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x1310b $B0FB 4C 91 DC;
                                                                                ;
@@ -4121,14 +4121,14 @@ LB0FE:                                                                          
     LDA      #$00                      ; 0x1310e $B0FE A9 00                   ;;A = #$00 0000_0000
     STA      bss_0499                     ; 0x13110 $B100 8D 99 04                ;
     LDA      #$F0                      ; 0x13113 $B103 A9 F0                   ;;A = #$f0 1111_0000
-    STA      $2A,x                     ; 0x13115 $B105 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x13115 $B105 95 2A                   ;; Enemy Y Position
 LB107:                                                                          ;
     LDX      #$01                      ; 0x13117 $B107 A2 01                   ;;X = #$01 0000_0001
     JSR      bank7_C2A6                     ; 0x13119 $B109 20 A6 C2                ;
-    LDX      $10                       ; 0x1311c $B10C A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x1311c $B10C A6 10                   ;; used as monster x register ;draw boss hp bar
     CMP      #$00                      ; 0x1311e $B10E C9 00                   ;
     BNE      LB114                     ; 0x13120 $B110 D0 02                   ;
-    STA      $B6,x                     ; 0x13122 $B112 95 B6                   ;; Generated Enemy Slot
+    STA      zp_B6,x                     ; 0x13122 $B112 95 B6                   ;; Generated Enemy Slot
 LB114:                                                                          ;
     RTS                                ; 0x13124 $B114 60                      ;
                                                                                ;
@@ -4161,19 +4161,19 @@ LB140:                                                                          
     AND      #$07                      ; 0x13158 $B148 29 07                   ;;Keep Bits:0000_0111
     TAY                                ; 0x1315a $B14A A8                      ;
     LDA      LB117,y                   ; 0x1315b $B14B B9 17 B1                ;
-    STA      $4E,x                     ; 0x1315e $B14E 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x1315e $B14E 95 4E                   ;; Enemy X Position (low byte)
     INC      bss_0499                     ; 0x13160 $B150 EE 99 04                ;
 LB153:                                                                          ;
     RTS                                ; 0x13163 $B153 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB154:                                                                          ;
-    LDA      $2A,x                     ; 0x13164 $B154 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x13164 $B154 B5 2A                   ;; Enemy Y Position
     CMP      #$80                      ; 0x13166 $B156 C9 80                   ;
     BCC      LB161                     ; 0x13168 $B158 90 07                   ;
-    DEC      $2A,x                     ; 0x1316a $B15A D6 2A                   ;; Enemy Y Position
-    DEC      $2A,x                     ; 0x1316c $B15C D6 2A                   ;; Enemy Y Position
-    DEC      $2A,x                     ; 0x1316e $B15E D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x1316a $B15A D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x1316c $B15C D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x1316e $B15E D6 2A                   ;; Enemy Y Position
     RTS                                ; 0x13170 $B160 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4189,12 +4189,12 @@ LB16A:                                                                          
     BEQ      LB1BF                     ; 0x1317d $B16D F0 50                   ;
     AND      #$01                      ; 0x1317f $B16F 29 01                   ;;Keep Bits:0000_0001
     BNE      LB180                     ; 0x13181 $B171 D0 0D                   ;
-    INC      $2A,x                     ; 0x13183 $B173 F6 2A                   ;; Enemy Y Position
+    INC      zp_2A,x                     ; 0x13183 $B173 F6 2A                   ;; Enemy Y Position
     LDA      bss_0504,x                   ; 0x13185 $B175 BD 04 05                ;; Timer for Enemy
     AND      #$20                      ; 0x13188 $B178 29 20                   ;;Keep Bits:0010_0000
     BNE      LB180                     ; 0x1318a $B17A D0 04                   ;
-    DEC      $2A,x                     ; 0x1318c $B17C D6 2A                   ;; Enemy Y Position
-    DEC      $2A,x                     ; 0x1318e $B17E D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x1318c $B17C D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x1318e $B17E D6 2A                   ;; Enemy Y Position
 LB180:                                                                          ;
     LDA      bss_0504,x                   ; 0x13190 $B180 BD 04 05                ;; Timer for Enemy
     SBC      #$30                      ; 0x13193 $B183 E9 30                   ;
@@ -4209,22 +4209,22 @@ LB180:                                                                          
     JSR      L9BE5                     ; 0x131a5 $B195 20 E5 9B                ;
     BCS      LB1BE                     ; 0x131a8 $B198 B0 24                   ;
     LDA      #$04                      ; 0x131aa $B19A A9 04                   ;;A = #$04 0000_0100
-    STA      $87,y                     ; 0x131ac $B19C 99 87 00                ;
+    STA      zp_87,y                     ; 0x131ac $B19C 99 87 00                ;
     TYA                                ; 0x131af $B19F 98                      ;
     TAX                                ; 0x131b0 $B1A0 AA                      ;
-    ASL      $77,x                     ; 0x131b1 $B1A1 16 77                   ;; Projectile X Velocity
-    ASL      $77,x                     ; 0x131b3 $B1A3 16 77                   ;; Projectile X Velocity
+    ASL      zp_77,x                     ; 0x131b1 $B1A1 16 77                   ;; Projectile X Velocity
+    ASL      zp_77,x                     ; 0x131b3 $B1A3 16 77                   ;; Projectile X Velocity
     ASL      bss_0584,x                   ; 0x131b5 $B1A5 1E 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
     ASL      bss_0584,x                   ; 0x131b8 $B1A8 1E 84 05                ;; Projectile Y Velocity; Projectile Y Velocity
-    DEC      $30,x                     ; 0x131bb $B1AB D6 30                   ;; Projectile Y Position
-    DEC      $30,x                     ; 0x131bd $B1AD D6 30                   ;; Projectile Y Position
-    DEC      $30,x                     ; 0x131bf $B1AF D6 30                   ;; Projectile Y Position
-    LDY      $66,x                     ; 0x131c1 $B1B1 B4 66                   ;; Projectile facing direction
+    DEC      zp_30,x                     ; 0x131bb $B1AB D6 30                   ;; Projectile Y Position
+    DEC      zp_30,x                     ; 0x131bd $B1AD D6 30                   ;; Projectile Y Position
+    DEC      zp_30,x                     ; 0x131bf $B1AF D6 30                   ;; Projectile Y Position
+    LDY      zp_66,x                     ; 0x131c1 $B1B1 B4 66                   ;; Projectile facing direction
     LDA      bss_049A                     ; 0x131c3 $B1B3 AD 9A 04                ;
     CLC                                ; 0x131c6 $B1B6 18                      ;
     ADC      LB114,y                   ; 0x131c7 $B1B7 79 14 B1                ;
-    STA      $54,x                     ; 0x131ca $B1BA 95 54                   ;; Projectile X Position (low byte)
-    LDX      $10                       ; 0x131cc $B1BC A6 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_54,x                     ; 0x131ca $B1BA 95 54                   ;; Projectile X Position (low byte)
+    LDX      zp_10                       ; 0x131cc $B1BC A6 10                   ;; used as monster x register ;draw boss hp bar
 LB1BE:                                                                          ;
     RTS                                ; 0x131ce $B1BE 60                      ;
                                                                                ;
@@ -4237,11 +4237,11 @@ LB1BF:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB1C8:                                                                          ;
-    LDA      $2A,x                     ; 0x131d8 $B1C8 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x131d8 $B1C8 B5 2A                   ;; Enemy Y Position
     CMP      #$F0                      ; 0x131da $B1CA C9 F0                   ;
     BCS      LB1D3                     ; 0x131dc $B1CC B0 05                   ;
-    INC      $2A,x                     ; 0x131de $B1CE F6 2A                   ;; Enemy Y Position
-    INC      $2A,x                     ; 0x131e0 $B1D0 F6 2A                   ;; Enemy Y Position
+    INC      zp_2A,x                     ; 0x131de $B1CE F6 2A                   ;; Enemy Y Position
+    INC      zp_2A,x                     ; 0x131e0 $B1D0 F6 2A                   ;; Enemy Y Position
     RTS                                ; 0x131e2 $B1D2 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4261,19 +4261,19 @@ LB1E3:                                                                          
     JSR      bank7_Display             ; 0x131f3 $B1E3 20 11 EF                ;
     JSR      bank7_Link_Collision_Detection; 0x131f6 $B1E6 20 C1 D6                ;
 LB1E9:                                                                          ;
-    LDA      $A1,x                     ; 0x131f9 $B1E9 B5 A1                   ;; Enemy Code
+    LDA      zp_A1,x                     ; 0x131f9 $B1E9 B5 A1                   ;; Enemy Code
     CMP      #$22                      ; 0x131fb $B1EB C9 22                   ;
     BEQ      LB1F6                     ; 0x131fd $B1ED F0 07                   ;
-    LDA      $C9                       ; 0x131ff $B1EF A5 C9                   ;
+    LDA      zp_C9                       ; 0x131ff $B1EF A5 C9                   ;
     BNE      LB1F6                     ; 0x13201 $B1F1 D0 03                   ;
     JSR      bank7_DE40                     ; 0x13203 $B1F3 20 40 DE                ;
 LB1F6:                                                                          ;
     LDA      #$01                      ; 0x13206 $B1F6 A9 01                   ;;A = #$01 0000_0001
-    CMP      $B6,x                     ; 0x13208 $B1F8 D5 B6                   ;; Generated Enemy Slot
+    CMP      zp_B6,x                     ; 0x13208 $B1F8 D5 B6                   ;; Generated Enemy Slot
     BEQ      LB20C                     ; 0x1320a $B1FA F0 10                   ;
-    STA      $B6,x                     ; 0x1320c $B1FC 95 B6                   ;; Generated Enemy Slot
+    STA      zp_B6,x                     ; 0x1320c $B1FC 95 B6                   ;; Generated Enemy Slot
     LDA      #$FF                      ; 0x1320e $B1FE A9 FF                   ;;A = #$ff 1111_1111
-    LDY      $A1,x                     ; 0x13210 $B200 B4 A1                   ;; Enemy Code
+    LDY      zp_A1,x                     ; 0x13210 $B200 B4 A1                   ;; Enemy Code
     STA      $6E1D,y                   ; 0x13212 $B202 99 1D 6E                ;
     STA      bss_0504,x                   ; 0x13215 $B205 9D 04 05                ;; Timer for Enemy
     LSR                                ; 0x13218 $B208 4A                      ;
@@ -4290,19 +4290,19 @@ LB20D:                                                                          
     LDA      #$FF                      ; 0x13227 $B217 A9 FF                   ;;A = #$ff 1111_1111
     STA      bss_050D                     ; 0x13229 $B219 8D 0D 05                ;
     LDA      #$08                      ; 0x1322c $B21C A9 08                   ;;A = #$08 0000_1000
-    STA      $EB                       ; 0x1322e $B21E 85 EB                   ;; Music; Music
+    STA      zp_EB                       ; 0x1322e $B21E 85 EB                   ;; Music; Music
     INC      bss_0728                     ; 0x13230 $B220 EE 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
     BNE      LB23C                     ; 0x13233 $B223 D0 17                   ;
 LB225:                                                                          ;
-    LDY      $A1,x                     ; 0x13235 $B225 B4 A1                   ;; Enemy Code
+    LDY      zp_A1,x                     ; 0x13235 $B225 B4 A1                   ;; Enemy Code
     LDA      $6E1D,y                   ; 0x13237 $B227 B9 1D 6E                ;
     BPL      LB23E                     ; 0x1323a $B22A 10 12                   ;
     LDY      bss_040E,x                   ; 0x1323c $B22C BC 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     BNE      LB239                     ; 0x1323f $B22F D0 08                   ;
     LDA      #$80                      ; 0x13241 $B231 A9 80                   ;;A = #$80 1000_0000
-    INC      $B6,x                     ; 0x13243 $B233 F6 B6                   ;; Generated Enemy Slot
+    INC      zp_B6,x                     ; 0x13243 $B233 F6 B6                   ;; Generated Enemy Slot
     LDA      #$80                      ; 0x13245 $B235 A9 80                   ;;A = #$80 1000_0000
-    STA      $EB                       ; 0x13247 $B237 85 EB                   ;; Music; Music
+    STA      zp_EB                       ; 0x13247 $B237 85 EB                   ;; Music; Music
 LB239:                                                                          ;
     JSR      bank7_Display             ; 0x13249 $B239 20 11 EF                ;
 LB23C:                                                                          ;
@@ -4313,7 +4313,7 @@ LB23E:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB23F:                                                                          ;
-    LDY      $A1,x                     ; 0x1324f $B23F B4 A1                   ;; Enemy Code
+    LDY      zp_A1,x                     ; 0x1324f $B23F B4 A1                   ;; Enemy Code
     LDA      $6E1D,y                   ; 0x13251 $B241 B9 1D 6E                ;
     BMI      LB260                     ; 0x13254 $B244 30 1A                   ;
     LDA      bss_0728                     ; 0x13256 $B246 AD 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
@@ -4347,7 +4347,7 @@ LB28C:                                                                          
 LB290:                                                                          ;
 .byt    $A5,$00                        ; 0x132a0 $B290 A5 00                   ;
 ; ---------------------------------------------------------------------------- ;
-    STA      $0D                       ; 0x132a2 $B292 85 0D                   ;
+    STA      zp_0D                       ; 0x132a2 $B292 85 0D                   ;
     LDA      #$E8                      ; 0x132a4 $B294 A9 E8                   ;;A = #$e8 1110_1000
     SEC                                ; 0x132a6 $B296 38                      ;
     SBC      zp_00                     ; 0x132a7 $B297 E5 00                   ;
@@ -4357,9 +4357,9 @@ LB290:                                                                          
     LSR                                ; 0x132ad $B29D 4A                      ;
     LSR                                ; 0x132ae $B29E 4A                      ;
     AND      #$07                      ; 0x132af $B29F 29 07                   ;;Keep Bits:0000_0111
-    STA      $D9                       ; 0x132b1 $B2A1 85 D9                   ;; Thunder Spell modifier ?
+    STA      zp_D9                       ; 0x132b1 $B2A1 85 D9                   ;; Thunder Spell modifier ?
     LDA      bss_0504,x                   ; 0x132b3 $B2A3 BD 04 05                ;; Timer for Enemy
-    STA      $06                       ; 0x132b6 $B2A6 85 06                   ;
+    STA      zp_06                       ; 0x132b6 $B2A6 85 06                   ;
     LDX      #$64                      ; 0x132b8 $B2A8 A2 64                   ;;X = #$64 0110_0100
     LDY      bss_0499                     ; 0x132ba $B2AA AC 99 04                ;
     CPY      #$02                      ; 0x132bd $B2AD C0 02                   ;
@@ -4367,7 +4367,7 @@ LB290:                                                                          
     SBC      #$30                      ; 0x132c1 $B2B1 E9 30                   ;
     CMP      #$30                      ; 0x132c3 $B2B3 C9 30                   ;
     BCS      LB2C3                     ; 0x132c5 $B2B5 B0 0C                   ;
-    LDA      $06                       ; 0x132c7 $B2B7 A5 06                   ;
+    LDA      zp_06                       ; 0x132c7 $B2B7 A5 06                   ;
     AND      #$30                      ; 0x132c9 $B2B9 29 30                   ;;Keep Bits:0011_0000
     LSR                                ; 0x132cb $B2BB 4A                      ;
     LSR                                ; 0x132cc $B2BC 4A                      ;
@@ -4383,7 +4383,7 @@ LB2C9:                                                                          
     TYA                                ; 0x132d9 $B2C9 98                      ;
     PHA                                ; 0x132da $B2CA 48                      ;
     LDY      zp_0E                     ; 0x132db $B2CB A4 0E                   ;
-    LDA      $0D                       ; 0x132dd $B2CD A5 0D                   ;
+    LDA      zp_0D                       ; 0x132dd $B2CD A5 0D                   ;
     CLC                                ; 0x132df $B2CF 18                      ;
     ADC      bank4_table_B266,y        ; 0x132e0 $B2D0 79 66 B2                ;
     STA      zp_00                     ; 0x132e3 $B2D3 85 00                   ;
@@ -4402,40 +4402,40 @@ LB2C9:                                                                          
     ASL                                ; 0x132fa $B2EA 0A                      ;
 LB2EB:                                                                          ;
     CLC                                ; 0x132fb $B2EB 18                      ;
-    ADC      $CD                       ; 0x132fc $B2EC 65 CD                   ;
-    STA      $01                       ; 0x132fe $B2EE 85 01                   ;
+    ADC      zp_CD                       ; 0x132fc $B2EC 65 CD                   ;
+    STA      zp_01                       ; 0x132fe $B2EE 85 01                   ;
     PLA                                ; 0x13300 $B2F0 68                      ;
     TAY                                ; 0x13301 $B2F1 A8                      ;
     CPY      #$48                      ; 0x13302 $B2F2 C0 48                   ;
     BNE      LB2FB                     ; 0x13304 $B2F4 D0 05                   ;
-    LDA      $01                       ; 0x13306 $B2F6 A5 01                   ;
+    LDA      zp_01                       ; 0x13306 $B2F6 A5 01                   ;
     STA      bss_049A                     ; 0x13308 $B2F8 8D 9A 04                ;
 LB2FB:                                                                          ;
     JSR      bank7_F1F4                     ; 0x1330b $B2FB 20 F4 F1                ;
     INC      zp_0E                     ; 0x1330e $B2FE E6 0E                   ;
-    DEC      $D9                       ; 0x13310 $B300 C6 D9                   ;; Thunder Spell modifier ?
+    DEC      zp_D9                       ; 0x13310 $B300 C6 D9                   ;; Thunder Spell modifier ?
     BPL      LB2C9                     ; 0x13312 $B302 10 C5                   ;
 LB304:                                                                          ;
-    LDX      $10                       ; 0x13314 $B304 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x13314 $B304 A6 10                   ;; used as monster x register ;draw boss hp bar
     LDA      bss_0504,x                   ; 0x13316 $B306 BD 04 05                ;; Timer for Enemy
-    STA      $07                       ; 0x13319 $B309 85 07                   ;
-    LDA      $0D                       ; 0x1331b $B30B A5 0D                   ;
+    STA      zp_07                       ; 0x13319 $B309 85 07                   ;
+    LDA      zp_0D                       ; 0x1331b $B30B A5 0D                   ;
     STA      zp_00                     ; 0x1331d $B30D 85 00                   ;
-    LDX      $02                       ; 0x1331f $B30F A6 02                   ;
+    LDX      zp_02                       ; 0x1331f $B30F A6 02                   ;
     LDA      bss_049A                     ; 0x13321 $B311 AD 9A 04                ;
     CLC                                ; 0x13324 $B314 18                      ;
     ADC      LB285,x                   ; 0x13325 $B315 7D 85 B2                ;
-    STA      $01                       ; 0x13328 $B318 85 01                   ;
+    STA      zp_01                       ; 0x13328 $B318 85 01                   ;
     LDX      #$9A                      ; 0x1332a $B31A A2 9A                   ;;X = #$9a 1001_1010
     LDA      bss_0499                     ; 0x1332c $B31C AD 99 04                ;
     CMP      #$02                      ; 0x1332f $B31F C9 02                   ;
     BNE      LB339                     ; 0x13331 $B321 D0 16                   ;
-    LDA      $07                       ; 0x13333 $B323 A5 07                   ;
+    LDA      zp_07                       ; 0x13333 $B323 A5 07                   ;
     SEC                                ; 0x13335 $B325 38                      ;
     SBC      #$30                      ; 0x13336 $B326 E9 30                   ;
     CMP      #$30                      ; 0x13338 $B328 C9 30                   ;
     BCS      LB339                     ; 0x1333a $B32A B0 0D                   ;
-    LDA      $07                       ; 0x1333c $B32C A5 07                   ;
+    LDA      zp_07                       ; 0x1333c $B32C A5 07                   ;
     AND      #$30                      ; 0x1333e $B32E 29 30                   ;;Keep Bits:0011_0000
     LSR                                ; 0x13340 $B330 4A                      ;
     LSR                                ; 0x13341 $B331 4A                      ;
@@ -4449,7 +4449,7 @@ LB339:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB33C:                                                                          ;
-    ASL      $71,x                     ; 0x1334c $B33C 16 71                   ;; Enemy X Velocity
+    ASL      zp_71,x                     ; 0x1334c $B33C 16 71                   ;; Enemy X Velocity
 LB33E:                                                                          ;
     RTS                                ; 0x1334e $B33E 60                      ;
                                                                                ;
@@ -4462,16 +4462,16 @@ LB343:                                                                          
     BCS      LB361                     ; 0x13356 $B346 B0 19                   ;
     LDX      zp_00                     ; 0x13358 $B348 A6 00                   ;
     LDA      #$B0                      ; 0x1335a $B34A A9 B0                   ;;A = #$b0 1011_0000
-    STA      $2A,x                     ; 0x1335c $B34C 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x1335c $B34C 95 2A                   ;; Enemy Y Position
     LDA      #$0C                      ; 0x1335e $B34E A9 0C                   ;;A = #$0c 0000_1100
-    STA      $A1,x                     ; 0x13360 $B350 95 A1                   ;; Enemy Code
+    STA      zp_A1,x                     ; 0x13360 $B350 95 A1                   ;; Enemy Code
     LDA      rng_out,x                   ; 0x13362 $B352 BD 1B 05                ;; Randomizer
     AND      #$02                      ; 0x13365 $B355 29 02                   ;;Keep Bits:0000_0010
-    ADC      $60,x                     ; 0x13367 $B357 75 60                   ;; Enemy facing direction
+    ADC      zp_60,x                     ; 0x13367 $B357 75 60                   ;; Enemy facing direction
     TAY                                ; 0x13369 $B359 A8                      ;
     LDA      LB33E,y                   ; 0x1336a $B35A B9 3E B3                ;
-    STA      $71,x                     ; 0x1336d $B35D 95 71                   ;; Enemy X Velocity
-    LDX      $10                       ; 0x1336f $B35F A6 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_71,x                     ; 0x1336d $B35D 95 71                   ;; Enemy X Velocity
+    LDX      zp_10                       ; 0x1336f $B35F A6 10                   ;; used as monster x register ;draw boss hp bar
 LB361:                                                                          ;
     RTS                                ; 0x13371 $B361 60                      ;
                                                                                ;
@@ -4479,18 +4479,18 @@ LB361:                                                                          
 LB362:                                                                          ;
     JSR      bank7_DE3D                     ; 0x13372 $B362 20 3D DE                ;
     JSR      bank7_Link_Collision_Detection; 0x13375 $B365 20 C1 D6                ;
-    LDA      $A8,x                     ; 0x13378 $B368 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x13378 $B368 B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x1337a $B36A 29 04                   ;;Keep Bits:0000_0100
     BEQ      LB37B                     ; 0x1337c $B36C F0 0D                   ;
-    LDA      $2A,x                     ; 0x1337e $B36E B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x1337e $B36E B5 2A                   ;; Enemy Y Position
     AND      #$F8                      ; 0x13380 $B370 29 F8                   ;;Keep Bits:1111_1000
-    STA      $2A,x                     ; 0x13382 $B372 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x13382 $B372 95 2A                   ;; Enemy Y Position
     LDA      #$F0                      ; 0x13384 $B374 A9 F0                   ;;A = #$f0 1111_0000
     STA      bss_057E,x                   ; 0x13386 $B376 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
-    INC      $AF,x                     ; 0x13389 $B379 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13389 $B379 F6 AF                   ;; Various enemy state variables
 LB37B:                                                                          ;
     JSR      bank7_Gravity             ; 0x1338b $B37B 20 BE DE                ;
-    LDA      $A8,x                     ; 0x1338e $B37E B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x1338e $B37E B5 A8                   ;; Enemy State
     AND      #$03                      ; 0x13390 $B380 29 03                   ;;Keep Bits:0000_0011
     BEQ      LB387                     ; 0x13392 $B382 F0 03                   ;
     JSR      bank7_Change_Enemy_Facing_Direction_and_X_Velocity; 0x13394 $B384 20 EB E8;
@@ -4500,7 +4500,7 @@ LB387:                                                                          
 ; ---------------------------------------------------------------------------- ;
 LB38A:                                                                          ;
     INC      zp_00                     ; 0x1339a $B38A E6 00                   ;
-    LDA      $AF,x                     ; 0x1339c $B38C B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1339c $B38C B5 AF                   ;; Various enemy state variables
     LDX      #$B8                      ; 0x1339e $B38E A2 B8                   ;;X = #$b8 1011_1000
     LSR                                ; 0x133a0 $B390 4A                      ;
     BCC      LB395                     ; 0x133a1 $B391 90 02                   ;
@@ -4514,56 +4514,56 @@ bank4_table_B398:                                                               
 .byt    $00,$02,$04,$06,$08,$06,$04,$02; 0x133b0 $B3A0 00 02 04 06 08 06 04 02 ;
 ; ---------------------------------------------------------------------------- ;
 LB3A8:                                                                          ;
-    LDA      $AF,x                     ; 0x133b8 $B3A8 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x133b8 $B3A8 B5 AF                   ;; Various enemy state variables
     LSR                                ; 0x133ba $B3AA 4A                      ;
     LSR                                ; 0x133bb $B3AB 4A                      ;
-    STA      $D9                       ; 0x133bc $B3AC 85 D9                   ;; Thunder Spell modifier ?
-    LDY      $02                       ; 0x133be $B3AE A4 02                   ;
-    LDA      $C9                       ; 0x133c0 $B3B0 A5 C9                   ;
+    STA      zp_D9                       ; 0x133bc $B3AC 85 D9                   ;; Thunder Spell modifier ?
+    LDY      zp_02                       ; 0x133be $B3AE A4 02                   ;
+    LDA      zp_C9                       ; 0x133c0 $B3B0 A5 C9                   ;
     PHA                                ; 0x133c2 $B3B2 48                      ;
     PHA                                ; 0x133c3 $B3B3 48                      ;
     CPY      #$01                      ; 0x133c4 $B3B4 C0 01                   ;
     BNE      LB3C6                     ; 0x133c6 $B3B6 D0 0E                   ;
-    LDA      $CD                       ; 0x133c8 $B3B8 A5 CD                   ;
+    LDA      zp_CD                       ; 0x133c8 $B3B8 A5 CD                   ;
     ADC      #$0F                      ; 0x133ca $B3BA 69 0F                   ;
-    STA      $01                       ; 0x133cc $B3BC 85 01                   ;
-    LDA      $C9                       ; 0x133ce $B3BE A5 C9                   ;
+    STA      zp_01                       ; 0x133cc $B3BC 85 01                   ;
+    LDA      zp_C9                       ; 0x133ce $B3BE A5 C9                   ;
     ASL                                ; 0x133d0 $B3C0 0A                      ;
     ASL                                ; 0x133d1 $B3C1 0A                      ;
     AND      #$0F                      ; 0x133d2 $B3C2 29 0F                   ;;Keep Bits:0000_1111
-    STA      $C9                       ; 0x133d4 $B3C4 85 C9                   ;
+    STA      zp_C9                       ; 0x133d4 $B3C4 85 C9                   ;
 LB3C6:                                                                          ;
     DEY                                ; 0x133d6 $B3C6 88                      ;
     TYA                                ; 0x133d7 $B3C7 98                      ;
     ASL                                ; 0x133d8 $B3C8 0A                      ;
     ASL                                ; 0x133d9 $B3C9 0A                      ;
     ASL                                ; 0x133da $B3CA 0A                      ;
-    ADC      $D9                       ; 0x133db $B3CB 65 D9                   ;; Thunder Spell modifier ?
+    ADC      zp_D9                       ; 0x133db $B3CB 65 D9                   ;; Thunder Spell modifier ?
     TAY                                ; 0x133dd $B3CD A8                      ;
-    LDA      $01                       ; 0x133de $B3CE A5 01                   ;
+    LDA      zp_01                       ; 0x133de $B3CE A5 01                   ;
     ADC      bank4_table_B398,y        ; 0x133e0 $B3D0 79 98 B3                ;
-    STA      $01                       ; 0x133e3 $B3D3 85 01                   ;
+    STA      zp_01                       ; 0x133e3 $B3D3 85 01                   ;
     LDY      #$50                      ; 0x133e5 $B3D5 A0 50                   ;;Y = #$50 0101_0000
     LDX      #$58                      ; 0x133e7 $B3D7 A2 58                   ;;X = #$58 0101_1000
     JSR      LB477                     ; 0x133e9 $B3D9 20 77 B4                ;
-    LDA      $2A,x                     ; 0x133ec $B3DC B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x133ec $B3DC B5 2A                   ;; Enemy Y Position
     STA      zp_00                     ; 0x133ee $B3DE 85 00                   ;
-    LDY      $02                       ; 0x133f0 $B3E0 A4 02                   ;
+    LDY      zp_02                       ; 0x133f0 $B3E0 A4 02                   ;
     PLA                                ; 0x133f2 $B3E2 68                      ;
-    STA      $C9                       ; 0x133f3 $B3E3 85 C9                   ;
-    LDA      $CD                       ; 0x133f5 $B3E5 A5 CD                   ;
-    STA      $01                       ; 0x133f7 $B3E7 85 01                   ;
+    STA      zp_C9                       ; 0x133f3 $B3E3 85 C9                   ;
+    LDA      zp_CD                       ; 0x133f5 $B3E5 A5 CD                   ;
+    STA      zp_01                       ; 0x133f7 $B3E7 85 01                   ;
     CPY      #$02                      ; 0x133f9 $B3E9 C0 02                   ;
     BNE      LB3F9                     ; 0x133fb $B3EB D0 0C                   ;
     ADC      #$0F                      ; 0x133fd $B3ED 69 0F                   ;
-    STA      $01                       ; 0x133ff $B3EF 85 01                   ;
-    LDA      $C9                       ; 0x13401 $B3F1 A5 C9                   ;
+    STA      zp_01                       ; 0x133ff $B3EF 85 01                   ;
+    LDA      zp_C9                       ; 0x13401 $B3F1 A5 C9                   ;
     ASL                                ; 0x13403 $B3F3 0A                      ;
     ASL                                ; 0x13404 $B3F4 0A                      ;
     AND      #$0F                      ; 0x13405 $B3F5 29 0F                   ;;Keep Bits:0000_1111
-    STA      $C9                       ; 0x13407 $B3F7 85 C9                   ;
+    STA      zp_C9                       ; 0x13407 $B3F7 85 C9                   ;
 LB3F9:                                                                          ;
-    LDA      $81,x                     ; 0x13409 $B3F9 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13409 $B3F9 B5 81                   ;; Current Animation Frame for Enemys
     LDX      #$5C                      ; 0x1340b $B3FB A2 5C                   ;;X = #$5c 0101_1100
     ASL                                ; 0x1340d $B3FD 0A                      ;
     BEQ      LB402                     ; 0x1340e $B3FE F0 02                   ;
@@ -4575,11 +4575,11 @@ LB402:                                                                          
     ASL                                ; 0x13416 $B406 0A                      ;
     ASL                                ; 0x13417 $B407 0A                      ;
     ASL                                ; 0x13418 $B408 0A                      ;
-    ADC      $D9                       ; 0x13419 $B409 65 D9                   ;; Thunder Spell modifier ?
+    ADC      zp_D9                       ; 0x13419 $B409 65 D9                   ;; Thunder Spell modifier ?
     TAY                                ; 0x1341b $B40B A8                      ;
-    LDA      $01                       ; 0x1341c $B40C A5 01                   ;
+    LDA      zp_01                       ; 0x1341c $B40C A5 01                   ;
     ADC      bank4_table_B398,y        ; 0x1341e $B40E 79 98 B3                ;
-    STA      $01                       ; 0x13421 $B411 85 01                   ;
+    STA      zp_01                       ; 0x13421 $B411 85 01                   ;
     LDY      #$60                      ; 0x13423 $B413 A0 60                   ;;Y = #$60 0110_0000
     JSR      LB477                     ; 0x13425 $B415 20 77 B4                ;
     LDA      frame_counter                       ; 0x13428 $B418 A5 12                   ;; Frame Counter (ascending)
@@ -4589,14 +4589,14 @@ LB402:                                                                          
     INC      bss_0264                     ; 0x13431 $B421 EE 64 02                ;
 LB424:                                                                          ;
     PLA                                ; 0x13434 $B424 68                      ;
-    STA      $C9                       ; 0x13435 $B425 85 C9                   ;
+    STA      zp_C9                       ; 0x13435 $B425 85 C9                   ;
     LDA      #$48                      ; 0x13437 $B427 A9 48                   ;;A = #$48 0100_1000
-    STA      $91,x                     ; 0x13439 $B429 95 91                   ;
+    STA      zp_91,x                     ; 0x13439 $B429 95 91                   ;
     RTS                                ; 0x1343b $B42B 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB42C:                                                                          ;
-    LDA      $AF,x                     ; 0x1343c $B42C B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1343c $B42C B5 AF                   ;; Various enemy state variables
     LDX      #$1E                      ; 0x1343e $B42E A2 1E                   ;;X = #$1e 0001_1110
     CMP      #$C0                      ; 0x13440 $B430 C9 C0                   ;
     BCS      LB436                     ; 0x13442 $B432 B0 02                   ;
@@ -4606,20 +4606,20 @@ LB436:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB439:                                                                          ;
-    LDA      $01                       ; 0x13449 $B439 A5 01                   ;
+    LDA      zp_01                       ; 0x13449 $B439 A5 01                   ;
     CLC                                ; 0x1344b $B43B 18                      ;
     ADC      #$10                      ; 0x1344c $B43C 69 10                   ;
-    STA      $D9                       ; 0x1344e $B43E 85 D9                   ;; Thunder Spell modifier ?
-    LDA      $02                       ; 0x13450 $B440 A5 02                   ;
+    STA      zp_D9                       ; 0x1344e $B43E 85 D9                   ;; Thunder Spell modifier ?
+    LDA      zp_02                       ; 0x13450 $B440 A5 02                   ;
     CMP      #$01                      ; 0x13452 $B442 C9 01                   ;
     BNE      LB44F                     ; 0x13454 $B444 D0 09                   ;
-    LDA      $CD                       ; 0x13456 $B446 A5 CD                   ;
-    STA      $D9                       ; 0x13458 $B448 85 D9                   ;; Thunder Spell modifier ?
+    LDA      zp_CD                       ; 0x13456 $B446 A5 CD                   ;
+    STA      zp_D9                       ; 0x13458 $B448 85 D9                   ;; Thunder Spell modifier ?
     CLC                                ; 0x1345a $B44A 18                      ;
     ADC      #$10                      ; 0x1345b $B44B 69 10                   ;
-    STA      $01                       ; 0x1345d $B44D 85 01                   ;
+    STA      zp_01                       ; 0x1345d $B44D 85 01                   ;
 LB44F:                                                                          ;
-    LDA      $AF,x                     ; 0x1345f $B44F B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1345f $B44F B5 AF                   ;; Various enemy state variables
     LDX      #$A0                      ; 0x13461 $B451 A2 A0                   ;;X = #$a0 1010_0000
     CMP      #$F0                      ; 0x13463 $B453 C9 F0                   ;
     BCS      LB459                     ; 0x13465 $B455 B0 02                   ;
@@ -4628,11 +4628,11 @@ LB459:                                                                          
     JSR      bank7_F1F4                     ; 0x13469 $B459 20 F4 F1                ;
     JSR      bank7_F1F4                     ; 0x1346c $B45C 20 F4 F1                ;
     JSR      bank7_F0D7                     ; 0x1346f $B45F 20 D7 F0                ;
-    LDA      $D9                       ; 0x13472 $B462 A5 D9                   ;; Thunder Spell modifier ?
-    STA      $01                       ; 0x13474 $B464 85 01                   ;
-    LDA      $2A,x                     ; 0x13476 $B466 B5 2A                   ;; Enemy Y Position
+    LDA      zp_D9                       ; 0x13472 $B462 A5 D9                   ;; Thunder Spell modifier ?
+    STA      zp_01                       ; 0x13474 $B464 85 01                   ;
+    LDA      zp_2A,x                     ; 0x13476 $B466 B5 2A                   ;; Enemy Y Position
     STA      zp_00                     ; 0x13478 $B468 85 00                   ;
-    LDA      $AF,x                     ; 0x1347a $B46A B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x1347a $B46A B5 AF                   ;; Various enemy state variables
     LDX      #$A6                      ; 0x1347c $B46C A2 A6                   ;;X = #$a6 1010_0110
     CMP      #$F0                      ; 0x1347e $B46E C9 F0                   ;
     BCS      LB474                     ; 0x13480 $B470 B0 02                   ;
@@ -4645,10 +4645,10 @@ LB477:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB47D:                                                                          ;
-    LDA      $4E,x                     ; 0x1348d $B47D B5 4E                   ;; Enemy X Position (low byte)
+    LDA      zp_4E,x                     ; 0x1348d $B47D B5 4E                   ;; Enemy X Position (low byte)
     CLC                                ; 0x1348f $B47F 18                      ;
     ADC      #$04                      ; 0x13490 $B480 69 04                   ;
-    STA      $4E,x                     ; 0x13492 $B482 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x13492 $B482 95 4E                   ;; Enemy X Position (low byte)
     RTS                                ; 0x13494 $B484 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4658,12 +4658,12 @@ LB485:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB48B:                                                                          ;
-    LDA      $C9                       ; 0x1349b $B48B A5 C9                   ;
+    LDA      zp_C9                       ; 0x1349b $B48B A5 C9                   ;
     AND      #$08                      ; 0x1349d $B48D 29 08                   ;;Keep Bits:0000_1000
     BNE      LB4AC                     ; 0x1349f $B48F D0 1B                   ;
     LDA      zp_00                     ; 0x134a1 $B491 A5 00                   ;
     STA      bss_0200,y                   ; 0x134a3 $B493 99 00 02                ;
-    LDA      $01                       ; 0x134a6 $B496 A5 01                   ;
+    LDA      zp_01                       ; 0x134a6 $B496 A5 01                   ;
     STA      bss_0203,y                   ; 0x134a8 $B498 99 03 02                ;
     LDA      #$52                      ; 0x134ab $B49B A9 52                   ;;A = #$52 0101_0010
     STA      bss_0201,y                   ; 0x134ad $B49D 99 01 02                ;
@@ -4688,7 +4688,7 @@ LB4AD:                                                                          
     JSR      LB53B                     ; 0x134cb $B4BB 20 3B B5                ;
     LDA      #$12                      ; 0x134ce $B4BE A9 12                   ;;A = #$12 0001_0010
     JSR      L9C45                     ; 0x134d0 $B4C0 20 45 9C                ;
-    LDA      $60,x                     ; 0x134d3 $B4C3 B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x134d3 $B4C3 B5 60                   ;; Enemy facing direction
     PHA                                ; 0x134d5 $B4C5 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x134d6 $B4C6 20 91 DC;
     PLA                                ; 0x134d9 $B4C9 68                      ;
@@ -4697,33 +4697,33 @@ LB4AD:                                                                          
     AND      #$1F                      ; 0x134de $B4CE 29 1F                   ;;Keep Bits:0001_1111
     BEQ      LB4D6                     ; 0x134e0 $B4D0 F0 04                   ;
     LDA      zp_00                     ; 0x134e2 $B4D2 A5 00                   ;
-    STA      $60,x                     ; 0x134e4 $B4D4 95 60                   ;; Enemy facing direction
+    STA      zp_60,x                     ; 0x134e4 $B4D4 95 60                   ;; Enemy facing direction
 LB4D6:                                                                          ;
-    LDA      $AF,x                     ; 0x134e6 $B4D6 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x134e6 $B4D6 B5 AF                   ;; Various enemy state variables
     ASL                                ; 0x134e8 $B4D8 0A                      ;
-    STA      $71,x                     ; 0x134e9 $B4D9 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x134e9 $B4D9 95 71                   ;; Enemy X Velocity
     BEQ      LB4EC                     ; 0x134eb $B4DB F0 0F                   ;
     BCC      LB4E0                     ; 0x134ed $B4DD 90 01                   ;
     INY                                ; 0x134ef $B4DF C8                      ;
 LB4E0:                                                                          ;
     LDA      LB0AA,y                   ; 0x134f0 $B4E0 B9 AA B0                ;
-    STA      $71,x                     ; 0x134f3 $B4E3 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x134f3 $B4E3 95 71                   ;; Enemy X Velocity
     LDA      frame_counter                       ; 0x134f5 $B4E5 A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x134f7 $B4E7 4A                      ;
     BCC      LB4EC                     ; 0x134f8 $B4E8 90 02                   ;
-    DEC      $AF,x                     ; 0x134fa $B4EA D6 AF                   ;; Various enemy state variables
+    DEC      zp_AF,x                     ; 0x134fa $B4EA D6 AF                   ;; Various enemy state variables
 LB4EC:                                                                          ;
-    LDA      $0F                       ; 0x134fc $B4EC A5 0F                   ;
+    LDA      zp_0F                       ; 0x134fc $B4EC A5 0F                   ;
     BPL      LB4F2                     ; 0x134fe $B4EE 10 02                   ;
     EOR      #$FF                      ; 0x13500 $B4F0 49 FF                   ;;Flip Bits:1111_1111
 LB4F2:                                                                          ;
     CMP      #$60                      ; 0x13502 $B4F2 C9 60                   ;
     BCC      LB4FF                     ; 0x13504 $B4F4 90 09                   ;
 LB4F6:                                                                          ;
-    LDA      $AF,x                     ; 0x13506 $B4F6 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13506 $B4F6 B5 AF                   ;; Various enemy state variables
     AND      #$7F                      ; 0x13508 $B4F8 29 7F                   ;;Keep Bits:0111_1111
     ORA      #$10                      ; 0x1350a $B4FA 09 10                   ;;Set Bits:0001_0000
-    STA      $AF,x                     ; 0x1350c $B4FC 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x1350c $B4FC 95 AF                   ;; Various enemy state variables
     RTS                                ; 0x1350e $B4FE 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -4743,13 +4743,13 @@ LB510:                                                                          
 LB511:                                                                          ;
     LDA      rng_out,x                   ; 0x13521 $B511 BD 1B 05                ;; Randomizer
     AND      #$07                      ; 0x13524 $B514 29 07                   ;;Keep Bits:0000_0111
-    ORA      $81,x                     ; 0x13526 $B516 15 81                   ;; Current Animation Frame for Enemys
+    ORA      zp_81,x                     ; 0x13526 $B516 15 81                   ;; Current Animation Frame for Enemys
     ORA      bss_0504,x                   ; 0x13528 $B518 1D 04 05                ;; Timer for Enemy
     BNE      LB522                     ; 0x1352b $B51B D0 05                   ;
     LDA      #$2F                      ; 0x1352d $B51D A9 2F                   ;;A = #$2f 0010_1111
     JSR      LB557                     ; 0x1352f $B51F 20 57 B5                ;
 LB522:                                                                          ;
-    LDA      $AF,x                     ; 0x13532 $B522 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13532 $B522 B5 AF                   ;; Various enemy state variables
     ASL                                ; 0x13534 $B524 0A                      ;
     BNE      LB53A                     ; 0x13535 $B525 D0 13                   ;
     LDA      rng_out,x                   ; 0x13537 $B527 BD 1B 05                ;; Randomizer
@@ -4758,22 +4758,22 @@ LB522:                                                                          
     JSR      LB4F6                     ; 0x1353e $B52E 20 F6 B4                ;
     LDA      rng_out,x                   ; 0x13541 $B531 BD 1B 05                ;; Randomizer
     AND      #$80                      ; 0x13544 $B534 29 80                   ;;Keep Bits:1000_0000
-    ORA      $AF,x                     ; 0x13546 $B536 15 AF                   ;; Various enemy state variables
-    STA      $AF,x                     ; 0x13548 $B538 95 AF                   ;; Various enemy state variables
+    ORA      zp_AF,x                     ; 0x13546 $B536 15 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x13548 $B538 95 AF                   ;; Various enemy state variables
 LB53A:                                                                          ;
     RTS                                ; 0x1354a $B53A 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB53B:                                                                          ;
-    LDA      $81,x                     ; 0x1354b $B53B B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x1354b $B53B B5 81                   ;; Current Animation Frame for Enemys
     BEQ      LB55C                     ; 0x1354d $B53D F0 1D                   ;
     LDY      bss_0504,x                   ; 0x1354f $B53F BC 04 05                ;; Timer for Enemy
     BNE      LB55C                     ; 0x13552 $B542 D0 18                   ;
-    LDA      $81,x                     ; 0x13554 $B544 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13554 $B544 B5 81                   ;; Current Animation Frame for Enemys
     CMP      #$02                      ; 0x13556 $B546 C9 02                   ;
     BNE      LB551                     ; 0x13558 $B548 D0 07                   ;
     DEY                                ; 0x1355a $B54A 88                      ;
-    STY      $81,x                     ; 0x1355b $B54B 94 81                   ;; Current Animation Frame for Enemys
+    STY      zp_81,x                     ; 0x1355b $B54B 94 81                   ;; Current Animation Frame for Enemys
     LDA      #$20                      ; 0x1355d $B54D A9 20                   ;;A = #$20 0010_0000
     BNE      LB557                     ; 0x1355f $B54F D0 06                   ;
 LB551:                                                                          ;
@@ -4782,7 +4782,7 @@ LB551:                                                                          
     LDA      #$0F                      ; 0x13565 $B555 A9 0F                   ;;A = #$0f 0000_1111
 LB557:                                                                          ;
     STA      bss_0504,x                   ; 0x13567 $B557 9D 04 05                ;; Timer for Enemy
-    INC      $81,x                     ; 0x1356a $B55A F6 81                   ;; Current Animation Frame for Enemys
+    INC      zp_81,x                     ; 0x1356a $B55A F6 81                   ;; Current Animation Frame for Enemys
 LB55C:                                                                          ;
     RTS                                ; 0x1356c $B55C 60                      ;
                                                                                ;
@@ -4811,26 +4811,26 @@ LB5A6:                                                                          
 .byt    $04,$FC,$F8,$FC,$04,$0C,$10,$0C; 0x135b6 $B5A6 04 FC F8 FC 04 0C 10 0C ;
 ; ---------------------------------------------------------------------------- ;
 LB5AE:                                                                          ;
-    LDA      $2A,x                     ; 0x135be $B5AE B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x135be $B5AE B5 2A                   ;; Enemy Y Position
     STA      zp_00                     ; 0x135c0 $B5B0 85 00                   ;
-    LDA       a:$CD                     ; 0x135c2 $B5B2 AD CD 00                ;
-    STA      $01                       ; 0x135c5 $B5B5 85 01                   ;
-    LDA      $60,x                     ; 0x135c7 $B5B7 B5 60                   ;; Enemy facing direction
-    STA      $02                       ; 0x135c9 $B5B9 85 02                   ;
+    LDA       a:zp_CD                     ; 0x135c2 $B5B2 AD CD 00                ;
+    STA      zp_01                       ; 0x135c5 $B5B5 85 01                   ;
+    LDA      zp_60,x                     ; 0x135c7 $B5B7 B5 60                   ;; Enemy facing direction
+    STA      zp_02                       ; 0x135c9 $B5B9 85 02                   ;
     LDA      #$02                      ; 0x135cb $B5BB A9 02                   ;;A = #$02 0000_0010
     LDY      bss_040E,x                   ; 0x135cd $B5BD BC 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     BEQ      LB5C5                     ; 0x135d0 $B5C0 F0 03                   ;
     TYA                                ; 0x135d2 $B5C2 98                      ;
     AND      #$03                      ; 0x135d3 $B5C3 29 03                   ;;Keep Bits:0000_0011
 LB5C5:                                                                          ;
-    STA      $06                       ; 0x135d5 $B5C5 85 06                   ;
+    STA      zp_06                       ; 0x135d5 $B5C5 85 06                   ;
     LDY      #$00                      ; 0x135d7 $B5C7 A0 00                   ;;Y = #$00 0000_0000
-    LDA      $71,x                     ; 0x135d9 $B5C9 B5 71                   ;; Enemy X Velocity
-    ORA      $81,x                     ; 0x135db $B5CB 15 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_71,x                     ; 0x135d9 $B5C9 B5 71                   ;; Enemy X Velocity
+    ORA      zp_81,x                     ; 0x135db $B5CB 15 81                   ;; Current Animation Frame for Enemys
     BEQ      LB600                     ; 0x135dd $B5CD F0 31                   ;
     LDA      bss_0728                     ; 0x135df $B5CF AD 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
     BEQ      LB600                     ; 0x135e2 $B5D2 F0 2C                   ;
-    LDA      $AF,x                     ; 0x135e4 $B5D4 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x135e4 $B5D4 B5 AF                   ;; Various enemy state variables
     LDY      #$09                      ; 0x135e6 $B5D6 A0 09                   ;;Y = #$09 0000_1001
     AND      #$7F                      ; 0x135e8 $B5D8 29 7F                   ;;Keep Bits:0111_1111
     BEQ      LB5E7                     ; 0x135ea $B5DA F0 0B                   ;
@@ -4843,7 +4843,7 @@ LB5C5:                                                                          
 LB5E7:                                                                          ;
     LDA      $6E3E                     ; 0x135f7 $B5E7 AD 3E 6E                ;
     BMI      LB600                     ; 0x135fa $B5EA 30 14                   ;
-    LDA      $81,x                     ; 0x135fc $B5EC B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x135fc $B5EC B5 81                   ;; Current Animation Frame for Enemys
     BEQ      LB600                     ; 0x135fe $B5EE F0 10                   ;
     LDY      #$24                      ; 0x13600 $B5F0 A0 24                   ;;Y = #$24 0010_0100
     CMP      #$02                      ; 0x13602 $B5F2 C9 02                   ;
@@ -4860,10 +4860,10 @@ LB600:                                                                          
     JSR      LB72D                     ; 0x13614 $B604 20 2D B7                ;
     JSR      LB72D                     ; 0x13617 $B607 20 2D B7                ;
     JSR      LB72D                     ; 0x1361a $B60A 20 2D B7                ;
-    LDX      $10                       ; 0x1361d $B60D A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x1361d $B60D A6 10                   ;; used as monster x register ;draw boss hp bar
     LDA      $6E3E                     ; 0x1361f $B60F AD 3E 6E                ;
     BMI      LB653                     ; 0x13622 $B612 30 3F                   ;
-    LDA      $81,x                     ; 0x13624 $B614 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13624 $B614 B5 81                   ;; Current Animation Frame for Enemys
     CMP      #$02                      ; 0x13626 $B616 C9 02                   ;
     BEQ      LB656                     ; 0x13628 $B618 F0 3C                   ;
     CMP      #$01                      ; 0x1362a $B61A C9 01                   ;
@@ -4871,27 +4871,27 @@ LB600:                                                                          
     LDA      bss_0504,x                   ; 0x1362e $B61E BD 04 05                ;; Timer for Enemy
     LSR                                ; 0x13631 $B621 4A                      ;
     AND      #$07                      ; 0x13632 $B622 29 07                   ;;Keep Bits:0000_0111
-    LDY      $02                       ; 0x13634 $B624 A4 02                   ;
+    LDY      zp_02                       ; 0x13634 $B624 A4 02                   ;
     CPY      #$01                      ; 0x13636 $B626 C0 01                   ;
     BNE      LB62C                     ; 0x13638 $B628 D0 02                   ;
     EOR      #$07                      ; 0x1363a $B62A 49 07                   ;;Flip Bits:0000_0111
 LB62C:                                                                          ;
     TAY                                ; 0x1363c $B62C A8                      ;
-    LDA      $C9                       ; 0x1363d $B62D A5 C9                   ;
+    LDA      zp_C9                       ; 0x1363d $B62D A5 C9                   ;
     BNE      LB653                     ; 0x1363f $B62F D0 22                   ;
-    LDA      $2A,x                     ; 0x13641 $B631 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x13641 $B631 B5 2A                   ;; Enemy Y Position
     CLC                                ; 0x13643 $B633 18                      ;
     ADC      LB59E,y                   ; 0x13644 $B634 79 9E B5                ;
     STA      bss_0240                     ; 0x13647 $B637 8D 40 02                ;
     STA      bss_0244                     ; 0x1364a $B63A 8D 44 02                ;
-    LDA      $CD                       ; 0x1364d $B63D A5 CD                   ;
+    LDA      zp_CD                       ; 0x1364d $B63D A5 CD                   ;
     CLC                                ; 0x1364f $B63F 18                      ;
     ADC      LB5A6,y                   ; 0x13650 $B640 79 A6 B5                ;
     STA      bss_0243                     ; 0x13653 $B643 8D 43 02                ;
     CLC                                ; 0x13656 $B646 18                      ;
     ADC      #$08                      ; 0x13657 $B647 69 08                   ;
     STA      bss_0247                     ; 0x13659 $B649 8D 47 02                ;
-    LDA      $C9                       ; 0x1365c $B64C A5 C9                   ;
+    LDA      zp_C9                       ; 0x1365c $B64C A5 C9                   ;
     BNE      LB653                     ; 0x1365e $B64E D0 03                   ;
     JMP      LB709                     ; 0x13660 $B650 4C 09 B7                ;
                                                                                ;
@@ -4901,9 +4901,9 @@ LB653:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB656:                                                                          ;
-    STY      $05                       ; 0x13666 $B656 84 05                   ;
-    LDY      $60,x                     ; 0x13668 $B658 B4 60                   ;; Enemy facing direction
-    LDA       a:$CD                     ; 0x1366a $B65A AD CD 00                ;
+    STY      zp_05                       ; 0x13666 $B656 84 05                   ;
+    LDY      zp_60,x                     ; 0x13668 $B658 B4 60                   ;; Enemy facing direction
+    LDA       a:zp_CD                     ; 0x1366a $B65A AD CD 00                ;
     CLC                                ; 0x1366d $B65D 18                      ;
     ADC      LB589,y                   ; 0x1366e $B65E 79 89 B5                ;
     DEY                                ; 0x13671 $B661 88                      ;
@@ -4922,15 +4922,15 @@ LB66E:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB671:                                                                          ;
-    LDY      $C9                       ; 0x13681 $B671 A4 C9                   ;
+    LDY      zp_C9                       ; 0x13681 $B671 A4 C9                   ;
     BNE      LB66E                     ; 0x13683 $B673 D0 F9                   ;
-    LDY      $05                       ; 0x13685 $B675 A4 05                   ;
+    LDY      zp_05                       ; 0x13685 $B675 A4 05                   ;
     STA      bss_0203,y                   ; 0x13687 $B677 99 03 02                ;
     STA      bss_0207,y                   ; 0x1368a $B67A 99 07 02                ;
     LDA      bss_01FE,y                   ; 0x1368d $B67D B9 FE 01                ;
     STA      bss_0202,y                   ; 0x13690 $B680 99 02 02                ;
     STA      bss_0206,y                   ; 0x13693 $B683 99 06 02                ;
-    LDA      $2A,x                     ; 0x13696 $B686 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x13696 $B686 B5 2A                   ;; Enemy Y Position
     STA      bss_0200,y                   ; 0x13698 $B688 99 00 02                ;
     CLC                                ; 0x1369b $B68B 18                      ;
     ADC      #$10                      ; 0x1369c $B68C 69 10                   ;
@@ -4943,7 +4943,7 @@ LB671:                                                                          
     LSR                                ; 0x136ad $B69D 4A                      ;
     AND      #$07                      ; 0x136ae $B69E 29 07                   ;;Keep Bits:0000_0111
     TAY                                ; 0x136b0 $B6A0 A8                      ;
-    LDA      $60,x                     ; 0x136b1 $B6A1 B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x136b1 $B6A1 B5 60                   ;; Enemy facing direction
     CMP      #$02                      ; 0x136b3 $B6A3 C9 02                   ;
     BNE      LB6AC                     ; 0x136b5 $B6A5 D0 05                   ;
     TYA                                ; 0x136b7 $B6A7 98                      ;
@@ -4951,10 +4951,10 @@ LB671:                                                                          
     ADC      #$08                      ; 0x136b9 $B6A9 69 08                   ;
     TAY                                ; 0x136bb $B6AB A8                      ;
 LB6AC:                                                                          ;
-    LDA       a:$CD                     ; 0x136bc $B6AC AD CD 00                ;
+    LDA       a:zp_CD                     ; 0x136bc $B6AC AD CD 00                ;
     CLC                                ; 0x136bf $B6AF 18                      ;
     ADC      LB58C,y                   ; 0x136c0 $B6B0 79 8C B5                ;
-    LDY      $60,x                     ; 0x136c3 $B6B3 B4 60                   ;; Enemy facing direction
+    LDY      zp_60,x                     ; 0x136c3 $B6B3 B4 60                   ;; Enemy facing direction
     DEY                                ; 0x136c5 $B6B5 88                      ;
     BEQ      LB6C0                     ; 0x136c6 $B6B6 F0 08                   ;
     PHA                                ; 0x136c8 $B6B8 48                      ;
@@ -4974,7 +4974,7 @@ LB6C5:                                                                          
     CLC                                ; 0x136d8 $B6C8 18                      ;
     ADC      #$08                      ; 0x136d9 $B6C9 69 08                   ;
     STA      bss_0247                     ; 0x136db $B6CB 8D 47 02                ;
-    LDY      $60,x                     ; 0x136de $B6CE B4 60                   ;; Enemy facing direction
+    LDY      zp_60,x                     ; 0x136de $B6CE B4 60                   ;; Enemy facing direction
     LDA      frame_counter                       ; 0x136e0 $B6D0 A5 12                   ;; Frame Counter (ascending)
     AND      #$01                      ; 0x136e2 $B6D2 29 01                   ;;Keep Bits:0000_0001
     ASL                                ; 0x136e4 $B6D4 0A                      ;
@@ -4993,7 +4993,7 @@ LB6C5:                                                                          
     LDA      bss_0242                     ; 0x136ff $B6EF AD 42 02                ;
     STA      bss_0292                     ; 0x13702 $B6F2 8D 92 02                ;
     STA      bss_0296                     ; 0x13705 $B6F5 8D 96 02                ;
-    LDA      $2A,x                     ; 0x13708 $B6F8 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x13708 $B6F8 B5 2A                   ;; Enemy Y Position
     CLC                                ; 0x1370a $B6FA 18                      ;
     ADC      #$12                      ; 0x1370b $B6FB 69 12                   ;
     STA      bss_0240                     ; 0x1370d $B6FD 8D 40 02                ;
@@ -5015,7 +5015,7 @@ LB709:                                                                          
     STY      bss_0245                     ; 0x13735 $B725 8C 45 02                ;
 LB728:                                                                          ;
     LDA      #$30                      ; 0x13738 $B728 A9 30                   ;;A = #$30 0011_0000
-    STA      $91,x                     ; 0x1373a $B72A 95 91                   ;
+    STA      zp_91,x                     ; 0x1373a $B72A 95 91                   ;
     RTS                                ; 0x1373c $B72C 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5027,8 +5027,8 @@ LB72D:                                                                          
     LDA      LB55F,x                   ; 0x13749 $B739 BD 5F B5                ;
     STA      bss_0209,y                   ; 0x1374c $B73C 99 09 02                ;
     LDA      #$00                      ; 0x1374f $B73F A9 00                   ;;A = #$00 0000_0000
-    STA      $05                       ; 0x13751 $B741 85 05                   ;
-    LDA      $02                       ; 0x13753 $B743 A5 02                   ;
+    STA      zp_05                       ; 0x13751 $B741 85 05                   ;
+    LDA      zp_02                       ; 0x13753 $B743 A5 02                   ;
     CMP      #$01                      ; 0x13755 $B745 C9 01                   ;
     BNE      LB759                     ; 0x13757 $B747 D0 10                   ;
     LDA      bank4_table_B55D,x        ; 0x13759 $B749 BD 5D B5                ;
@@ -5036,26 +5036,26 @@ LB72D:                                                                          
     LDA      LB55F,x                   ; 0x1375f $B74F BD 5F B5                ;
     STA      bss_0201,y                   ; 0x13762 $B752 99 01 02                ;
     LDA      #$40                      ; 0x13765 $B755 A9 40                   ;;A = #$40 0100_0000
-    STA      $05                       ; 0x13767 $B757 85 05                   ;
+    STA      zp_05                       ; 0x13767 $B757 85 05                   ;
 LB759:                                                                          ;
-    LDA      $05                       ; 0x13769 $B759 A5 05                   ;
-    ORA      $06                       ; 0x1376b $B75B 05 06                   ;
+    LDA      zp_05                       ; 0x13769 $B759 A5 05                   ;
+    ORA      zp_06                       ; 0x1376b $B75B 05 06                   ;
     STA      bss_0202,y                   ; 0x1376d $B75D 99 02 02                ;
     STA      bss_0206,y                   ; 0x13770 $B760 99 06 02                ;
     STA      bss_020A,y                   ; 0x13773 $B763 99 0A 02                ;
-    LDA      $C9                       ; 0x13776 $B766 A5 C9                   ;
+    LDA      zp_C9                       ; 0x13776 $B766 A5 C9                   ;
     AND      #$08                      ; 0x13778 $B768 29 08                   ;;Keep Bits:0000_1000
     BNE      LB771                     ; 0x1377a $B76A D0 05                   ;
     LDA      zp_00                     ; 0x1377c $B76C A5 00                   ;
     STA      bss_0200,y                   ; 0x1377e $B76E 99 00 02                ;
 LB771:                                                                          ;
-    LDA      $C9                       ; 0x13781 $B771 A5 C9                   ;
+    LDA      zp_C9                       ; 0x13781 $B771 A5 C9                   ;
     AND      #$04                      ; 0x13783 $B773 29 04                   ;;Keep Bits:0000_0100
     BNE      LB77C                     ; 0x13785 $B775 D0 05                   ;
     LDA      zp_00                     ; 0x13787 $B777 A5 00                   ;
     STA      bss_0204,y                   ; 0x13789 $B779 99 04 02                ;
 LB77C:                                                                          ;
-    LDA      $C9                       ; 0x1378c $B77C A5 C9                   ;
+    LDA      zp_C9                       ; 0x1378c $B77C A5 C9                   ;
     AND      #$02                      ; 0x1378e $B77E 29 02                   ;;Keep Bits:0000_0010
     BNE      LB787                     ; 0x13790 $B780 D0 05                   ;
     LDA      zp_00                     ; 0x13792 $B782 A5 00                   ;
@@ -5065,7 +5065,7 @@ LB787:                                                                          
     CLC                                ; 0x13799 $B789 18                      ;
     ADC      #$10                      ; 0x1379a $B78A 69 10                   ;
     STA      zp_00                     ; 0x1379c $B78C 85 00                   ;
-    LDA      $01                       ; 0x1379e $B78E A5 01                   ;
+    LDA      zp_01                       ; 0x1379e $B78E A5 01                   ;
     STA      bss_0203,y                   ; 0x137a0 $B790 99 03 02                ;
     CLC                                ; 0x137a3 $B793 18                      ;
     ADC      #$08                      ; 0x137a4 $B794 69 08                   ;
@@ -5093,10 +5093,10 @@ LB787:                                                                          
 .byt    $FF                            ; 0x137bf $B7AF FF                      ;
 bank4_Enemy_Routines1_Bubble:                                                   ;
     LDA      #$02                      ; 0x137c0 $B7B0 A9 02                   ;;A = #$02 0000_0010
-    STA      $02                       ; 0x137c2 $B7B2 85 02                   ;
+    STA      zp_02                       ; 0x137c2 $B7B2 85 02                   ;
     LDA      frame_counter                       ; 0x137c4 $B7B4 A5 12                   ;; Frame Counter (ascending)
     AND      #$03                      ; 0x137c6 $B7B6 29 03                   ;;Keep Bits:0000_0011
-    STA      $03                       ; 0x137c8 $B7B8 85 03                   ;
+    STA      zp_03                       ; 0x137c8 $B7B8 85 03                   ;
     LDX      #$5A                      ; 0x137ca $B7BA A2 5A                   ;;X = #$5a 0101_1010
 .byt    $4C                            ; 0x137cc $B7BC 4C                      ;
 .byt    $03                            ; 0x137cd $B7BD 03                      ;
@@ -5112,8 +5112,8 @@ Table__Mago_Projectile_Speed:                                                   
 .byt    $F4                            ; 0x137d4 $B7C4 F4                      ;
 bank4_Enemy_Routines_Mago:                                                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x137d5 $B7C5 20 91 DC;
-    DEC      $AF,x                     ; 0x137d8 $B7C8 D6 AF                   ;; Various enemy state variables
-    LDA      $AF,x                     ; 0x137da $B7CA B5 AF                   ;; Various enemy state variables
+    DEC      zp_AF,x                     ; 0x137d8 $B7C8 D6 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x137da $B7CA B5 AF                   ;; Various enemy state variables
     CMP      #$E0                      ; 0x137dc $B7CC C9 E0                   ;
     BCC      LB7D6                     ; 0x137de $B7CE 90 06                   ;
     LSR                                ; 0x137e0 $B7D0 4A                      ;
@@ -5127,22 +5127,22 @@ LB7D6:                                                                          
     JSR      LB9A4                     ; 0x137ea $B7DA 20 A4 B9                ;
     BCS      LB807                     ; 0x137ed $B7DD B0 28                   ;
     LDA      #$C0                      ; 0x137ef $B7DF A9 C0                   ;;A = #$c0 1100_0000
-    STA      $30,y                     ; 0x137f1 $B7E1 99 30 00                ;
-    LDA      $60,x                     ; 0x137f4 $B7E4 B5 60                   ;; Enemy facing direction
-    STA      $66,y                     ; 0x137f6 $B7E6 99 66 00                ;
+    STA      zp_30,y                     ; 0x137f1 $B7E1 99 30 00                ;
+    LDA      zp_60,x                     ; 0x137f4 $B7E4 B5 60                   ;; Enemy facing direction
+    STA      zp_66,y                     ; 0x137f6 $B7E6 99 66 00                ;
     TAX                                ; 0x137f9 $B7E9 AA                      ;
-    LDA      $54,y                     ; 0x137fa $B7EA B9 54 00                ;
+    LDA      zp_54,y                     ; 0x137fa $B7EA B9 54 00                ;
     ADC      LB7BE,x                   ; 0x137fd $B7ED 7D BE B7                ;
-    STA      $54,y                     ; 0x13800 $B7F0 99 54 00                ;
-    LDA      $42,y                     ; 0x13803 $B7F3 B9 42 00                ;
+    STA      zp_54,y                     ; 0x13800 $B7F0 99 54 00                ;
+    LDA      zp_42,y                     ; 0x13803 $B7F3 B9 42 00                ;
     ADC      LB7C0,x                   ; 0x13806 $B7F6 7D C0 B7                ;
-    STA      $42,y                     ; 0x13809 $B7F9 99 42 00                ;
+    STA      zp_42,y                     ; 0x13809 $B7F9 99 42 00                ;
     LDA      Table__Mago_Projectile_Speed,x; 0x1380c $B7FC BD C2 B7                ;
-    STA      $77,y                     ; 0x1380f $B7FF 99 77 00                ;
+    STA      zp_77,y                     ; 0x1380f $B7FF 99 77 00                ;
     STA      bss_045E,y                   ; 0x13812 $B802 99 5E 04                ;
-    LDX      $10                       ; 0x13815 $B805 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x13815 $B805 A6 10                   ;; used as monster x register ;draw boss hp bar
 LB807:                                                                          ;
-    LDA      $AF,x                     ; 0x13817 $B807 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13817 $B807 B5 AF                   ;; Various enemy state variables
     CMP      #$A0                      ; 0x13819 $B809 C9 A0                   ;
     BCC      LB81E                     ; 0x1381b $B80B 90 11                   ;
     CMP      #$C0                      ; 0x1381d $B80D C9 C0                   ;
@@ -5165,10 +5165,10 @@ LB81B:                                                                          
 LB81E:                                                                          ;
     LDA      bss_072C                     ; 0x1382e $B81E AD 2C 07                ;; Scrolling Offset Low Byte
     ADC      rng_out,x                   ; 0x13831 $B821 7D 1B 05                ;; Randomizer
-    STA      $4E,x                     ; 0x13834 $B824 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x13834 $B824 95 4E                   ;; Enemy X Position (low byte)
     LDA      bss_072A                     ; 0x13836 $B826 AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     ADC      #$00                      ; 0x13839 $B829 69 00                   ;
-    STA      $3C,x                     ; 0x1383b $B82B 95 3C                   ;; Enemy X Position (high byte)
+    STA      zp_3C,x                     ; 0x1383b $B82B 95 3C                   ;; Enemy X Position (high byte)
     LDA      #$00                      ; 0x1383d $B82D A9 00                   ;;A = #$00 0000_0000
     STA      bss_040E,x                   ; 0x1383f $B82F 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     RTS                                ; 0x13842 $B832 60                      ;
@@ -5176,28 +5176,28 @@ LB81E:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Ra_Flying_Unicorn_Head:                                   ;
     LDX      #$82                      ; 0x13843 $B833 A2 82                   ;;X = #$82 1000_0010
-    LDA      $02                       ; 0x13845 $B835 A5 02                   ;
+    LDA      zp_02                       ; 0x13845 $B835 A5 02                   ;
     EOR      #$03                      ; 0x13847 $B837 49 03                   ;;Flip Bits:0000_0011
-    STA      $02                       ; 0x13849 $B839 85 02                   ;
+    STA      zp_02                       ; 0x13849 $B839 85 02                   ;
     JMP      bank7_F0D7                     ; 0x1384b $B83B 4C D7 F0                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Hidden_Red_Jar:                                            ;
-    LDA      $C9                       ; 0x1384e $B83E A5 C9                   ;
+    LDA      zp_C9                       ; 0x1384e $B83E A5 C9                   ;
     BNE      LB85E                     ; 0x13850 $B840 D0 1C                   ;
     JSR      bank7_Sword_Hit_Detection_maybe__probably_part_of_it_at_least; 0x13852 $B842 20 77 E6;
-    LDA      $A8,x                     ; 0x13855 $B845 B5 A8                   ;ai or state?
+    LDA      zp_A8,x                     ; 0x13855 $B845 B5 A8                   ;ai or state?
     AND      #$20                      ; 0x13857 $B847 29 20                   ; keep bits ..x. ....
     BEQ      LB85E                     ; 0x13859 $B849 F0 13                   ;
     LDA      #$11                      ; 0x1385b $B84B A9 11                   ; A = 11		;red jar
-    STA      $AF,x                     ; 0x1385d $B84D 95 AF                   ;item id
+    STA      zp_AF,x                     ; 0x1385d $B84D 95 AF                   ;item id
     LDA      #$01                      ; 0x1385f $B84F A9 01                   ; A = 01
-    STA      $A1,x                     ; 0x13861 $B851 95 A1                   ;; Enemy Code
-    STA      $C2,x                     ; 0x13863 $B853 95 C2                   ;; Enemy Current HP
+    STA      zp_A1,x                     ; 0x13861 $B851 95 A1                   ;; Enemy Code
+    STA      zp_C2,x                     ; 0x13863 $B853 95 C2                   ;; Enemy Current HP
     LSR      bss_040E,x                   ; 0x13865 $B855 5E 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
-    LDA      $4E,x                     ; 0x13868 $B858 B5 4E                   ;; Enemy X Position (low byte)
+    LDA      zp_4E,x                     ; 0x13868 $B858 B5 4E                   ;; Enemy X Position (low byte)
     ADC      #$03                      ; 0x1386a $B85A 69 03                   ;
-    STA      $4E,x                     ; 0x1386c $B85C 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x1386c $B85C 95 4E                   ;; Enemy X Position (low byte)
 LB85E:                                                                          ;
     RTS                                ; 0x1386e $B85E 60                      ;
                                                                                ;
@@ -5213,29 +5213,29 @@ bank4_Enemy_Routines_Mau_Generator:                                             
 LB869:                                                                          ;
     LDX      #$05                      ; 0x13879 $B869 A2 05                   ; X = 05
 LB86B:                                                                          ;
-    LDA      $B6,x                     ; 0x1387b $B86B B5 B6                   ;; Generated Enemy Slot
+    LDA      zp_B6,x                     ; 0x1387b $B86B B5 B6                   ;; Generated Enemy Slot
     BEQ      LB876                     ; 0x1387d $B86D F0 07                   ;
     DEX                                ; 0x1387f $B86F CA                      ;
     BPL      LB86B                     ; 0x13880 $B870 10 F9                   ;
 LB872:                                                                          ;
-    LDX      $10                       ; 0x13882 $B872 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x13882 $B872 A6 10                   ;; used as monster x register ;draw boss hp bar
     SEC                                ; 0x13884 $B874 38                      ;
     RTS                                ; 0x13885 $B875 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB876:                                                                          ;
     LDA      #$02                      ; 0x13886 $B876 A9 02                   ; A = 02
-    STA      $C2,x                     ; 0x13888 $B878 95 C2                   ; Enemy Health
+    STA      zp_C2,x                     ; 0x13888 $B878 95 C2                   ; Enemy Health
     LSR                                ; 0x1388a $B87A 4A                      ; A -> 01
-    STA      $B6,x                     ; 0x1388b $B87B 95 B6                   ;; Generated Enemy Slot
-    STA      $1A,x                     ; 0x1388d $B87D 95 1A                   ;
+    STA      zp_B6,x                     ; 0x1388b $B87B 95 B6                   ;; Generated Enemy Slot
+    STA      zp_1A,x                     ; 0x1388d $B87D 95 1A                   ;
     LSR                                ; 0x1388f $B87F 4A                      ;
     STA      bss_040E,x                   ; 0x13890 $B880 9D 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
-    LDA      $29                       ; 0x13893 $B883 A5 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
+    LDA      zp_29                       ; 0x13893 $B883 A5 29                   ;;y_pos (Link's y position in sideview);link Y pos SideScroll		; Link's Y Position
     SBC      #$02                      ; 0x13895 $B885 E9 02                   ;
-    STA      $2A,x                     ; 0x13897 $B887 95 2A                   ;; Enemy Y Position
+    STA      zp_2A,x                     ; 0x13897 $B887 95 2A                   ;; Enemy Y Position
     LDA      #$1C                      ; 0x13899 $B889 A9 1C                   ; A = 1C
-    STA      $A1,x                     ; 0x1389b $B88B 95 A1                   ;; Enemy Code
+    STA      zp_A1,x                     ; 0x1389b $B88B 95 A1                   ;; Enemy Code
     LDA      joy_held+0                       ; 0x1389d $B88D A5 F7                   ; Controller 1 buttons held
     AND      #$03                      ; 0x1389f $B88F 29 03                   ; check if Up/Down are held
     BNE      LB896                     ; 0x138a1 $B891 D0 03                   ; if None, skip to 13896
@@ -5245,27 +5245,27 @@ LB896:                                                                          
     TAY                                ; 0x138a8 $B898 A8                      ;
     LDA      bss_072C                     ; 0x138a9 $B899 AD 2C 07                ;; Scrolling Offset Low Byte
     ADC      bank4_table13,y           ; 0x138ac $B89C 79 5F B8                ;
-    STA      $4E,x                     ; 0x138af $B89F 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x138af $B89F 95 4E                   ;; Enemy X Position (low byte)
     LDA      bss_072A                     ; 0x138b1 $B8A1 AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     ADC      #$00                      ; 0x138b4 $B8A4 69 00                   ;
-    STA      $3C,x                     ; 0x138b6 $B8A6 95 3C                   ;; Enemy X Position (high byte)
+    STA      zp_3C,x                     ; 0x138b6 $B8A6 95 3C                   ;; Enemy X Position (high byte)
     LDA      bank4_table13,y           ; 0x138b8 $B8A8 B9 5F B8                ;
-    STA      $71,x                     ; 0x138bb $B8AB 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x138bb $B8AB 95 71                   ;; Enemy X Velocity
     LDA      #$FF                      ; 0x138bd $B8AD A9 FF                   ; A = FF
-    STA      $BC,x                     ; 0x138bf $B8AF 95 BC                   ;; Generated Enemy Y Position ?
-    STA      $AF,x                     ; 0x138c1 $B8B1 95 AF                   ;; Various enemy state variables
+    STA      zp_BC,x                     ; 0x138bf $B8AF 95 BC                   ;; Generated Enemy Y Position ?
+    STA      zp_AF,x                     ; 0x138c1 $B8B1 95 AF                   ;; Various enemy state variables
     INY                                ; 0x138c3 $B8B3 C8                      ;
-    STY      $60,x                     ; 0x138c4 $B8B4 94 60                   ;; Enemy facing direction
+    STY      zp_60,x                     ; 0x138c4 $B8B4 94 60                   ;; Enemy facing direction
     STX      zp_00                     ; 0x138c6 $B8B6 86 00                   ;
-    LDX      $10                       ; 0x138c8 $B8B8 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x138c8 $B8B8 A6 10                   ;; used as monster x register ;draw boss hp bar
     RTS                                ; 0x138ca $B8BA 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Mau_Wolf_Head:                                             ;
     JSR      bank7_DE40                     ; 0x138cb $B8BB 20 40 DE                ;
     JSR      bank7_Link_Collision_Detection; 0x138ce $B8BE 20 C1 D6                ;
-    INC      $AF,x                     ; 0x138d1 $B8C1 F6 AF                   ;; Various enemy state variables
-    LDA      $AF,x                     ; 0x138d3 $B8C3 B5 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x138d1 $B8C1 F6 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x138d3 $B8C3 B5 AF                   ;; Various enemy state variables
     LSR                                ; 0x138d5 $B8C5 4A                      ;
     LSR                                ; 0x138d6 $B8C6 4A                      ;
     LSR                                ; 0x138d7 $B8C7 4A                      ;
@@ -5273,23 +5273,23 @@ bank4_Enemy_Routines_Mau_Wolf_Head:                                             
     LSR                                ; 0x138d9 $B8C9 4A                      ;
     LSR                                ; 0x138da $B8CA 4A                      ;
     BCS      LB8F0                     ; 0x138db $B8CB B0 23                   ;
-    LDA      $AF,x                     ; 0x138dd $B8CD B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x138dd $B8CD B5 AF                   ;; Various enemy state variables
     AND      #$3F                      ; 0x138df $B8CF 29 3F                   ;;Keep Bits:0011_1111
     BNE      LB8ED                     ; 0x138e1 $B8D1 D0 1A                   ;
-    LDA      $60,x                     ; 0x138e3 $B8D3 B5 60                   ;; Enemy facing direction
-    STA      $05                       ; 0x138e5 $B8D5 85 05                   ;
+    LDA      zp_60,x                     ; 0x138e3 $B8D3 B5 60                   ;; Enemy facing direction
+    STA      zp_05                       ; 0x138e5 $B8D5 85 05                   ;
     PHA                                ; 0x138e7 $B8D7 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x138e8 $B8D8 20 91 DC;
     INY                                ; 0x138eb $B8DB C8                      ;
-    CPY      $05                       ; 0x138ec $B8DC C4 05                   ;
+    CPY      zp_05                       ; 0x138ec $B8DC C4 05                   ;
     BNE      LB8EA                     ; 0x138ee $B8DE D0 0A                   ;
     JSR      bank7_Spawn_New_Projectile; 0x138f0 $B8E0 20 CE DB                ;
     BCS      LB8EA                     ; 0x138f3 $B8E3 B0 05                   ;
     LDA      #$01                      ; 0x138f5 $B8E5 A9 01                   ;;A = #$01 0000_0001
-    STA      $87,y                     ; 0x138f7 $B8E7 99 87 00                ;
+    STA      zp_87,y                     ; 0x138f7 $B8E7 99 87 00                ;
 LB8EA:                                                                          ;
     PLA                                ; 0x138fa $B8EA 68                      ;
-    STA      $60,x                     ; 0x138fb $B8EB 95 60                   ;; Enemy facing direction
+    STA      zp_60,x                     ; 0x138fb $B8EB 95 60                   ;; Enemy facing direction
 LB8ED:                                                                          ;
     JMP      bank7_Simple_Horizontal_Movement; 0x138fd $B8ED 4C B8 DE              ;
                                                                                ;
@@ -5303,10 +5303,10 @@ LB8F0:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Init_Routines_Energy_Ball_Shooter__Left_Right:                      ;
-    LDA      $A1,x                     ; 0x1390c $B8FC B5 A1                   ; Enemy Code
+    LDA      zp_A1,x                     ; 0x1390c $B8FC B5 A1                   ; Enemy Code
     SEC                                ; 0x1390e $B8FE 38                      ;
     SBC      #$15                      ; 0x1390f $B8FF E9 15                   ;
-    STA      $60,x                     ; 0x13911 $B901 95 60                   ; Enemy facing direction
+    STA      zp_60,x                     ; 0x13911 $B901 95 60                   ; Enemy facing direction
     RTS                                ; 0x13913 $B903 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5316,7 +5316,7 @@ bank4_Enemy_Routines1_Mau:                                                      
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Moa:                                                       ;
-    LDA      $AF,x                     ; 0x13919 $B909 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13919 $B909 B5 AF                   ;; Various enemy state variables
     AND      #$03                      ; 0x1391b $B90B 29 03                   ; keep bits .... ..xx
     BEQ      LB929                     ; 0x1391d $B90D F0 1A                   ;
     LDY      #$04                      ; 0x1391f $B90F A0 04                   ; Y = 04
@@ -5332,7 +5332,7 @@ LB919:                                                                          
     JSR      bank7_DE3D                     ; 0x13933 $B923 20 3D DE                ;
     JSR      bank7_Link_Collision_Detection; 0x13936 $B926 20 C1 D6                ;
 LB929:                                                                          ;
-    LDA      $AF,x                     ; 0x13939 $B929 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13939 $B929 B5 AF                   ;; Various enemy state variables
     AND      #$03                      ; 0x1393b $B92B 29 03                   ; keep bits .... ..xx
     JSR      bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP; 0x1393d $B92D 20 85 D3;
 .word       LB93C                            ; 0x13940 $B930 3C B9                   ;
@@ -5346,26 +5346,26 @@ bank4_B93A:
 LB93C:
     LDA      bss_0504,x                   ; 0x1394c $B93C BD 04 05                ;; Timer for Enemy
     BNE      LB96C                     ; 0x1394f $B93F D0 2B                   ;
-    LDY      $5F                       ; 0x13951 $B941 A4 5F                   ;; Link's facing direction
+    LDY      zp_5F                       ; 0x13951 $B941 A4 5F                   ;; Link's facing direction
     LDA      bss_072C                     ; 0x13953 $B943 AD 2C 07                ;; Scrolling Offset Low Byte
     ADC      bank4_B938-1,y                   ; 0x13956 $B946 79 37 B9                ;
-    STA      $4E,x                     ; 0x13959 $B949 95 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,x                     ; 0x13959 $B949 95 4E                   ;; Enemy X Position (low byte)
     LDA      bss_072A                     ; 0x1395b $B94B AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     ADC      #$00                      ; 0x1395e $B94E 69 00                   ;
-    STA      $3C,x                     ; 0x13960 $B950 95 3C                   ;; Enemy X Position (high byte)
+    STA      zp_3C,x                     ; 0x13960 $B950 95 3C                   ;; Enemy X Position (high byte)
     LDA      bank4_B93A-1,y                   ; 0x13962 $B952 B9 39 B9                ;
-    STA      $71,x                     ; 0x13965 $B955 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13965 $B955 95 71                   ;; Enemy X Velocity
     LDA      #$7D                      ; 0x13967 $B957 A9 7D                   ;;A = #$7d 0111_1101
-    STA      $2A,x                     ; 0x13969 $B959 95 2A                   ;; Enemy Y Position
-    STY      $81,x                     ; 0x1396b $B95B 94 81                   ;; Current Animation Frame for Enemys
-    STY      $60,x                     ; 0x1396d $B95D 94 60                   ;; Enemy facing direction
+    STA      zp_2A,x                     ; 0x13969 $B959 95 2A                   ;; Enemy Y Position
+    STY      zp_81,x                     ; 0x1396b $B95B 94 81                   ;; Current Animation Frame for Enemys
+    STY      zp_60,x                     ; 0x1396d $B95D 94 60                   ;; Enemy facing direction
     LDA      #$10                      ; 0x1396f $B95F A9 10                   ;;A = #$10 0001_0000
-    LDY      $70                       ; 0x13971 $B961 A4 70                   ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
+    LDY      zp_70                       ; 0x13971 $B961 A4 70                   ;;hspeed (Link's horizontal velocity); Link's X Velocity	; Player X Delta (E8-00, 00-18)
     BNE      LB967                     ; 0x13973 $B963 D0 02                   ;
     LDA      #$50                      ; 0x13975 $B965 A9 50                   ;;A = #$50 0101_0000
 LB967:                                                                          ;
     STA      bss_0504,x                   ; 0x13977 $B967 9D 04 05                ;; Timer for Enemy
-    INC      $AF,x                     ; 0x1397a $B96A F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x1397a $B96A F6 AF                   ;; Various enemy state variables
 LB96C:                                                                          ;
     RTS                                ; 0x1397c $B96C 60                      ;
                                                                                ;
@@ -5375,50 +5375,50 @@ LB96D:                                                                          
     BNE      LB979                     ; 0x13980 $B970 D0 07                   ;
     LDA      #$40                      ; 0x13982 $B972 A9 40                   ;;A = #$40 0100_0000
     STA      bss_0504,x                   ; 0x13984 $B974 9D 04 05                ;; Timer for Enemy
-    INC      $AF,x                     ; 0x13987 $B977 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13987 $B977 F6 AF                   ;; Various enemy state variables
 LB979:                                                                          ;
     RTS                                ; 0x13989 $B979 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-    ORA      ($FF,x)                   ; 0x1398a $B97A 01 FF                   ;
+    ORA      (zp_FF,x)                   ; 0x1398a $B97A 01 FF                   ;
 LB97C:
     LDA      bss_0504,x                   ; 0x1398c $B97C BD 04 05                ;; Timer for Enemy
     BEQ      LB98E                     ; 0x1398f $B97F F0 0D                   ;
-    DEC      $2A,x                     ; 0x13991 $B981 D6 2A                   ;; Enemy Y Position
-    LDY      $81,x                     ; 0x13993 $B983 B4 81                   ;; Current Animation Frame for Enemys
-    LDA      $71,x                     ; 0x13995 $B985 B5 71                   ;; Enemy X Velocity
+    DEC      zp_2A,x                     ; 0x13991 $B981 D6 2A                   ;; Enemy Y Position
+    LDY      zp_81,x                     ; 0x13993 $B983 B4 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_71,x                     ; 0x13995 $B985 B5 71                   ;; Enemy X Velocity
     CLC                                ; 0x13997 $B987 18                      ;
     ADC      LB979,y                   ; 0x13998 $B988 79 79 B9                ;
-    STA      $71,x                     ; 0x1399b $B98B 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x1399b $B98B 95 71                   ;; Enemy X Velocity
     RTS                                ; 0x1399d $B98D 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB98E:                                                                          ;
-    INC      $AF,x                     ; 0x1399e $B98E F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x1399e $B98E F6 AF                   ;; Various enemy state variables
     RTS                                ; 0x139a0 $B990 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB991:                                                                          ;
-    LDA      $C9                       ; 0x139a1 $B991 A5 C9                   ;
+    LDA      zp_C9                       ; 0x139a1 $B991 A5 C9                   ;
     BEQ      LB99C                     ; 0x139a3 $B993 F0 07                   ;
     LDA      #$BF                      ; 0x139a5 $B995 A9 BF                   ;;A = #$bf 1011_1111
     STA      bss_0504,x                   ; 0x139a7 $B997 9D 04 05                ;; Timer for Enemy
-    INC      $AF,x                     ; 0x139aa $B99A F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x139aa $B99A F6 AF                   ;; Various enemy state variables
 LB99C:                                                                          ;
     LDA      frame_counter                       ; 0x139ac $B99C A5 12                   ;; Frame Counter (ascending)
     AND      #$2F                      ; 0x139ae $B99E 29 2F                   ;;Keep Bits:0010_1111
-    ORA      $A8,x                     ; 0x139b0 $B9A0 15 A8                   ;; Enemy State
+    ORA      zp_A8,x                     ; 0x139b0 $B9A0 15 A8                   ;; Enemy State
     BNE      LB9BE                     ; 0x139b2 $B9A2 D0 1A                   ;
 LB9A4:                                                                          ;
     JSR      bank7_Spawn_New_Projectile; 0x139b4 $B9A4 20 CE DB                ;
     BCS      LB9BE                     ; 0x139b7 $B9A7 B0 15                   ;
     LDA      #$07                      ; 0x139b9 $B9A9 A9 07                   ;;A = #$07 0000_0111
-    STA      $87,y                     ; 0x139bb $B9AB 99 87 00                ;
+    STA      zp_87,y                     ; 0x139bb $B9AB 99 87 00                ;
     LDA      #$FF                      ; 0x139be $B9AE A9 FF                   ;;A = #$ff 1111_1111
     STA      bss_044C,y                   ; 0x139c0 $B9B0 99 4C 04                ;
     LDA      #$00                      ; 0x139c3 $B9B3 A9 00                   ;;A = #$00 0000_0000
     STA      bss_045E,y                   ; 0x139c5 $B9B5 99 5E 04                ;
-    STA      $77,y                     ; 0x139c8 $B9B8 99 77 00                ;
+    STA      zp_77,y                     ; 0x139c8 $B9B8 99 77 00                ;
     STA      bss_0584,y                   ; 0x139cb $B9BB 99 84 05                ;
 LB9BE:                                                                          ;
     RTS                                ; 0x139ce $B9BE 60                      ;
@@ -5426,23 +5426,23 @@ LB9BE:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Dripping_Column:                                           ;
     JSR      bank7_Display             ; 0x139cf $B9BF 20 11 EF                ;
-    INC      $AF,x                     ; 0x139d2 $B9C2 F6 AF                   ;; Various enemy state variables
-    LDA      $AF,x                     ; 0x139d4 $B9C4 B5 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x139d2 $B9C2 F6 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x139d4 $B9C4 B5 AF                   ;; Various enemy state variables
     AND      #$3F                      ; 0x139d6 $B9C6 29 3F                   ; keep bits ..xx xxxx (dripping frequency)
     BNE      LB9F3                     ; 0x139d8 $B9C8 D0 29                   ;
 LB9CA:                                                                          ;
     JSR      bank7_Spawn_New_Projectile; 0x139da $B9CA 20 CE DB                ; Spawn New Projectile
     BCS      LB9F3                     ; 0x139dd $B9CD B0 24                   ;
     LDA      #$08                      ; 0x139df $B9CF A9 08                   ; A = 08
-    STA      $87,y                     ; 0x139e1 $B9D1 99 87 00                ;
-    LDA      $4E,x                     ; 0x139e4 $B9D4 B5 4E                   ;; Enemy X Position (low byte)
+    STA      zp_87,y                     ; 0x139e1 $B9D1 99 87 00                ;
+    LDA      zp_4E,x                     ; 0x139e4 $B9D4 B5 4E                   ;; Enemy X Position (low byte)
     ADC      #$04                      ; 0x139e6 $B9D6 69 04                   ;
-    STA      $54,y                     ; 0x139e8 $B9D8 99 54 00                ;
-    LDA      $30,y                     ; 0x139eb $B9DB B9 30 00                ;
+    STA      zp_54,y                     ; 0x139e8 $B9D8 99 54 00                ;
+    LDA      zp_30,y                     ; 0x139eb $B9DB B9 30 00                ;
     ADC      #$12                      ; 0x139ee $B9DE 69 12                   ;
-    STA      $30,y                     ; 0x139f0 $B9E0 99 30 00                ;
+    STA      zp_30,y                     ; 0x139f0 $B9E0 99 30 00                ;
     LDA      #$00                      ; 0x139f3 $B9E3 A9 00                   ; A = 00
-    STA      $77,y                     ; 0x139f5 $B9E5 99 77 00                ;
+    STA      zp_77,y                     ; 0x139f5 $B9E5 99 77 00                ;
     STA      bss_0584,y                   ; 0x139f8 $B9E8 99 84 05                ;
     LDA      rng_out,x                   ; 0x139fb $B9EB BD 1B 05                ;; Randomizer
     AND      #$07                      ; 0x139fe $B9EE 29 07                   ; keep bits .... .xxx
@@ -5452,20 +5452,20 @@ LB9F3:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Init_Routines_Ra_Unicorn_Head:                                      ;
-    LDA      $29                       ; 0x13a04 $B9F4 A5 29                   ; Link Y Position
+    LDA      zp_29                       ; 0x13a04 $B9F4 A5 29                   ; Link Y Position
     SBC      #$20                      ; 0x13a06 $B9F6 E9 20                   ; Starting Y Position for Ra
-    STA      $2A,x                     ; 0x13a08 $B9F8 95 2A                   ; Enemy Y Position
-    LDY      $5F                       ; 0x13a0a $B9FA A4 5F                   ;; Link's facing direction
+    STA      zp_2A,x                     ; 0x13a08 $B9F8 95 2A                   ; Enemy Y Position
+    LDY      zp_5F                       ; 0x13a0a $B9FA A4 5F                   ;; Link's facing direction
     LDA      bss_072C                     ; 0x13a0c $B9FC AD 2C 07                ; Scrolling Offset Low Byte
     ADC      bank4_table14,y           ; 0x13a0f $B9FF 79 17 BA                ;
-    STA      $4E,x                     ; 0x13a12 $BA02 95 4E                   ; Enemy X position (low byte)
+    STA      zp_4E,x                     ; 0x13a12 $BA02 95 4E                   ; Enemy X position (low byte)
     LDA      bss_072A                     ; 0x13a14 $BA04 AD 2A 07                ; Scrolling Offset High Byte
     ADC      #$00                      ; 0x13a17 $BA07 69 00                   ;
-    STA      $3C,x                     ; 0x13a19 $BA09 95 3C                   ; Enemy X position (high byte)
+    STA      zp_3C,x                     ; 0x13a19 $BA09 95 3C                   ; Enemy X position (high byte)
     LDA      LBA19,y                   ; 0x13a1b $BA0B B9 19 BA                ;
-    STA      $71,x                     ; 0x13a1e $BA0E 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13a1e $BA0E 95 71                   ; Enemy X Velocity
     JSR      bank7_DAC7                     ; 0x13a20 $BA10 20 C7 DA                ; Set Enemy Y Velocity to 0
-    STA      $AF,x                     ; 0x13a23 $BA13 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x13a23 $BA13 95 AF                   ;; Various enemy state variables
 bank4_table14 = * + $0002                                                  ;
     JMP      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13a25 $BA15 4C 91 DC; Determine Enemy Facing Direction
                                                                                ;
@@ -5479,7 +5479,7 @@ LBA1E:                                                                          
 .byt    $30,$D0                        ; 0x13a2e $BA1E 30 D0                   ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines_Ra_Unicorn_Head:                                           ;
-    LDA      $C9                       ; 0x13a30 $BA20 A5 C9                   ;
+    LDA      zp_C9                       ; 0x13a30 $BA20 A5 C9                   ;
     AND      #$0C                      ; 0x13a32 $BA22 29 0C                   ; keep bits .... xx..
     BEQ      LBA2E                     ; 0x13a34 $BA24 F0 08                   ;
     LDA      bss_05C9                     ; 0x13a36 $BA26 AD C9 05                ;
@@ -5487,7 +5487,7 @@ bank4_Enemy_Routines_Ra_Unicorn_Head:                                           
     JSR      bank4_Enemy_Init_Routines_Ra_Unicorn_Head; 0x13a3b $BA2B 20 F4 B9     ;
 LBA2E:                                                                          ;
     JSR      bank7_Enemy_Stops_when_Hit; 0x13a3e $BA2E 20 02 DA                ; Enemy Stops when Hit
-    LDA      $AF,x                     ; 0x13a41 $BA31 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13a41 $BA31 B5 AF                   ;; Various enemy state variables
     AND      #$01                      ; 0x13a43 $BA33 29 01                   ; keep bits .... ...x
     TAY                                ; 0x13a45 $BA35 A8                      ;
     LDA      bss_057E,x                   ; 0x13a46 $BA36 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
@@ -5496,7 +5496,7 @@ LBA2E:                                                                          
     STA      bss_057E,x                   ; 0x13a4d $BA3D 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     CMP      LBA1E,y                   ; 0x13a50 $BA40 D9 1E BA                ;
     BNE      LBA47                     ; 0x13a53 $BA43 D0 02                   ;
-    INC      $AF,x                     ; 0x13a55 $BA45 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13a55 $BA45 F6 AF                   ;; Various enemy state variables
 LBA47:                                                                          ;
     JSR      bank7_Simple_Vertical_Movement; 0x13a57 $BA47 20 C8 DE                ; Enemy Vertical Movement
     JSR      bank7_Simple_Horizontal_Movement; 0x13a5a $BA4A 20 B8 DE              ; Enemy Horizontal Movement
@@ -5530,7 +5530,7 @@ bank4_Enemy_Routines_Guma:                                                      
     LDA      #$D0                      ; 0x13a6b $BA5B A9 D0                   ;;A = #$d0 1101_0000
     STA      bss_057E,x                   ; 0x13a6d $BA5D 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
 LBA60:                                                                          ;
-    LDA      $AF,x                     ; 0x13a70 $BA60 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13a70 $BA60 B5 AF                   ;; Various enemy state variables
     CMP      #$D8                      ; 0x13a72 $BA62 C9 D8                   ;
     BCS      LBA6D                     ; 0x13a74 $BA64 B0 07                   ;
     AND      #$1F                      ; 0x13a76 $BA66 29 1F                   ;;Keep Bits:0001_1111
@@ -5540,31 +5540,31 @@ LBA6D:                                                                          
     LDA      bss_0504,x                   ; 0x13a7d $BA6D BD 04 05                ;; Timer for Enemy
     CMP      #$01                      ; 0x13a80 $BA70 C9 01                   ;
     BNE      LBA90                     ; 0x13a82 $BA72 D0 1C                   ;
-    STA      $81,x                     ; 0x13a84 $BA74 95 81                   ;; Current Animation Frame for Enemys
+    STA      zp_81,x                     ; 0x13a84 $BA74 95 81                   ;; Current Animation Frame for Enemys
     JSR      bank7_Spawn_New_Projectile; 0x13a86 $BA76 20 CE DB                ;
     BCS      LBA90                     ; 0x13a89 $BA79 B0 15                   ;
     LDA      #$06                      ; 0x13a8b $BA7B A9 06                   ;;A = #$06 0000_0110
-    STA      $87,y                     ; 0x13a8d $BA7D 99 87 00                ;
+    STA      zp_87,y                     ; 0x13a8d $BA7D 99 87 00                ;
     LDA      #$D5                      ; 0x13a90 $BA80 A9 D5                   ;;A = #$d5 1101_0101
     STA      bss_0584,y                   ; 0x13a92 $BA82 99 84 05                ;
-    LDA      $77,y                     ; 0x13a95 $BA85 B9 77 00                ;
+    LDA      zp_77,y                     ; 0x13a95 $BA85 B9 77 00                ;
     ASL                                ; 0x13a98 $BA88 0A                      ;
-    LDA      $77,y                     ; 0x13a99 $BA89 B9 77 00                ;
+    LDA      zp_77,y                     ; 0x13a99 $BA89 B9 77 00                ;
     ROR                                ; 0x13a9c $BA8C 6A                      ;
-    STA      $77,y                     ; 0x13a9d $BA8D 99 77 00                ;
+    STA      zp_77,y                     ; 0x13a9d $BA8D 99 77 00                ;
 LBA90:                                                                          ;
-    LDA      $AF,x                     ; 0x13aa0 $BA90 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13aa0 $BA90 B5 AF                   ;; Various enemy state variables
     ASL                                ; 0x13aa2 $BA92 0A                      ;
     ASL                                ; 0x13aa3 $BA93 0A                      ;
     LDA      #$00                      ; 0x13aa4 $BA94 A9 00                   ;;A = #$00 0000_0000
     ROL                                ; 0x13aa6 $BA96 2A                      ;
     TAY                                ; 0x13aa7 $BA97 A8                      ;
     LDA      bank4_Table_for_Movement_Velocities,y; 0x13aa8 $BA98 B9 54 BA         ;
-    STA      $71,x                     ; 0x13aab $BA9B 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13aab $BA9B 95 71                   ;; Enemy X Velocity
     JSR      bank7_Gravity             ; 0x13aad $BA9D 20 BE DE                ;
-    INC      $AF,x                     ; 0x13ab0 $BAA0 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13ab0 $BAA0 F6 AF                   ;; Various enemy state variables
     JSR      bank7_EA32                     ; 0x13ab2 $BAA2 20 32 EA                ;
-    LDA      $A8,x                     ; 0x13ab5 $BAA5 B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x13ab5 $BAA5 B5 A8                   ;; Enemy State
     AND      #$04                      ; 0x13ab7 $BAA7 29 04                   ;;Keep Bits:0000_0100
     BEQ      LBAAE                     ; 0x13ab9 $BAA9 F0 03                   ;
     JSR      bank7_Floor_Y_Position    ; 0x13abb $BAAB 20 C1 DA                ;
@@ -5605,19 +5605,19 @@ LBADA:                                                                          
     JSR      bank7_Spawn_New_Projectile; 0x13af3 $BAE3 20 CE DB                ;
     BCS      LBAFA                     ; 0x13af6 $BAE6 B0 12                   ;
     LDA      #$02                      ; 0x13af8 $BAE8 A9 02                   ;;A = #$02 0000_0010
-    STA      $87,y                     ; 0x13afa $BAEA 99 87 00                ;
-    LDA      $30,y                     ; 0x13afd $BAED B9 30 00                ;
+    STA      zp_87,y                     ; 0x13afa $BAEA 99 87 00                ;
+    LDA      zp_30,y                     ; 0x13afd $BAED B9 30 00                ;
     SBC      #$08                      ; 0x13b00 $BAF0 E9 08                   ;
-    STA      $30,y                     ; 0x13b02 $BAF2 99 30 00                ;
+    STA      zp_30,y                     ; 0x13b02 $BAF2 99 30 00                ;
     LDA      #$02                      ; 0x13b05 $BAF5 A9 02                   ;;A = #$02 0000_0010
     STA      bss_0584,y                   ; 0x13b07 $BAF7 99 84 05                ;
 LBAFA:                                                                          ;
     LDA      bss_05DE                     ; 0x13b0a $BAFA AD DE 05                ;
     BNE      LBB55                     ; 0x13b0d $BAFD D0 56                   ;
-    LDA      $A8,x                     ; 0x13b0f $BAFF B5 A8                   ;; Enemy State
+    LDA      zp_A8,x                     ; 0x13b0f $BAFF B5 A8                   ;; Enemy State
     AND      #$20                      ; 0x13b11 $BB01 29 20                   ;;Keep Bits:0010_0000
     BEQ      LBB54                     ; 0x13b13 $BB03 F0 4F                   ;
-    LDA      $81,x                     ; 0x13b15 $BB05 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13b15 $BB05 B5 81                   ;; Current Animation Frame for Enemys
     CMP      #$02                      ; 0x13b17 $BB07 C9 02                   ;
     BEQ      LBB54                     ; 0x13b19 $BB09 F0 49                   ;
     LDA      #$10                      ; 0x13b1b $BB0B A9 10                   ;;A = #$10 0001_0000
@@ -5625,31 +5625,31 @@ LBAFA:                                                                          
     JSR      LB869                     ; 0x13b20 $BB10 20 69 B8                ;
     BCS      LBB54                     ; 0x13b23 $BB13 B0 3F                   ;
     LDY      zp_00                     ; 0x13b25 $BB15 A4 00                   ;
-    LDA      $2A,x                     ; 0x13b27 $BB17 B5 2A                   ;; Enemy Y Position
+    LDA      zp_2A,x                     ; 0x13b27 $BB17 B5 2A                   ;; Enemy Y Position
     SBC      #$0C                      ; 0x13b29 $BB19 E9 0C                   ;
-    STA      $2A,y                     ; 0x13b2b $BB1B 99 2A 00                ;
-    LDA      $4E,x                     ; 0x13b2e $BB1E B5 4E                   ;; Enemy X Position (low byte)
-    STA      $4E,y                     ; 0x13b30 $BB20 99 4E 00                ;
-    LDA      $3C,x                     ; 0x13b33 $BB23 B5 3C                   ;; Enemy X Position (high byte)
-    STA      $3C,y                     ; 0x13b35 $BB25 99 3C 00                ;
-    LDA      $60,x                     ; 0x13b38 $BB28 B5 60                   ;; Enemy facing direction
-    STA      $60,y                     ; 0x13b3a $BB2A 99 60 00                ;
+    STA      zp_2A,y                     ; 0x13b2b $BB1B 99 2A 00                ;
+    LDA      zp_4E,x                     ; 0x13b2e $BB1E B5 4E                   ;; Enemy X Position (low byte)
+    STA      zp_4E,y                     ; 0x13b30 $BB20 99 4E 00                ;
+    LDA      zp_3C,x                     ; 0x13b33 $BB23 B5 3C                   ;; Enemy X Position (high byte)
+    STA      zp_3C,y                     ; 0x13b35 $BB25 99 3C 00                ;
+    LDA      zp_60,x                     ; 0x13b38 $BB28 B5 60                   ;; Enemy facing direction
+    STA      zp_60,y                     ; 0x13b3a $BB2A 99 60 00                ;
     LDA      #$22                      ; 0x13b3d $BB2D A9 22                   ;;A = #$22 0010_0010
-    STA      $A1,y                     ; 0x13b3f $BB2F 99 A1 00                ;
+    STA      zp_A1,y                     ; 0x13b3f $BB2F 99 A1 00                ;
     LDA      #$00                      ; 0x13b42 $BB32 A9 00                   ;;A = #$00 0000_0000
     STA      bss_0444,y                   ; 0x13b44 $BB34 99 44 04                ;
-    STA      $AF,y                     ; 0x13b47 $BB37 99 AF 00                ;
+    STA      zp_AF,y                     ; 0x13b47 $BB37 99 AF 00                ;
     LDA      #$D0                      ; 0x13b4a $BB3A A9 D0                   ;;A = #$d0 1101_0000
     STA      bss_057E,y                   ; 0x13b4c $BB3C 99 7E 05                ;
-    STA      $C2,y                     ; 0x13b4f $BB3F 99 C2 00                ;
-    LDA      $60,x                     ; 0x13b52 $BB42 B5 60                   ;; Enemy facing direction
+    STA      zp_C2,y                     ; 0x13b4f $BB3F 99 C2 00                ;
+    LDA      zp_60,x                     ; 0x13b52 $BB42 B5 60                   ;; Enemy facing direction
     TAX                                ; 0x13b54 $BB44 AA                      ;
     LDA      LBAC0,x                   ; 0x13b55 $BB45 BD C0 BA                ;
-    STA      $71,y                     ; 0x13b58 $BB48 99 71 00                ;
-    LDX      $10                       ; 0x13b5b $BB4B A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDA      $81,x                     ; 0x13b5d $BB4D B5 81                   ;; Current Animation Frame for Enemys
-    STA      $81,y                     ; 0x13b5f $BB4F 99 81 00                ;
-    INC      $81,x                     ; 0x13b62 $BB52 F6 81                   ;; Current Animation Frame for Enemys
+    STA      zp_71,y                     ; 0x13b58 $BB48 99 71 00                ;
+    LDX      zp_10                       ; 0x13b5b $BB4B A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_81,x                     ; 0x13b5d $BB4D B5 81                   ;; Current Animation Frame for Enemys
+    STA      zp_81,y                     ; 0x13b5f $BB4F 99 81 00                ;
+    INC      zp_81,x                     ; 0x13b62 $BB52 F6 81                   ;; Current Animation Frame for Enemys
 LBB54:                                                                          ;
     RTS                                ; 0x13b64 $BB54 60                      ;
                                                                                ;
@@ -5674,17 +5674,17 @@ LBB6F:                                                                          
     LDA      #$04                      ; 0x13b7f $BB6F A9 04                   ;;A = #$04 0000_0100
 LBB71:                                                                          ;
     JSR      L9C45                     ; 0x13b81 $BB71 20 45 9C                ;
-    LDA      $60,x                     ; 0x13b84 $BB74 B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x13b84 $BB74 B5 60                   ;; Enemy facing direction
     PHA                                ; 0x13b86 $BB76 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13b87 $BB77 20 91 DC;
     INY                                ; 0x13b8a $BB7A C8                      ;
-    STY      $01                       ; 0x13b8b $BB7B 84 01                   ;
+    STY      zp_01                       ; 0x13b8b $BB7B 84 01                   ;
     PLA                                ; 0x13b8d $BB7D 68                      ;
     STA      zp_00                     ; 0x13b8e $BB7E 85 00                   ;
-    LDA      $A1,x                     ; 0x13b90 $BB80 B5 A1                   ;; Enemy Code
+    LDA      zp_A1,x                     ; 0x13b90 $BB80 B5 A1                   ;; Enemy Code
     CMP      #$20                      ; 0x13b92 $BB82 C9 20                   ;
     BNE      LBB8A                     ; 0x13b94 $BB84 D0 04                   ;
-    LDA      $81,x                     ; 0x13b96 $BB86 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13b96 $BB86 B5 81                   ;; Current Animation Frame for Enemys
     BNE      LBB90                     ; 0x13b98 $BB88 D0 06                   ;
 LBB8A:                                                                          ;
     LDA      frame_counter                       ; 0x13b9a $BB8A A5 12                   ;; Frame Counter (ascending)
@@ -5692,37 +5692,37 @@ LBB8A:                                                                          
     BEQ      LBB94                     ; 0x13b9e $BB8E F0 04                   ;
 LBB90:                                                                          ;
     LDA      zp_00                     ; 0x13ba0 $BB90 A5 00                   ;
-    STA      $60,x                     ; 0x13ba2 $BB92 95 60                   ;; Enemy facing direction
+    STA      zp_60,x                     ; 0x13ba2 $BB92 95 60                   ;; Enemy facing direction
 LBB94:                                                                          ;
     LDA      #$00                      ; 0x13ba4 $BB94 A9 00                   ;;A = #$00 0000_0000
-    STA      $71,x                     ; 0x13ba6 $BB96 95 71                   ;; Enemy X Velocity
-    LDA      $AF,x                     ; 0x13ba8 $BB98 B5 AF                   ;; Various enemy state variables
+    STA      zp_71,x                     ; 0x13ba6 $BB96 95 71                   ;; Enemy X Velocity
+    LDA      zp_AF,x                     ; 0x13ba8 $BB98 B5 AF                   ;; Various enemy state variables
     ASL                                ; 0x13baa $BB9A 0A                      ;
     BEQ      LBBB2                     ; 0x13bab $BB9B F0 15                   ;
     BCC      LBBA0                     ; 0x13bad $BB9D 90 01                   ;
     INY                                ; 0x13baf $BB9F C8                      ;
 LBBA0:                                                                          ;
-    LDA      $01                       ; 0x13bb0 $BBA0 A5 01                   ;
-    CMP      $60,x                     ; 0x13bb2 $BBA2 D5 60                   ;; Enemy facing direction
+    LDA      zp_01                       ; 0x13bb0 $BBA0 A5 01                   ;
+    CMP      zp_60,x                     ; 0x13bb2 $BBA2 D5 60                   ;; Enemy facing direction
     BNE      LBBC4                     ; 0x13bb4 $BBA4 D0 1E                   ;
     LDA      LBA53,y                   ; 0x13bb6 $BBA6 B9 53 BA                ;
-    STA      $71,x                     ; 0x13bb9 $BBA9 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13bb9 $BBA9 95 71                   ;; Enemy X Velocity
     LDA      frame_counter                       ; 0x13bbb $BBAB A5 12                   ;; Frame Counter (ascending)
     LSR                                ; 0x13bbd $BBAD 4A                      ;
     BCC      LBBB2                     ; 0x13bbe $BBAE 90 02                   ;
-    DEC      $AF,x                     ; 0x13bc0 $BBB0 D6 AF                   ;; Various enemy state variables
+    DEC      zp_AF,x                     ; 0x13bc0 $BBB0 D6 AF                   ;; Various enemy state variables
 LBBB2:                                                                          ;
-    LDA      $0F                       ; 0x13bc2 $BBB2 A5 0F                   ;
+    LDA      zp_0F                       ; 0x13bc2 $BBB2 A5 0F                   ;
     BPL      LBBB8                     ; 0x13bc4 $BBB4 10 02                   ;
     EOR      #$FF                      ; 0x13bc6 $BBB6 49 FF                   ;;Flip Bits:1111_1111
 LBBB8:                                                                          ;
     CMP      #$60                      ; 0x13bc8 $BBB8 C9 60                   ;
     BCC      LBBC5                     ; 0x13bca $BBBA 90 09                   ;
 LBBBC:                                                                          ;
-    LDA      $AF,x                     ; 0x13bcc $BBBC B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13bcc $BBBC B5 AF                   ;; Various enemy state variables
     AND      #$7F                      ; 0x13bce $BBBE 29 7F                   ;;Keep Bits:0111_1111
     ORA      #$10                      ; 0x13bd0 $BBC0 09 10                   ;;Set Bits:0001_0000
-    STA      $AF,x                     ; 0x13bd2 $BBC2 95 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x13bd2 $BBC2 95 AF                   ;; Various enemy state variables
 LBBC4:                                                                          ;
     RTS                                ; 0x13bd4 $BBC4 60                      ;
                                                                                ;
@@ -5741,25 +5741,25 @@ LBBD6:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LBBD7:                                                                          ;
-    LDA      $A1,x                     ; 0x13be7 $BBD7 B5 A1                   ;; Enemy Code
+    LDA      zp_A1,x                     ; 0x13be7 $BBD7 B5 A1                   ;; Enemy Code
     CMP      #$20                      ; 0x13be9 $BBD9 C9 20                   ;
     BNE      LBBF8                     ; 0x13beb $BBDB D0 1B                   ;
     LDA      rng_out,x                   ; 0x13bed $BBDD BD 1B 05                ;; Randomizer
     AND      #$07                      ; 0x13bf0 $BBE0 29 07                   ;;Keep Bits:0000_0111
-    ORA      $81,x                     ; 0x13bf2 $BBE2 15 81                   ;; Current Animation Frame for Enemys
+    ORA      zp_81,x                     ; 0x13bf2 $BBE2 15 81                   ;; Current Animation Frame for Enemys
     BNE      LBBF8                     ; 0x13bf4 $BBE4 D0 12                   ;
-    LDA      $60,x                     ; 0x13bf6 $BBE6 B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x13bf6 $BBE6 B5 60                   ;; Enemy facing direction
     PHA                                ; 0x13bf8 $BBE8 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13bf9 $BBE9 20 91 DC;
     PLA                                ; 0x13bfc $BBEC 68                      ;
-    STA      $60,x                     ; 0x13bfd $BBED 95 60                   ;; Enemy facing direction
+    STA      zp_60,x                     ; 0x13bfd $BBED 95 60                   ;; Enemy facing direction
     INY                                ; 0x13bff $BBEF C8                      ;
     TYA                                ; 0x13c00 $BBF0 98                      ;
-    CMP      $60,x                     ; 0x13c01 $BBF1 D5 60                   ;; Enemy facing direction
+    CMP      zp_60,x                     ; 0x13c01 $BBF1 D5 60                   ;; Enemy facing direction
     BNE      LBBF8                     ; 0x13c03 $BBF3 D0 03                   ;
     JSR      bank4_increase_animation_frame__and_set_timer_for_next_AI__maybe; 0x13c05 $BBF5 20 23 BC;
 LBBF8:                                                                          ;
-    LDA      $AF,x                     ; 0x13c08 $BBF8 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13c08 $BBF8 B5 AF                   ;; Various enemy state variables
     ASL                                ; 0x13c0a $BBFA 0A                      ;
     BNE      LBC10                     ; 0x13c0b $BBFB D0 13                   ;
     LDA      rng_out,x                   ; 0x13c0d $BBFD BD 1B 05                ;; Randomizer
@@ -5768,24 +5768,24 @@ LBBF8:                                                                          
     JSR      LBBBC                     ; 0x13c14 $BC04 20 BC BB                ;
     LDA      rng_out,x                   ; 0x13c17 $BC07 BD 1B 05                ;; Randomizer
     AND      #$80                      ; 0x13c1a $BC0A 29 80                   ;;Keep Bits:1000_0000
-    ORA      $AF,x                     ; 0x13c1c $BC0C 15 AF                   ;; Various enemy state variables
-    STA      $AF,x                     ; 0x13c1e $BC0E 95 AF                   ;; Various enemy state variables
+    ORA      zp_AF,x                     ; 0x13c1c $BC0C 15 AF                   ;; Various enemy state variables
+    STA      zp_AF,x                     ; 0x13c1e $BC0E 95 AF                   ;; Various enemy state variables
 LBC10:                                                                          ;
     RTS                                ; 0x13c20 $BC10 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LBC11:                                                                          ;
-    LDA      $81,x                     ; 0x13c21 $BC11 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13c21 $BC11 B5 81                   ;; Current Animation Frame for Enemys
     BEQ      LBC2A                     ; 0x13c23 $BC13 F0 15                   ;
     LDY      bss_0504,x                   ; 0x13c25 $BC15 BC 04 05                ;; Timer for Enemy
     BNE      LBC2A                     ; 0x13c28 $BC18 D0 10                   ;
-    LDA      $81,x                     ; 0x13c2a $BC1A B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13c2a $BC1A B5 81                   ;; Current Animation Frame for Enemys
     CMP      #$02                      ; 0x13c2c $BC1C C9 02                   ;
     BNE      bank4_increase_animation_frame__and_set_timer_for_next_AI__maybe; 0x13c2e $BC1E D0 03;
     DEY                                ; 0x13c30 $BC20 88                      ;
-    STY      $81,x                     ; 0x13c31 $BC21 94 81                   ;; Current Animation Frame for Enemys
+    STY      zp_81,x                     ; 0x13c31 $BC21 94 81                   ;; Current Animation Frame for Enemys
 bank4_increase_animation_frame__and_set_timer_for_next_AI__maybe:               ;
-    INC      $81,x                     ; 0x13c33 $BC23 F6 81                   ; Current Animation Frame for Enemy
+    INC      zp_81,x                     ; 0x13c33 $BC23 F6 81                   ; Current Animation Frame for Enemy
 ;0F is used for Stalfos delays, as well as Horsehead delays                    ;
     LDA      #$0F                      ; 0x13c35 $BC25 A9 0F                   ; A = 0F (Stalfos various attack delays)
     STA      bss_0504,x                   ; 0x13c37 $BC27 9D 04 05                ; Timer for Enemy AI
@@ -5794,7 +5794,7 @@ LBC2A:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13c3b $BC2B 20 91 DC; Determine Enemy Facing Direction
-    LDA      $0F                       ; 0x13c3e $BC2E A5 0F                   ;
+    LDA      zp_0F                       ; 0x13c3e $BC2E A5 0F                   ;
     ADC      #$25                      ; 0x13c40 $BC30 69 25                   ;
     CMP      #$4A                      ; 0x13c42 $BC32 C9 4A                   ;
     BCC      LBC3D                     ; 0x13c44 $BC34 90 07                   ;
@@ -5809,7 +5809,7 @@ LBC3D:                                                                          
     INY                                ; 0x13c57 $BC47 C8                      ;
 LBC48:                                                                          ;
     LDA      bank4_Table_for_Movement_Velocities,y; 0x13c58 $BC48 B9 54 BA         ;
-    STA      $71,x                     ; 0x13c5b $BC4B 95 71                   ; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13c5b $BC4B 95 71                   ; Enemy X Velocity
     RTS                                ; 0x13c5d $BC4D 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5820,11 +5820,11 @@ bank4_Related_to_Horsehead:                                                     
     JSR      bank7_DE3D                     ; 0x13c67 $BC57 20 3D DE                ;check if horsehead get hit in head
     JSR      bank7_Link_Collision_Detection; 0x13c6a $BC5A 20 C1 D6                ;disable and can walk through horsehead, no damage to link
     LDA      #$01                      ; 0x13c6d $BC5D A9 01                   ; A = 01
-    CMP      $B6,x                     ; 0x13c6f $BC5F D5 B6                   ; Generated Enemy Slot
+    CMP      zp_B6,x                     ; 0x13c6f $BC5F D5 B6                   ; Generated Enemy Slot
     BEQ      LBC75                     ; 0x13c71 $BC61 F0 12                   ;
-    STA      $B6,x                     ; 0x13c73 $BC63 95 B6                   ;; Generated Enemy Slot
+    STA      zp_B6,x                     ; 0x13c73 $BC63 95 B6                   ;; Generated Enemy Slot
     LDA      #$FF                      ; 0x13c75 $BC65 A9 FF                   ; A = FF
-    LDY      $A1,x                     ; 0x13c77 $BC67 B4 A1                   ; Enemy Code
+    LDY      zp_A1,x                     ; 0x13c77 $BC67 B4 A1                   ; Enemy Code
     STA      $6E1D,y                   ; 0x13c79 $BC69 99 1D 6E                ;
     STA      bss_0504,x                   ; 0x13c7c $BC6C 9D 04 05                ;; Timer for Enemy
     LSR                                ; 0x13c7f $BC6F 4A                      ;
@@ -5852,7 +5852,7 @@ bank4_Enemy_Init_Routines_Helmethead__Gooma__Barba:                             
     INY                                ; 0x13c98 $BC88 C8                      ;
 LBC89:                                                                          ;
     LDA      bank4_Table_for_Helmethead_Gooma,y; 0x13c99 $BC89 B9 76 BC            ;
-    STA      $C2,x                     ; 0x13c9c $BC8C 95 C2                   ; Enemy Current HP
+    STA      zp_C2,x                     ; 0x13c9c $BC8C 95 C2                   ; Enemy Current HP
     LDA      LBC78,y                   ; 0x13c9e $BC8E B9 78 BC                ;
     STA      $6DF6                     ; 0x13ca1 $BC91 8D F6 6D                ;
     LDA      LBC7A,y                   ; 0x13ca4 $BC94 B9 7A BC                ;
@@ -5865,10 +5865,10 @@ LBC89:                                                                          
 bank4_Enemy_Init_Routines_Horsehead__Rebonack:                                  ;
     LDX      #$01                      ; 0x13cb1 $BCA1 A2 01                   ; X = 01
     JSR      bank7_C2A6                     ; 0x13cb3 $BCA3 20 A6 C2                ;
-    LDX      $10                       ; 0x13cb6 $BCA6 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDX      zp_10                       ; 0x13cb6 $BCA6 A6 10                   ;; used as monster x register ;draw boss hp bar
     CMP      #$00                      ; 0x13cb8 $BCA8 C9 00                   ;
     BNE      LBCAF                     ; 0x13cba $BCAA D0 03                   ;
-    STA      $B6,x                     ; 0x13cbc $BCAC 95 B6                   ; Generated Enemy Slot
+    STA      zp_B6,x                     ; 0x13cbc $BCAC 95 B6                   ; Generated Enemy Slot
     RTS                                ; 0x13cbe $BCAE 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -5876,7 +5876,7 @@ LBCAF:                                                                          
     LDA      #$02                      ; 0x13cbf $BCAF A9 02                   ; A = 02
     STA      bss_0444,x                   ; 0x13cc1 $BCB1 9D 44 04                ; Enemy Vulnerability
     LDA      #$07                      ; 0x13cc4 $BCB4 A9 07                   ; A = 07
-    LDY      $A1,x                     ; 0x13cc6 $BCB6 B4 A1                   ; Enemy Code
+    LDY      zp_A1,x                     ; 0x13cc6 $BCB6 B4 A1                   ; Enemy Code
     STA      $6E1D,y                   ; 0x13cc8 $BCB8 99 1D 6E                ;
     RTS                                ; 0x13ccb $BCBB 60                      ;
                                                                                ;
@@ -5885,16 +5885,16 @@ bank4_Enemy_Routines_Tinsuit:                                                   
     JSR      bank7_Enemy_Stops_when_Hit; 0x13ccc $BCBC 20 02 DA                ; Enemy Stops when Hit
     JSR      bank7_DE3D                     ; 0x13ccf $BCBF 20 3D DE                ; Display
     JSR      bank7_Link_Collision_Detection; 0x13cd2 $BCC2 20 C1 D6                ; Link Collision Detection
-    LDA      $A8,x                     ; 0x13cd5 $BCC5 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x13cd5 $BCC5 B5 A8                   ; Enemy State ?
     AND      #$04                      ; 0x13cd7 $BCC7 29 04                   ; keep bits .... .x..
     BEQ      LBCD5                     ; 0x13cd9 $BCC9 F0 0A                   ;
     JSR      bank7_Floor_Y_Position    ; 0x13cdb $BCCB 20 C1 DA                ; Floor Enemy Y Position
     LDA      #$F0                      ; 0x13cde $BCCE A9 F0                   ; A = F0 (jumping velocity for Tinsuit)
     STA      bss_057E,x                   ; 0x13ce0 $BCD0 9D 7E 05                ; Enemy Y Velocity
-    INC      $AF,x                     ; 0x13ce3 $BCD3 F6 AF                   ; related to enemy animation frame
+    INC      zp_AF,x                     ; 0x13ce3 $BCD3 F6 AF                   ; related to enemy animation frame
 LBCD5:                                                                          ;
     JSR      bank7_Gravity             ; 0x13ce5 $BCD5 20 BE DE                ; Gravity
-    LDA      $A8,x                     ; 0x13ce8 $BCD8 B5 A8                   ; Enemy State ?
+    LDA      zp_A8,x                     ; 0x13ce8 $BCD8 B5 A8                   ; Enemy State ?
     AND      #$03                      ; 0x13cea $BCDA 29 03                   ; keep bits .... ..xx
     BEQ      LBCE1                     ; 0x13cec $BCDC F0 03                   ;
     JSR      bank7_Change_Enemy_Facing_Direction_and_X_Velocity; 0x13cee $BCDE 20 EB E8; Wall Hit Collision Test (from right)
@@ -5916,24 +5916,24 @@ bank4_Enemy_Routines_Floating_Helmet:                                           
     JSR      bank7_E4D9                     ; 0x13d02 $BCF2 20 D9 E4                ;
     JSR      bank7_Link_Collision_Detection; 0x13d05 $BCF5 20 C1 D6                ; Link Collision Detection
     JSR      bank7_Simple_Horizontal_Movement; 0x13d08 $BCF8 20 B8 DE              ; Simple Horizontal Movement
-    LDA      $2A,x                     ; 0x13d0b $BCFB B5 2A                   ; Enemy Y Position
-    LDY      $AF,x                     ; 0x13d0d $BCFD B4 AF                   ;; Various enemy state variables
+    LDA      zp_2A,x                     ; 0x13d0b $BCFB B5 2A                   ; Enemy Y Position
+    LDY      zp_AF,x                     ; 0x13d0d $BCFD B4 AF                   ;; Various enemy state variables
     CPY      #$03                      ; 0x13d0f $BCFF C0 03                   ;
     BCS      LBD24                     ; 0x13d11 $BD01 B0 21                   ;
     CMP      #$C4                      ; 0x13d13 $BD03 C9 C4                   ;
     BCC      LBD21                     ; 0x13d15 $BD05 90 1A                   ;
     LDA      #$30                      ; 0x13d17 $BD07 A9 30                   ;;A = #$30 0011_0000
     STA      bss_0504,x                   ; 0x13d19 $BD09 9D 04 05                ;; Timer for Enemy
-    INC      $AF,x                     ; 0x13d1c $BD0C F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13d1c $BD0C F6 AF                   ;; Various enemy state variables
     LDA      LBCEC,y                   ; 0x13d1e $BD0E B9 EC BC                ;
     STA      bss_057E,x                   ; 0x13d21 $BD11 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     LDA      #$10                      ; 0x13d24 $BD14 A9 10                   ;;A = #$10 0001_0000
-    STA      $EE                       ; 0x13d26 $BD16 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
+    STA      zp_EE                       ; 0x13d26 $BD16 85 EE                   ;; Sound Effects Type 3; Sound Effects Type 3
     LDA      #$C3                      ; 0x13d28 $BD18 A9 C3                   ; A = C3
-    STA      $2A,x                     ; 0x13d2a $BD1A 95 2A                   ;; Enemy Y Position
-    LDA      $71,x                     ; 0x13d2c $BD1C B5 71                   ;; Enemy X Velocity
+    STA      zp_2A,x                     ; 0x13d2a $BD1A 95 2A                   ;; Enemy Y Position
+    LDA      zp_71,x                     ; 0x13d2c $BD1C B5 71                   ;; Enemy X Velocity
     ASL                                ; 0x13d2e $BD1E 0A                      ;
-    ROR      $71,x                     ; 0x13d2f $BD1F 76 71                   ;; Enemy X Velocity
+    ROR      zp_71,x                     ; 0x13d2f $BD1F 76 71                   ;; Enemy X Velocity
 LBD21:                                                                          ;
     JMP      bank7_Gravity             ; 0x13d31 $BD21 4C BE DE                ;
                                                                                ;
@@ -5944,12 +5944,12 @@ LBD24:                                                                          
     CMP      #$70                      ; 0x13d39 $BD29 C9 70                   ;
     BCC      LBD3E                     ; 0x13d3b $BD2B 90 11                   ;
     LDA      #$00                      ; 0x13d3d $BD2D A9 00                   ;;A = #$00 0000_0000
-    STA      $71,x                     ; 0x13d3f $BD2F 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13d3f $BD2F 95 71                   ;; Enemy X Velocity
     STA      bss_057E,x                   ; 0x13d41 $BD31 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     LDY      bss_0504,x                   ; 0x13d44 $BD34 BC 04 05                ;; Timer for Enemy
     BNE      LBD3D                     ; 0x13d47 $BD37 D0 04                   ;
-    DEC      $2A,x                     ; 0x13d49 $BD39 D6 2A                   ;; Enemy Y Position
-    DEC      $2A,x                     ; 0x13d4b $BD3B D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x13d49 $BD39 D6 2A                   ;; Enemy Y Position
+    DEC      zp_2A,x                     ; 0x13d4b $BD3B D6 2A                   ;; Enemy Y Position
 LBD3D:                                                                          ;
     RTS                                ; 0x13d4d $BD3D 60                      ;
                                                                                ;
@@ -5957,7 +5957,7 @@ LBD3D:                                                                          
 LBD3E:                                                                          ;
     STA      bss_0444,x                   ; 0x13d4e $BD3E 9D 44 04                ;; Enemy Vulnerability, for example: horsehead and helmethead have =2, which prevents hit-with-sword in body and feet, but not head
     JSR      bank7_Simple_Vertical_Movement; 0x13d51 $BD41 20 C8 DE                ;
-    LDA      $AF,x                     ; 0x13d54 $BD44 B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13d54 $BD44 B5 AF                   ;; Various enemy state variables
     AND      #$01                      ; 0x13d56 $BD46 29 01                   ;;Keep Bits:0000_0001
     TAY                                ; 0x13d58 $BD48 A8                      ;
     LDA      bss_057E,x                   ; 0x13d59 $BD49 BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
@@ -5966,13 +5966,13 @@ LBD3E:                                                                          
     STA      bss_057E,x                   ; 0x13d60 $BD50 9D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     CMP      bank4_table15,y           ; 0x13d63 $BD53 D9 E4 BC                ;
     BNE      LBD5A                     ; 0x13d66 $BD56 D0 02                   ;
-    INC      $AF,x                     ; 0x13d68 $BD58 F6 AF                   ;; Various enemy state variables
+    INC      zp_AF,x                     ; 0x13d68 $BD58 F6 AF                   ;; Various enemy state variables
 LBD5A:                                                                          ;
     LDA      frame_counter                       ; 0x13d6a $BD5A A5 12                   ;; Frame Counter (ascending)
     BNE      LBD66                     ; 0x13d6c $BD5C D0 08                   ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13d6e $BD5E 20 91 DC;
     LDA      LBCE8,y                   ; 0x13d71 $BD61 B9 E8 BC                ;
-    STA      $71,x                     ; 0x13d74 $BD64 95 71                   ;; Enemy X Velocity
+    STA      zp_71,x                     ; 0x13d74 $BD64 95 71                   ;; Enemy X Velocity
 LBD66:                                                                          ;
     INC      bss_0401,x                   ; 0x13d76 $BD66 FE 01 04                ;
     LDA      bss_0401,x                   ; 0x13d79 $BD69 BD 01 04                ;
@@ -5994,7 +5994,7 @@ bank4_Enemy_Routines1_Helmethead__Gooma:                                        
 ; ---------------------------------------------------------------------------- ;
 LBD7D:                                                                          ;
     LDY      #$50                      ; 0x13d8d $BD7D A0 50                   ;;Y = #$50 0101_0000
-    LDA      $AF,x                     ; 0x13d8f $BD7F B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13d8f $BD7F B5 AF                   ;; Various enemy state variables
     LDX      #$6C                      ; 0x13d91 $BD81 A2 6C                   ;;X = #$6c 0110_1100
     AND      #$7F                      ; 0x13d93 $BD83 29 7F                   ;;Keep Bits:0111_1111
     BEQ      LBD92                     ; 0x13d95 $BD85 F0 0B                   ;
@@ -6007,7 +6007,7 @@ LBD7D:                                                                          
 LBD92:                                                                          ;
     JSR      bank7_F1F4                     ; 0x13da2 $BD92 20 F4 F1                ;
     JSR      bank7_F0D7                     ; 0x13da5 $BD95 20 D7 F0                ;
-    LDA      $C9                       ; 0x13da8 $BD98 A5 C9                   ;
+    LDA      zp_C9                       ; 0x13da8 $BD98 A5 C9                   ;
     AND      #$0C                      ; 0x13daa $BD9A 29 0C                   ;;Keep Bits:0000_1100
     BNE      LBD72                     ; 0x13dac $BD9C D0 D4                   ;
     LDA      bss_01F0,y                   ; 0x13dae $BD9E B9 F0 01                ;
@@ -6019,14 +6019,14 @@ LBD92:                                                                          
     JSR      LBDD6                     ; 0x13dbb $BDAB 20 D6 BD                ;
     LDA      $6E3E                     ; 0x13dbe $BDAE AD 3E 6E                ;
     BMI      LBDCD                     ; 0x13dc1 $BDB1 30 1A                   ;
-    LDA      $60,x                     ; 0x13dc3 $BDB3 B5 60                   ;; Enemy facing direction
+    LDA      zp_60,x                     ; 0x13dc3 $BDB3 B5 60                   ;; Enemy facing direction
     PHA                                ; 0x13dc5 $BDB5 48                      ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0x13dc6 $BDB6 20 91 DC;
     PLA                                ; 0x13dc9 $BDB9 68                      ;
-    STA      $60,x                     ; 0x13dca $BDBA 95 60                   ;; Enemy facing direction
+    STA      zp_60,x                     ; 0x13dca $BDBA 95 60                   ;; Enemy facing direction
     INY                                ; 0x13dcc $BDBC C8                      ;
     TYA                                ; 0x13dcd $BDBD 98                      ;
-    CMP      $60,x                     ; 0x13dce $BDBE D5 60                   ;; Enemy facing direction
+    CMP      zp_60,x                     ; 0x13dce $BDBE D5 60                   ;; Enemy facing direction
     BEQ      LBDCD                     ; 0x13dd0 $BDC0 F0 0B                   ;
     LDA      bss_0262                     ; 0x13dd2 $BDC2 AD 62 02                ;
     EOR      #$40                      ; 0x13dd5 $BDC5 49 40                   ;;Flip Bits:0100_0000
@@ -6040,18 +6040,18 @@ bank4_table_BDCE:                                                               
 .byt    $68,$80                        ; 0x13dde $BDCE 68 80                   ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Floating_Helmet:                                          ;
-    LDY      $81,x                     ; 0x13de0 $BDD0 B4 81                   ;; Current Animation Frame for Enemys
+    LDY      zp_81,x                     ; 0x13de0 $BDD0 B4 81                   ;; Current Animation Frame for Enemys
     LDA      bank4_table_BDCE,y        ; 0x13de2 $BDD2 B9 CE BD                ;
     TAY                                ; 0x13de5 $BDD5 A8                      ;
 LBDD6:                                                                          ;
-    LDX      $02                       ; 0x13de6 $BDD6 A6 02                   ;
-    LDA      $01                       ; 0x13de8 $BDD8 A5 01                   ;
+    LDX      zp_02                       ; 0x13de6 $BDD6 A6 02                   ;
+    LDA      zp_01                       ; 0x13de8 $BDD8 A5 01                   ;
     CLC                                ; 0x13dea $BDDA 18                      ;
 LBDDD     = * + $0002                                                          ;
     ADC      LBD72,x                   ; 0x13deb $BDDB 7D 72 BD                ;
-    STA      $01                       ; 0x13dee $BDDE 85 01                   ;
-    LDX      $10                       ; 0x13df0 $BDE0 A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDA      $81,x                     ; 0x13df2 $BDE2 B5 81                   ;; Current Animation Frame for Enemys
+    STA      zp_01                       ; 0x13dee $BDDE 85 01                   ;
+    LDX      zp_10                       ; 0x13df0 $BDE0 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDA      zp_81,x                     ; 0x13df2 $BDE2 B5 81                   ;; Current Animation Frame for Enemys
     ASL                                ; 0x13df4 $BDE4 0A                      ;
     ADC      #$74                      ; 0x13df5 $BDE5 69 74                   ;
     TAX                                ; 0x13df7 $BDE7 AA                      ;
@@ -6069,7 +6069,7 @@ bank4_Enemy_Routines1_Stalfos:                                                  
     LDA      bss_04A0,x                   ; 0x13e04 $BDF4 BD A0 04                ;
     STA      zp_0E                     ; 0x13e07 $BDF7 85 0E                   ;
     LDA      #$00                      ; 0x13e09 $BDF9 A9 00                   ;;A = #$00 0000_0000
-    STA      $0D                       ; 0x13e0b $BDFB 85 0D                   ;
+    STA      zp_0D                       ; 0x13e0b $BDFB 85 0D                   ;
     LDA      bss_057E,x                   ; 0x13e0d $BDFD BD 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     BEQ      LBE18                     ; 0x13e10 $BE00 F0 16                   ;
     LDX      #$34                      ; 0x13e12 $BE02 A2 34                   ;;X = #$34 0011_0100
@@ -6077,7 +6077,7 @@ bank4_Enemy_Routines1_Stalfos:                                                  
     BCS      LBE31                     ; 0x13e15 $BE05 B0 2A                   ;
     LDA      zp_0E                     ; 0x13e17 $BE07 A5 0E                   ;
     BEQ      LBE13                     ; 0x13e19 $BE09 F0 08                   ;
-    LDA      $0F                       ; 0x13e1b $BE0B A5 0F                   ;
+    LDA      zp_0F                       ; 0x13e1b $BE0B A5 0F                   ;
     ADC      #$30                      ; 0x13e1d $BE0D 69 30                   ;
     CMP      #$60                      ; 0x13e1f $BE0F C9 60                   ;
     BCS      LBE2F                     ; 0x13e21 $BE11 B0 1C                   ;
@@ -6087,14 +6087,14 @@ LBE13:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LBE18:                                                                          ;
-    LDA      $81,x                     ; 0x13e28 $BE18 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13e28 $BE18 B5 81                   ;; Current Animation Frame for Enemys
     LDX      #$3C                      ; 0x13e2a $BE1A A2 3C                   ;;X = #$3c 0011_1100
     CMP      #$02                      ; 0x13e2c $BE1C C9 02                   ;
     BCS      LBE31                     ; 0x13e2e $BE1E B0 11                   ;
     LSR                                ; 0x13e30 $BE20 4A                      ;
     BCC      LBE27                     ; 0x13e31 $BE21 90 04                   ;
     LDA      #$16                      ; 0x13e33 $BE23 A9 16                   ;;A = #$16 0001_0110
-    STA      $0D                       ; 0x13e35 $BE25 85 0D                   ;
+    STA      zp_0D                       ; 0x13e35 $BE25 85 0D                   ;
 LBE27:                                                                          ;
     LDX      #$2C                      ; 0x13e37 $BE27 A2 2C                   ;;X = #$2c 0010_1100
     LDA      frame_counter                       ; 0x13e39 $BE29 A5 12                   ;; Frame Counter (ascending)
@@ -6103,14 +6103,14 @@ LBE27:                                                                          
 LBE2F:                                                                          ;
     LDX      #$30                      ; 0x13e3f $BE2F A2 30                   ;;X = #$30 0011_0000
 LBE31:                                                                          ;
-    STX      $D9                       ; 0x13e41 $BE31 86 D9                   ;; Thunder Spell modifier ?
+    STX      zp_D9                       ; 0x13e41 $BE31 86 D9                   ;; Thunder Spell modifier ?
     TXA                                ; 0x13e43 $BE33 8A                      ;
     CLC                                ; 0x13e44 $BE34 18                      ;
-    ADC      $0D                       ; 0x13e45 $BE35 65 0D                   ;
+    ADC      zp_0D                       ; 0x13e45 $BE35 65 0D                   ;
     TAX                                ; 0x13e47 $BE37 AA                      ;
     JSR      bank7_F1F4                     ; 0x13e48 $BE38 20 F4 F1                ;
     JSR      bank7_F0D7                     ; 0x13e4b $BE3B 20 D7 F0                ;
-    LDA      $D9                       ; 0x13e4e $BE3E A5 D9                   ;; Thunder Spell modifier ?
+    LDA      zp_D9                       ; 0x13e4e $BE3E A5 D9                   ;; Thunder Spell modifier ?
     CMP      #$38                      ; 0x13e50 $BE40 C9 38                   ;
     BNE      LBE57                     ; 0x13e52 $BE42 D0 13                   ;
     LDA      bss_01F2,y                   ; 0x13e54 $BE44 B9 F2 01                ;
@@ -6121,19 +6121,19 @@ LBE31:                                                                          
     STA      bss_01F6,y                   ; 0x13e61 $BE51 99 F6 01                ;
     STA      bss_01FE,y                   ; 0x13e64 $BE54 99 FE 01                ;
 LBE57:                                                                          ;
-    LDA      $81,x                     ; 0x13e67 $BE57 B5 81                   ;; Current Animation Frame for Enemys
+    LDA      zp_81,x                     ; 0x13e67 $BE57 B5 81                   ;; Current Animation Frame for Enemys
     CMP      #$02                      ; 0x13e69 $BE59 C9 02                   ;
     BNE      LBE7A                     ; 0x13e6b $BE5B D0 1D                   ;
-    LDA      $C9                       ; 0x13e6d $BE5D A5 C9                   ;
+    LDA      zp_C9                       ; 0x13e6d $BE5D A5 C9                   ;
     ORA      bss_057E,x                   ; 0x13e6f $BE5F 1D 7E 05                ;; Enemy Y Velocity; Enemy Y Velocity
     BNE      LBE7A                     ; 0x13e72 $BE62 D0 16                   ;
     TYA                                ; 0x13e74 $BE64 98                      ;
     PHA                                ; 0x13e75 $BE65 48                      ;
-    LDY      $60,x                     ; 0x13e76 $BE66 B4 60                   ;; Enemy facing direction
-    LDA      $01                       ; 0x13e78 $BE68 A5 01                   ;
+    LDY      zp_60,x                     ; 0x13e76 $BE66 B4 60                   ;; Enemy facing direction
+    LDA      zp_01                       ; 0x13e78 $BE68 A5 01                   ;
     ADC      LBDEA,y                   ; 0x13e7a $BE6A 79 EA BD                ;
-    STA      $01                       ; 0x13e7d $BE6D 85 01                   ;
-    LDA      $2A,x                     ; 0x13e7f $BE6F B5 2A                   ;; Enemy Y Position
+    STA      zp_01                       ; 0x13e7d $BE6D 85 01                   ;
+    LDA      zp_2A,x                     ; 0x13e7f $BE6F B5 2A                   ;; Enemy Y Position
     STA      zp_00                     ; 0x13e81 $BE71 85 00                   ;
     PLA                                ; 0x13e83 $BE73 68                      ;
     TAY                                ; 0x13e84 $BE74 A8                      ;
@@ -6146,7 +6146,7 @@ LBE7A:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank4_Enemy_Routines1_Mago:                                                     ;
-    LDA      $AF,x                     ; 0x13e8b $BE7B B5 AF                   ;; Various enemy state variables
+    LDA      zp_AF,x                     ; 0x13e8b $BE7B B5 AF                   ;; Various enemy state variables
     LDX      #$1A                      ; 0x13e8d $BE7D A2 1A                   ;;X = #$1a 0001_1010
     CMP      #$D3                      ; 0x13e8f $BE7F C9 D3                   ;
     BCS      LBE85                     ; 0x13e91 $BE81 B0 02                   ;
@@ -6162,38 +6162,38 @@ LBE8B:                                                                          
     LDA      bss_072A                     ; 0x13ea0 $BE90 AD 2A 07                ;;link Pagepos SideScroll		; Scrolling Offset High Byte
     BEQ      LBEF0                     ; 0x13ea3 $BE93 F0 5B                   ;
     LDA      #$08                      ; 0x13ea5 $BE95 A9 08                   ;;A = #$08 0000_1000
-    STA      $EB                       ; 0x13ea7 $BE97 85 EB                   ;; Music; Music
+    STA      zp_EB                       ; 0x13ea7 $BE97 85 EB                   ;; Music; Music
     INC      bss_0728                     ; 0x13ea9 $BE99 EE 28 07                ;;_728_FreezeScrolling		= $728	;1=freeze screen, prevent from exiting left/right
 LBE9C:                                                                          ;
-    LDY      $A1,x                     ; 0x13eac $BE9C B4 A1                   ;; Enemy Code
+    LDY      zp_A1,x                     ; 0x13eac $BE9C B4 A1                   ;; Enemy Code
     LDA      $6E1D,y                   ; 0x13eae $BE9E B9 1D 6E                ;
     BPL      LBEF5                     ; 0x13eb1 $BEA1 10 52                   ;
     LDY      bss_040E,x                   ; 0x13eb3 $BEA3 BC 0E 04                ;; Enemy Hit State (0 = not in Hit State)	;	causes flashing
     BNE      LBEF0                     ; 0x13eb6 $BEA6 D0 48                   ;
-    INC      $B6,x                     ; 0x13eb8 $BEA8 F6 B6                   ;; Generated Enemy Slot
+    INC      zp_B6,x                     ; 0x13eb8 $BEA8 F6 B6                   ;; Generated Enemy Slot
     LDA      #$0A                      ; 0x13eba $BEAA A9 0A                   ;;A = #$0a 0000_1010
-    STA      $D9                       ; 0x13ebc $BEAC 85 D9                   ;; Thunder Spell modifier ?
-    LDA      $10                       ; 0x13ebe $BEAE A5 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_D9                       ; 0x13ebc $BEAC 85 D9                   ;; Thunder Spell modifier ?
+    LDA      zp_10                       ; 0x13ebe $BEAE A5 10                   ;; used as monster x register ;draw boss hp bar
     PHA                                ; 0x13ec0 $BEB0 48                      ;
     LDX      #$05                      ; 0x13ec1 $BEB1 A2 05                   ;;X = #$05 0000_0101
 LBEB3:                                                                          ;
-    STX      $10                       ; 0x13ec3 $BEB3 86 10                   ;; used as monster x register ;draw boss hp bar
+    STX      zp_10                       ; 0x13ec3 $BEB3 86 10                   ;; used as monster x register ;draw boss hp bar
     LDA      #$00                      ; 0x13ec5 $BEB5 A9 00                   ;;A = #$00 0000_0000
-    STA      $87,x                     ; 0x13ec7 $BEB7 95 87                   ;; Projectile Type
-    LDA      $B6,x                     ; 0x13ec9 $BEB9 B5 B6                   ;; Generated Enemy Slot
+    STA      zp_87,x                     ; 0x13ec7 $BEB7 95 87                   ;; Projectile Type
+    LDA      zp_B6,x                     ; 0x13ec9 $BEB9 B5 B6                   ;; Generated Enemy Slot
     BEQ      LBEE5                     ; 0x13ecb $BEBB F0 28                   ;
     CMP      #$01                      ; 0x13ecd $BEBD C9 01                   ;
     BNE      LBEE5                     ; 0x13ecf $BEBF D0 24                   ;
     INX                                ; 0x13ed1 $BEC1 E8                      ;
     LDY      #$01                      ; 0x13ed2 $BEC2 A0 01                   ;;Y = #$01 0000_0001
     JSR      bank7_code51              ; 0x13ed4 $BEC4 20 7D F2                ;
-    LDX      $10                       ; 0x13ed7 $BEC7 A6 10                   ;; used as monster x register ;draw boss hp bar
-    LDY      $D9                       ; 0x13ed9 $BEC9 A4 D9                   ;; Thunder Spell modifier ?
+    LDX      zp_10                       ; 0x13ed7 $BEC7 A6 10                   ;; used as monster x register ;draw boss hp bar
+    LDY      zp_D9                       ; 0x13ed9 $BEC9 A4 D9                   ;; Thunder Spell modifier ?
     BNE      LBEE2                     ; 0x13edb $BECB D0 15                   ;
-    LDA      $C9                       ; 0x13edd $BECD A5 C9                   ;
+    LDA      zp_C9                       ; 0x13edd $BECD A5 C9                   ;
     AND      #$88                      ; 0x13edf $BECF 29 88                   ;;Keep Bits:1000_1000
     BNE      LBEE5                     ; 0x13ee1 $BED1 D0 12                   ;
-    LDY      $A1,x                     ; 0x13ee3 $BED3 B4 A1                   ;; Enemy Code
+    LDY      zp_A1,x                     ; 0x13ee3 $BED3 B4 A1                   ;; Enemy Code
     LDA      $6E41,y                   ; 0x13ee5 $BED5 B9 41 6E                ;
     LDY      #$09                      ; 0x13ee8 $BED8 A0 09                   ;;Y = #$09 0000_1001
     AND      #$A0                      ; 0x13eea $BEDA 29 A0                   ;;Keep Bits:1010_0000
@@ -6206,10 +6206,10 @@ LBEE5:                                                                          
     DEX                                ; 0x13ef5 $BEE5 CA                      ;
     BPL      LBEB3                     ; 0x13ef6 $BEE6 10 CB                   ;
     PLA                                ; 0x13ef8 $BEE8 68                      ;
-    STA      $10                       ; 0x13ef9 $BEE9 85 10                   ;; used as monster x register ;draw boss hp bar
+    STA      zp_10                       ; 0x13ef9 $BEE9 85 10                   ;; used as monster x register ;draw boss hp bar
     TAX                                ; 0x13efb $BEEB AA                      ;
     LDA      #$80                      ; 0x13efc $BEEC A9 80                   ;;A = #$80 1000_0000
-    STA      $EB                       ; 0x13efe $BEEE 85 EB                   ;; Music; Music
+    STA      zp_EB                       ; 0x13efe $BEEE 85 EB                   ;; Music; Music
 LBEF0:                                                                          ;
     PLA                                ; 0x13f00 $BEF0 68                      ;
     PLA                                ; 0x13f01 $BEF1 68                      ;
@@ -6221,9 +6221,9 @@ LBEF5:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LBEF6:                                                                          ;
-    LDA      $ED                       ; 0x13f06 $BEF6 A5 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    LDA      zp_ED                       ; 0x13f06 $BEF6 A5 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     ORA      #$40                      ; 0x13f08 $BEF8 09 40                   ;;Set Bits:0100_0000
-    STA      $ED                       ; 0x13f0a $BEFA 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
+    STA      zp_ED                       ; 0x13f0a $BEFA 85 ED                   ;; Sound Effects Type 2; Sound Effects Type 2
     RTS                                ; 0x13f0c $BEFC 60                      ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;

@@ -159,12 +159,12 @@ Build_A_Pointer_With_81:                                                  ;
 ;Pointer created from 81 ($81AC?) and a value from this table                  ;
     LDX      bss_010C                     ; 0x81b3 $81A3 AE 0C 01                 ;; Area Palette Group (Type of Area)	; Area Ground Type (0-7)
     LDA      Table_for_Level_Layers_Data_pointers,x; 0x81b6 $81A6 BD 9B 81   ;
-    STA      $0C                       ; 0x81b9 $81A9 85 0C                    ;
+    STA      zp_0C                       ; 0x81b9 $81A9 85 0C                    ;
     LDA      #$81                      ; 0x81bb $81AB A9 81                    ; A = 81
-    STA      $0D                       ; 0x81bd $81AD 85 0D                    ;
+    STA      zp_0D                       ; 0x81bd $81AD 85 0D                    ;
     LDY      #$08                      ; 0x81bf $81AF A0 08                    ; Y = 08
 L81B1:                                                                          ;
-    LDA      ($0C),y                   ; 0x81c1 $81B1 B1 0C                    ;
+    LDA      (zp_0C),y                   ; 0x81c1 $81B1 B1 0C                    ;
     STA      bss_010D                     ; 0x81c3 $81B3 8D 0D 01                 ;; Area Bottom Row Tile Code
     RTS                                ; 0x81c6 $81B6 60                       ;
                                                                                ;
@@ -290,7 +290,7 @@ L8247:                                                                          
     ASL                                ; 0x8258 $8248 0A                       ;
     TAX                                ; 0x8259 $8249 AA                       ;
     LDY      #$01                      ; 0x825a $824A A0 01                    ; Y = 01
-    LDA      ($D4),y                   ; 0x825c $824C B1 D4                    ;
+    LDA      (zp_D4),y                   ; 0x825c $824C B1 D4                    ;
     ASL                                ; 0x825e $824E 0A                       ;
     LDA      Tile_Codes_for_Objects_Set1_BackgroundSky,x; 0x825f $824F BD D5 81; Table for Objects Set 1 Tile Codes
     BCS      L8257                     ; 0x8262 $8252 B0 03                    ;
@@ -491,16 +491,16 @@ Check_for_Hidden_Palace_spot:                                             ;
     LDA      region_number                     ; 0x8378 $8368 AD 06 07                 ; Current Region
     CMP      #$02                      ; 0x837b $836B C9 02                    ; Region 02 = East Hyrule
     BNE      L838E                     ; 0x837d $836D D0 1F                    ; if NOT 02, return
-    LDA      $73                       ; 0x837f $836F A5 73                    ; Y position on map
+    LDA      zp_73                       ; 0x837f $836F A5 73                    ; Y position on map
     CMP      #$64                      ; 0x8381 $8371 C9 64                    ; Y position of Hidden Palace call spot
     BNE      Check_for_Spider_in_OW; 0x8383 $8373 D0 12                    ;
-    LDA      $74                       ; 0x8385 $8375 A5 74                    ; X position on map
+    LDA      zp_74                       ; 0x8385 $8375 A5 74                    ; X position on map
     CMP      #$2D                      ; 0x8387 $8377 C9 2D                    ; X position of Hidden Palace call spot
     BNE      Check_for_Spider_in_OW; 0x8389 $8379 D0 0C                    ;
     LDA      #$0B                      ; 0x838b $837B A9 0B                    ; A = 0B
     STA      PPU_macro_select                     ; 0x838d $837D 8D 25 07                 ;; PPU Macro Selector
-    INC      $01                       ; 0x8390 $8380 E6 01                    ; 2 tiles
-    INC      $01                       ; 0x8392 $8382 E6 01                    ; south...
+    INC      zp_01                       ; 0x8390 $8380 E6 01                    ; 2 tiles
+    INC      zp_01                       ; 0x8392 $8382 E6 01                    ; south...
     JMP      bank7_forest_chop_with_hammer; 0x8394 $8384 4C 79 DF                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -525,25 +525,25 @@ setpos Chop_Down_Tree_Function
 code5:                                                                    ;
     JSR      bank7_DF01                     ; 0x83b1 $83A1 20 01 DF                 ;
     LDA      #$00                      ; 0x83b4 $83A4 A9 00                    ; A = 00
-    STA      $7D                       ; 0x83b6 $83A6 85 7D                    ;;number of pixels to move? automove? on overworld, only partially, causes bug
+    STA      zp_7D                       ; 0x83b6 $83A6 85 7D                    ;;number of pixels to move? automove? on overworld, only partially, causes bug
     LDY      #$0B                      ; 0x83b8 $83A8 A0 0B                    ; Y = 0B
 L83AA:                                                                          ;
     LDA      table0,y            ; 0x83ba $83AA B9 95 83                 ; refer to table at $8395
     STA      bss_0301,y                   ; 0x83bd $83AD 99 01 03                 ;
     DEY                                ; 0x83c0 $83B0 88                       ;
     BPL      L83AA                     ; 0x83c1 $83B1 10 F7                    ;
-    LDA      $79                       ; 0x83c3 $83B3 A5 79                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
+    LDA      zp_79                       ; 0x83c3 $83B3 A5 79                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      bss_0302                     ; 0x83c5 $83B5 8D 02 03                 ;; Used when writing text to screen
     STA      bss_0307                     ; 0x83c8 $83B8 8D 07 03                 ;; Text memory offset?
-    LDA      $7A                       ; 0x83cb $83BB A5 7A                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
+    LDA      zp_7A                       ; 0x83cb $83BB A5 7A                    ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      bss_0303                     ; 0x83cd $83BD 8D 03 03                 ;; Letter position when writing to screen
     CLC                                ; 0x83d0 $83C0 18                       ;
     ADC      #$01                      ; 0x83d1 $83C1 69 01                    ;
     STA      bss_0308                     ; 0x83d3 $83C3 8D 08 03                 ;
-    LDA      $76                       ; 0x83d6 $83C6 A5 76                    ; X position on map (Link)
+    LDA      zp_76                       ; 0x83d6 $83C6 A5 76                    ; X position on map (Link)
     STA      zp_00                     ; 0x83d8 $83C8 85 00                    ;
-    LDA      $75                       ; 0x83da $83CA A5 75                    ; Y position on map (Link)
-    STA      $01                       ; 0x83dc $83CC 85 01                    ;
+    LDA      zp_75                       ; 0x83da $83CA A5 75                    ; Y position on map (Link)
+    STA      zp_01                       ; 0x83dc $83CC 85 01                    ;
     RTS                                ; 0x83de $83CE 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -552,29 +552,29 @@ overworld_limit_check_jmp_from_bank7:                                     ;
     LDA      zp_00                     ; 0x43df $83CF A5 00                    ;
     CMP      #$40                      ; 0x43e1 $83D1 C9 40                    ; Check if at the extreme right of the map
     BCS      East_Boundary       ; 0x43e3 $83D3 B0 2F                    ; Overworld width here too (east boundary)
-    LDA      $01                       ; 0x43e5 $83D5 A5 01                    ;
+    LDA      zp_01                       ; 0x43e5 $83D5 A5 01                    ;
     SEC                                ; 0x43e7 $83D7 38                       ;
     SBC      #$1E                      ; 0x43e8 $83D8 E9 1E                    ; Y Units Offset in Overworld
-    STA      $04                       ; 0x43ea $83DA 85 04                    ;
+    STA      zp_04                       ; 0x43ea $83DA 85 04                    ;
     CMP      #$4B                      ; 0x43ec $83DC C9 4B                    ; Overworld height (south boundary)
     BCS      East_Boundary       ; 0x43ee $83DE B0 24                    ; (not visually)
     JSR      limit_check_unknown               ; 0x43f0 $83E0 20 AC 93                 ;
     INC      zp_00                     ; 0x43f3 $83E3 E6 00                    ;
     LDA      #$00                      ; 0x43f5 $83E5 A9 00                    ; A = 00
-    STA      $03                       ; 0x43f7 $83E7 85 03                    ;
+    STA      zp_03                       ; 0x43f7 $83E7 85 03                    ;
     LDX      #$03                      ; 0x43f9 $83E9 A2 03                    ; X = 03
 L83EB:                                                                          ;
     LDA      (zp_0E),y                 ; 0x43fb $83EB B1 0E                    ;
     AND      #$0F                      ; 0x43fd $83ED 29 0F                    ; keep bits .... xxxx
-    STA      $02                       ; 0x43ff $83EF 85 02                    ;
+    STA      zp_02                       ; 0x43ff $83EF 85 02                    ;
     LDA      (zp_0E),y                 ; 0x4401 $83F1 B1 0E                    ;
     LSR                                ; 0x4403 $83F3 4A                       ;
     LSR                                ; 0x4404 $83F4 4A                       ;
     LSR                                ; 0x4405 $83F5 4A                       ;
     LSR                                ; 0x4406 $83F6 4A                       ;
     SEC                                ; 0x4407 $83F7 38                       ;
-    ADC      $03                       ; 0x4408 $83F8 65 03                    ;
-    STA      $03                       ; 0x440a $83FA 85 03                    ;
+    ADC      zp_03                       ; 0x4408 $83F8 65 03                    ;
+    STA      zp_03                       ; 0x440a $83FA 85 03                    ;
     CMP      zp_00                     ; 0x440c $83FC C5 00                    ;
     BCS      L8408                     ; 0x440e $83FE B0 08                    ;
     INY                                ; 0x4410 $8400 C8                       ;
@@ -583,7 +583,7 @@ L83EB:                                                                          
 ; ---------------------------------------------------------------------------- ;
 East_Boundary:                                                            ;
     LDA      #$0C                      ; 0x4414 $8404 A9 0C                    ; A = 0C (Code for 1 Unit of Water)
-    STA      $02                       ; 0x4416 $8406 85 02                    ;
+    STA      zp_02                       ; 0x4416 $8406 85 02                    ;
 L8408:                                                                          ;
     RTS                                ; 0x4418 $8408 60                       ;
                                                                                ;

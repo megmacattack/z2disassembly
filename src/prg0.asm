@@ -424,7 +424,7 @@ overworld1:                                                                     
     CMP      #$3C                      ; 0x29b $828B C9 3C                     ; height that splits region's north and south
     BCC      L8293                     ; 0x29d $828D 90 04                     ;
 L828F:                                                                          ;
-    LDA      zp_26                       ; 0x29f $828F A5 26                     ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
+    LDA      overworld_step_counter                       ; 0x29f $828F A5 26                     ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     BEQ      L8298                     ; 0x2a1 $8291 F0 05                     ;
 L8293:                                                                          ;
     LDA      bss_0516                     ; 0x2a3 $8293 AD 16 05                  ; Timer for Overworld Demons wave
@@ -447,7 +447,7 @@ L82AF:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 L82B0:                                                                          ;
-    LDA      zp_26                       ; 0x2c0 $82B0 A5 26                     ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
+    LDA      overworld_step_counter                       ; 0x2c0 $82B0 A5 26                     ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     BEQ      L82BA                     ; 0x2c2 $82B2 F0 06                     ;
     LDA      L823F,y                   ; 0x2c4 $82B4 B9 3F 82                  ;
     STA      bss_0516                     ; 0x2c7 $82B7 8D 16 05                  ; Timer for Overworld Demons wave
@@ -1076,7 +1076,7 @@ L86AF:                                                                          
     BCC      L869E                     ; 0x6c9 $86B9 90 E3                     ; skip each other frame
 L86BB:                                                                          ;
     DEC      zp_7D                       ; 0x6cb $86BB C6 7D                     ;number of pixels to move?
-    INC      zp_26                       ; 0x6cd $86BD E6 26                     ;some sort of step counter?
+    INC      overworld_step_counter                       ; 0x6cd $86BD E6 26                     ;some sort of step counter?
     LDA      bss_0562                     ; 0x6cf $86BF AD 62 05                  ; Link's facing direction in OW
     AND      #$03                      ; 0x6d2 $86C2 29 03                     ; keep bits .... ..x.
     BEQ      L86D6                     ; 0x6d4 $86C4 F0 10                     ;
@@ -1325,7 +1325,7 @@ L8871:                                                                          
     DEY                                ; 0x883 $8873 88                        ;
     BPL      L8871                     ; 0x884 $8874 10 FB                     ;
     INX                                ; 0x886 $8876 E8                        ;
-    STX      zp_26                       ; 0x887 $8877 86 26                     ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
+    STX      overworld_step_counter                       ; 0x887 $8877 86 26                     ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     LDA      #$08                      ; 0x889 $8879 A9 08                     ; A = 08
     STA      bss_0516                     ; 0x88b $887B 8D 16 05                  ;; Timer for Overworld Sprites to appear and for each new set
     JSR      L8A07                     ; 0x88e $887E 20 07 8A                  ;
@@ -3737,7 +3737,7 @@ bank0_unknown19:                                                                
     ADC      Table_for_Flying_Blade_Flame,y; 0x183e $982E 79 15 98                 ; refer to table at $1815
     STA      zp_36,x                     ; 0x1841 $9831 95 36                    ; Flying Blade/Flame Y Position
     LDA      #$01                      ; 0x1843 $9833 A9 01                    ; A = 01
-    STA      zp_26,x                     ; 0x1845 $9835 95 26                    ;
+    STA      overworld_step_counter,x                     ; 0x1845 $9835 95 26                    ;
     LSR                                ; 0x1847 $9837 4A                       ;
     STA      bss_05CA,x                   ; 0x1848 $9838 9D CA 05                 ; Projectile Lifespan (not sure)
     LDY      zp_9F                       ; 0x184b $983B A4 9F                    ; Direction arrow pressed (1 = right, 2 = left)

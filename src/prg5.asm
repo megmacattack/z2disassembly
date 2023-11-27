@@ -4753,17 +4753,17 @@ LA8D7:                                                                          
 LA8E8:                                                                          ;
     LDA      frame_counter                       ; 0x168f8 $A8E8 A5 12                   ; Permanent Frame Counter
     BNE      LA8EE                     ; 0x168fa $A8EA D0 02                   ;
-    INC      zp_26                       ; 0x168fc $A8EC E6 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
+    INC      intro_shooting_star_pos                       ; 0x168fc $A8EC E6 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
 LA8EE:                                                                          ;
     LDA      bss_026C                     ; 0x168fe $A8EE AD 6C 02                ;
     CMP      #$37                      ; 0x16901 $A8F1 C9 37                   ; Vertical limit for shooting star
     BCC      LA8FE                     ; 0x16903 $A8F3 90 09                   ;
     LDA      #$00                      ; 0x16905 $A8F5 A9 00                   ; A = 00
-    STA      zp_26                       ; 0x16907 $A8F7 85 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
+    STA      intro_shooting_star_pos                       ; 0x16907 $A8F7 85 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     LDA      #$F8                      ; 0x16909 $A8F9 A9 F8                   ; A = F8
     STA      bss_026C                     ; 0x1690b $A8FB 8D 6C 02                ;
 LA8FE:                                                                          ;
-    LDA      zp_26                       ; 0x1690e $A8FE A5 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
+    LDA      intro_shooting_star_pos                       ; 0x1690e $A8FE A5 26                   ;; Movement Tally - Increases as you walk in overworld.		; Shooting Star presence in Intro
     BEQ      LA917                     ; 0x16910 $A900 F0 15                   ;
     LDA      frame_counter                       ; 0x16912 $A902 A5 12                   ; Permanent Frame Counter
     AND      #$03                      ; 0x16914 $A904 29 03                   ; keep bits .... ..xx (speed of shooting star)

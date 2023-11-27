@@ -43,7 +43,8 @@ zp_22: .res 1 ; unknown size
 zp_23: .res 1 ; unknown size
 zp_24: .res 1 ; unknown size
 zp_25: .res 1 ; unknown size
-zp_26: .res 1 ; unknown size
+intro_shooting_star_pos:
+overworld_step_counter: .res 1
 zp_27: .res 1 ; unknown size
 zp_28: .res 1 ; unknown size
 zp_29: .res 1 ; unknown size

@@ -1,4 +1,6 @@
 ; globals in the zero page
+.globalzp overworld_step_counter
+.globalzp intro_shooting_star_pos
 .globalzp frame_counter
 .globalzp joy_pressed
 .globalzp joy1_pressed
@@ -44,7 +46,6 @@
 .globalzp zp_23
 .globalzp zp_24
 .globalzp zp_25
-.globalzp zp_26
 .globalzp zp_27
 .globalzp zp_28
 .globalzp zp_29

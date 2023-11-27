@@ -6,6 +6,12 @@
 
 .segment "ZEROPAGE"
 .org $00
+zp_00: .res 2 ; unknown size
+zp_02: .res 1 ; unknown size
+
+setpos $0E
+zp_0E: .res 1 ; unknown size
+
 setpos $12
 frame_counter: .res 1
 

@@ -16,9 +16,6 @@
 .include "variables.asm"
 .include "macros.asm"
 
-L0000 = $0000
-L0002 = $0002
-L000E = $000E
 L6060 = $6060
 L6261 = $6261
 L7000 = $7000
@@ -66,11 +63,11 @@ L711D = $711D
 bank3_Pointer_table_for_Background_Areas_Data:                                  ;
 .word    L9B5C                         ; 0xc010 $8000 5C 9B                    ;
 .word    bank3_Background_Areas_Data   ; 0xc012 $8002 48 9B                    ;
-.word    L0000                         ; 0xc014 $8004 00 00                    ;
-.word    L0000                         ; 0xc016 $8006 00 00                    ;
-.word    L0000                         ; 0xc018 $8008 00 00                    ;
-.word    L0000                         ; 0xc01a $800A 00 00                    ;
-.word    L0000                         ; 0xc01c $800C 00 00                    ;
+.word    $0000                         ; 0xc014 $8004 00 00                    ;
+.word    $0000                         ; 0xc016 $8006 00 00                    ;
+.word    $0000                         ; 0xc018 $8008 00 00                    ;
+.word    $0000                         ; 0xc01a $800A 00 00                    ;
+.word    $0000                         ; 0xc01c $800C 00 00                    ;
 ; ---------------------------------------------------------------------------- ;
 setpos Sidescroll_Palettes
 bank3_Palettes_for_Towns:                                                       ;
@@ -127,12 +124,12 @@ bank3_Objects_Construction_Routines_Blocks_wall_in_caves_2_high_X_wide_Dx:      
     LDX      #$03                      ; 0xc112 $8102 A2 03                    ; X = 03
 L8104:                                                                          ;
     LDA      bank3_Tile_Codes_for_House_Roofs,x; 0xc114 $8104 BD FA 80             ; refer to table at $C0FA
-    STA      L0000                     ; 0xc117 $8107 85 00                    ;
+    STA      zp_00                     ; 0xc117 $8107 85 00                    ;
     LDA      L80FE,x                   ; 0xc119 $8109 BD FE 80                 ; refer to table at $C0FA (offset +4)
     STA      $01                       ; 0xc11c $810C 85 01                    ;
     LDA      #$01                      ; 0xc11e $810E A9 01                    ; A = 01
     PHA                                ; 0xc120 $8110 48                       ;
-    LDA      L0000                     ; 0xc121 $8111 A5 00                    ;
+    LDA      zp_00                     ; 0xc121 $8111 A5 00                    ;
     STA      bss_0112                     ; 0xc123 $8113 8D 12 01                 ;; Tile Code 0 for Object
 L8116:                                                                          ;
     LDA      bss_0731                     ; 0xc126 $8116 AD 31 07                 ; Level Object Type and Size
@@ -185,7 +182,7 @@ bank3_Objects_Construction_Routines_House_Facade__Logs_X_wide__9x:              
     LDX      #$04                      ; 0xc165 $8155 A2 04                    ; X = 04
 L8157:                                                                          ;
     LDA      bank3_Tile_Codes_for_House_Facades,x; 0xc167 $8157 BD 4B 81           ; refer to table at $C14B
-    STA      L0000                     ; 0xc16a $815A 85 00                    ;
+    STA      zp_00                     ; 0xc16a $815A 85 00                    ;
     LDA      L8150,x                   ; 0xc16c $815C BD 50 81                 ; refer to table at $C14B (offset +5)
     STA      $01                       ; 0xc16f $815F 85 01                    ;
 L8161:                                                                          ;
@@ -195,7 +192,7 @@ L8161:                                                                          
 L8167:                                                                          ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc177 $8167 20 44 C9           ;
 L816A:                                                                          ;
-    LDA      L0000                     ; 0xc17a $816A A5 00                    ;
+    LDA      zp_00                     ; 0xc17a $816A A5 00                    ;
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc17c $816C 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc17f $816F CA                       ;
     BNE      L816A                     ; 0xc180 $8170 D0 F8                    ;
@@ -227,7 +224,7 @@ L8191:                                                                          
     LDA      bank3_Tile_Codes_for_House_Windows,x; 0xc1a1 $8191 BD 86 81           ;
     JSR      bank7_DF56                     ; 0xc1a4 $8194 20 56 DF                 ; Set tile and go down 1 row
     LDA      L8189,x                   ; 0xc1a7 $8197 BD 89 81                 ; refer to table at $C186 (offset +3)
-    STA      (L000E),y                 ; 0xc1aa $819A 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc1aa $819A 91 0E                    ;
     TYA                                ; 0xc1ac $819C 98                       ;
     CLC                                ; 0xc1ad $819D 18                       ;
     ADC      #$20                      ; 0xc1ae $819E 69 20                    ;
@@ -322,7 +319,7 @@ bank3_SmallObjectsConstructionRoutines_Wall_to_Right_03:                        
 L827A:                                                                          ;
     LDX      bank3_Table_for_Portal_Wall_Tile_Codes_Offset,y; 0xc28a $827A BE 68 82; refer to table at $C268		03:827A
     LDA      #$1A                      ; 0xc28d $827D A9 1A                    ; A = 1A
-    STA      L0000                     ; 0xc28f $827F 85 00                    ;
+    STA      zp_00                     ; 0xc28f $827F 85 00                    ;
     LDA      bss_0730                     ; 0xc291 $8281 AD 30 07                 ; Position of Object Placement
     AND      #$0F                      ; 0xc294 $8284 29 0F                    ; keep bits .... xxxx
     ORA      #$20                      ; 0xc296 $8286 09 20                    ; set bits  ..x. ....
@@ -332,16 +329,16 @@ L828E:                                                                          
     LDA      bank3_Tile_Codes_for_Portals_and_Walls,x; 0xc29e $828E BD FC 81       ;
     CMP      #$44                      ; 0xc2a1 $8291 C9 44                    ;
     BEQ      L8297                     ; 0xc2a3 $8293 F0 02                    ;
-    STA      (L000E),y                 ; 0xc2a5 $8295 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc2a5 $8295 91 0E                    ;
 L8297:                                                                          ;
-    DEC      L0000                     ; 0xc2a7 $8297 C6 00                    ;
+    DEC      zp_00                     ; 0xc2a7 $8297 C6 00                    ;
     DEX                                ; 0xc2a9 $8299 CA                       ;
     JSR      bank7_DF58                     ; 0xc2aa $829A 20 58 DF                 ; Go down 1 row
     CMP      #$B0                      ; 0xc2ad $829D C9 B0                    ;
     BCC      L828E                     ; 0xc2af $829F 90 ED                    ;
     INC      bss_0730                     ; 0xc2b1 $82A1 EE 30 07                 ; Position of Object Placement
     LDY      bss_0730                     ; 0xc2b4 $82A4 AC 30 07                 ;; Position of Object Placement
-    LDA      L0000                     ; 0xc2b7 $82A7 A5 00                    ;
+    LDA      zp_00                     ; 0xc2b7 $82A7 A5 00                    ;
     CMP      #$FF                      ; 0xc2b9 $82A9 C9 FF                    ;
     BNE      L828E                     ; 0xc2bb $82AB D0 E1                    ;
     RTS                                ; 0xc2bd $82AD 60                       ;
@@ -355,7 +352,7 @@ bank3_SmallObjectsConstructionRoutines_Table__08:                               
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc2c4 $82B4 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L82B7:                                                                          ;
     LDA      bank3_table0,x            ; 0xc2c7 $82B7 BD AE 82                 ; refer to table at $C2AE
-    STA      (L000E),y                 ; 0xc2ca $82BA 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc2ca $82BA 91 0E                    ;
     INY                                ; 0xc2cc $82BC C8                       ;
     DEX                                ; 0xc2cd $82BD CA                       ;
     LDA      bank3_table0,x            ; 0xc2ce $82BE BD AE 82                 ;
@@ -379,7 +376,7 @@ L82DB:                                                                          
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc2eb $82DB 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L82DE:                                                                          ;
     LDA      bank3_table1,x            ; 0xc2ee $82DE BD C9 82                 ; refer to table at $C2C9
-    STA      (L000E),y                 ; 0xc2f1 $82E1 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc2f1 $82E1 91 0E                    ;
     DEX                                ; 0xc2f3 $82E3 CA                       ;
     JSR      bank7_DF58                     ; 0xc2f4 $82E4 20 58 DF                 ; Go down 1 row
     AND      #$F0                      ; 0xc2f7 $82E7 29 F0                    ; keep bits xxxx ....
@@ -395,7 +392,7 @@ bank3_SmallObjectsConstructionRoutines_Undefined_Object_2_wide_extending_to_grou
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc305 $82F5 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L82F8:                                                                          ;
     LDA      #$49                      ; 0xc308 $82F8 A9 49                    ; A = 49
-    STA      (L000E),y                 ; 0xc30a $82FA 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc30a $82FA 91 0E                    ;
     INY                                ; 0xc30c $82FC C8                       ;
     LDA      #$49                      ; 0xc30d $82FD A9 49                    ; A = 49
     JSR      bank7_Set_tile_and_go_down_1_row_in_2x2_tiles_units; 0xc30f $82FF 20 4A DF; Go down 1 row
@@ -412,19 +409,19 @@ bank3_Objects_Construction_Routines_Water_X_wide_Y_Position_A___7x:             
     ORA      #$B0                      ; 0xc31f $830F 09 B0                    ; set bits  x.xx ....
     STA      bss_0730                     ; 0xc321 $8311 8D 30 07                 ; Position of Object Placement
     LDA      #$40                      ; 0xc324 $8314 A9 40                    ; A = 40
-    STA      L0000                     ; 0xc326 $8316 85 00                    ;
+    STA      zp_00                     ; 0xc326 $8316 85 00                    ;
 L8318:                                                                          ;
     LDA      bss_0731                     ; 0xc328 $8318 AD 31 07                 ; Level Object Type and Size
     AND      #$0F                      ; 0xc32b $831B 29 0F                    ; keep bits .... xxxx
     TAX                                ; 0xc32d $831D AA                       ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc32e $831E 20 44 C9           ;
 L8321:                                                                          ;
-    LDA      L0000                     ; 0xc331 $8321 A5 00                    ;
+    LDA      zp_00                     ; 0xc331 $8321 A5 00                    ;
     JSR      bank7_Set_tile_and_move_right_1_column; 0xc333 $8323 20 E7 DE         ; Set tile and move right 1 column
     DEX                                ; 0xc336 $8326 CA                       ;
     BPL      L8321                     ; 0xc337 $8327 10 F8                    ;
     LDA      #$92                      ; 0xc339 $8329 A9 92                    ; A = 92
-    STA      L0000                     ; 0xc33b $832B 85 00                    ;
+    STA      zp_00                     ; 0xc33b $832B 85 00                    ;
     JSR      bank7_DF4C                     ; 0xc33d $832D 20 4C DF                 ;
     AND      #$F0                      ; 0xc340 $8330 29 F0                    ; keep bits xxxx ....
     CMP      #$D0                      ; 0xc342 $8332 C9 D0                    ;
@@ -448,7 +445,7 @@ L834C:                                                                          
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc35e $834E 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L8351:                                                                          ;
     LDA      bank3_Tile_Codes_for_Special_Object_2x,x; 0xc361 $8351 BD 37 83       ; refer to table at $C337
-    STA      (L000E),y                 ; 0xc364 $8354 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc364 $8354 91 0E                    ;
     INY                                ; 0xc366 $8356 C8                       ;
     DEX                                ; 0xc367 $8357 CA                       ;
     BPL      L8351                     ; 0xc368 $8358 10 F7                    ;
@@ -464,13 +461,13 @@ bank3_Tile_Codes_for_Bridge_with_Water:                                         
 bank3_Objects_Construction_Routines_Bridge_with_Water_X_wide_Y_Position_A_6x:   ;
     LDA      #$02                      ; 0xc376 $8366 A9 02                    ; A = 02
 L8368:                                                                          ;
-    STA      L0000                     ; 0xc378 $8368 85 00                    ;
+    STA      zp_00                     ; 0xc378 $8368 85 00                    ;
     LDA      bss_0730                     ; 0xc37a $836A AD 30 07                 ; Position of Object Placement
     AND      #$0F                      ; 0xc37d $836D 29 0F                    ; keep bits .... xxxx
     ORA      #$A0                      ; 0xc37f $836F 09 A0                    ; set  bits x.x. ....
     STA      bss_0730                     ; 0xc381 $8371 8D 30 07                 ; Position of Object Placement
 L8374:                                                                          ;
-    LDX      L0000                     ; 0xc384 $8374 A6 00                    ;
+    LDX      zp_00                     ; 0xc384 $8374 A6 00                    ;
     LDA      bank3_Tile_Codes_for_Bridge_with_Water,x; 0xc386 $8376 BD 63 83       ;
     STA      $01                       ; 0xc389 $8379 85 01                    ;
     LDA      bss_0731                     ; 0xc38b $837B AD 31 07                 ; Level Object Type and Size
@@ -483,7 +480,7 @@ L8384:                                                                          
     DEX                                ; 0xc399 $8389 CA                       ;
     BPL      L8384                     ; 0xc39a $838A 10 F8                    ;
     JSR      bank7_DF4C                     ; 0xc39c $838C 20 4C DF                 ; Go down 1 row
-    DEC      L0000                     ; 0xc39f $838F C6 00                    ;
+    DEC      zp_00                     ; 0xc39f $838F C6 00                    ;
     BPL      L8374                     ; 0xc3a1 $8391 10 E1                    ;
     RTS                                ; 0xc3a3 $8393 60                       ;
                                                                                ;
@@ -511,13 +508,13 @@ L83B2:                                                                          
     ORA      #$03                      ; 0xc3c4 $83B4 09 03                    ; set  bits .... ..xx
     TAX                                ; 0xc3c6 $83B6 AA                       ;
     LDA      #$03                      ; 0xc3c7 $83B7 A9 03                    ; A = 03
-    STA      L0000                     ; 0xc3c9 $83B9 85 00                    ;
+    STA      zp_00                     ; 0xc3c9 $83B9 85 00                    ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc3cb $83BB 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L83BE:                                                                          ;
     LDA      bank3_Tile_Codes_for_Doors,x; 0xc3ce $83BE BD 94 83                 ;
     JSR      bank7_DF56                     ; 0xc3d1 $83C1 20 56 DF                 ; Set tile and go down 1 row
     DEX                                ; 0xc3d4 $83C4 CA                       ;
-    DEC      L0000                     ; 0xc3d5 $83C5 C6 00                    ;
+    DEC      zp_00                     ; 0xc3d5 $83C5 C6 00                    ;
     BPL      L83BE                     ; 0xc3d7 $83C7 10 F5                    ;
     RTS                                ; 0xc3d9 $83C9 60                       ;
                                                                                ;
@@ -774,10 +771,10 @@ bank3_SmallObjectsConstructionRoutines_Cloud__Short_07:                         
 L866A:                                                                          ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc67a $866A 20 44 C9           ;
     LDA      #$C4                      ; 0xc67d $866D A9 C4                    ; A = C4
-    STA      (L000E),y                 ; 0xc67f $866F 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc67f $866F 91 0E                    ;
     INY                                ; 0xc681 $8671 C8                       ;
     LDA      bank3_Tile_Codes_for_Clouds_LongShort,x; 0xc682 $8672 BD 66 86        ;
-    STA      (L000E),y                 ; 0xc685 $8675 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc685 $8675 91 0E                    ;
     RTS                                ; 0xc687 $8677 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -797,7 +794,7 @@ bank3_SmallObjectsConstructionRoutines_Chair__05:                               
 L8685:                                                                          ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc695 $8685 20 44 C9           ; Set RAM Address for Object (0E-0F)
     LDA      L8680,x                   ; 0xc698 $8688 BD 80 86                 ;
-    STA      (L000E),y                 ; 0xc69b $868B 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc69b $868B 91 0E                    ;
     RTS                                ; 0xc69d $868D 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -809,7 +806,7 @@ bank3_SmallObjectsConstructionRoutines_Bench__09:                               
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xc6a5 $8695 20 44 C9           ; Set RAM Address for Object (0E-0F)
 L8698:                                                                          ;
     LDA      bank3_Tile_Codes_for_Bench,x; 0xc6a8 $8698 BD 8E 86                 ;
-    STA      (L000E),y                 ; 0xc6ab $869B 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xc6ab $869B 91 0E                    ;
     INY                                ; 0xc6ad $869D C8                       ;
     DEX                                ; 0xc6ae $869E CA                       ;
     BPL      L8698                     ; 0xc6af $869F 10 F7                    ;
@@ -1366,11 +1363,11 @@ L96EF:                                                                          
 ; ---------------------------------------------------------------------------- ;
 L96F0:                                                                          ;
     LDA      rng_out,x                   ; 0xd700 $96F0 BD 1B 05                 ; Randomizer
-    STA      L0002                     ; 0xd703 $96F3 85 02                    ;
+    STA      zp_02                     ; 0xd703 $96F3 85 02                    ;
     AND      #$03                      ; 0xd705 $96F5 29 03                    ; keep bits .... ..xx
     TAY                                ; 0xd707 $96F7 A8                       ;
     ASL                                ; 0xd708 $96F8 0A                       ;
-    STA      L0000                     ; 0xd709 $96F9 85 00                    ;
+    STA      zp_00                     ; 0xd709 $96F9 85 00                    ;
     LDA      bank3_Table_for_Random_Townfolks_Codes,y; 0xd70b $96FB B9 D0 96       ;
     STA      $A1,x                     ; 0xd70e $96FE 95 A1                    ; Enemy Code
     LDA      #$01                      ; 0xd710 $9700 A9 01                    ; A = 01
@@ -1386,7 +1383,7 @@ L96F0:                                                                          
     LDA      joy_held+0                       ; 0xd723 $9713 A5 F7                    ; Controller 1 buttons held
     AND      #$03                      ; 0xd725 $9715 29 03                    ; keep bits .... ..xx (Right and Left)
     BNE      L971B                     ; 0xd727 $9717 D0 02                    ;
-    LDA      L0002                     ; 0xd729 $9719 A5 02                    ;
+    LDA      zp_02                     ; 0xd729 $9719 A5 02                    ;
 L971B:                                                                          ;
     AND      #$01                      ; 0xd72b $971B 29 01                    ; keep bits .... ...x
     TAY                                ; 0xd72d $971D A8                       ;
@@ -1400,7 +1397,7 @@ L971B:                                                                          
     INY                                ; 0xd73f $972F C8                       ;
     STY      $60,x                     ; 0xd740 $9730 94 60                    ; Enemy facing direction
     TYA                                ; 0xd742 $9732 98                       ;
-    ADC      L0000                     ; 0xd743 $9733 65 00                    ;
+    ADC      zp_00                     ; 0xd743 $9733 65 00                    ;
     TAY                                ; 0xd745 $9735 A8                       ;
     LDA      L96D3,y                   ; 0xd746 $9736 B9 D3 96                 ;
     STA      $71,x                     ; 0xd749 $9739 95 71                    ; Enemy X Velocity
@@ -1415,10 +1412,10 @@ bank3_table8:                                                                   
 ; ---------------------------------------------------------------------------- ;
 bank3_code15:                                                                   ;
     JSR      bank7_Determine_Enemy_Facing_Direction_relative_to_Link; 0xd753 $9743 20 91 DC; Determine Enemy Facing Direction
-    STY      L0000                     ; 0xd756 $9746 84 00                    ;
+    STY      zp_00                     ; 0xd756 $9746 84 00                    ;
     LDA      $A1,x                     ; 0xd758 $9748 B5 A1                    ; Enemy Code
     ASL                                ; 0xd75a $974A 0A                       ;
-    ADC      L0000                     ; 0xd75b $974B 65 00                    ;
+    ADC      zp_00                     ; 0xd75b $974B 65 00                    ;
     TAY                                ; 0xd75d $974D A8                       ;
     LDA      L969A,y                   ; 0xd75e $974E B9 9A 96                 ;
     STA      $71,x                     ; 0xd761 $9751 95 71                    ; Enemy X Velocity
@@ -1660,7 +1657,7 @@ L98CC:                                                                          
     BNE      L98D8                     ; 0xd8de $98CE D0 08                    ;
     JSR      L98F9                     ; 0xd8e0 $98D0 20 F9 98                 ;
     LDA      #$54                      ; 0xd8e3 $98D3 A9 54                    ; A = 54
-    STA      (L0000),y                 ; 0xd8e5 $98D5 91 00                    ;
+    STA      (zp_00),y                 ; 0xd8e5 $98D5 91 00                    ;
     RTS                                ; 0xd8e7 $98D7 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1685,12 +1682,12 @@ L98F6:                                                                          
     JSR      bank7_DD3D                     ; 0xd906 $98F6 20 3D DD                 ;
 L98F9:                                                                          ;
     LDA      bss_058D,x                   ; 0xd909 $98F9 BD 8D 05                 ;
-    STA      L0000                     ; 0xd90c $98FC 85 00                    ;
+    STA      zp_00                     ; 0xd90c $98FC 85 00                    ;
     LDA      bss_0593,x                   ; 0xd90e $98FE BD 93 05                 ;
     STA      $01                       ; 0xd911 $9901 85 01                    ;
     LDY      #$B0                      ; 0xd913 $9903 A0 B0                    ; Y = B0
     LDA      #$53                      ; 0xd915 $9905 A9 53                    ; A = 53
-    STA      (L0000),y                 ; 0xd917 $9907 91 00                    ;
+    STA      (zp_00),y                 ; 0xd917 $9907 91 00                    ;
     RTS                                ; 0xd919 $9909 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -1739,7 +1736,7 @@ L9950:                                                                          
     LDX      #$0C                      ; 0xd968 $9958 A2 0C                    ; X = 0C
 L995A:                                                                          ;
     LDA      #$05                      ; 0xd96a $995A A9 05                    ; A = 05
-    STA      L0000                     ; 0xd96c $995C 85 00                    ;
+    STA      zp_00                     ; 0xd96c $995C 85 00                    ;
     LDY      bss_0301                     ; 0xd96e $995E AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
 L9961:                                                                          ;
     LDA      bank3_Tile_Mappings_for_Opening_Door,x; 0xd971 $9961 BD 22 99         ;
@@ -1748,7 +1745,7 @@ L9961:                                                                          
     STA      bss_030E,y                   ; 0xd97a $996A 99 0E 03                 ;
     INX                                ; 0xd97d $996D E8                       ;
     INY                                ; 0xd97e $996E C8                       ;
-    DEC      L0000                     ; 0xd97f $996F C6 00                    ;
+    DEC      zp_00                     ; 0xd97f $996F C6 00                    ;
     BPL      L9961                     ; 0xd981 $9971 10 EE                    ;
     LDX      $10                       ; 0xd983 $9973 A6 10                    ;; used as monster x register ;draw boss hp bar
     LDY      bss_0301                     ; 0xd985 $9975 AC 01 03                 ;;ppu number of bytes following (counts both instructions and tile data values); Used when writing text to screen
@@ -1955,10 +1952,10 @@ bank3_Enemy_Routines1_Wise_Man:                                                 
     DEC      bss_049E                     ; 0xdadd $9ACD CE 9E 04                 ;
     LDA      #$00                      ; 0xdae0 $9AD0 A9 00                    ; A = 00
     STA      bss_05C3,x                   ; 0xdae2 $9AD2 9D C3 05                 ;
-    DEC      L0000                     ; 0xdae5 $9AD5 C6 00                    ;
-    DEC      L0000                     ; 0xdae7 $9AD7 C6 00                    ;
-    DEC      L0000                     ; 0xdae9 $9AD9 C6 00                    ;
-    DEC      L0000                     ; 0xdaeb $9ADB C6 00                    ;
+    DEC      zp_00                     ; 0xdae5 $9AD5 C6 00                    ;
+    DEC      zp_00                     ; 0xdae7 $9AD7 C6 00                    ;
+    DEC      zp_00                     ; 0xdae9 $9AD9 C6 00                    ;
+    DEC      zp_00                     ; 0xdaeb $9ADB C6 00                    ;
     LDA      #$01                      ; 0xdaed $9ADD A9 01                    ; A = 01
     STA      $03                       ; 0xdaef $9ADF 85 03                    ;
     LDY      $91,x                     ; 0xdaf1 $9AE1 B4 91                    ;
@@ -2138,7 +2135,7 @@ bank3_SmallObjectsConstructionRoutines_Sign__06:                                
     LDA      #$E3                      ; 0xdc2e $9C1E A9 E3                    ; A = E3
     JSR      bank7_DF56                     ; 0xdc30 $9C20 20 56 DF                 ;
     LDA      #$E4                      ; 0xdc33 $9C23 A9 E4                    ; A = E4
-    STA      (L000E),y                 ; 0xdc35 $9C25 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xdc35 $9C25 91 0E                    ;
     RTS                                ; 0xdc37 $9C27 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2162,7 +2159,7 @@ bank3_SmallObjectsConstructionRoutines_Chimney_2_wide_1_high_cant_go_in__0C:    
     LDA      bank3_table11,x           ; 0xdc71 $9C61 BD 5A 9C                 ;
     JSR      bank7_Set_tile_and_move_right_1_column; 0xdc74 $9C64 20 E7 DE         ; Set tile and move right 1 column
     LDA      bank3_table11,x           ; 0xdc77 $9C67 BD 5A 9C                 ;
-    STA      (L000E),y                 ; 0xdc7a $9C6A 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xdc7a $9C6A 91 0E                    ;
     RTS                                ; 0xdc7c $9C6C 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -2173,11 +2170,11 @@ bank3_Objects_Construction_Routines_Column_X_high_1_wide___Ex:                  
     LDY      bss_0730                     ; 0xdc83 $9C73 AC 30 07                 ; Position of Object Placement
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xdc86 $9C76 20 44 C9           ;
     LDA      #$94                      ; 0xdc89 $9C79 A9 94                    ; A = 94
-    STA      (L000E),y                 ; 0xdc8b $9C7B 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xdc8b $9C7B 91 0E                    ;
     BNE      L9C83                     ; 0xdc8d $9C7D D0 04                    ;
 L9C7F:                                                                          ;
     LDA      #$93                      ; 0xdc8f $9C7F A9 93                    ; A = 93
-    STA      (L000E),y                 ; 0xdc91 $9C81 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xdc91 $9C81 91 0E                    ;
 L9C83:                                                                          ;
     TYA                                ; 0xdc93 $9C83 98                       ;
     CLC                                ; 0xdc94 $9C84 18                       ;
@@ -2221,7 +2218,7 @@ L9CAE:                                                                          
     TAY                                ; 0xdcc8 $9CB8 A8                       ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0xdcc9 $9CB9 20 44 C9           ;
     LDA      bank3_Tile_Codes_for_Gravestone_and_Decorations,x; 0xdccc $9CBC BD A9 9C;
-    STA      (L000E),y                 ; 0xdccf $9CBF 91 0E                    ;
+    STA      (zp_0E),y                 ; 0xdccf $9CBF 91 0E                    ;
     RTS                                ; 0xdcd1 $9CC1 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3083,7 +3080,7 @@ bank3_Dialog_Routines_load_tiles_to_draw_the_dialog_box_lines_and_more__R1:     
     ASL                                ; 0xf0e5 $B0D5 0A                       ;
     TAY                                ; 0xf0e6 $B0D6 A8                       ;
     LDA      bank3_Pointer_table_for_rows_of_dialog_box,y; 0xf0e7 $B0D7 B9 F3 B3   ;
-    STA      L0002                     ; 0xf0ea $B0DA 85 02                    ;
+    STA      zp_02                     ; 0xf0ea $B0DA 85 02                    ;
     LDA      bank3_Pointer_table_for_rows_of_dialog_box+$01,y; 0xf0ec $B0DC B9 F4 B3;
     STA      $03                       ; 0xf0ef $B0DF 85 03                    ;
     LDA      bank3_Pointer_table_for_rows_of_dialog_box+$01+$09,y; 0xf0f1 $B0E1 B9 FD B3;
@@ -3092,7 +3089,7 @@ bank3_Dialog_Routines_load_tiles_to_draw_the_dialog_box_lines_and_more__R1:     
     STA      $05                       ; 0xf0f9 $B0E9 85 05                    ;
     LDY      #$0D                      ; 0xf0fb $B0EB A0 0D                    ; Y = 0D
 LB0ED:                                                                          ;
-    LDA      (L0002),y                 ; 0xf0fd $B0ED B1 02                    ;
+    LDA      (zp_02),y                 ; 0xf0fd $B0ED B1 02                    ;
     STA      bss_053E,y                   ; 0xf0ff $B0EF 99 3E 05                 ;;temp area used to copy from to generate the ppu macro for the spell menu
     LDA      ($04),y                   ; 0xf102 $B0F2 B1 04                    ;
     STA      bss_054C,y                   ; 0xf104 $B0F4 99 4C 05                 ;
@@ -3148,7 +3145,7 @@ LB13B:                                                                          
     STA      $06                       ; 0xf14b $B13B 85 06                    ;
 ;$04 > 0 and Scrolling Offset (bits 4-7) is Odd                                ;
 LB13D:                                                                          ;
-    LDA      L0002                     ; 0xf14d $B13D A5 02                    ;
+    LDA      zp_02                     ; 0xf14d $B13D A5 02                    ;
     LSR                                ; 0xf14f $B13F 4A                       ;
     LDA      $05                       ; 0xf150 $B140 A5 05                    ;
     BCS      LB146                     ; 0xf152 $B142 B0 02                    ;
@@ -3180,7 +3177,7 @@ LB15F:                                                                          
     LSR                                ; 0xf179 $B169 4A                       ;
     STA      $03                       ; 0xf17a $B16A 85 03                    ;
     PLP                                ; 0xf17c $B16C 28                       ;
-    LDA      L0000                     ; 0xf17d $B16D A5 00                    ;
+    LDA      zp_00                     ; 0xf17d $B16D A5 00                    ;
     ADC      #$00                      ; 0xf17f $B16F 69 00                    ;
     AND      #$01                      ; 0xf181 $B171 29 01                    ; keep bits .... ...x
     ASL                                ; 0xf183 $B173 0A                       ;
@@ -3190,7 +3187,7 @@ LB15F:                                                                          
     LDA      bss_0525                     ; 0xf18a $B17A AD 25 05                 ; Routine Delay
     CLC                                ; 0xf18d $B17D 18                       ;
     ADC      #$01                      ; 0xf18e $B17E 69 01                    ;
-    STA      L0002                     ; 0xf190 $B180 85 02                    ;
+    STA      zp_02                     ; 0xf190 $B180 85 02                    ;
     RTS                                ; 0xf192 $B182 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3223,7 +3220,7 @@ bank3_Redraw_over_Dialog_Box_row:                                               
     JSR      LB32A                     ; 0xf1b9 $B1A9 20 2A B3                 ; Advance 0E-0F pointer with the value of A
     LDX      #$00                      ; 0xf1bc $B1AC A2 00                    ; X = 00
 LB1AE:                                                                          ;
-    LDA      (L000E),y                 ; 0xf1be $B1AE B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0xf1be $B1AE B1 0E                    ;
     STA      bss_055A,x                   ; 0xf1c0 $B1B0 9D 5A 05                 ;
     INY                                ; 0xf1c3 $B1B3 C8                       ;
     TYA                                ; 0xf1c4 $B1B4 98                       ;
@@ -3243,10 +3240,10 @@ LB1C4:                                                                          
     CPX      #$07                      ; 0xf1d5 $B1C5 E0 07                    ; number of TSAs to draw per row
     BCC      LB1AE                     ; 0xf1d7 $B1C7 90 E5                    ;
     LDA      #$00                      ; 0xf1d9 $B1C9 A9 00                    ; A = 00
-    STA      L0000                     ; 0xf1db $B1CB 85 00                    ;
+    STA      zp_00                     ; 0xf1db $B1CB 85 00                    ;
     STA      $01                       ; 0xf1dd $B1CD 85 01                    ;
 LB1CF:                                                                          ;
-    LDX      L0000                     ; 0xf1df $B1CF A6 00                    ;
+    LDX      zp_00                     ; 0xf1df $B1CF A6 00                    ;
     LDA      bss_055A,x                   ; 0xf1e1 $B1D1 BD 5A 05                 ;
     AND      #$C0                      ; 0xf1e4 $B1D4 29 C0                    ; keep bits xx.. ....
     ASL                                ; 0xf1e6 $B1D6 0A                       ;
@@ -3265,7 +3262,7 @@ LB1CF:                                                                          
     INY                                ; 0xf1f9 $B1E9 C8                       ;
     JSR      bank7_C258                     ; 0xf1fa $B1EA 20 58 C2                 ;
     STX      $01                       ; 0xf1fd $B1ED 86 01                    ;
-    INC      L0000                     ; 0xf1ff $B1EF E6 00                    ;
+    INC      zp_00                     ; 0xf1ff $B1EF E6 00                    ;
     CPX      #$0E                      ; 0xf201 $B1F1 E0 0E                    ; row width (in 8x8 tiles)
     BCC      LB1CF                     ; 0xf203 $B1F3 90 DA                    ;
     JSR      bank3_draw_tiles_for_2_rows; 0xf205 $B1F5 20 F2 B2                 ;
@@ -3304,7 +3301,7 @@ LB22E:                                                                          
 LB230:                                                                          ;
     CPX      #$04                      ; 0xf240 $B230 E0 04                    ;
     BCC      LB23B                     ; 0xf242 $B232 90 07                    ;
-    LDA      L0002                     ; 0xf244 $B234 A5 02                    ;
+    LDA      zp_02                     ; 0xf244 $B234 A5 02                    ;
     LSR                                ; 0xf246 $B236 4A                       ;
     LDA      $06                       ; 0xf247 $B237 A5 06                    ;
     BCS      LB23D                     ; 0xf249 $B239 B0 02                    ;
@@ -3336,7 +3333,7 @@ LB258:                                                                          
     STA      $01                       ; 0xf270 $B260 85 01                    ;
     LDA      bss_072A                     ; 0xf272 $B262 AD 2A 07                 ; Scrolling Offset High Byte
     ADC      #$00                      ; 0xf275 $B265 69 00                    ;
-    STA      L0000                     ; 0xf277 $B267 85 00                    ;
+    STA      zp_00                     ; 0xf277 $B267 85 00                    ;
     LDA      $01                       ; 0xf279 $B269 A5 01                    ;
     EOR      #$FF                      ; 0xf27b $B26B 49 FF                    ; flip all bits
     CLC                                ; 0xf27d $B26D 18                       ;
@@ -3377,7 +3374,7 @@ LB282:                                                                          
     LSR                                ; 0xf2b0 $B2A0 4A                       ;
     ADC      $05                       ; 0xf2b1 $B2A1 65 05                    ;
     STA      bss_0364,y                   ; 0xf2b3 $B2A3 99 64 03                 ;
-    LDA      L0000                     ; 0xf2b6 $B2A6 A5 00                    ;
+    LDA      zp_00                     ; 0xf2b6 $B2A6 A5 00                    ;
     AND      #$01                      ; 0xf2b8 $B2A8 29 01                    ; keep bits .... ...x
     ASL                                ; 0xf2ba $B2AA 0A                       ;
     ASL                                ; 0xf2bb $B2AB 0A                       ;
@@ -3402,7 +3399,7 @@ LB2BC:                                                                          
     ADC      #$10                      ; 0xf2dd $B2CD 69 10                    ;
     STA      $01                       ; 0xf2df $B2CF 85 01                    ;
     BCC      LB2D5                     ; 0xf2e1 $B2D1 90 02                    ;
-    INC      L0000                     ; 0xf2e3 $B2D3 E6 00                    ;
+    INC      zp_00                     ; 0xf2e3 $B2D3 E6 00                    ;
 LB2D5:                                                                          ;
     INY                                ; 0xf2e5 $B2D5 C8                       ;
     INY                                ; 0xf2e6 $B2D6 C8                       ;
@@ -3430,7 +3427,7 @@ LB2F1:                                                                          
 bank3_draw_tiles_for_2_rows:                                                    ;
     JSR      LB24B                     ; 0xf302 $B2F2 20 4B B2                 ;
     LDA      bss_072A                     ; 0xf305 $B2F5 AD 2A 07                 ; Scrolling Offset High Byte
-    STA      L0000                     ; 0xf308 $B2F8 85 00                    ;
+    STA      zp_00                     ; 0xf308 $B2F8 85 00                    ;
     LDA      bss_072C                     ; 0xf30a $B2FA AD 2C 07                 ; Scrolling Offset Low Byte
     STA      $01                       ; 0xf30d $B2FD 85 01                    ;
     LDA      #$00                      ; 0xf30f $B2FF A9 00                    ; A = 00
@@ -3443,7 +3440,7 @@ LB304:                                                                          
     STA      bss_0364,y                   ; 0xf316 $B306 99 64 03                 ;
     LDA      #$01                      ; 0xf319 $B309 A9 01                    ; A = 01
     STA      bss_0365,y                   ; 0xf31b $B30B 99 65 03                 ;
-    LDA      L0002                     ; 0xf31e $B30E A5 02                    ;
+    LDA      zp_02                     ; 0xf31e $B30E A5 02                    ;
     AND      #$FE                      ; 0xf320 $B310 29 FE                    ; keep bits xxxx xxx.
     ASL                                ; 0xf322 $B312 0A                       ;
     ADC      $04                       ; 0xf323 $B313 65 04                    ;
@@ -3465,8 +3462,8 @@ bank3_check_if_Scrolling_Offset__bits_4_to_7__is_even:                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LB32A:                                                                          ;
-    ADC      L000E                     ; 0xf33a $B32A 65 0E                    ;
-    STA      L000E                     ; 0xf33c $B32C 85 0E                    ;
+    ADC      zp_0E                     ; 0xf33a $B32A 65 0E                    ;
+    STA      zp_0E                     ; 0xf33c $B32C 85 0E                    ;
     LDA      $0F                       ; 0xf33e $B32E A5 0F                    ;
     ADC      #$00                      ; 0xf340 $B330 69 00                    ;
     STA      $0F                       ; 0xf342 $B332 85 0F                    ;
@@ -3483,9 +3480,9 @@ LB335:                                                                          
     CLC                                ; 0xf34e $B33E 18                       ;
     ADC      #$20                      ; 0xf34f $B33F 69 20                    ;
     STA      $01                       ; 0xf351 $B341 85 01                    ;
-    LDA      L0000                     ; 0xf353 $B343 A5 00                    ;
+    LDA      zp_00                     ; 0xf353 $B343 A5 00                    ;
     ADC      #$00                      ; 0xf355 $B345 69 00                    ;
-    STA      L0000                     ; 0xf357 $B347 85 00                    ;
+    STA      zp_00                     ; 0xf357 $B347 85 00                    ;
     INC      $04                       ; 0xf359 $B349 E6 04                    ;
     LDA      $04                       ; 0xf35b $B34B A5 04                    ;
     CMP      #$04                      ; 0xf35d $B34D C9 04                    ;
@@ -3510,13 +3507,13 @@ bank3_Dialog_Routines_save_palette_mappings_to_memory__R4:                      
     TAY                                ; 0xf376 $B366 A8                       ;
     LDX      #$00                      ; 0xf377 $B367 A2 00                    ; X = 00
     LDA      #$04                      ; 0xf379 $B369 A9 04                    ; A = 04
-    STA      L0000                     ; 0xf37b $B36B 85 00                    ;
+    STA      zp_00                     ; 0xf37b $B36B 85 00                    ;
 LB36D:                                                                          ;
     LDA      #$00                      ; 0xf37d $B36D A9 00                    ; A = 00
     STA      $01                       ; 0xf37f $B36F 85 01                    ;
 LB371:                                                                          ;
     LDA      #$0C                      ; 0xf381 $B371 A9 0C                    ; A = 0C
-    STA      L0002                     ; 0xf383 $B373 85 02                    ;
+    STA      zp_02                     ; 0xf383 $B373 85 02                    ;
 LB375:                                                                          ;
     JSR      LB3B9                     ; 0xf385 $B375 20 B9 B3                 ;
     TYA                                ; 0xf388 $B378 98                       ;
@@ -3533,7 +3530,7 @@ LB375:                                                                          
     INX                                ; 0xf395 $B385 E8                       ;
     INX                                ; 0xf396 $B386 E8                       ;
 LB387:                                                                          ;
-    DEC      L0002                     ; 0xf397 $B387 C6 02                    ;
+    DEC      zp_02                     ; 0xf397 $B387 C6 02                    ;
     BNE      LB375                     ; 0xf399 $B389 D0 EA                    ;
     TYA                                ; 0xf39b $B38B 98                       ;
     SEC                                ; 0xf39c $B38C 38                       ;
@@ -3541,10 +3538,10 @@ LB387:                                                                          
     TAY                                ; 0xf39f $B38F A8                       ;
     AND      #$0F                      ; 0xf3a0 $B390 29 0F                    ; keep bits .... xxxx
     BNE      LB3A4                     ; 0xf3a2 $B392 D0 10                    ;
-    LDA      L000E                     ; 0xf3a4 $B394 A5 0E                    ;
+    LDA      zp_0E                     ; 0xf3a4 $B394 A5 0E                    ;
     CLC                                ; 0xf3a6 $B396 18                       ;
     ADC      #$D0                      ; 0xf3a7 $B397 69 D0                    ;
-    STA      L000E                     ; 0xf3a9 $B399 85 0E                    ;
+    STA      zp_0E                     ; 0xf3a9 $B399 85 0E                    ;
     BCC      LB39F                     ; 0xf3ab $B39B 90 02                    ;
     INC      $0F                       ; 0xf3ad $B39D E6 0F                    ;
 LB39F:                                                                          ;
@@ -3562,7 +3559,7 @@ LB3A4:                                                                          
     STA      $01                       ; 0xf3bd $B3AD 85 01                    ;
     BNE      LB371                     ; 0xf3bf $B3AF D0 C0                    ;
     INX                                ; 0xf3c1 $B3B1 E8                       ;
-    DEC      L0000                     ; 0xf3c2 $B3B2 C6 00                    ;
+    DEC      zp_00                     ; 0xf3c2 $B3B2 C6 00                    ;
     BNE      LB36D                     ; 0xf3c4 $B3B4 D0 B7                    ;
     JMP      bank3_Dialog_Routines_advance_to_next_routine_in_this_table__R2; 0xf3c6 $B3B6 4C 07 B1;
                                                                                ;
@@ -3573,7 +3570,7 @@ LB3B9:                                                                          
     ASL                                ; 0xf3cb $B3BB 0A                       ;
     ASL                                ; 0xf3cc $B3BC 0A                       ;
     ASL                                ; 0xf3cd $B3BD 0A                       ;
-    LDA      (L000E),y                 ; 0xf3ce $B3BE B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0xf3ce $B3BE B1 0E                    ;
     AND      #$C0                      ; 0xf3d0 $B3C0 29 C0                    ; keep bits xx.. ....
     BCS      LB3D0                     ; 0xf3d2 $B3C2 B0 0C                    ;
     ASL                                ; 0xf3d4 $B3C4 0A                       ;
@@ -3608,7 +3605,7 @@ bank3_Set_RAM_address_according_to_screen_number:                               
     AND      #$03                      ; 0xf3f5 $B3E5 29 03                    ; keep bits .... ..xx
     TAY                                ; 0xf3f7 $B3E7 A8                       ;
     LDA      bank3_Pointer_table_for_location_of_the_4_screens_in_RAM_,y; 0xf3f8 $B3E8 B9 DD B3; refer to table at $F3DD
-    STA      L000E                     ; 0xf3fb $B3EB 85 0E                    ;
+    STA      zp_0E                     ; 0xf3fb $B3EB 85 0E                    ;
     LDA      bank3_Pointer_table_for_location_of_the_4_screens_in_RAM_+$04,y; 0xf3fd $B3ED B9 E1 B3; refer to table at $F3E1
     STA      $0F                       ; 0xf400 $B3F0 85 0F                    ;
     RTS                                ; 0xf402 $B3F2 60                       ;
@@ -3686,15 +3683,15 @@ bank3_Dialog_Routines_Set_text_pointer_according_to_Townfolk_type__R5:          
     LDA      $A1,x                     ; 0xf49a $B48A B5 A1                    ; Enemy ID
     SEC                                ; 0xf49c $B48C 38                       ;
     SBC      #$0A                      ; 0xf49d $B48D E9 0A                    ;
-    STA      L0000                     ; 0xf49f $B48F 85 00                    ;
+    STA      zp_00                     ; 0xf49f $B48F 85 00                    ;
     ASL                                ; 0xf4a1 $B491 0A                       ;
     TAY                                ; 0xf4a2 $B492 A8                       ;
     LDA      bank3_Pointer_table_for_Dialog_Conditions,y; 0xf4a3 $B493 B9 4E B4    ;
-    STA      L0002                     ; 0xf4a6 $B496 85 02                    ;
+    STA      zp_02                     ; 0xf4a6 $B496 85 02                    ;
     LDA      bank3_Pointer_table_for_Dialog_Conditions+$01,y; 0xf4a8 $B498 B9 4F B4;
     STA      $03                       ; 0xf4ab $B49B 85 03                    ;
     LDY      town_code                     ; 0xf4ad $B49D AC 6B 05                 ;; Town Code	;used by wise man to pick magic to give?
-    JMP      (L0002)                   ; 0xf4b0 $B4A0 6C 02 00                 ;
+    JMP      (zp_02)                   ; 0xf4b0 $B4A0 6C 02 00                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Dialog_Conditions_Blue_Old_Woman__Immobile___River_Man:                   ;
@@ -3802,7 +3799,7 @@ LB54B:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Dialog_Conditions_Immobile:                                               ;
-    LDA      L0000                     ; 0xf55e $B54E A5 00                    ;
+    LDA      zp_00                     ; 0xf55e $B54E A5 00                    ;
     SEC                                ; 0xf560 $B550 38                       ;
     SBC      #$06                      ; 0xf561 $B551 E9 06                    ;
     TAX                                ; 0xf563 $B553 AA                       ;
@@ -3816,7 +3813,7 @@ bank3_Dialog_Conditions_Idle:                                                   
     CPY      #$00                      ; 0xf570 $B560 C0 00                    ;
     BEQ      LB579                     ; 0xf572 $B562 F0 15                    ;
     STY      $01                       ; 0xf574 $B564 84 01                    ;
-    LDA      L0000                     ; 0xf576 $B566 A5 00                    ;
+    LDA      zp_00                     ; 0xf576 $B566 A5 00                    ;
     SEC                                ; 0xf578 $B568 38                       ;
     SBC      #$09                      ; 0xf579 $B569 E9 09                    ;
     ASL                                ; 0xf57b $B56B 0A                       ;
@@ -3845,7 +3842,7 @@ LB589:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank3_Dialog_Conditions_Walking:                                                ;
-    LDA      L0000                     ; 0xf5a2 $B592 A5 00                    ;
+    LDA      zp_00                     ; 0xf5a2 $B592 A5 00                    ;
     SEC                                ; 0xf5a4 $B594 38                       ;
     SBC      #$13                      ; 0xf5a5 $B595 E9 13                    ;
     TAX                                ; 0xf5a7 $B597 AA                       ;
@@ -3855,10 +3852,10 @@ bank3_Dialog_Conditions_Walking:                                                
     JMP      bank3_Dialog_Conditions_default; 0xf5b1 $B5A1 4C C7 B5                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-    LDA      L0000                     ; 0xf5b4 $B5A4 A5 00                    ;
+    LDA      zp_00                     ; 0xf5b4 $B5A4 A5 00                    ;
     SEC                                ; 0xf5b6 $B5A6 38                       ;
     SBC      #$04                      ; 0xf5b7 $B5A7 E9 04                    ;
-    STA      L0000                     ; 0xf5b9 $B5A9 85 00                    ;
+    STA      zp_00                     ; 0xf5b9 $B5A9 85 00                    ;
     JMP      bank3_Dialog_Conditions_default; 0xf5bb $B5AB 4C C7 B5                ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -3877,18 +3874,18 @@ bank3_Dialog_Conditions_Ache_Bit_talker:                                        
     STA      bss_05A5,x                   ; 0xf5d2 $B5C2 9D A5 05                 ;;town npc chat counter
     INC      $05                       ; 0xf5d5 $B5C5 E6 05                    ;
 bank3_Dialog_Conditions_default:                                                ;
-    LDA      L0000                     ; 0xf5d7 $B5C7 A5 00                    ;
+    LDA      zp_00                     ; 0xf5d7 $B5C7 A5 00                    ;
     LDX      bss_048C                     ; 0xf5d9 $B5C9 AE 8C 04                 ;
     BEQ      LB5D0                     ; 0xf5dc $B5CC F0 02                    ;
     LDA      #$0F                      ; 0xf5de $B5CE A9 0F                    ; A = 0F
 LB5D0:                                                                          ;
     ASL                                ; 0xf5e0 $B5D0 0A                       ;
     ASL                                ; 0xf5e1 $B5D1 0A                       ;
-    STA      L0000                     ; 0xf5e2 $B5D2 85 00                    ;
+    STA      zp_00                     ; 0xf5e2 $B5D2 85 00                    ;
     LDA      town_code                     ; 0xf5e4 $B5D4 AD 6B 05                 ; Town Code
     AND      #$03                      ; 0xf5e7 $B5D7 29 03                    ; keep bits .... ..xx
     CLC                                ; 0xf5e9 $B5D9 18                       ;
-    ADC      L0000                     ; 0xf5ea $B5DA 65 00                    ;
+    ADC      zp_00                     ; 0xf5ea $B5DA 65 00                    ;
     TAY                                ; 0xf5ec $B5DC A8                       ;
     LDA      bank3_related_to_dialog_indexes1,y; 0xf5ed $B5DD B9 38 A2             ;
     LDX      $05                       ; 0xf5f0 $B5E0 A6 05                    ;
@@ -3909,13 +3906,13 @@ bank3_At_this_point_A_is_the_dialog_index:                                      
     ASL                                ; 0xf60d $B5FD 0A                       ;
     TAX                                ; 0xf60e $B5FE AA                       ;
     LDA      LB421,x                   ; 0xf60f $B5FF BD 21 B4                 ;
-    STA      L0000                     ; 0xf612 $B602 85 00                    ;
+    STA      zp_00                     ; 0xf612 $B602 85 00                    ;
     LDA      LB422,x                   ; 0xf614 $B604 BD 22 B4                 ;
     STA      $01                       ; 0xf617 $B607 85 01                    ;
-    LDA      (L0000),y                 ; 0xf619 $B609 B1 00                    ;
+    LDA      (zp_00),y                 ; 0xf619 $B609 B1 00                    ;
     STA      bss_0569                     ; 0xf61b $B60B 8D 69 05                 ; Pointer to letter (high)
     INY                                ; 0xf61e $B60E C8                       ;
-    LDA      (L0000),y                 ; 0xf61f $B60F B1 00                    ;
+    LDA      (zp_00),y                 ; 0xf61f $B60F B1 00                    ;
     STA      bss_056A                     ; 0xf621 $B611 8D 6A 05                 ; Pointer to letter (low)
     LDA      #$2A                      ; 0xf624 $B614 A9 2A                    ; A = 2A (delay before letters start typing)
     STA      bss_0566                     ; 0xf626 $B616 8D 66 05                 ; Delay between letters
@@ -4023,11 +4020,11 @@ LB6BA:                                                                          
     INC      bss_0766                     ; 0xf6cf $B6BF EE 66 07                 ;; Dialog Flag (00-01)	wait for B button press; set when conversation occurs? Might prevent other ppu instruction
     LDX      #$F4                      ; 0xf6d2 $B6C2 A2 F4                    ; X = F4 (interline character)
     LDA      bss_0569                     ; 0xf6d4 $B6C4 AD 69 05                 ; 569,56A = pointer to next letter
-    STA      L0000                     ; 0xf6d7 $B6C7 85 00                    ;
+    STA      zp_00                     ; 0xf6d7 $B6C7 85 00                    ;
     LDA      bss_056A                     ; 0xf6d9 $B6C9 AD 6A 05                 ;; Pointer to letter 	; Low
     STA      $01                       ; 0xf6dc $B6CC 85 01                    ;
     LDY      #$00                      ; 0xf6de $B6CE A0 00                    ; Y = 00
-    LDA      (L0000),y                 ; 0xf6e0 $B6D0 B1 00                    ;
+    LDA      (zp_00),y                 ; 0xf6e0 $B6D0 B1 00                    ;
     CMP      #$FF                      ; 0xf6e2 $B6D2 C9 FF                    ; if End of Message
     BEQ      LB672                     ; 0xf6e4 $B6D4 F0 9C                    ; goto $F672
     CMP      #$FD                      ; 0xf6e6 $B6D6 C9 FD                    ;
@@ -4043,7 +4040,7 @@ bank3_Load_a_letter:                                                            
     LDX      #$33                      ; 0xf6f3 $B6E3 A2 33                    ; X = 33 (33 = empty tile) (bit 7 accent)
     BCC      LB6F2                     ; 0xf6f5 $B6E5 90 0B                    ;
 LB6E7:                                                                          ;
-    LDA      (L0000),y                 ; 0xf6f7 $B6E7 B1 00                    ;
+    LDA      (zp_00),y                 ; 0xf6f7 $B6E7 B1 00                    ;
     ORA      #$C0                      ; 0xf6f9 $B6E9 09 C0                    ; set bits  xx.. ....
     BNE      LB6F6                     ; 0xf6fb $B6EB D0 09                    ;
 LB6ED:                                                                          ;
@@ -4051,7 +4048,7 @@ LB6ED:                                                                          
     BCC      LB6F2                     ; 0xf6fe $B6EE 90 02                    ;
     LDX      #$32                      ; 0xf700 $B6F0 A2 32                    ; X = 32 (32 = dot)
 LB6F2:                                                                          ;
-    LDA      (L0000),y                 ; 0xf702 $B6F2 B1 00                    ;
+    LDA      (zp_00),y                 ; 0xf702 $B6F2 B1 00                    ;
     AND      #$3F                      ; 0xf704 $B6F4 29 3F                    ; keep bits ..xx xxxx
 LB6F6:                                                                          ;
     STA      bss_0306                     ; 0xf706 $B6F6 8D 06 03                 ;; Letter Written to Screen
@@ -4059,15 +4056,15 @@ LB6F6:                                                                          
     ASL                                ; 0xf70c $B6FC 0A                       ;
     ASL                                ; 0xf70d $B6FD 0A                       ;
     ASL                                ; 0xf70e $B6FE 0A                       ;
-    STA      L0002                     ; 0xf70f $B6FF 85 02                    ;
+    STA      zp_02                     ; 0xf70f $B6FF 85 02                    ;
     LDA      bss_072C                     ; 0xf711 $B701 AD 2C 07                 ; Scrolling Offset Low Byte
     CLC                                ; 0xf714 $B704 18                       ;
     ADC      #$88                      ; 0xf715 $B705 69 88                    ; Base X position of text lines
     AND      #$F0                      ; 0xf717 $B707 29 F0                    ; keep bits xxxx .... (round to align to tile)
     PHP                                ; 0xf719 $B709 08                       ;
     CLC                                ; 0xf71a $B70A 18                       ;
-    ADC      L0002                     ; 0xf71b $B70B 65 02                    ;
-    STA      L0002                     ; 0xf71d $B70D 85 02                    ;
+    ADC      zp_02                     ; 0xf71b $B70B 65 02                    ;
+    STA      zp_02                     ; 0xf71d $B70D 85 02                    ;
     LDA      bss_072A                     ; 0xf71f $B70F AD 2A 07                 ; Scrolling Offset High Byte
     ADC      #$00                      ; 0xf722 $B712 69 00                    ;
     PLP                                ; 0xf724 $B714 28                       ;
@@ -4077,7 +4074,7 @@ LB6F6:                                                                          
     ASL                                ; 0xf72a $B71A 0A                       ;
     ADC      #$20                      ; 0xf72b $B71B 69 20                    ;
     STA      $03                       ; 0xf72d $B71D 85 03                    ;
-    LDA      L0002                     ; 0xf72f $B71F A5 02                    ;
+    LDA      zp_02                     ; 0xf72f $B71F A5 02                    ;
     LSR                                ; 0xf731 $B721 4A                       ;
     LSR                                ; 0xf732 $B722 4A                       ;
     LSR                                ; 0xf733 $B723 4A                       ;

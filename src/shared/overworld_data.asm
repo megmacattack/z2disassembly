@@ -236,7 +236,7 @@ Tile_Codes_for_Objects_Set1_VerticalDolmen_1wide:                         ;
 ; ---------------------------------------------------------------------------- ;
 Objects_Construction_Object_2high_Xwide:                                  ;
     JSR      Objects_Construction_Object_1high_Xwide; 0x8203 $81F3 20 01 82  ;
-    LDA      L0000                     ; 0x8206 $81F6 A5 00                    ;
+    LDA      zp_00                     ; 0x8206 $81F6 A5 00                    ;
     STA      bss_0112                     ; 0x8208 $81F8 8D 12 01                 ;; Tile Code 0 for Object
     JSR      bank7_DF4C                     ; 0x820b $81FB 20 4C DF                 ;
     JMP      L8204                     ; 0x820e $81FE 4C 04 82                 ;
@@ -270,7 +270,7 @@ Objects_Construction_Object_Xhigh_1wide:                                  ;
     JSR      bank7_DF56                     ; 0x8236 $8226 20 56 DF                 ;
     STA      bss_0730                     ; 0x8239 $8229 8D 30 07                 ;; Position of Object Placement
     DEC      bss_0731                     ; 0x823c $822C CE 31 07                 ;; Level Object Type and Size
-    LDA      L0000                     ; 0x823f $822F A5 00                    ;
+    LDA      zp_00                     ; 0x823f $822F A5 00                    ;
     STA      bss_0112                     ; 0x8241 $8231 8D 12 01                 ;; Tile Code 0 for Object
 L8234:                                                                          ;
     LDA      bss_0731                     ; 0x8244 $8234 AD 31 07                 ;; Level Object Type and Size
@@ -301,7 +301,7 @@ L8257:                                                                          
     BCS      L8262                     ; 0x826d $825D B0 03                    ;
     LDA      L81B8,x                   ; 0x826f $825F BD B8 81                 ;
 L8262:                                                                          ;
-    STA      L0000                     ; 0x8272 $8262 85 00                    ;
+    STA      zp_00                     ; 0x8272 $8262 85 00                    ;
     RTS                                ; 0x8274 $8264 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -317,7 +317,7 @@ Objects_Construction_Object_Cactus:                                       ;
     TAX                                ; 0x8288 $8278 AA                       ;
 L8279:                                                                          ;
     LDA      #$47                      ; 0x8289 $8279 A9 47                    ; A = 47 (Cactus Base Tile Code)
-    STA      (L000E),y                 ; 0x828b $827B 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x828b $827B 91 0E                    ;
     TYA                                ; 0x828d $827D 98                       ;
     SEC                                ; 0x828e $827E 38                       ;
     SBC      #$10                      ; 0x828f $827F E9 10                    ; Go up 1 row
@@ -325,7 +325,7 @@ L8279:                                                                          
     DEX                                ; 0x8292 $8282 CA                       ;
     BNE      L8279                     ; 0x8293 $8283 D0 F4                    ; loop to $8279
     LDA      #$46                      ; 0x8295 $8285 A9 46                    ; A = 46 (Cactus Top Tile Code)
-    STA      (L000E),y                 ; 0x8297 $8287 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x8297 $8287 91 0E                    ;
     RTS                                ; 0x8299 $8289 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -372,7 +372,7 @@ Small_Objects_Construction_TreeStump:                                     ;
     LDA      #$5B                      ; 0x82db $82CB A9 5B                    ; A = 5B
     JSR      bank7_DF56                     ; 0x82dd $82CD 20 56 DF                 ; Set tile and go down 1 row
     LDA      #$5C                      ; 0x82e0 $82D0 A9 5C                    ; A = 5C
-    STA      (L000E),y                 ; 0x82e2 $82D2 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x82e2 $82D2 91 0E                    ;
     RTS                                ; 0x82e4 $82D4 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -383,13 +383,13 @@ Objects_Construction_Object_Cactus_with_Stem:                             ;
     ORA      #$90                      ; 0x82ed $82DD 09 90                    ; set  bits x..x .... (default Y position)
     TAY                                ; 0x82ef $82DF A8                       ;
     LDA      #$49                      ; 0x82f0 $82E0 A9 49                    ; A = 49 (Cactus with Arm Bottom Tile Code)
-    STA      (L000E),y                 ; 0x82f2 $82E2 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x82f2 $82E2 91 0E                    ;
     TYA                                ; 0x82f4 $82E4 98                       ;
     SEC                                ; 0x82f5 $82E5 38                       ;
     SBC      #$10                      ; 0x82f6 $82E6 E9 10                    ; Go up 1 row
     TAY                                ; 0x82f8 $82E8 A8                       ;
     LDA      #$48                      ; 0x82f9 $82E9 A9 48                    ; A = 48 (Cactus with Arm Top Tile Code)
-    STA      (L000E),y                 ; 0x82fb $82EB 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x82fb $82EB 91 0E                    ;
     RTS                                ; 0x82fd $82ED 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -407,7 +407,7 @@ Small_Objects_Construction_Gravestone:                                    ;
 L82FB:                                                                          ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x830b $82FB 20 44 C9           ;
     LDA      Table_for_Cross__Slanted_Cross_and_Gravestone,x; 0x830e $82FE BD F6 82;
-    STA      (L000E),y                 ; 0x8311 $8301 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x8311 $8301 91 0E                    ;
 L8303:                                                                          ;
     RTS                                ; 0x8313 $8303 60                       ;
                                                                                ;
@@ -459,7 +459,7 @@ Small_Objects_Construction_Zelda:                                         ;
 L8349:                                                                          ;
     LDA      #$4F                      ; 0x8359 $8349 A9 4F                    ; A = 4F (Zelda's Body Tile Code)
 L834B:                                                                          ;
-    STA      (L000E),y                 ; 0x835b $834B 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x835b $834B 91 0E                    ;
     INY                                ; 0x835d $834D C8                       ;
     DEX                                ; 0x835e $834E CA                       ;
     BPL      L8349                     ; 0x835f $834F 10 F8                    ;
@@ -479,10 +479,10 @@ Small_Objects_Construction_ShortCloud:                                    ;
 L835A:                                                                          ;
     JSR      bank7_Set_RAM_Address_for_Object0E0F; 0x836a $835A 20 44 C9           ;
     LDA      #$C2                      ; 0x836d $835D A9 C2                    ; A = C2
-    STA      (L000E),y                 ; 0x836f $835F 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x836f $835F 91 0E                    ;
     INY                                ; 0x8371 $8361 C8                       ;
     LDA      Table_for_Right_End_of_Clouds_Tile_Codes,x; 0x8372 $8362 BD 56 83;
-    STA      (L000E),y                 ; 0x8375 $8365 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x8375 $8365 91 0E                    ;
     RTS                                ; 0x8377 $8367 60                       ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
@@ -541,7 +541,7 @@ L83AA:                                                                          
     ADC      #$01                      ; 0x83d1 $83C1 69 01                    ;
     STA      bss_0308                     ; 0x83d3 $83C3 8D 08 03                 ;
     LDA      $76                       ; 0x83d6 $83C6 A5 76                    ; X position on map (Link)
-    STA      L0000                     ; 0x83d8 $83C8 85 00                    ;
+    STA      zp_00                     ; 0x83d8 $83C8 85 00                    ;
     LDA      $75                       ; 0x83da $83CA A5 75                    ; Y position on map (Link)
     STA      $01                       ; 0x83dc $83CC 85 01                    ;
     RTS                                ; 0x83de $83CE 60                       ;
@@ -549,7 +549,7 @@ L83AA:                                                                          
 ; ---------------------------------------------------------------------------- ;
 setpos Limit_Check_Function
 overworld_limit_check_jmp_from_bank7:                                     ;
-    LDA      L0000                     ; 0x43df $83CF A5 00                    ;
+    LDA      zp_00                     ; 0x43df $83CF A5 00                    ;
     CMP      #$40                      ; 0x43e1 $83D1 C9 40                    ; Check if at the extreme right of the map
     BCS      East_Boundary       ; 0x43e3 $83D3 B0 2F                    ; Overworld width here too (east boundary)
     LDA      $01                       ; 0x43e5 $83D5 A5 01                    ;
@@ -559,15 +559,15 @@ overworld_limit_check_jmp_from_bank7:                                     ;
     CMP      #$4B                      ; 0x43ec $83DC C9 4B                    ; Overworld height (south boundary)
     BCS      East_Boundary       ; 0x43ee $83DE B0 24                    ; (not visually)
     JSR      limit_check_unknown               ; 0x43f0 $83E0 20 AC 93                 ;
-    INC      L0000                     ; 0x43f3 $83E3 E6 00                    ;
+    INC      zp_00                     ; 0x43f3 $83E3 E6 00                    ;
     LDA      #$00                      ; 0x43f5 $83E5 A9 00                    ; A = 00
     STA      $03                       ; 0x43f7 $83E7 85 03                    ;
     LDX      #$03                      ; 0x43f9 $83E9 A2 03                    ; X = 03
 L83EB:                                                                          ;
-    LDA      (L000E),y                 ; 0x43fb $83EB B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0x43fb $83EB B1 0E                    ;
     AND      #$0F                      ; 0x43fd $83ED 29 0F                    ; keep bits .... xxxx
     STA      $02                       ; 0x43ff $83EF 85 02                    ;
-    LDA      (L000E),y                 ; 0x4401 $83F1 B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0x4401 $83F1 B1 0E                    ;
     LSR                                ; 0x4403 $83F3 4A                       ;
     LSR                                ; 0x4404 $83F4 4A                       ;
     LSR                                ; 0x4405 $83F5 4A                       ;
@@ -575,7 +575,7 @@ L83EB:                                                                          
     SEC                                ; 0x4407 $83F7 38                       ;
     ADC      $03                       ; 0x4408 $83F8 65 03                    ;
     STA      $03                       ; 0x440a $83FA 85 03                    ;
-    CMP      L0000                     ; 0x440c $83FC C5 00                    ;
+    CMP      zp_00                     ; 0x440c $83FC C5 00                    ;
     BCS      L8408                     ; 0x440e $83FE B0 08                    ;
     INY                                ; 0x4410 $8400 C8                       ;
     JMP      L83EB                     ; 0x4411 $8401 4C EB 83                 ;

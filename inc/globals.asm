@@ -7,6 +7,10 @@
 .globalzp joy1_held
 .globalzp joy2_held
 
+.globalzp zp_00
+.globalzp zp_02
+.globalzp zp_0E
+
 ; globals in system RAM
 .global nmi_mode
 .enum nmi_mode

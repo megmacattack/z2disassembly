@@ -16,8 +16,6 @@
 .include "variables.asm"
 .include "macros.asm"
 
-L0000 = $0000
-L000E = $000E
 L7000 = $7000
 L7002 = $7002
 L7020 = $7020
@@ -115,7 +113,7 @@ bank2_Pointer_table_for_background_level_data:                                  
 .word    L8CA2                         ; 0x8016 $8006 A2 8C                    ;
 .word    L8CBC                         ; 0x8018 $8008 BC 8C                    ;
 .word    L8CCE                         ; 0x801a $800A CE 8C                    ;
-.word    L0000                         ; 0x801c $800C 00 00                    ;
+.word    $0000                         ; 0x801c $800C 00 00                    ;
 ; ---------------------------------------------------------------------------- ;
 .include "shared/overworld_data.asm"    ;
 ; ---------------------------------------------------------------------------- ;
@@ -309,7 +307,7 @@ bank2_Room_Connectivity_Data:                                                   
 bank2_Pointer_table_for_Palaces_offsets_in_Saved_RAM:                           ;
 .word    L7D0A                         ; 0x879f $878F 0A 7D                    ;
 .word    L7F08                         ; 0x87a1 $8791 08 7F                    ;
-.word    L0000                         ; 0x87a3 $8793 00 00                    ;
+.word    $0000                         ; 0x87a3 $8793 00 00                    ;
 .word    L7DA6                         ; 0x87a5 $8795 A6 7D                    ;
 ; ---------------------------------------------------------------------------- ;
 bank2_Table_for_Palaces_to_test_for_completion:                                 ;
@@ -343,12 +341,12 @@ L87A6:                                                                          
     ASL                                ; 0x87c9 $87B9 0A                       ;
     TAY                                ; 0x87ca $87BA A8                       ;
     LDA      bank2_Pointer_table_for_Palaces_offsets_in_Saved_RAM,y; 0x87cb $87BB B9 8F 87;
-    STA      L000E                     ; 0x87ce $87BE 85 0E                    ;
+    STA      zp_0E                     ; 0x87ce $87BE 85 0E                    ;
     LDA      bank2_Pointer_table_for_Palaces_offsets_in_Saved_RAM+$01,y; 0x87d0 $87C0 B9 90 87;
     STA      $0F                       ; 0x87d3 $87C3 85 0F                    ;
     LDY      #$00                      ; 0x87d5 $87C5 A0 00                    ; Y = 00
     LDA      #$0B                      ; 0x87d7 $87C7 A9 0B                    ; A = 0B (0B = 1 Unit of Mountain)
-    STA      (L000E),y                 ; 0x87d9 $87C9 91 0E                    ;
+    STA      (zp_0E),y                 ; 0x87d9 $87C9 91 0E                    ;
 L87CB:                                                                          ;
     CPX      #$03                      ; 0x87db $87CB E0 03                    ;
     BEQ      L87D2                     ; 0x87dd $87CD F0 03                    ;
@@ -808,7 +806,7 @@ L93BA:                                                                          
     ASL                                ; 0x93ca $93BA 0A                       ;
     TAY                                ; 0x93cb $93BB A8                       ;
     LDA      $6000,y                   ; 0x93cc $93BC B9 00 60                 ;
-    STA      L000E                     ; 0x93cf $93BF 85 0E                    ;
+    STA      zp_0E                     ; 0x93cf $93BF 85 0E                    ;
     LDA      $6001,y                   ; 0x93d1 $93C1 B9 01 60                 ;
     STA      $0F                       ; 0x93d4 $93C4 85 0F                    ;
     LDY      #$00                      ; 0x93d6 $93C6 A0 00                    ; Y = 00
@@ -826,10 +824,10 @@ bank2_Pointer_table_for_Projectile_routines:                                    
 .word    bank2_Projectiles_Routines_Energy_Ball_blue_and_Mace_and_Link_Doll; 0x941a $940A 2F 96;Energy Ball (Tektite) (06)
 .word    bank2_Projectiles_Routines_Energy_Ball_blue_and_Mace_and_Link_Doll; 0x941c $940C 2F 96;Mace (causes lots of damage)
 .word    bank2_Projectiles_Routines_Rock_with_gravity; 0x941e $940E 5B 96      ;Rock with gravity
-.word    L0000                         ; 0x9420 $9410 00 00                    ;Invalid
-.word    L0000                         ; 0x9422 $9412 00 00                    ;Invalid
-.word    L0000                         ; 0x9424 $9414 00 00                    ;Invalid
-.word    L0000                         ; 0x9426 $9416 00 00                    ;Invalid
+.word    $0000                         ; 0x9420 $9410 00 00                    ;Invalid
+.word    $0000                         ; 0x9422 $9412 00 00                    ;Invalid
+.word    $0000                         ; 0x9424 $9414 00 00                    ;Invalid
+.word    $0000                         ; 0x9426 $9416 00 00                    ;Invalid
 ; ---------------------------------------------------------------------------- ;
 bank2_table2:                                                                   ;
 .byt    $00,$80,$41,$83,$01,$03,$94,$81; 0x9428 $9418 00 80 41 83 01 03 94 81  ;Has something to do with projectiles collision test and shield absorption
@@ -874,10 +872,10 @@ bank2_Enemy_Init_Routines_pointers:                                             
 .word    bank2_RTS                     ; 0x948f $947F AD 95                    ;Lizalfos - Rock Tossing	(1D)
 .word    bank2_RTS                     ; 0x9491 $9481 AD 95                    ;?				(1E)
 .word    bank2_RTS                     ; 0x9493 $9483 AD 95                    ;?				(1F)
-.word    L0000                         ; 0x9495 $9485 00 00                    ;?				(20)
-.word    L0000                         ; 0x9497 $9487 00 00                    ;?				(21)
-.word    L0000                         ; 0x9499 $9489 00 00                    ;?				(22)
-.word    L0000                         ; 0x949b $948B 00 00                    ;?				(23)
+.word    $0000                         ; 0x9495 $9485 00 00                    ;?				(20)
+.word    $0000                         ; 0x9497 $9487 00 00                    ;?				(21)
+.word    $0000                         ; 0x9499 $9489 00 00                    ;?				(22)
+.word    $0000                         ; 0x949b $948B 00 00                    ;?				(23)
 bank2_Pointer_table_for_Enemy_Routines1:                                        ;
 .word    bank7_Enemy_Routines1_Fairy   ; 0x949d $948D 1E D9                    ;Fairy			(00)
 .word    bank7_Enemy_Routines1_Red_Jar ; 0x949f $948F 59 D9                    ;Red Jar			(01)
@@ -909,12 +907,12 @@ bank2_Pointer_table_for_Enemy_Routines1:                                        
 .word    bank2_Enemy_Routines1_Lizalfos_Orange; 0x94d3 $94C3 56 9B             ;Lizalfos - Orange	(1B)
 .word    bank2_Enemy_Routines1_Lizalfos_Red_Blue; 0x94d5 $94C5 90 9B           ;Lizalfos - Blue		(1C)
 .word    bank2_Enemy_Routines1_Lizalfos_Rock_Tossing; 0x94d7 $94C7 30 97       ;Lizalfos - Rock Tossing	(1D)
-.word    L0000                         ; 0x94d9 $94C9 00 00                    ;?			(1E)
-.word    L0000                         ; 0x94db $94CB 00 00                    ;?			(1F)
-.word    L0000                         ; 0x94dd $94CD 00 00                    ;?			(20)
-.word    L0000                         ; 0x94df $94CF 00 00                    ;?			(21)
-.word    L0000                         ; 0x94e1 $94D1 00 00                    ;?			(22)
-.word    L0000                         ; 0x94e3 $94D3 00 00                    ;?			(23)
+.word    $0000                         ; 0x94d9 $94C9 00 00                    ;?			(1E)
+.word    $0000                         ; 0x94db $94CB 00 00                    ;?			(1F)
+.word    $0000                         ; 0x94dd $94CD 00 00                    ;?			(20)
+.word    $0000                         ; 0x94df $94CF 00 00                    ;?			(21)
+.word    $0000                         ; 0x94e1 $94D1 00 00                    ;?			(22)
+.word    $0000                         ; 0x94e3 $94D3 00 00                    ;?			(23)
 ; ---------------------------------------------------------------------------- ;
 bank2_Enemy_Attributes:                                                         ;
 ;Enemy Attributes (Palette, Experience Code, etc.) (24 bytes)                  ;
@@ -1006,8 +1004,8 @@ bank2_Pointer_table_for_Enemy_Routines2:                                        
 .word    bank7_Enemy_Routines2_unknown ; 0x9585 $9575 D2 EF                    ;?				(08)
 .word    bank7_Enemy_Routines2_unknown ; 0x9587 $9577 D2 EF                    ;?				(09)
 .word    bank7_Enemy_Routines2_Ache_and_Acheman; 0x9589 $9579 7E F1            ;Acheman			(0A)
-.word    L0000                         ; 0x958b $957B 00 00                    ;Bubble Generator		(0B)
-.word    L0000                         ; 0x958d $957D 00 00                    ;Rock Generator			(0C)
+.word    $0000                         ; 0x958b $957B 00 00                    ;Bubble Generator		(0B)
+.word    $0000                         ; 0x958d $957D 00 00                    ;Rock Generator			(0C)
 .word    bank7_Enemy_Routines2_Deeler  ; 0x958f $957F 27 F0                    ;
 .word    bank7_Enemy_Routines2_Deeler  ; 0x9591 $9581 27 F0                    ;Blue Deeler			(0E)
 .word    bank2_RTS                     ; 0x9593 $9583 AD 95                    ;Bago Bago Generator		(0F)
@@ -1025,12 +1023,12 @@ bank2_Pointer_table_for_Enemy_Routines2:                                        
 .word    bank2_Enemy_Routines2_Lizalfos_Red_Orange_Blue; 0x95ab $959B E1 9E    ;Lizalfos - Orange		(1B)
 .word    bank2_Enemy_Routines2_Lizalfos_Red_Orange_Blue; 0x95ad $959D E1 9E    ;Lizalfos - Blue		(1C)
 .word    bank2_Enemy_Routines2_Lizalfos__Rock_Tossing; 0x95af $959F 32 9D      ;Lizalfos - Rock Tossing	(1D)
-.word    L0000                         ; 0x95b1 $95A1 00 00                    ;?				(1E)
-.word    L0000                         ; 0x95b3 $95A3 00 00                    ;?				(1F)
-.word    L0000                         ; 0x95b5 $95A5 00 00                    ;?				(20)
-.word    L0000                         ; 0x95b7 $95A7 00 00                    ;?				(21)
-.word    L0000                         ; 0x95b9 $95A9 00 00                    ;?				(22)
-.word    L0000                         ; 0x95bb $95AB 00 00                    ;?				(23)
+.word    $0000                         ; 0x95b1 $95A1 00 00                    ;?				(1E)
+.word    $0000                         ; 0x95b3 $95A3 00 00                    ;?				(1F)
+.word    $0000                         ; 0x95b5 $95A5 00 00                    ;?				(20)
+.word    $0000                         ; 0x95b7 $95A7 00 00                    ;?				(21)
+.word    $0000                         ; 0x95b9 $95A9 00 00                    ;?				(22)
+.word    $0000                         ; 0x95bb $95AB 00 00                    ;?				(23)
 ; ---------------------------------------------------------------------------- ;
 bank2_RTS:                                                                      ;
     RTS                                ; 0x95bd $95AD 60                       ;
@@ -1149,7 +1147,7 @@ bank2_code9:                                                                    
     ASL                                ; 0x9691 $9681 0A                       ;
     TAY                                ; 0x9692 $9682 A8                       ;
     LDA      $6EC0,y                   ; 0x9693 $9683 B9 C0 6E                 ;
-    STA      L000E                     ; 0x9696 $9686 85 0E                    ;
+    STA      zp_0E                     ; 0x9696 $9686 85 0E                    ;
     LDA      $6EC1,y                   ; 0x9698 $9688 B9 C1 6E                 ;
     STA      $0F                       ; 0x969b $968B 85 0F                    ;
 L968D:                                                                          ;
@@ -1170,7 +1168,7 @@ L96A8     = * + $0001                                                          ;
     STA      bss_0202,y                   ; 0x96b9 $96A9 99 02 02                 ;
     PLA                                ; 0x96bc $96AC 68                       ;
     STA      bss_0201,y                   ; 0x96bd $96AD 99 01 02                 ;
-    JMP      (L000E)                   ; 0x96c0 $96B0 6C 0E 00                 ;
+    JMP      (zp_0E)                   ; 0x96c0 $96B0 6C 0E 00                 ;
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank2_Projectiles_Routines2_Energy_Ball_Tektite:                                ;
@@ -1471,10 +1469,10 @@ L985C:                                                                          
     BCS      L987F                     ; 0x987c $986C B0 11                    ;
     LDA      #$06                      ; 0x987e $986E A9 06                    ; A = 06
     STA      $87,y                     ; 0x9880 $9870 99 87 00                 ; Projectile Type (06 = Energy Ball)
-    STY      L0000                     ; 0x9883 $9873 84 00                    ;
+    STY      zp_00                     ; 0x9883 $9873 84 00                    ;
     LDY      $91,x                     ; 0x9885 $9875 B4 91                    ;
     LDA      bss_0200,y                   ; 0x9887 $9877 B9 00 02                 ;
-    LDY      L0000                     ; 0x988a $987A A4 00                    ;
+    LDY      zp_00                     ; 0x988a $987A A4 00                    ;
     STA      $30,y                     ; 0x988c $987C 99 30 00                 ; Projectile Y Position
 L987F:                                                                          ;
     LDY      #$80                      ; 0x988f $987F A0 80                    ; Y = 80 (Tile Mapping 1)
@@ -2246,7 +2244,7 @@ bank2_Enemy_Routines2_Lizalfos__Rock_Tossing:                                   
     TAX                                ; 0x9d55 $9D45 AA                       ;
     LDA      #$23                      ; 0x9d56 $9D46 A9 23                    ; A = 23
     STA      bss_0201,y                   ; 0x9d58 $9D48 99 01 02                 ;
-    LDA      L0000                     ; 0x9d5b $9D4B A5 00                    ;
+    LDA      zp_00                     ; 0x9d5b $9D4B A5 00                    ;
     ADC      L9D2D,x                   ; 0x9d5d $9D4D 7D 2D 9D                 ;
     STA      bss_0200,y                   ; 0x9d60 $9D50 99 00 02                 ;
 L9D54     = * + $0001                                                          ;
@@ -2263,7 +2261,7 @@ L9D5C:                                                                          
     INX                                ; 0x9d77 $9D67 E8                       ;
     INX                                ; 0x9d78 $9D68 E8                       ;
 L9D69:                                                                          ;
-    STX      L000E                     ; 0x9d79 $9D69 86 0E                    ;
+    STX      zp_0E                     ; 0x9d79 $9D69 86 0E                    ;
     STY      $0F                       ; 0x9d7b $9D6B 84 0F                    ;
     LDA      L9D29,x                   ; 0x9d7d $9D6D BD 29 9D                 ;
     CPX      #$01                      ; 0x9d80 $9D70 E0 01                    ;
@@ -2282,7 +2280,7 @@ L9D82:                                                                          
     ADC      $01                       ; 0x9d93 $9D83 65 01                    ;
     LDY      $0F                       ; 0x9d95 $9D85 A4 0F                    ;
     STA      bss_0203,y                   ; 0x9d97 $9D87 99 03 02                 ;
-    LDA      L000E                     ; 0x9d9a $9D8A A5 0E                    ;
+    LDA      zp_0E                     ; 0x9d9a $9D8A A5 0E                    ;
     AND      #$01                      ; 0x9d9c $9D8C 29 01                    ; keep bits .... ...x
     BEQ      L9DA9                     ; 0x9d9e $9D8E F0 19                    ;
 L9D91     = * + $0001                                                          ;
@@ -2314,17 +2312,17 @@ L9DB7:                                                                          
     BPL      L9DC3                     ; 0x9dcf $9DBF 10 02                    ;
     EOR      #$FF                      ; 0x9dd1 $9DC1 49 FF                    ; flip all bits
 L9DC3:                                                                          ;
-    STA      L0000                     ; 0x9dd3 $9DC3 85 00                    ;
+    STA      zp_00                     ; 0x9dd3 $9DC3 85 00                    ;
     LDA      bss_01F0,y                   ; 0x9dd5 $9DC5 B9 F0 01                 ;
     CMP      #$F0                      ; 0x9dd8 $9DC8 C9 F0                    ;
     BCS      L9DD1                     ; 0x9dda $9DCA B0 05                    ;
-    ADC      L0000                     ; 0x9ddc $9DCC 65 00                    ;
+    ADC      zp_00                     ; 0x9ddc $9DCC 65 00                    ;
     STA      bss_01F0,y                   ; 0x9dde $9DCE 99 F0 01                 ;
 L9DD1:                                                                          ;
     LDA      bss_01F4,y                   ; 0x9de1 $9DD1 B9 F4 01                 ;
     CMP      #$F0                      ; 0x9de4 $9DD4 C9 F0                    ;
     BCS      L9DDD                     ; 0x9de6 $9DD6 B0 05                    ;
-    ADC      L0000                     ; 0x9de8 $9DD8 65 00                    ;
+    ADC      zp_00                     ; 0x9de8 $9DD8 65 00                    ;
     STA      bss_01F4,y                   ; 0x9dea $9DDA 99 F4 01                 ;
 L9DDD:                                                                          ;
     RTS                                ; 0x9ded $9DDD 60                       ;
@@ -2384,10 +2382,10 @@ bank2_Enemy_Routines2_Zora:                                                     
     STA      $03                       ; 0x9e28 $9E18 85 03                    ;
     LDA      bss_0504,x                   ; 0x9e2a $9E1A BD 04 05                 ; Timer for Enemy AI
     BNE      L9E7C                     ; 0x9e2d $9E1D D0 5D                    ;
-    LDA      L0000                     ; 0x9e2f $9E1F A5 00                    ;
+    LDA      zp_00                     ; 0x9e2f $9E1F A5 00                    ;
     CLC                                ; 0x9e31 $9E21 18                       ;
     ADC      #$10                      ; 0x9e32 $9E22 69 10                    ;
-    STA      L0000                     ; 0x9e34 $9E24 85 00                    ;
+    STA      zp_00                     ; 0x9e34 $9E24 85 00                    ;
     LDA      $71,x                     ; 0x9e36 $9E26 B5 71                    ; Enemy X Velocity
     LDX      #$14                      ; 0x9e38 $9E28 A2 14                    ; X = 14
     CMP      #$00                      ; 0x9e3a $9E2A C9 00                    ;
@@ -2409,7 +2407,7 @@ L9E3F:                                                                          
     LDA      $C9                       ; 0x9e54 $9E44 A5 C9                    ;
     AND      L9E10,x                   ; 0x9e56 $9E46 3D 10 9E                 ;
     BNE      L9E79                     ; 0x9e59 $9E49 D0 2E                    ;
-    LDA      L0000                     ; 0x9e5b $9E4B A5 00                    ;
+    LDA      zp_00                     ; 0x9e5b $9E4B A5 00                    ;
     SEC                                ; 0x9e5d $9E4D 38                       ;
     SBC      #$10                      ; 0x9e5e $9E4E E9 10                    ;
     STA      bss_0200,y                   ; 0x9e60 $9E50 99 00 02                 ;
@@ -2462,7 +2460,7 @@ L9EA0:                                                                          
     LDA      $C9                       ; 0x9eb5 $9EA5 A5 C9                    ;
     AND      L9E10,x                   ; 0x9eb7 $9EA7 3D 10 9E                 ;
     BNE      L9ED2                     ; 0x9eba $9EAA D0 26                    ;
-    LDA      L0000                     ; 0x9ebc $9EAC A5 00                    ;
+    LDA      zp_00                     ; 0x9ebc $9EAC A5 00                    ;
     SEC                                ; 0x9ebe $9EAE 38                       ;
     SBC      #$10                      ; 0x9ebf $9EAF E9 10                    ;
     STA      bss_0200,y                   ; 0x9ec1 $9EB1 99 00 02                 ;
@@ -2539,7 +2537,7 @@ L9F05:                                                                          
     LDA      $A1,x                     ; 0x9f21 $9F11 B5 A1                    ; Enemy Code
     STA      $D9                       ; 0x9f23 $9F13 85 D9                    ;; Thunder Spell modifier ?
     LDA      $2A,x                     ; 0x9f25 $9F15 B5 2A                    ; Enemy Y Position
-    STA      L0000                     ; 0x9f27 $9F17 85 00                    ;
+    STA      zp_00                     ; 0x9f27 $9F17 85 00                    ;
     LDA      $81,x                     ; 0x9f29 $9F19 B5 81                    ; Current Animation Frame for Enemy
     BEQ      L9F84_RTS                 ; 0x9f2b $9F1B F0 67                    ;
     TAX                                ; 0x9f2d $9F1D AA                       ;
@@ -2548,9 +2546,9 @@ L9F05:                                                                          
     DEX                                ; 0x9f32 $9F22 CA                       ;
     DEX                                ; 0x9f33 $9F23 CA                       ;
     DEX                                ; 0x9f34 $9F24 CA                       ;
-    LDA      L0000                     ; 0x9f35 $9F25 A5 00                    ;
+    LDA      zp_00                     ; 0x9f35 $9F25 A5 00                    ;
     ADC      #$08                      ; 0x9f37 $9F27 69 08                    ;
-    STA      L0000                     ; 0x9f39 $9F29 85 00                    ;
+    STA      zp_00                     ; 0x9f39 $9F29 85 00                    ;
 L9F2B:                                                                          ;
     STX      $0F                       ; 0x9f3b $9F2B 86 0F                    ;
     LDA      $02                       ; 0x9f3d $9F2D A5 02                    ;
@@ -2584,9 +2582,9 @@ L9F4E:                                                                          
     BEQ      L9F7A                     ; 0x9f6b $9F5B F0 1D                    ;
     CPX      #$03                      ; 0x9f6d $9F5D E0 03                    ;
     BNE      L9F67                     ; 0x9f6f $9F5F D0 06                    ;
-    LDA      L0000                     ; 0x9f71 $9F61 A5 00                    ;
+    LDA      zp_00                     ; 0x9f71 $9F61 A5 00                    ;
     ADC      #$0D                      ; 0x9f73 $9F63 69 0D                    ;
-    STA      L0000                     ; 0x9f75 $9F65 85 00                    ;
+    STA      zp_00                     ; 0x9f75 $9F65 85 00                    ;
 L9F67:                                                                          ;
     CPX      #$02                      ; 0x9f77 $9F67 E0 02                    ;
     BNE      L9F7D                     ; 0x9f79 $9F69 D0 12                    ;

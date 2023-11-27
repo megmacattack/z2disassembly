@@ -16,7 +16,6 @@
 .include "variables.asm"
 .include "macros.asm"
 
-L000E = $000E
 L7800 = $7800
 L780E = $780E
 L781C = $781C
@@ -1254,7 +1253,7 @@ bank0_Overworld_Palette_Codes_0_3:                                              
 ; ---------------------------------------------------------------------------- ;
 game_mode_overworld_load_tile_maps:                                                                     ;
     LDA      #$00                      ; 0x803 $87F3 A9 00                     ; A = 00 (Pointer to Overworld Data - Low)
-    STA      L000E                     ; 0x805 $87F5 85 0E                     ;
+    STA      zp_0E                     ; 0x805 $87F5 85 0E                     ;
     LDA      #$7C                      ; 0x807 $87F7 A9 7C                     ; A = 7C (Pointer to Overworld Data - High)
     STA      $0F                       ; 0x809 $87F9 85 0F                     ;
     LDY      #$00                      ; 0x80b $87FB A0 00                     ; Y = 00
@@ -1269,8 +1268,8 @@ L880A:                                                                          
     LDX      $00                       ; 0x81a $880A A6 00                     ;
     TYA                                ; 0x81c $880C 98                        ;
     CLC                                ; 0x81d $880D 18                        ;
-    ADC      L000E                     ; 0x81e $880E 65 0E                     ;
-    STA      L000E                     ; 0x820 $8810 85 0E                     ;
+    ADC      zp_0E                     ; 0x81e $880E 65 0E                     ;
+    STA      zp_0E                     ; 0x820 $8810 85 0E                     ;
     STA      $6000,x                   ; 0x822 $8812 9D 00 60                  ;
     LDA      $0F                       ; 0x825 $8815 A5 0F                     ;
 L8817:                                                                          ;
@@ -1450,7 +1449,7 @@ L8941:                                                                          
 Overworld_Redrawing_Horizontal_Movement:                                        ;
     LDA      $79                       ; 0x958 $8948 A5 79                     ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      bss_0302                     ; 0x95a $894A 8D 02 03                  ;; Used when writing text to screen
-    STA      L000E                     ; 0x95d $894D 85 0E                     ;
+    STA      zp_0E                     ; 0x95d $894D 85 0E                     ;
     LDA      $7A                       ; 0x95f $894F A5 7A                     ;;are used to draw the Overworld tiles? offset in the Name Table(s) for Overworld redrawing.
     STA      bss_0303                     ; 0x961 $8951 8D 03 03                  ;; Letter position when writing to screen
     STA      $0F                       ; 0x964 $8954 85 0F                     ;
@@ -1530,9 +1529,9 @@ L89C8:                                                                          
     CLC                                ; 0x9da $89CA 18                        ;
     ADC      #$40                      ; 0x9db $89CB 69 40                     ;
     STA      $0F                       ; 0x9dd $89CD 85 0F                     ;
-    LDA      L000E                     ; 0x9df $89CF A5 0E                     ;
+    LDA      zp_0E                     ; 0x9df $89CF A5 0E                     ;
     ADC      #$00                      ; 0x9e1 $89D1 69 00                     ;
-    STA      L000E                     ; 0x9e3 $89D3 85 0E                     ;
+    STA      zp_0E                     ; 0x9e3 $89D3 85 0E                     ;
     AND      #$03                      ; 0x9e5 $89D5 29 03                     ; keep bits .... ..xx
     CMP      #$03                      ; 0x9e7 $89D7 C9 03                     ;
     BNE      L89E3                     ; 0x9e9 $89D9 D0 08                     ;
@@ -1663,9 +1662,9 @@ L8A79:                                                                          
     AND      #$F0                      ; 0xaa7 $8A97 29 F0                     ; keep bits xxxx ....
     TAY                                ; 0xaa9 $8A99 A8                        ;
     LDX      #$00                      ; 0xaaa $8A9A A2 00                     ; X = 00
-    STX      L000E                     ; 0xaac $8A9C 86 0E                     ;
+    STX      zp_0E                     ; 0xaac $8A9C 86 0E                     ;
 L8A9E:                                                                          ;
-    LDX      L000E                     ; 0xaae $8A9E A6 0E                     ;
+    LDX      zp_0E                     ; 0xaae $8A9E A6 0E                     ;
 L8AA0:                                                                          ;
     LDA      #$00                      ; 0xab0 $8AA0 A9 00                     ; A = 00
     STA      bss_0305,x                   ; 0xab2 $8AA2 9D 05 03                  ;
@@ -1704,8 +1703,8 @@ L8AA0:                                                                          
 L8AF0:                                                                          ;
     INY                                ; 0xb00 $8AF0 C8                        ;
     INY                                ; 0xb01 $8AF1 C8                        ;
-    INC      L000E                     ; 0xb02 $8AF2 E6 0E                     ;
-    LDA      L000E                     ; 0xb04 $8AF4 A5 0E                     ;
+    INC      zp_0E                     ; 0xb02 $8AF2 E6 0E                     ;
+    LDA      zp_0E                     ; 0xb04 $8AF4 A5 0E                     ;
     CMP      #$08                      ; 0xb06 $8AF6 C9 08                     ;
     BCC      L8A9E                     ; 0xb08 $8AF8 90 A4                     ;
     LDA      #$FF                      ; 0xb0a $8AFA A9 FF                     ; A = FF
@@ -1795,7 +1794,7 @@ L8B6E:                                                                          
     LDX      #$00                      ; 0xb82 $8B72 A2 00                     ; X = 00
     BEQ      L8B42                     ; 0xb84 $8B74 F0 CC                     ;
 L8B76:                                                                          ;
-    STX      L000E                     ; 0xb86 $8B76 86 0E                     ;
+    STX      zp_0E                     ; 0xb86 $8B76 86 0E                     ;
     LDA      $77                       ; 0xb88 $8B78 A5 77                     ;;projectile speed	77,78,79,7A,7B,7C	77,Y
     AND      #$10                      ; 0xb8a $8B7A 29 10                     ; keep bits ...x ....
     LSR                                ; 0xb8c $8B7C 4A                        ;
@@ -1872,7 +1871,7 @@ L8BF3:                                                                          
     ASL                                ; 0xc03 $8BF3 0A                        ;
     ASL                                ; 0xc04 $8BF4 0A                        ;
 L8BF5:                                                                          ;
-    LDX      L000E                     ; 0xc05 $8BF5 A6 0E                     ;
+    LDX      zp_0E                     ; 0xc05 $8BF5 A6 0E                     ;
     ORA      bss_0305,x                   ; 0xc07 $8BF7 1D 05 03                  ;
     STA      bss_0305,x                   ; 0xc0a $8BFA 9D 05 03                  ;
     RTS                                ; 0xc0d $8BFD 60                        ;
@@ -1929,7 +1928,7 @@ L8C48:                                                                          
     ASL                                ; 0xc58 $8C48 0A                        ;
     TAY                                ; 0xc59 $8C49 A8                        ;
     LDA      $6000,y                   ; 0xc5a $8C4A B9 00 60                  ;
-    STA      L000E                     ; 0xc5d $8C4D 85 0E                     ;
+    STA      zp_0E                     ; 0xc5d $8C4D 85 0E                     ;
     LDA      $6001,y                   ; 0xc5f $8C4F B9 01 60                  ;
     STA      $0F                       ; 0xc62 $8C52 85 0F                     ;
     LDY      #$00                      ; 0xc64 $8C54 A0 00                     ; Y = 00
@@ -2379,7 +2378,7 @@ L8F7F:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank0_unknown10:                                                                ;
     LDA      #$00                      ; 0xf94 $8F84 A9 00                     ;	; A = 00
-    STA      L000E                     ; 0xf96 $8F86 85 0E                     ;
+    STA      zp_0E                     ; 0xf96 $8F86 85 0E                     ;
     LDA      #$60                      ; 0xf98 $8F88 A9 60                     ; A = 60
     STA      $0F                       ; 0xf9a $8F8A 85 0F                     ;
     LDA      #$3B                      ; 0xf9c $8F8C A9 3B                     ; A = 3B
@@ -4090,7 +4089,7 @@ L9A89:                                                                          
     TAY                                ; 0x1a9d $9A8D A8                       ;
     LDX      #$00                      ; 0x1a9e $9A8E A2 00                    ; X = 00
 L9A90:                                                                          ;
-    LDA      (L000E),y                 ; 0x1aa0 $9A90 B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0x1aa0 $9A90 B1 0E                    ;
     STA      bss_0464,x                   ; 0x1aa2 $9A92 9D 64 04                 ;
     TYA                                ; 0x1aa5 $9A95 98                       ;
     CLC                                ; 0x1aa6 $9A96 18                       ;
@@ -4111,7 +4110,7 @@ bank0_unknown24:                                                                
     AND      #$03                      ; 0x1ab8 $9AA8 29 03                    ; keep bits .... ..xx
     TAY                                ; 0x1aba $9AAA A8                       ;
     LDA      bank0_unknown23,y         ; 0x1abb $9AAB B9 A0 9A                 ;
-    STA      L000E                     ; 0x1abe $9AAE 85 0E                    ;
+    STA      zp_0E                     ; 0x1abe $9AAE 85 0E                    ;
     LDA      L9AA4,y                   ; 0x1ac0 $9AB0 B9 A4 9A                 ;
     STA      $0F                       ; 0x1ac3 $9AB3 85 0F                    ;
     RTS                                ; 0x1ac5 $9AB5 60                       ;
@@ -5120,10 +5119,10 @@ LA2A2:                                                                          
     TAY                                ; 0x22ba $A2AA A8                       ;
     AND      #$0F                      ; 0x22bb $A2AB 29 0F                    ; keep bits .... xxxx
     BNE      LA2BF                     ; 0x22bd $A2AD D0 10                    ;
-    LDA      L000E                     ; 0x22bf $A2AF A5 0E                    ;
+    LDA      zp_0E                     ; 0x22bf $A2AF A5 0E                    ;
     CLC                                ; 0x22c1 $A2B1 18                       ;
     ADC      #$D0                      ; 0x22c2 $A2B2 69 D0                    ;
-    STA      L000E                     ; 0x22c4 $A2B4 85 0E                    ;
+    STA      zp_0E                     ; 0x22c4 $A2B4 85 0E                    ;
     BCC      LA2BA                     ; 0x22c6 $A2B6 90 02                    ;
     INC      $0F                       ; 0x22c8 $A2B8 E6 0F                    ;
 LA2BA:                                                                          ;
@@ -5152,7 +5151,7 @@ LA2D4:                                                                          
     ASL                                ; 0x22e6 $A2D6 0A                       ;
     ASL                                ; 0x22e7 $A2D7 0A                       ;
     ASL                                ; 0x22e8 $A2D8 0A                       ;
-    LDA      (L000E),y                 ; 0x22e9 $A2D9 B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0x22e9 $A2D9 B1 0E                    ;
     AND      #$C0                      ; 0x22eb $A2DB 29 C0                    ; keep bits xx.. ....
     BCS      LA2EB                     ; 0x22ed $A2DD B0 0C                    ;
     ASL                                ; 0x22ef $A2DF 0A                       ;
@@ -5351,7 +5350,7 @@ LA3DF:                                                                          
     JSR      LA57E                     ; 0x240d $A3FD 20 7E A5                 ;
     LDX      #$00                      ; 0x2410 $A400 A2 00                    ; X = 00
 LA402:                                                                          ;
-    LDA      (L000E),y                 ; 0x2412 $A402 B1 0E                    ;
+    LDA      (zp_0E),y                 ; 0x2412 $A402 B1 0E                    ;
     STA      bss_055A,x                   ; 0x2414 $A404 9D 5A 05                 ;
     INY                                ; 0x2417 $A407 C8                       ;
     TYA                                ; 0x2418 $A408 98                       ;
@@ -5590,8 +5589,8 @@ LA56B:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 LA57E:                                                                          ;
-    ADC      L000E                     ; 0x258e $A57E 65 0E                    ;
-    STA      L000E                     ; 0x2590 $A580 85 0E                    ;
+    ADC      zp_0E                     ; 0x258e $A57E 65 0E                    ;
+    STA      zp_0E                     ; 0x2590 $A580 85 0E                    ;
     LDA      $0F                       ; 0x2592 $A582 A5 0F                    ;
     ADC      #$00                      ; 0x2594 $A584 69 00                    ;
     STA      $0F                       ; 0x2596 $A586 85 0F                    ;

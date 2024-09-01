@@ -6935,23 +6935,73 @@ LEE80:                                                                          
 .byt    $F5,$00,$F5,$72,$F5,$72,$F5,$72; 0x1eea0 $EE90 F5 00 F5 72 F5 72 F5 72 ;
 .byt    $F5,$72,$F5,$83,$83,$81,$81,$8A; 0x1eea8 $EE98 F5 72 F5 83 83 81 81 8A ;
 .byt    $F5,$8A,$F5,$A8,$F5,$31,$31,$2F; 0x1eeb0 $EEA0 F5 8A F5 A8 F5 31 31 2F ;
-.byt    $2F,$31,$31,$67,$67,$00,$02,$02; 0x1eeb8 $EEA8 2F 31 31 67 67 00 02 02 ;
+.byt    $2F,$31,$31,$67,$67
+LEEAD:
+.byt    $00,$02,$02; 0x1eeb8 $EEA8 2F 31 31 67 67 00 02 02 ;
 .byt    $00,$00                        ; 0x1eec0 $EEB0 00 00                   ;
 LEEB2:                                                                          ;
-.byt    $C0,$18,$90,$11,$98,$9D,$0E,$04; 0x1eec2 $EEB2 C0 18 90 11 98 9D 0E 04 ;
-.byt    $B5,$91,$48,$69,$0F,$95,$91,$20; 0x1eeca $EEBA B5 91 48 69 0F 95 91 20 ;
-.byt    $11,$EF,$68,$95,$91,$A9,$00,$9D; 0x1eed2 $EEC2 11 EF 68 95 91 A9 00 9D ;
-.byt    $0E,$04,$B4,$A1,$B9,$1D,$6E,$48; 0x1eeda $EECA 0E 04 B4 A1 B9 1D 6E 48 ;
-.byt    $B5,$2A,$85,$00,$A5,$CD,$85,$01; 0x1eee2 $EED2 B5 2A 85 00 A5 CD 85 01 ;
-.byt    $A9,$02,$85,$02,$A5,$12,$0A,$0A; 0x1eeea $EEDA A9 02 85 02 A5 12 0A 0A ;
-.byt    $0A,$0A,$0A,$29,$80,$09,$01,$85; 0x1eef2 $EEE2 0A 0A 0A 29 80 09 01 85 ;
-.byt    $03,$B4,$91,$BD,$04,$05,$4A,$4A; 0x1eefa $EEEA 03 B4 91 BD 04 05 4A 4A ;
-.byt    $4A,$AA,$BD,$AD,$EE,$AA,$20,$16; 0x1ef02 $EEF2 4A AA BD AD EE AA 20 16 ;
-.byt    $F2,$20,$08,$EF,$68,$10,$05,$CA; 0x1ef0a $EEFA F2 20 08 EF 68 10 05 CA ;
-.byt    $CA                            ; 0x1ef12 $EF02 CA                      ;
+;.byt    $C0,$18,$90,$11,$98,$9D,$0E,$04; 0x1eec2 $EEB2 C0 18 90 11 98 9D 0E 04 ;
+;.byt    $B5,$91,$48,$69,$0F,$95,$91,$20; 0x1eeca $EEBA B5 91 48 69 0F 95 91 20 ;
+;.byt    $11,$EF,$68,$95,$91,$A9,$00,$9D; 0x1eed2 $EEC2 11 EF 68 95 91 A9 00 9D ;
+;.byt    $0E,$04,$B4,$A1,$B9,$1D,$6E,$48; 0x1eeda $EECA 0E 04 B4 A1 B9 1D 6E 48 ;
+;.byt    $B5,$2A,$85,$00,$A5,$CD,$85,$01; 0x1eee2 $EED2 B5 2A 85 00 A5 CD 85 01 ;
+;.byt    $A9,$02,$85,$02,$A5,$12,$0A,$0A; 0x1eeea $EEDA A9 02 85 02 A5 12 0A 0A ;
+;.byt    $0A,$0A,$0A,$29,$80,$09,$01,$85; 0x1eef2 $EEE2 0A 0A 0A 29 80 09 01 85 ;
+;.byt    $03,$B4,$91,$BD,$04,$05,$4A,$4A; 0x1eefa $EEEA 03 B4 91 BD 04 05 4A 4A ;
+;.byt    $4A,$AA,$BD,$AD,$EE,$AA,$20,$16; 0x1ef02 $EEF2 4A AA BD AD EE AA 20 16 ;
+;.byt    $F2,$20,$08,$EF,$68,$10,$05,$CA; 0x1ef0a $EEFA F2 20 08 EF 68 10 05 CA ;
+;.byt    $CA                            ; 0x1ef12 $EF02 CA                      ;
+    CPY #$18
+    BCC :+
+        TYA
+        STA bss_040E,X
+        LDA zp_91,X
+        PHA
+        ADC #$0F
+        STA zp_91,X
+        JSR bank7_Display
+        PLA
+        STA zp_91,X
+        :
+    LDA #$00
+    STA bss_040E,X
+    LDY zp_A1,X
+    LDA $6E1D,Y
+    PHA
+    LDA zp_2A,X
+    STA zp_00
+    LDA zp_CD
+    STA zp_01
+    LDA #$02
+    STA zp_02
+    LDA frame_counter
+    ASL A
+    ASL A
+    ASL A
+    ASL A
+    ASL A
+    AND #$80
+    ORA #$01
+    STA zp_03
+    LDY zp_91,X
+    LDA bss_0504,X
+    LSR A
+    LSR A
+    LSR A
+    TAX
+    LDA LEEAD,X
+    TAX
+    JSR LF216
+    JSR bank7_EF08
+    PLA
+    BPL LEF06
+    DEX
+    DEX
+
 ; ---------------------------------------------------------------------------- ;
 bank7_code49:                                                                   ;
     JSR      LF216                     ; 0x1ef13 $EF03 20 16 F2                ;
+LEF06:
     LDX      zp_10                       ; 0x1ef16 $EF06 A6 10                   ;; used as monster x register ;draw boss hp bar
 bank7_EF08:                                                                          ;
     LDA      bss_01FE,y                   ; 0x1ef18 $EF08 B9 FE 01                ;

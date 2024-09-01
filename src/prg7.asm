@@ -2968,6 +2968,25 @@ bank7_PullAddrFromTableFollowingThisJSR_withIndexOfA_then_JMP:                  
     STA      zp_0F                       ; 0x1d3a5 $D395 85 0F                   ;store for indirect jmp later
     JMP      (zp_0E)                   ; 0x1d3a7 $D397 6C 0E 00                ;
                                                                                ;
+bank7_E001:                                                                          ; possible cause of slowdown on overworld? Called in tight loops during overworld rendering in bank0 I believe
+    JSR      SwapToSavedPRG; 0x1e011 $E001 20 C9 FF                ; Load Bank $0769
+    JSR bank7_E001_sub
+    PHA                                ; 0x1e025 $E015 48                      ;
+    JSR      SwapToPRG0; 0x1e026 $E016 20 C5 FF                ; Load Bank 0
+    PLA                                ; 0x1e029 $E019 68                      ;
+    RTS                                ; 0x1e02a $E01A 60                      ;
+
+; ---------------------------------------------------------------------------- ;
+bank7_E001_something:                                                                          ;
+    ASL                                ; 0xc58 $8C48 0A                        ;
+    TAY                                ; 0xc59 $8C49 A8                        ;
+    LDA      $6000,y                   ; 0xc5a $8C4A B9 00 60                  ;
+    STA      zp_0E                     ; 0xc5d $8C4D 85 0E                     ;
+    LDA      $6001,y                   ; 0xc5f $8C4F B9 01 60                  ;
+    STA      zp_0F                       ; 0xc62 $8C52 85 0F                     ;
+    LDY      #$00                      ; 0xc64 $8C54 A0 00                     ; Y = 00
+    RTS                                ; 0xc66 $8C56 60                        ;
+
 ; ---------------------------------------------------------------------------- ;
 setpos $d3ca
 bank7_table13:                                                                  ;
@@ -4817,8 +4836,35 @@ bank7_Check_for_Hidden_Palace_spot_Bank_1:                                      
     JMP      SwapToPRG0; 0x1e00e $DFFE 4C C5 FF                ; Load Bank 0
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_E001:                                                                          ;
+bank7_E001_superloop:
     JSR      SwapToSavedPRG; 0x1e011 $E001 20 C9 FF                ; Load Bank $0769
+    :
+        LDA      zp_0A                       ; 0x930 $8920 A5 0A                     ;
+        CMP      #$4B                      ; 0x932 $8922 C9 4B                     ; South Boundary of OW Map
+        BCS      :++                     ; 0x934 $8924 B0 14                     ;
+            JSR      bank7_E001_something                     ; 0x936 $8926 20 48 8C                  ;
+        ;occurs when moving , function: load from table the pointer address (7C00 to 7FFF)?;
+            LDA      #$FF                      ; 0x939 $8929 A9 FF                     ; A = FF
+            STA      zp_03                       ; 0x93b $892B 85 03                     ;
+            :
+                JSR      bank7_E001_sub                     ; 0x93d $892D 20 01 E0                  ;
+                INY                                ; 0x940 $8930 C8                        ;
+                CMP      zp_76                       ; 0x941 $8931 C5 76                     ; X position on map (Link)
+                BCC      :-                     ; 0x943 $8933 90 F8                     ;
+            LDA      zp_02                       ; 0x945 $8935 A5 02                     ;
+            STA      bss_04D0,x                   ; 0x947 $8937 9D D0 04                  ;; Tile Codes to load in Overworld
+        :                                                                          ;
+        INC      zp_0A                       ; 0x94a $893A E6 0A                     ;
+        INX                                ; 0x94c $893C E8                        ;
+        CPX      #$18                      ; 0x94d $893D E0 18                     ;
+    BNE      :---                     ; 0x94f $893F D0 DF                     ;
+    PHA
+    JSR      SwapToPRG0; 0x1e026 $E016 20 C5 FF                ; Load Bank 0
+    PLA
+    RTS
+
+
+bank7_E001_sub:
     LDA      (zp_0E),y                 ; 0x1e014 $E004 B1 0E                   ;
     AND      #$0F                      ; 0x1e016 $E006 29 0F                   ; keep bits .... xxxx
     STA      zp_02                       ; 0x1e018 $E008 85 02                   ;
@@ -4830,11 +4876,8 @@ bank7_E001:                                                                     
     SEC                                ; 0x1e020 $E010 38                      ;
     ADC      zp_03                       ; 0x1e021 $E011 65 03                   ;
     STA      zp_03                       ; 0x1e023 $E013 85 03                   ;
-    PHA                                ; 0x1e025 $E015 48                      ;
-    JSR      SwapToPRG0; 0x1e026 $E016 20 C5 FF                ; Load Bank 0
-    PLA                                ; 0x1e029 $E019 68                      ;
-    RTS                                ; 0x1e02a $E01A 60                      ;
-                                                                               ;
+    RTS
+
 ; ---------------------------------------------------------------------------- ;
 bank7_Turn_Palaces_into_Stone_Bank_1:                                           ;
     JSR      SwapToSavedPRG; 0x1e02b $E01B 20 C9 FF                ; Load Bank $0769
@@ -8078,6 +8121,7 @@ LFEA6:                                                                          
     INC      bss_0738                     ; 0x1feb6 $FEA6 EE 38 07                ;
     RTS                                ; 0x1feb9 $FEA9 60                      ;
                                                                                ;
+
 ; ---------------------------------------------------------------------------- ;
 setpos $fed0
 bank7_code55:                                                                   ;

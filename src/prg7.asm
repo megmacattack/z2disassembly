@@ -6182,14 +6182,39 @@ bank7_UNKNOWN0:                                                                 
 .byt    $0E,$04,$10,$0E,$01,$06,$08,$03; 0x1e942 $E932 0E 04 10 0E 01 06 08 03 ;
 .byt    $00,$20,$08,$18,$04,$10,$18,$18; 0x1e94a $E93A 00 20 08 18 04 10 18 18 ;
 bank7_E942:                                                                          ;
-.byt    $B4,$A1,$B9,$1D,$6E,$0A,$0A,$A8; 0x1e952 $E942 B4 A1 B9 1D 6E 0A 0A A8 ;
-.byt    $A5,$CD                        ; 0x1e95a $E94A A5 CD
+;.byt    $B4,$A1,$B9,$1D,$6E,$0A,$0A,$A8; 0x1e952 $E942 B4 A1 B9 1D 6E 0A 0A A8 ;
+;.byt    $A5,$CD                        ; 0x1e95a $E94A A5 CD
+    LDY      zp_A1,X
+    LDA      $6E1D,Y
+    ASL      A
+    ASL      A
+    TAY
+    LDA      zp_CD
 bank7_E94C:
-.byt    $18,$79,$FA,$E8,$85,$04        ; 0x1e95a $E94A 18 79 FA E8 85 04 ;
-.byt    $B9,$FB,$E8,$85,$06,$B5,$2A,$18; 0x1e962 $E952 B9 FB E8 85 06 B5 2A 18 ;
-.byt    $79,$FC,$E8,$85,$05,$B9,$FD,$E8; 0x1e96a $E95A 79 FC E8 85 05 B9 FD E8 ;
-.byt    $85,$07,$A5,$04,$65,$06,$90,$06; 0x1e972 $E962 85 07 A5 04 65 06 90 06 ;
-.byt    $A5,$04,$49,$FF,$85,$06,$60    ; 0x1e97a $E96A A5 04 49 FF 85 06 60    ;
+;.byt    $18,$79,$FA,$E8,$85,$04        ; 0x1e95a $E94A 18 79 FA E8 85 04 ;
+;.byt    $B9,$FB,$E8,$85,$06,$B5,$2A,$18; 0x1e962 $E952 B9 FB E8 85 06 B5 2A 18 ;
+;.byt    $79,$FC,$E8,$85,$05,$B9,$FD,$E8; 0x1e96a $E95A 79 FC E8 85 05 B9 FD E8 ;
+;.byt    $85,$07,$A5,$04,$65,$06,$90,$06; 0x1e972 $E962 85 07 A5 04 65 06 90 06 ;
+;.byt    $A5,$04,$49,$FF,$85,$06,$60    ; 0x1e97a $E96A A5 04 49 FF 85 06 60    ;
+    CLC
+    ADC      bank7_UNKNOWN0,Y
+    STA      zp_04
+    LDA      bank7_UNKNOWN0+1,Y
+    STA      zp_06
+    LDA      zp_2A,X
+    CLC
+    ADC      bank7_UNKNOWN0+2,Y
+    STA      zp_05
+    LDA      bank7_UNKNOWN0+3,Y
+    STA      zp_07
+    LDA      zp_04
+    ADC      zp_06
+    BCC      :+
+        LDA      zp_04
+        EOR      #$FF
+        STA      $06
+    :
+    RTS
 LE971:                                                                          ;
 .byt    $04,$00                        ; 0x1e981 $E971 04 00                   ;
 LE973:                                                                          ;

@@ -2118,7 +2118,12 @@ Spell_Casting_Routine:                                                          
     BEQ      L8E1F                     ; 0xde4 $8DD4 F0 49                     ;
     LDA      joy_pressed+0                       ; 0xde6 $8DD6 A5 F5                     ; Controller 1 buttons pressed
     AND      #$20                      ; 0xde8 $8DD8 29 20                     ; check if Select is pressed
-    BEQ      L8E1F                     ; 0xdea $8DDA F0 43                     ; if Select NOT pressed, skip to $0E1F
+    ;BEQ      L8E1F                     ; 0xdea $8DDA F0 43                     ; if Select NOT pressed, skip to $0E1F
+    BNE      :+ ; instead branch to the "next part" if it IS pressed
+    LDA      joy_pressed+2
+    AND      #%10100000 ; SNES A or L pressed
+    BEQ      L8E1F ; and then branch away if A on the extended buttons is ALSO not pressed.
+:
     LDY      bss_0749                     ; 0xdec $8DDC AC 49 07                  ; Current position of the Magic selector
     LDA      player_spells,y                   ; 0xdef $8DDF B9 7B 07                  ; Sanity Check...
     BEQ      L8E1F                     ; 0xdf2 $8DE2 F0 3B                     ; if Magic is not learned, skip to $0E1F

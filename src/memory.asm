@@ -211,8 +211,8 @@ zp_EE: .res 1 ; unknown size
 zp_EF: .res 1 ; unknown size
 
 setpos $F5
-joy_pressed: .res 2 ; the buttons on controllers that were *just* pressed this frame, one byte for each controller
-joy_held: .res 2 ; the buttons on controller that were pressed this frame, including those pressed last frame too, one byte for each controller
+joy_pressed: .res 3 ; the buttons on controllers that were *just* pressed this frame, one byte for each controller, and an extra byte for extended buttons on controller 1
+joy_held: .res 3 ; the buttons on controller that were pressed this frame, including those pressed last frame too, one byte for each controller, and an extra byte for extended buttons on controller 1
 
 setpos $FC
 zp_FC: .res 1 ; unknown size

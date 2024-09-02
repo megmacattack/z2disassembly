@@ -1419,26 +1419,7 @@ L8903:                                                                          
     CMP      #$40                      ; 0x92a $891A C9 40                     ; Overworld Width (from which filling begins)
     BCS      L8941                     ; 0x92c $891C B0 23                     ;
     LDX      #$00                      ; 0x92e $891E A2 00                     ; X = 00
-L8920:                                                                          ;
-    LDA      zp_0A                       ; 0x930 $8920 A5 0A                     ;
-    CMP      #$4B                      ; 0x932 $8922 C9 4B                     ; South Boundary of OW Map
-    BCS      L893A                     ; 0x934 $8924 B0 14                     ;
-    JSR      L8C48                     ; 0x936 $8926 20 48 8C                  ;
-;occurs when moving , function: load from table the pointer address (7C00 to 7FFF)?;
-    LDA      #$FF                      ; 0x939 $8929 A9 FF                     ; A = FF
-    STA      zp_03                       ; 0x93b $892B 85 03                     ;
-L892D:                                                                          ;
-    JSR      bank7_E001                     ; 0x93d $892D 20 01 E0                  ;
-    INY                                ; 0x940 $8930 C8                        ;
-    CMP      zp_76                       ; 0x941 $8931 C5 76                     ; X position on map (Link)
-    BCC      L892D                     ; 0x943 $8933 90 F8                     ;
-    LDA      zp_02                       ; 0x945 $8935 A5 02                     ;
-    STA      bss_04D0,x                   ; 0x947 $8937 9D D0 04                  ;; Tile Codes to load in Overworld
-L893A:                                                                          ;
-    INC      zp_0A                       ; 0x94a $893A E6 0A                     ;
-    INX                                ; 0x94c $893C E8                        ;
-    CPX      #$18                      ; 0x94d $893D E0 18                     ;
-    BNE      L8920                     ; 0x94f $893F D0 DF                     ;
+    JSR bank7_E001_superloop
 L8941:                                                                          ;
     INC      zp_7E                       ; 0x951 $8941 E6 7E                     ;
     LDA      #$00                      ; 0x953 $8943 A9 00                     ; A = 00

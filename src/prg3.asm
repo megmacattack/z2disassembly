@@ -3979,7 +3979,7 @@ LB672:                                                                          
     LDA      bss_074C                     ; 0xf682 $B672 AD 4C 07                 ;; Dialog Type (00 - None, 01 - Level Up, 02 - Talking); * related to Raft Animation * (and other events, like spell learning)
     CMP      #$04                      ; 0xf685 $B675 C9 04                    ;
     BEQ      bank3_Dialog_Routines_advance_to_next_routine_in_this_table__R2_duplicate; 0xf687 $B677 F0 A8;
-    LDA      #$C0                      ; 0xf689 $B679 A9 C0                    ; A = C0
+    LDA      #$B0                      ; 0xf689 $B679 A9 C0                    ; A = C0
     STA      bss_074B                     ; 0xf68b $B67B 8D 4B 07                 ; Spell Flash Counter
     LDA      #$40                      ; 0xf68e $B67E A9 40                    ; A = 40
     STA      bss_049E                     ; 0xf690 $B680 8D 9E 04                 ;

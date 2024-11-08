@@ -479,8 +479,6 @@ bank7_pointer_table4:                                                           
 .word    LD04D                         ; 0x1c340 $C330 4D D0                   ;
 .word    game_mode_reset_726_and_overworld_main                         ; 0x1c342 $C332 2D C7                   ;
 .word    bank7_CF05                         ; 0x1c344 $C334 05 CF                   ; Increment Game Mode by 1
-.word    LCA85                         ; 0x1c346 $C336 85 CA                   ;
-.word    bank7_code53                  ; 0x1c348 $C338 76 FE                   ;
 .word    bank7_code7                   ; 0x1c34a $C33A 3C C3                   ;
 ; ---------------------------------------------------------------------------- ;
 bank7_code7:                                                                    ;
@@ -1454,7 +1452,7 @@ LC9E9:                                                                          
                                                                                ;
 ; ---------------------------------------------------------------------------- ;
 bank7_table11:                                                                  ;
-.byt    $12,$16,$2A,$16                ; 0x1c9fa $C9EA 12 16 2A 16             ;
+.byt    $16,$06,$16,$06                ; 0x1c9fa $C9EA 12 16 2A 16             ;
 ; ---------------------------------------------------------------------------- ;
 bank7_code15:                                                                          ;
     jsr     SwapToPRG0                    ; 0x1c9fe $C9EE 20 C5 FF                ;                                                                   ;
@@ -1462,9 +1460,10 @@ bank7_code15:                                                                   
     STA      zp_80                       ; 0x1ca03 $C9F3 85 80                   ; Current Animation Frame for Link (OW and SS)
     JSR      bank7_Links_Display_Routine; 0x1ca05 $C9F5 20 F0 EB                ;
     LDA      frame_counter                       ; 0x1ca08 $C9F8 A5 12                   ;; Frame Counter (ascending)
-    AND      #$03                      ; 0x1ca0a $C9FA 29 03                   ; keep bits .... ..xx
-    TAX                                ; 0x1ca0c $C9FC AA                      ;
+    jmp      bank7_patchcode
+bank7_patchreturn2:
     LDA      bank7_table11,x           ; 0x1ca0d $C9FD BD EA C9                ;
+bank7_patchreturn1:
     STA      $696F                     ; 0x1ca10 $CA00 8D 6F 69                ;
     LDA      bss_050E                     ; 0x1ca13 $CA03 AD 0E 05                ;
     BNE      LCA15                     ; 0x1ca16 $CA06 D0 0D                   ;
@@ -4326,7 +4325,7 @@ LDCD3:                                                                          
 bank7_code29:                                                                   ;
     CPY      #$68                      ; 0x1dceb $DCDB C0 68                   ;
     BNE      LDCED                     ; 0x1dced $DCDD D0 0E                   ;
-    LDA      #$E8                      ; 0x1dcef $DCDF A9 E8                   ; A = E8
+    LDA      #$B0                      ; 0x1dcef $DCDF A9 E8                   ; A = E8
     STA      bss_074B                     ; 0x1dcf1 $DCE1 8D 4B 07                ;; Spell Flash Counter (bit 7 set = decor flash)
     LDA      #$0F                      ; 0x1dcf4 $DCE4 A9 0F                   ; A = 0F
     STA      PPU_macro_select                     ; 0x1dcf6 $DCE6 8D 25 07                ;; PPU Macro Selector
@@ -8016,17 +8015,17 @@ bank7_Continue_Save_Screen_Tile_Mappings:                                       
                                                                                ;
 .byt    $23,$1C,$01,$CA                ; 0x1fe13 $FE03 23 1C 01 CA             ;
                                                                                ;
-.byt    $21,$CC,$07,$DC,$DA,$EE,$ED,$E2; 0x1fe17 $FE07 21 CC 07 DC DA EE ED E2 ;CAUTION
-.byt    $E8,$E7                        ; 0x1fe1f $FE0F E8 E7                   ;
+.byt    $21,$83,$5a,$f4,$21,$a3,$5a,$f4; 0x1fe17 $FE07 21 CC 07 DC DA EE ED E2 ;CAUTION
+.byt    $21,$c3                        ; 0x1fe1f $FE0F E8 E7                   ;
                                                                                ;
-.byt    $22,$05,$16,$ED,$E8,$F4,$DA,$EF; 0x1fe21 $FE11 22 05 16 ED E8 F4 DA EF ;
-.byt    $E8,$E2,$DD,$F4,$DD,$DA,$E6,$DA; 0x1fe29 $FE19 E8 E2 DD F4 DD DA E6 DA ;
-.byt    $E0,$E2,$E7,$E0,$F4,$E0,$DA,$E6; 0x1fe31 $FE21 E0 E2 E7 E0 F4 E0 DA E6 ;
-.byt    $DE                            ; 0x1fe39 $FE29 DE                      ;
+.byt    $5a,$f4,$21,$E3,$5a,$F4,$22,$03; 0x1fe21 $FE11 22 05 16 ED E8 F4 DA EF ;
+.byt    $5a,$f4,$22,$23,$5a,$f4,$22,$43; 0x1fe29 $FE19 E8 E2 DD F4 DD DA E6 DA ;
+.byt    $5a,$f4,$22,$63,$5a,$f4,$22,$83; 0x1fe31 $FE21 E0 E2 E7 E0 F4 E0 DA E6 ;
+.byt    $5a                            ; 0x1fe39 $FE29 DE                      ;
                                                                                ;
-.byt    $22,$45,$16,$E2,$E7,$DF,$E8,$F4; 0x1fe3a $FE2A 22 45 16 E2 E7 DF E8 F4 ;
-.byt    $F4,$EC,$DA,$EF,$DE,$DD,$9C,$F4; 0x1fe42 $FE32 F4 EC DA EF DE DD 9C F4 ;
-.byt    $F4,$E1,$E8,$E5,$DD,$F4,$F4,$E2; 0x1fe4a $FE3A F4 E1 E8 E5 DD F4 F4 E2 ;
+.byt    $f4,$22,$a3,$5a,$f4,$22,$c3,$5a; 0x1fe3a $FE2A 22 45 16 E2 E7 DF E8 F4 ;
+.byt    $F4,$22,$e3,$5a,$f4,$23,$03,$5a; 0x1fe42 $FE32 F4 EC DA EF DE DD 9C F4 ;
+.byt    $F4,$ff,$E8,$E5,$DD,$F4,$F4,$E2; 0x1fe4a $FE3A F4 E1 E8 E5 DD F4 F4 E2 ;
 .byt    $E7                            ; 0x1fe52 $FE42 E7                      ;
                                                                                ;
 .byt    $22,$85,$16,$EB,$DE,$EC,$DE,$ED; 0x1fe53 $FE43 22 85 16 EB DE EC DE ED ;
@@ -8152,6 +8151,17 @@ LFF36:                                                                          
     BCC      LFED3                     ; 0x1ff57 $FF47 90 8A                   ;
     JMP      SwapToPRG0; 0x1ff59 $FF49 4C C5 FF                ; Load Bank 0
                                                                                ;
+setpos $ff50
+bank7_patchcode:
+    ldx     bss_050E
+    CPX     #$06
+    BCS     :+
+        LDA     #$16
+        jmp     bank7_patchreturn1
+    :
+    AND     #$03
+    TAX
+    JMP     bank7_patchreturn2
 ; ---------------------------------------------------------------------------- ;
 setpos $ff70
 .include "prg7/reset.asm"

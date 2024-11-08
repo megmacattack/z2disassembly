@@ -473,7 +473,7 @@ bank7_pointer_table4:                                                           
 .word    bank7_C722                         ; 0x1c334 $C324 22 C7                   ;
 .word    LD042                         ; 0x1c336 $C326 42 D0                   ;
 .word    flashing_effect__length__when_link_dies; 0x1c338 $C328 1A C7          ;
-.word    LC9EE                         ; 0x1c33a $C32A EE C9                   ;
+.word    bank7_code15                         ; 0x1c33a $C32A EE C9                   ;
 .word    LCA1B                         ; 0x1c33c $C32C 1B CA                   ;
 .word    bank7_C722                         ; 0x1c33e $C32E 22 C7                   ;
 .word    LD04D                         ; 0x1c340 $C330 4D D0                   ;
@@ -1455,10 +1455,9 @@ LC9E9:                                                                          
 ; ---------------------------------------------------------------------------- ;
 bank7_table11:                                                                  ;
 .byt    $12,$16,$2A,$16                ; 0x1c9fa $C9EA 12 16 2A 16             ;
-LC9EE:                                                                          ;
-.byt    $20,$C5,$FF                    ; 0x1c9fe $C9EE 20 C5 FF                ;
 ; ---------------------------------------------------------------------------- ;
-bank7_code15:                                                                   ;
+bank7_code15:                                                                          ;
+    jsr     SwapToPRG0                    ; 0x1c9fe $C9EE 20 C5 FF                ;                                                                   ;
     LDA      #$0A                      ; 0x1ca01 $C9F1 A9 0A                   ; A = 0A
     STA      zp_80                       ; 0x1ca03 $C9F3 85 80                   ; Current Animation Frame for Link (OW and SS)
     JSR      bank7_Links_Display_Routine; 0x1ca05 $C9F5 20 F0 EB                ;

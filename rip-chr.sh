@@ -13,3 +13,5 @@ dd bs=8192 skip=26 count=1 if=Zelda2Unheadered.nes of=bin/chrA.bin
 dd bs=8192 skip=27 count=1 if=Zelda2Unheadered.nes of=bin/chrB.bin
 dd bs=8192 skip=28 count=1 if=Zelda2Unheadered.nes of=bin/chrC.bin
 dd bs=8192 skip=29 count=1 if=Zelda2Unheadered.nes of=bin/chrD.bin
+dd bs=8192 skip=29 count=1 if=Zelda2Unheadered.nes of=bin/chrE.bin
+dd bs=8192 skip=29 count=1 if=Zelda2Unheadered.nes of=bin/chrF.bin

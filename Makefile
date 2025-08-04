@@ -2,7 +2,7 @@ AS65?=ca65
 LD65?=ld65
 
 PRG=obj/memory.o obj/registers.o obj/prg0.o obj/prg1.o obj/prg2.o obj/prg3.o obj/prg4.o obj/prg5.o obj/prg6.o obj/prg7.o
-CHR=bin/chr0.bin bin/chr1.bin bin/chr2.bin bin/chr3.bin bin/chr4.bin bin/chr5.bin bin/chr6.bin bin/chr7.bin bin/chr8.bin bin/chr9.bin bin/chrA.bin bin/chrB.bin bin/chrC.bin bin/chrD.bin
+CHR=bin/chr0.bin bin/chr1.bin bin/chr2.bin bin/chr3.bin bin/chr4.bin bin/chr5.bin bin/chr6.bin bin/chr7.bin bin/chr8.bin bin/chr9.bin bin/chrA.bin bin/chrB.bin bin/chrC.bin bin/chrD.bin bin/chrE.bin bin/chrF.bin
 
 Zelda2Reassembled.nes: bin/header.bin prg.bin chr.bin
 	cat $+ > .$@.new

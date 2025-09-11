@@ -957,6 +957,7 @@ title_event := game_event
 .global bank7_DFD2 ; banks 0
 .global bank7_DFD1 ; banks 0
 .global bank7_E001 ; banks 0
+.global bank7_E001_superloop
 .global game_mode_reset_726_and_overworld_main ; banks 0 5
 .global bank7_DF56 ; banks 0 1 2 3 4 5
 .global bank7_EC02 ; banks 0 5

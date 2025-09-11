@@ -1110,7 +1110,7 @@ L8CBB:                                                                          
     BNE      L8CD0                     ; 0x14cd3 $8CC3 D0 0B                   ;
     LDA      #$04                      ; 0x14cd5 $8CC5 A9 04                   ; A = 04
     STA      zp_EC                       ; 0x14cd7 $8CC7 85 EC                   ; Sound Effects Type 1
-    LDA      #$E0                      ; 0x14cd9 $8CC9 A9 E0                   ; A = E0
+    LDA      #$B0                      ; 0x14cd9 $8CC9 A9 E0                   ; A = E0
     STA      bss_074B                     ; 0x14cdb $8CCB 8D 4B 07                ; Spell Flash Counter
     INC      zp_33                       ; 0x14cde $8CCE E6 33                   ;
 L8CD0:                                                                          ;
@@ -4856,7 +4856,7 @@ bank5_table_intro_screen_text:                                                  
 .byt    "impa told link a sleeping   ",LF
 .byt    "spell was cast on princess  ",LF
 .byt    "zelda. she will wake only   ",LF
-.byt    "with the power of no.3      ",LF
+.byt    "with the power of the third ",LF
 .byt    "triforce sealed in a palace ",LF
 .byt    "in hyrule. to break the     ",LF
 .byt    "seal,crystals must be       ",LF
@@ -4864,8 +4864,8 @@ bank5_table_intro_screen_text:                                                  
 .byt    "well guarded palaces.       ",LF
 .byt    "link set out on his most    ",LF
 .byt    "adventuresome quest yet...  ",LF
-.byt    "       ",COPYRIGHT
-.byt    "1987 nintendo       ",LF
+.byt    "    ",COPYRIGHT
+.byt    "1987",$F6,"2003 nintendo     ",LF
 .byt    "                            ",LF
 .byt    "                            ",LF
 setpos $aae5
